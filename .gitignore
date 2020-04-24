@@ -1,0 +1,4 @@
+/vendor/
+/.env
+composer.lock
+/public/imagem

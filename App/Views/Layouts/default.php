@@ -87,7 +87,7 @@ use System\Session\Session;
           </li>
 
           <li class="">
-            <a href="{{route('adm.cursos.index')}}">
+            <a href="<?php echo BASEURL;?>/venda/index">
               <i class="fas fa-piggy-bank" style="color:#00cc99"></i>
               <p>Vendas</p>
             </a>

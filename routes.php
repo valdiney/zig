@@ -12,6 +12,7 @@ $logged = new Logged();
 
 
 $route->route('HomeController', 'index', $logged);
+$route->route('VendaController', 'index', $logged);
 
 
 

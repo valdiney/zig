@@ -13,7 +13,7 @@ class HomeController extends Controller
 	public function __construct()
 	{
 		parent::__construct();
-		$this->layout = 'teste';
+		$this->layout = 'default';
 
 		$this->post = new Post();
 		$this->get = new Get();

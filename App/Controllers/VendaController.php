@@ -24,9 +24,10 @@ class VendaController extends Controller
 	public function index()
 	{
 		$venda = new Venda();
-		$vendas = $venda->vendas();
+		//$vendas = $venda->vendas();
+		$vendas = false;
 
-		$this->view('usuario/index', $this->layout, compact('usuarios'));
+		$this->view('venda/index', $this->layout, compact('vendas'));
 	}
 
 	public function save()

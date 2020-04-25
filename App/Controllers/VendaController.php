@@ -31,7 +31,7 @@ class VendaController extends Controller
 	public function index()
 	{
 		$venda = new Venda();
-		$vendas = false;
+		$vendasGeralDoDia = $venda->vendasGeralDoDia($this->idCliente, 10);
 
 		$meioPagamanto = new MeioPagamento();
 		$meiosPagamentos = $meioPagamanto->all();
@@ -41,7 +41,7 @@ class VendaController extends Controller
 
 		$this->view('venda/index', $this->layout, 
 			compact(
-				'vendas', 
+				'vendasGeralDoDia', 
 				'meiosPagamentos',
 				'usuarios'
 			));

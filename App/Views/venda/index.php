@@ -3,8 +3,8 @@
 
 <style type="text/css">
 	.imagem-perfil {
-		width:40px;
-	    height:40px;
+		width:30px;
+	    height:30px;
 	    object-fit:cover;
 	    object-position:center;
 	    border-radius:50%;
@@ -14,6 +14,25 @@
 	  #salvar-venda {
 	  	margin-top:25px;
 	  }
+	}
+
+	.card-two {
+		margin-top:10px;
+		border-radius:3px;
+		box-shadow:none;
+		border:1px solid #dddddd;
+		padding-left:3px;
+		padding-right:3px;
+	}
+
+	.tabela-ajustada tr td {
+		padding-top:2px!important;
+		padding-bottom:2px!important;
+		font-size:12px;
+	}
+	.tabela-ajustada th {
+		font-size:13px!important;
+
 	}
 </style>
 
@@ -73,33 +92,42 @@
 
 
 <div class="row">
+		<div class="card card-two col-lg-6 content-div">
+			<div class="card-body">
+		        <h5 class="card-title"><i class="fas fa-cart-arrow-down" style="color:#00cc99"></i> 
+		            Ultimas 10 vendas de hoje!
+		        </h5>
 
-	<div class="col-lg-6" style="padding-left:0px">
-		<div class="card col-lg-12 content-div">
+		        <table class="table tabela-ajustada">
+		        	<thead>
+		        		<tr>
+		        			<th>#</th>
+			        		<th>Valor</th>
+			        		<th>Pagamento</th>
+			        		<th>Hora</th>
+		        		</tr>
+		        	</thead>
+		        	<tbody>
+		        		<?php foreach($vendasGeralDoDia as $venda):?>
+		        			<tr>
+		        				<td><img class="imagem-perfil" src="<?php echo $venda->imagem;?>"></td>
+		        				<td>R$ <?php echo number_format($venda->valor, 2,',','.');?></td>
+		        				<td><?php echo $venda->legenda;?></td>
+		        				<td><?php echo $venda->data;?>h</td>
+		        			</tr>
+		        		<?php endforeach;?>
+		        	</tbody>
+		        </table>
+		    </div>
+	   </div>
+
+	   <div class="card card-two col-lg-6 content-div">
 			<div class="card-body">
 		        <h5 class="card-title"><i class="fas fa-cart-arrow-down" style="color:#00cc99"></i> 
 		            Vendas realizadas
 		        </h5>
-
-		       
-
 		    </div>
 	   </div>
-	</div>
-   
-   <div class="col-lg-6">
-	   <div class="card col-lg-12 content-div">
-			<div class="card-body">
-		        <h5 class="card-title"><i class="fas fa-cart-arrow-down" style="color:#00cc99"></i> 
-		            Vendas realizadas
-		        </h5>
-
-		       
-
-		    </div>
-	   </div>
-   </div>
-
 </div>
 
 <?php Modal::start([

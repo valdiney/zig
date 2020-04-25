@@ -21,6 +21,8 @@ class Usuario extends Model
         # Se o perfil do Usuário logado não for (1), não traz Usuários com este perfil
         $queryCondicional = false;
         if ($idPerfilUsuarioLogado && $idPerfilUsuarioLogado == 1) {
+           $queryCondicional = "AND usuarios.id_perfil = 1";
+        } else {
             $queryCondicional = "AND usuarios.id_perfil != 1";
         }
 

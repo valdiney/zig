@@ -3,6 +3,7 @@ namespace App\Controllers;
 use System\Controller\Controller;
 use System\Post\Post;
 use System\Get\Get;
+use System\Session\Session;
 
 use App\Models\Usuario;
 use App\Models\Sexo;
@@ -15,6 +16,7 @@ class UsuarioController extends Controller
 	protected $post;
 	protected $get;
 	protected $layout;
+	protected $idCliente;
 	
 	public function __construct()
 	{
@@ -23,12 +25,13 @@ class UsuarioController extends Controller
 
 		$this->post = new Post();
 		$this->get = new Get();
+		$this->idCliente = Session::get('idCliente');
 	}
 
 	public function index()
 	{
 		$usuario = new Usuario();
-		$usuarios = $usuario->usuarios();
+		$usuarios = $usuario->usuarios($this->idCliente);
 
 		$this->view('usuario/index', $this->layout, compact('usuarios'));
 	}
@@ -64,11 +67,10 @@ class UsuarioController extends Controller
 			$usuario = new Usuario();
 			$dadosUsuario = $usuario->find($this->post->data()->id);
 
-			$dados = (array) $this->post->only(
-				['nome', 'email', 
-				'password', 'id_sexo', 
-				'id_papel', 'id_perfil']
-			);
+			$dados = (array) $this->post->only([
+				'nome', 'email', 'password', 
+				'id_sexo', 'id_perfil'
+			]);
 
 			if ( ! empty($_FILES["imagem"]['name'])) {
 

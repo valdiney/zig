@@ -47,7 +47,9 @@
 				    <div class="form-group">
 				        <label for="id_usuario">Vendedor *</label>
 				        <select class="form-control" name="id_usuario" id="id_usuario">
-				        	
+				        	<?php foreach ($usuarios as $usuario):?>
+				        		<option value="<?php echo $usuario->id;?>"><?php echo $usuario->nome;?></option>
+				        	<?php endforeach;?>
 				        </select>
 				    </div>
 			    </div>
@@ -70,26 +72,30 @@
 
 <div class="row">
 
-	<div class="card col-lg-6 content-div">
-		<div class="card-body">
-	        <h5 class="card-title"><i class="fas fa-cart-arrow-down" style="color:#00cc99"></i> 
-	            Vendas realizadas
-	        </h5>
+	<div class="col-lg-6" style="padding-left:0px">
+		<div class="card col-lg-12 content-div">
+			<div class="card-body">
+		        <h5 class="card-title"><i class="fas fa-cart-arrow-down" style="color:#00cc99"></i> 
+		            Vendas realizadas
+		        </h5>
 
-	       
+		       
 
-	    </div>
-   </div>
+		    </div>
+	   </div>
+	</div>
+   
+   <div class="col-lg-6">
+	   <div class="card col-lg-12 content-div">
+			<div class="card-body">
+		        <h5 class="card-title"><i class="fas fa-cart-arrow-down" style="color:#00cc99"></i> 
+		            Vendas realizadas
+		        </h5>
 
-   <div class="card col-lg-6 content-div">
-		<div class="card-body">
-	        <h5 class="card-title"><i class="fas fa-cart-arrow-down" style="color:#00cc99"></i> 
-	            Vendas realizadas
-	        </h5>
+		       
 
-	       
-
-	    </div>
+		    </div>
+	   </div>
    </div>
 
 </div>

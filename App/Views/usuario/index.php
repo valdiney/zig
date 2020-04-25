@@ -45,7 +45,7 @@
 		            				<img src="<?php echo $usuario->imagem;?>" width="40" class="imagem-perfil">
 		            			</center>
 		            		<?php else:?>
-		            			<center><i class="fas fa-user"></i></center>
+		            			<center><i class="fas fa-user" style="font-size:40px"></i></center>
 		            		<?php endif;?>
 		            	</td>
 		                <td><?php echo $usuario->nome;?></td>

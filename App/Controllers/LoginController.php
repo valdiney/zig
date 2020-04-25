@@ -41,6 +41,7 @@ class LoginController extends Controller
 				Session::set('idUsuario', $dadosUsuario->id);
 				Session::set('idPerfil', $dadosUsuario->id_perfil);
 				Session::set('idPapel', $dadosUsuario->id_papel);
+				Session::set('idCliente', $dadosUsuario->id_cliente);
 				Session::set('nomeUsuario', $dadosUsuario->nome);
 				Session::set('idSexoUsuario', $dadosUsuario->id_sexo);
 				Session::set('emailUsuario', $dadosUsuario->email);

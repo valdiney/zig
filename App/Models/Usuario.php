@@ -16,8 +16,14 @@ class Usuario extends Model
     	parent::__construct();
     }
 
-    public function usuarios()
-    {
+    public function usuarios($idCliente, $idPerfilUsuarioLogado = false)
+    {   
+        # Se o perfil do Usuário logado não for (1), não traz Usuários com este perfil
+        $queryCondicional = false;
+        if ($idPerfilUsuarioLogado && $idPerfilUsuarioLogado == 1) {
+            $queryCondicional = "AND usuarios.id_perfil != 1";
+        }
+
     	return $this->query(
     		"SELECT 
             usuarios.id AS id, usuarios.nome,
@@ -27,7 +33,8 @@ class Usuario extends Model
 
             FROM usuarios INNER JOIN sexos ON 
     		usuarios.id_sexo = sexos.id 
-            INNER JOIN perfis ON usuarios.id_perfil = perfis.id"
+            INNER JOIN perfis ON usuarios.id_perfil = perfis.id
+            WHERE usuarios.id_cliente = {$idCliente} {$queryCondicional}"
     	);
     }
 }

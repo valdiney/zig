@@ -7,6 +7,7 @@ use System\Session\Session;
 
 use App\Models\Venda;
 use App\Models\Usuario;
+use App\Models\MeioPagamento;
 
 class VendaController extends Controller
 {
@@ -32,19 +33,35 @@ class VendaController extends Controller
 		$venda = new Venda();
 		$vendas = false;
 
+		$meioPagamanto = new MeioPagamento();
+		$meiosPagamentos = $meioPagamanto->all();
+
 		$usuario = new Usuario();
 		$usuarios = $usuario->usuarios($this->idCliente, $this->idPerfilUsuarioLogado);
 
 		$this->view('venda/index', $this->layout, 
 			compact(
 				'vendas', 
+				'meiosPagamentos',
 				'usuarios'
 			));
 	}
 
 	public function save()
 	{
-		
+		if ($this->post->hasPost()) {
+			$dados = (array) $this->post->data();
+			$dados['id_cliente'] = $this->idCliente;
+		    
+		    try {
+		    	$venda = new Venda();
+				$venda->save($dados);
+				return $this->get->redirectTo("venda/index");
+
+			} catch(\Exception $e) { 
+			    dd($e->getMessage());
+		    }
+	    }
 	}
 
 	public function update()

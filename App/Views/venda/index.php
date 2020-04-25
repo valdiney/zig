@@ -22,46 +22,48 @@
 	<div class="card col-lg-12 content-div">
 		<div class="card-body">
 	        <h5 class="card-title"><i class="fas fa-piggy-bank" style="color:#00cc99"></i> Registrar Venda</h5>
-
-	        <div class="row">
-                
-	        	<div class="col-md-2">
-				    <div class="form-group">
-				        <label for="valor">R$ Valor *</label>
-				        <input type="text" class="form-control" name="valor" id="valor" placeholder="00,00">
+            
+            <form method="post" action="<?php echo BASEURL;?>/venda/save">
+		        <div class="row">
+	                
+		        	<div class="col-md-2">
+					    <div class="form-group">
+					        <label for="valor">R$ Valor *</label>
+					        <input type="text" class="form-control" name="valor" id="valor" placeholder="00,00">
+					    </div>
 				    </div>
-			    </div>
 
-			    <div class="col-md-3">
-				    <div class="form-group">
-				        <label for="meio_de_pagamento">Meios de pagamento *</label>
-				        <select class="form-control" name="meio_de_pagamento" id="meio_de_pagamento">
-				        	<option>Dinheiro</option>
-				        	<option>Credito</option>
-				        	<option>Debito</option>
-				        </select>
+				    <div class="col-md-3">
+					    <div class="form-group">
+					        <label for="id_meio_pagamento">Meios de pagamento *</label>
+					        <select class="form-control" name="id_meio_pagamento" id="id_meio_pagamento">
+					        	<?php foreach ($meiosPagamentos as $pagamento):?>
+					        		<option value="<?php echo $pagamento->id;?>">
+					        			<?php echo $pagamento->legenda;?>
+					        		</option>
+					        	<?php endforeach;?>
+					        </select>
+					    </div>
 				    </div>
-			    </div>
 
-			    <div class="col-md-3">
-				    <div class="form-group">
-				        <label for="id_usuario">Vendedor *</label>
-				        <select class="form-control" name="id_usuario" id="id_usuario">
-				        	<?php foreach ($usuarios as $usuario):?>
-				        		<option value="<?php echo $usuario->id;?>"><?php echo $usuario->nome;?></option>
-				        	<?php endforeach;?>
-				        </select>
+				    <div class="col-md-3">
+					    <div class="form-group">
+					        <label for="id_usuario">Vendedor *</label>
+					        <select class="form-control" name="id_usuario" id="id_usuario">
+					        	<?php foreach ($usuarios as $usuario):?>
+					        		<option value="<?php echo $usuario->id;?>"><?php echo $usuario->nome;?></option>
+					        	<?php endforeach;?>
+					        </select>
+					    </div>
 				    </div>
-			    </div>
 
-		    	<div class="col-md-1">
-		    		<button type="submit" class="btn btn-success text-right" id="salvar-venda">
-					    <i class="fas fa-save"></i> Salvar
-				    </button>
-		    	</div>
-			   
-
-	        </div>
+			    	<div class="col-md-1">
+			    		<button type="submit" class="btn btn-success text-right" id="salvar-venda">
+						    <i class="fas fa-save"></i> Salvar
+					    </button>
+			    	</div>
+		        </div>
+		    </form>
 
 	    </div>
    </div>

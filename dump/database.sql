@@ -35,7 +35,7 @@ CREATE TABLE IF NOT EXISTS `meios_pagamentos` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
 
--- Copiando dados para a tabela syst.meios_pagamentos: ~2 rows (aproximadamente)
+-- Copiando dados para a tabela syst.meios_pagamentos: ~3 rows (aproximadamente)
 /*!40000 ALTER TABLE `meios_pagamentos` DISABLE KEYS */;
 INSERT INTO `meios_pagamentos` (`id`, `legenda`, `created_at`, `updated_at`) VALUES
 	(1, 'Dinheiro', '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
@@ -129,6 +129,10 @@ CREATE TABLE IF NOT EXISTS `vendas` (
 
 -- Copiando dados para a tabela syst.vendas: ~0 rows (aproximadamente)
 /*!40000 ALTER TABLE `vendas` DISABLE KEYS */;
+INSERT INTO `vendas` (`id`, `id_usuario`, `id_meio_pagamento`, `id_cliente`, `valor`, `created_at`, `updated_at`) VALUES
+	(1, 1, 1, 1, 10.5, '2020-04-25 01:58:13', '2020-04-25 01:58:13'),
+	(2, 1, 3, 1, 12, '2020-04-25 01:58:43', '2020-04-25 01:58:43'),
+	(3, 1, 2, 1, 50, '2020-04-25 01:59:08', '2020-04-25 01:59:08');
 /*!40000 ALTER TABLE `vendas` ENABLE KEYS */;
 
 /*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;

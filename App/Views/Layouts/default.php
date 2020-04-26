@@ -190,8 +190,21 @@ use System\Session\Session;
   <script src="<?php echo BASEURL;?>/public/assets/js/core/popper.min.js"></script>
   <script src="<?php echo BASEURL;?>/public/assets/js/core/bootstrap.min.js"></script>
   <script src="<?php echo BASEURL;?>/public/assets/js/plugins/perfect-scrollbar.jquery.min.js"></script>
-  <script src="<?php echo BASEURL;?>/public/assets/js/helpers.js"></script>
-  <script type="text/javascript" src="<?php echo BASEURL;?>/public/js/helpers.js"></script>
+  <script src="<?php echo BASEURL;?>/public/js/helpers.js"></script>
+
+  <script src="<?php echo BASEURL;?>/public/js/mask.js"></script>
+
+  <script>
+    $(function() {
+        jQuery('.campo-moeda')
+        .maskMoney({
+          prefix:'R$ ', 
+          allowNegative: true, 
+          thousands:'.', decimal:',', 
+          affixesStay: false
+        });
+    });
+  </script>
 
 </body>
 

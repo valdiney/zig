@@ -52,6 +52,9 @@ class VendaController extends Controller
 		if ($this->post->hasPost()) {
 			$dados = (array) $this->post->data();
 			$dados['id_cliente'] = $this->idCliente;
+            
+            # Troca o caractere virgula, por ponto
+		    $dados['valor'] = (float) str_replace(',', '.', $dados['valor']);
 		    
 		    try {
 		    	$venda = new Venda();

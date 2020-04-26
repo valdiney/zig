@@ -51,7 +51,8 @@ use System\Session\Session;
 		        	<div class="col-md-2">
 					    <div class="form-group">
 					        <label for="valor">R$ Valor *</label>
-					        <input type="text" class="form-control" name="valor" id="valor" placeholder="00,00">
+					        <input type="text" class="form-control campo-moeda" name="valor" id="valor" 
+					        placeholder="00,00">
 					    </div>
 				    </div>
 
@@ -160,28 +161,3 @@ use System\Session\Session;
 		    </div>
 	   </div>
 </div>
-
-<?php Modal::start([
-    'id' => 'modalUsuarios', 
-    'width' => 'modal-lg',
-    'title' => 'Cadastrar Usuários'
-]);?>
-
-<div id="formulario"></div>
-
-<?php Modal::stop();?>
-
-<script>
-	function modalUsuarios(rota, usuarioId) {
-        var url = "";
-      
-        if (usuarioId) {
-            url = rota + "/" + usuarioId;
-        } else {
-            url = rota;
-        }
-        
-        $("#modalUsuarios").modal({backdrop: 'static'});
-        load(url, 'formulario');
-    }
-</script>

@@ -1,5 +1,8 @@
 <!--Usando o Html Components-->
-<?php use App\Views\Layouts\HtmlComponents\Modal;?>
+<?php 
+use App\Views\Layouts\HtmlComponents\Modal;
+use System\Session\Session;
+?>
 
 <style type="text/css">
 	.imagem-perfil {
@@ -70,7 +73,15 @@
 					        <label for="id_usuario">Vendedor *</label>
 					        <select class="form-control" name="id_usuario" id="id_usuario">
 					        	<?php foreach ($usuarios as $usuario):?>
-					        		<option value="<?php echo $usuario->id;?>"><?php echo $usuario->nome;?></option>
+					        		<?php if ($usuario->id == Session::get('idUsuario')):?>	
+					        			<option value="<?php echo $usuario->id;?>" selected>
+					        			    <?php echo $usuario->nome;?>
+					        		    </option>
+					        		<?php else:?>
+						        		<option value="<?php echo $usuario->id;?>">
+						        			<?php echo $usuario->nome;?>
+						        		</option>
+						        	<?php endif;?>
 					        	<?php endforeach;?>
 					        </select>
 					    </div>
@@ -94,9 +105,12 @@
 <div class="row">
 		<div class="card card-two col-lg-6 content-div">
 			<div class="card-body">
-		        <h5 class="card-title"><i class="fas fa-cart-arrow-down" style="color:#00cc99"></i> 
-		            Ultimas 10 vendas de hoje!
+		        <h5 class="card-title" style="text-align:center">
+		        	<i class="fas fa-cart-arrow-down" style="color:#00cc99"></i> 
+		            Ultimas 10 vendas no dia!
 		        </h5>
+
+		        <center><small>Hoje: <?php echo date('d/m');?></small></center>
 
 		        <table class="table tabela-ajustada">
 		        	<thead>
@@ -123,9 +137,26 @@
 
 	   <div class="card card-two col-lg-6 content-div">
 			<div class="card-body">
-		        <h5 class="card-title"><i class="fas fa-cart-arrow-down" style="color:#00cc99"></i> 
-		            Vendas realizadas
+		        <h5 class="card-title" style="text-align:center">
+		        	<i class="fas fa-cart-arrow-down" style="color:#00cc99;"></i> 
+		            Vendido até o momento
 		        </h5>
+
+		        <center><small>Hoje: <?php echo date('d/m');?></small></center>
+
+		        <center style="margin-top:50px">
+		        	<div>
+		        		<h3>R$ 150,00</h3>
+		        		<span class="badge" style="background:#83e6cd;padding:5px">Dinheiro R$ 100,00</span>
+		        		<span class="badge" style="background:#9be6e6;padding:5px">Crédito R$ 25,00</span>
+		        		<span class="badge" style="background:#ff9b9b;padding:5px">Débito R$ 25,00</span>
+		        	</div>
+
+		        	<br>
+		        	<br>
+		        	<img class="imagem-perfil" src="public/imagem/perfil_usuarios/1585493941.png">
+		        	<span><span style="opacity:0.80">Você vendeu</span> R$ 25,00</span>
+		        </center>
 		    </div>
 	   </div>
 </div>

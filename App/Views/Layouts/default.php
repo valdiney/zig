@@ -93,6 +93,13 @@ use System\Session\Session;
             </a>
           </li>
 
+           <li class="">
+            <a href="<?php echo BASEURL;?>/venda/index">
+              <i class="fas fa-file-invoice-dollar" style="color:#ffcc66"></i>
+              <p>Relatórios</p>
+            </a>
+          </li>
+
           <!--<li class="active-pro">
             <a>
               <i class="fas fa-syringe"></i>

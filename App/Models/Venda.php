@@ -15,6 +15,7 @@ class Venda extends Model
 
     public function vendasGeralDoDia($idCliente, $quantidade = false)
     {
+        $data = date('Y-m-d');
         $queryContidade = false;
         if ($quantidade) {
             $queryContidade = "LIMIT {$quantidade}";
@@ -27,7 +28,7 @@ class Venda extends Model
             FROM vendas INNER JOIN usuarios
             ON vendas.id_usuario =  usuarios.id
             INNER JOIN meios_pagamentos ON vendas.id_meio_pagamento = meios_pagamentos.id
-            WHERE vendas.id_cliente = {$idCliente} AND DATE(vendas.created_at) = DATE(NOW())
+            WHERE vendas.id_cliente = {$idCliente} AND DATE(vendas.created_at) = '{$data}'
             ORDER BY vendas.created_at DESC {$queryContidade}"
     	);
     }

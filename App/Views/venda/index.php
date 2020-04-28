@@ -112,27 +112,36 @@ use System\Session\Session;
 		        </h5>
 
 		        <center><small>Hoje: <?php echo date('d/m');?></small></center>
-
-		        <table class="table tabela-ajustada">
-		        	<thead>
-		        		<tr>
-		        			<th>#</th>
-			        		<th>Valor</th>
-			        		<th>Pagamento</th>
-			        		<th>Hora</th>
-		        		</tr>
-		        	</thead>
-		        	<tbody>
-		        		<?php foreach($vendasGeralDoDia as $venda):?>
-		        			<tr>
-		        				<td><img class="imagem-perfil" src="<?php echo $venda->imagem;?>"></td>
-		        				<td>R$ <?php echo number_format($venda->valor, 2,',','.');?></td>
-		        				<td><?php echo $venda->legenda;?></td>
-		        				<td><?php echo $venda->data;?>h</td>
-		        			</tr>
-		        		<?php endforeach;?>
-		        	</tbody>
-		        </table>
+                
+                <?php if (count($vendasGeralDoDia) > 0):?>
+			        <table class="table tabela-ajustada">
+			        	<thead>
+			        		<tr>
+			        			<th>#</th>
+				        		<th>Valor</th>
+				        		<th>Pagamento</th>
+				        		<th>Hora</th>
+			        		</tr>
+			        	</thead>
+			        	<tbody>	        		
+				        		<?php foreach($vendasGeralDoDia as $venda):?>
+				        			<tr>
+				        				<td><img class="imagem-perfil" src="<?php echo $venda->imagem;?>"></td>
+				        				<td>R$ <?php echo number_format($venda->valor, 2,',','.');?></td>
+				        				<td><?php echo $venda->legenda;?></td>
+				        				<td><?php echo $venda->data;?>h</td>
+				        			</tr>
+				        		<?php endforeach;?>
+			        	</tbody>
+			        </table>
+		        <?php else:?>
+		        	<br><br><br>
+		        	<center>
+		        	    <i class="fas fa-sad-tear" style="font-size:40px;opacity:0.70"></i>
+		        	    <br><br>
+		        		<h6 style="opacity:0.70">Não houve vendas hoje!</h6>
+		        	</center>
+		        <?php endif;?>
 		    </div>
 	   </div>
 
@@ -145,9 +154,9 @@ use System\Session\Session;
 
 		        <center><small>Hoje: <?php echo date('d/m');?></small></center>
 
-		        <center style="margin-top:50px">
+		        <center style="margin-top:20px">
 		        	<div>
-		        		<h3>R$ 150,00</h3>
+		        		<h3>R$ <?php echo number_format($totalVendasNoDia, 2,',','.'); ?></h3>
 		        		<span class="badge" style="background:#83e6cd;padding:5px">Dinheiro R$ 100,00</span>
 		        		<span class="badge" style="background:#9be6e6;padding:5px">Crédito R$ 25,00</span>
 		        		<span class="badge" style="background:#ff9b9b;padding:5px">Débito R$ 25,00</span>

@@ -23,7 +23,7 @@ class Venda extends Model
 
     	return $this->query(
     		"SELECT 
-            vendas.id, vendas.valor, DATE_FORMAT(vendas.created_at, '%h:%I') AS data,
+            vendas.id, vendas.valor, DATE_FORMAT(vendas.created_at, '%H:%i') AS data,
             meios_pagamentos.legenda, usuarios.id, usuarios.nome, usuarios.imagem 
             FROM vendas INNER JOIN usuarios
             ON vendas.id_usuario =  usuarios.id
@@ -31,5 +31,17 @@ class Venda extends Model
             WHERE vendas.id_cliente = {$idCliente} AND DATE(vendas.created_at) = '{$data}'
             ORDER BY vendas.created_at DESC {$queryContidade}"
     	);
+    }
+
+    public function totalVendasNoDia($idCliente)
+    {
+        $data = date('Y-m-d');
+
+        $query = $this->query(
+            "SELECT SUM(valor) AS totalVendas FROM vendas WHERE id_cliente = {$idCliente}
+            AND DATE(created_at) = '{$data}'"
+        );
+
+        return $query[0]->totalVendas;
     }
 }

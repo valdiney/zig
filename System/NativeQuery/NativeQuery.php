@@ -15,7 +15,7 @@ class NativeQuery
 		$sql = $this->db->query($query);
 		$sql->execute();
         
-		return (object) $sql->fetchAll(\PDO::FETCH_OBJ);
+		return $sql->fetchAll(\PDO::FETCH_OBJ);
 	}
 
 	public function queryGetOne($query)

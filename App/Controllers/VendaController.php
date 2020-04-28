@@ -33,6 +33,7 @@ class VendaController extends Controller
 		$venda = new Venda();
 		$vendasGeralDoDia = $venda->vendasGeralDoDia($this->idCliente, 10);
 		$totalVendasNoDia = $venda->totalVendasNoDia($this->idCliente);
+		$totalValorVendaPorMeioDePagamentoNoDia = $venda->totalValorVendaPorMeioDePagamentoNoDia($this->idCliente);
 
 		$meioPagamanto = new MeioPagamento();
 		$meiosPagamentos = $meioPagamanto->all();
@@ -45,7 +46,8 @@ class VendaController extends Controller
 				'vendasGeralDoDia', 
 				'meiosPagamentos',
 				'usuarios',
-				'totalVendasNoDia'
+				'totalVendasNoDia',
+				'totalValorVendaPorMeioDePagamentoNoDia'
 			));
 	}
 

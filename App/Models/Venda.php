@@ -44,4 +44,32 @@ class Venda extends Model
 
         return $query[0]->totalVendas;
     }
+
+    public function totalValorVendaPorMeioDePagamentoNoDia($idCliente, $idMeioPagamento = false)
+    {
+        $data = date('Y-m-d');
+
+        if ($idMeioPagamento) {
+            $query = $this->query(
+                "SELECT meios_pagamentos.legenda, SUM(vendas.valor) AS totalVendas FROM vendas 
+                INNER JOIN meios_pagamentos ON vendas.id_meio_pagamento = meios_pagamentos.id
+                WHERE vendas.id_cliente = {$idCliente} AND vendas.id_meio_pagamento = {$idMeioPagamento}
+                AND DATE(vendas.created_at) = '{$data}'"
+           );
+           
+        
+           return $query[0];
+        }
+
+        $query = $this->query(
+            "SELECT meios_pagamentos.id AS idMeioPagamento, 
+            meios_pagamentos.legenda, SUM(vendas.valor) AS totalVendas FROM vendas 
+            INNER JOIN meios_pagamentos ON vendas.id_meio_pagamento = meios_pagamentos.id
+            WHERE vendas.id_cliente = {$idCliente}
+            AND DATE(vendas.created_at) = '{$data}'
+            GROUP BY vendas.id_meio_pagamento"
+        );
+
+        return $query;
+    }
 }

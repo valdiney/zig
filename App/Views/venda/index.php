@@ -157,15 +157,27 @@ use System\Session\Session;
 		        <center style="margin-top:20px">
 		        	<div>
 		        		<h3>R$ <?php echo number_format($totalVendasNoDia, 2,',','.'); ?></h3>
-		        		<span class="badge" style="background:#83e6cd;padding:5px">Dinheiro R$ 100,00</span>
-		        		<span class="badge" style="background:#9be6e6;padding:5px">Crédito R$ 25,00</span>
-		        		<span class="badge" style="background:#ff9b9b;padding:5px">Débito R$ 25,00</span>
+		        		<?php foreach ($totalValorVendaPorMeioDePagamentoNoDia as $tipo):?>
+			        		<?php if ($tipo->idMeioPagamento == 1):?>
+			        			 <span class="badge" style="background:#83e6cd;padding:5px">
+			        			      <?php echo $tipo->legenda;?> R$ <?php echo real($tipo->totalVendas);?>
+			        			 </span>
+			        		<?php elseif($tipo->idMeioPagamento == 2):?>
+			        		     <span class="badge" style="background:#9be6e6;padding:5px">
+			        			      <?php echo $tipo->legenda;?> R$ <?php echo real($tipo->totalVendas);?>
+			        			 </span>
+			        		<?php elseif($tipo->idMeioPagamento == 3):?>
+			        		     <span class="badge" style="background:#ff9b9b;padding:5px">
+			        			      <?php echo $tipo->legenda;?> R$ <?php echo real($tipo->totalVendas);?>
+			        			 </span>
+			        		<?php endif;?>
+		        	    <?php endforeach; ?>
 		        	</div>
 
-		        	<br>
+		        	<!--<br>
 		        	<br>
 		        	<img class="imagem-perfil" src="public/imagem/perfil_usuarios/1585493941.png">
-		        	<span><span style="opacity:0.80">Você vendeu</span> R$ 25,00</span>
+		        	<span><span style="opacity:0.80">Você vendeu</span> R$ 25,00</span>-->
 		        </center>
 		    </div>
 	   </div>

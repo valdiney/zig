@@ -75,3 +75,7 @@ function out64($string) {
 
     return false;
 }
+
+function real($valor) {
+    return number_format($valor, 2,',','.');
+}

@@ -33,9 +33,11 @@ class Venda extends Model
     	);
     }
 
-    public function totalVendasNoDia($idCliente)
+    public function totalVendasNoDia($idCliente, $data = false)
     {
-        $data = date('Y-m-d');
+        if ( ! $data) {
+            $data = date('Y-m-d');
+        }
 
         $query = $this->query(
             "SELECT SUM(valor) AS totalVendas FROM vendas WHERE id_cliente = {$idCliente}
@@ -45,9 +47,11 @@ class Venda extends Model
         return $query[0]->totalVendas;
     }
 
-    public function totalValorVendaPorMeioDePagamentoNoDia($idCliente, $idMeioPagamento = false)
+    public function totalValorVendaPorMeioDePagamentoNoDia($idCliente, $idMeioPagamento = false, $data = false)
     {
-        $data = date('Y-m-d');
+        if ( ! $data) {
+            $data = date('Y-m-d');
+        }
 
         if ($idMeioPagamento) {
             $query = $this->query(
@@ -57,7 +61,6 @@ class Venda extends Model
                 AND DATE(vendas.created_at) = '{$data}'"
            );
            
-        
            return $query[0];
         }
 
@@ -71,5 +74,14 @@ class Venda extends Model
         );
 
         return $query;
+    }
+
+    public function topUsuariosQueMaisVenderamNoDia($idCliente, $quantidade = false)
+    {
+        /*SELECT usuarios.nome, SUM(vendas.valor) AS totalVendas, usuarios.imagem
+        FROM vendas INNER JOIN usuarios ON vendas.id_usuario = usuarios.id
+        WHERE DATE(vendas.created_at) = '2020-04-28'
+        GROUP BY usuarios.id"*/
+
     }
 }

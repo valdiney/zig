@@ -174,10 +174,15 @@ use System\Session\Session;
 		        	    <?php endforeach; ?>
 		        	</div>
 
-		        	<!--<br>
 		        	<br>
-		        	<img class="imagem-perfil" src="public/imagem/perfil_usuarios/1585493941.png">
-		        	<span><span style="opacity:0.80">Você vendeu</span> R$ 25,00</span>-->
+		        	<br>
+		        	
+		        	<?php if (is_null($totalVendaNoDiaAnterior)):?>
+		        		<small>Nenhuma venda foi realizada ontem!</small>
+		        	<?php else:?>
+		        		<small>Vendido ontem: <b>R$ <?php echo real($totalVendaNoDiaAnterior);?></b></small>
+		        	<?php endif; ?>
+
 		        </center>
 		    </div>
 	   </div>

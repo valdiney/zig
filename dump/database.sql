@@ -100,7 +100,7 @@ CREATE TABLE IF NOT EXISTS `usuarios` (
 -- Copiando dados para a tabela syst.usuarios: ~7 rows (aproximadamente)
 /*!40000 ALTER TABLE `usuarios` DISABLE KEYS */;
 INSERT INTO `usuarios` (`id`, `id_cliente`, `nome`, `email`, `password`, `id_sexo`, `id_perfil`, `imagem`, `created_at`, `updated_at`) VALUES
-	(1, 1, 'Bastian Dantas', 'admin@admin.com', '3b5df72898847f008454f4ed60280d6bdffc890d', 1, 2, 'public/imagem/perfil_usuarios/1585493352.jpg', '2020-04-25 21:21:52', '2020-04-19 03:13:39'),
+	(1, 1, 'França', 'admin@admin.com', '3b5df72898847f008454f4ed60280d6bdffc890d', 1, 2, 'public/imagem/perfil_usuarios/1585493352.jpg', '2020-05-02 00:12:11', '2020-05-01 21:12:09'),
 	(2, 1, 'Renata de Jesus Lima', 'renata@hotmail.com', '3c023c12a311f1ffcb96ccfdbf324cbb6a842163', 2, 4, 'public/imagem/perfil_usuarios/1585493808.png', '2020-04-25 00:55:03', '2020-03-29 14:56:48'),
 	(35, 1, 'João de Jesus', 'joao@gmail.com', '3b5df72898847f008454f4ed60280d6bdffc890d', 1, 4, 'public/imagem/perfil_usuarios/1585493875.png', '2020-04-25 00:54:58', '2020-03-29 14:57:55'),
 	(36, 1, 'Mariana Pinheiro', 'mariana@gmail.com', '3b5df72898847f008454f4ed60280d6bdffc890d', 2, 4, 'public/imagem/perfil_usuarios/1585494012.png', '2020-04-25 00:54:55', '2020-03-29 15:00:12'),
@@ -125,9 +125,9 @@ CREATE TABLE IF NOT EXISTS `vendas` (
   CONSTRAINT `FK_vendas_clientes` FOREIGN KEY (`id_cliente`) REFERENCES `clientes` (`id`),
   CONSTRAINT `FK_vendas_meios_de_pagamento` FOREIGN KEY (`id_meio_pagamento`) REFERENCES `meios_pagamentos` (`id`),
   CONSTRAINT `FK_vendas_usuarios` FOREIGN KEY (`id_usuario`) REFERENCES `usuarios` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=32 DEFAULT CHARSET=latin1;
 
--- Copiando dados para a tabela syst.vendas: ~6 rows (aproximadamente)
+-- Copiando dados para a tabela syst.vendas: ~26 rows (aproximadamente)
 /*!40000 ALTER TABLE `vendas` DISABLE KEYS */;
 INSERT INTO `vendas` (`id`, `id_usuario`, `id_meio_pagamento`, `id_cliente`, `valor`, `created_at`, `updated_at`) VALUES
 	(1, 1, 1, 1, 10.5, '2020-04-25 01:58:13', '2020-04-25 01:58:13'),
@@ -136,7 +136,25 @@ INSERT INTO `vendas` (`id`, `id_usuario`, `id_meio_pagamento`, `id_cliente`, `va
 	(6, 38, 2, 1, 40, '2020-04-25 19:22:24', '2020-04-25 19:22:24'),
 	(8, 38, 3, 1, 20, '2020-04-25 20:35:46', '2020-04-25 20:35:46'),
 	(9, 38, 1, 1, 12, '2020-04-25 21:38:50', '2020-04-25 21:38:50'),
-	(10, 1, 1, 1, 10, '2020-04-25 21:47:54', '2020-04-25 21:47:54');
+	(10, 1, 1, 1, 10, '2020-04-25 21:47:54', '2020-04-25 21:47:54'),
+	(11, 38, 1, 1, 15, '2020-04-26 09:26:22', '2020-04-26 09:26:22'),
+	(12, 38, 2, 1, 30, '2020-04-26 09:28:52', '2020-04-26 09:28:52'),
+	(15, 38, 1, 1, 15.3, '2020-04-26 09:49:29', '2020-04-26 09:49:29'),
+	(16, 38, 3, 1, 15.5, '2020-04-26 09:49:55', '2020-04-26 09:49:55'),
+	(17, 1, 1, 1, 25, '2020-04-27 23:08:22', '2020-04-27 23:08:22'),
+	(18, 1, 2, 1, 20, '2020-04-27 23:09:58', '2020-04-27 23:09:58'),
+	(19, 38, 3, 1, 15, '2020-04-27 23:10:28', '2020-04-27 23:10:28'),
+	(20, 36, 1, 1, 15, '2020-04-27 23:11:56', '2020-04-27 23:11:56'),
+	(21, 1, 1, 1, 15, '2020-04-28 16:03:18', '2020-04-28 16:03:18'),
+	(22, 35, 2, 1, 50, '2020-04-28 16:04:06', '2020-04-28 16:04:06'),
+	(23, 36, 3, 1, 12, '2020-04-28 16:04:24', '2020-04-28 16:04:24'),
+	(24, 2, 1, 1, 12, '2020-04-28 17:20:26', '2020-04-28 17:20:26'),
+	(25, 1, 1, 1, 15, '2020-04-28 17:45:52', '2020-04-28 17:45:52'),
+	(26, 1, 1, 1, 15, '2020-05-01 20:02:12', '2020-05-01 20:02:12'),
+	(27, 35, 3, 1, 25, '2020-05-01 20:02:36', '2020-05-01 20:02:36'),
+	(28, 36, 2, 1, 50, '2020-05-01 20:03:39', '2020-05-01 20:03:39'),
+	(29, 36, 1, 1, 12, '2020-05-01 20:52:10', '2020-05-01 20:52:10'),
+	(30, 42, 1, 1, 30, '2020-05-01 21:12:46', '2020-05-01 21:12:46');
 /*!40000 ALTER TABLE `vendas` ENABLE KEYS */;
 
 /*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;

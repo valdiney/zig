@@ -34,7 +34,7 @@ class VendaController extends Controller
 		$vendasGeralDoDia = $venda->vendasGeralDoDia($this->idCliente, 10);
 		$totalVendasNoDia = $venda->totalVendasNoDia($this->idCliente);
 		$totalValorVendaPorMeioDePagamentoNoDia = $venda->totalValorVendaPorMeioDePagamentoNoDia($this->idCliente);
-		$totalVendaNoDiaAnterior = $venda->totalVendasNoDia($this->idCliente, decrementDaysFromDate(3));
+		$totalVendaNoDiaAnterior = $venda->totalVendasNoDia($this->idCliente, decrementDaysFromDate(1));
 
 		$meioPagamanto = new MeioPagamento();
 		$meiosPagamentos = $meioPagamanto->all();
@@ -77,7 +77,6 @@ class VendaController extends Controller
 	{
 		
 	}
-
 
 	public function desfazerVenda()
 	{

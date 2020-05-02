@@ -8,10 +8,12 @@ O ZigMoney é um projeto que visa ajudar pequenos comércios que precisam regist
 O intuito é disponibilizar uma plataforma com módulos que facilite e potencialize o controle de informações de vendas totalmente online e sem perda de tempo em planilhas eletrônicas. 
 </p>
 
-# Tela de Venda
-<img src="https://raw.githubusercontent.com/valdiney/zig/master/prints/tela_de_venda.png"/>
-
 # Módulos
-- [x] Criação de usuários
+- [x] Criação de Usuários
 - [x] Login
 - [x] Tela de vendas
+- [ ] Dashboard
+- [ ] Relatórios
+
+# Tela de Venda
+<img src="https://raw.githubusercontent.com/valdiney/zig/master/prints/tela_de_venda.png"/>

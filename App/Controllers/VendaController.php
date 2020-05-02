@@ -15,7 +15,7 @@ class VendaController extends Controller
 	protected $get;
 	protected $layout;
 	protected $idCliente;
-	protected $sidPerfilUsuarioLogado;
+	protected $idPerfilUsuarioLogado;
 	
 	public function __construct()
 	{
@@ -77,6 +77,7 @@ class VendaController extends Controller
 	{
 		
 	}
+
 
 	public function desfazerVenda()
 	{

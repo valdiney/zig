@@ -10,3 +10,8 @@ O intuito é disponibilizar uma plataforma com módulos que facilite e potencial
 
 # Tela de Venda
 <img src="https://raw.githubusercontent.com/valdiney/zig/master/prints/tela_de_venda.png"/>
+
+# Módulos
+- [x] Criação de usuários
+- [x] Login
+- [x] Tela de vendas

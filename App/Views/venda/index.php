@@ -51,7 +51,7 @@ use System\Session\Session;
 		        	<div class="col-md-2">
 					    <div class="form-group">
 					        <label for="valor">R$ Valor *</label>
-					        <input type="text" class="form-control campo-moeda" name="valor" id="valor" 
+					        <input type="text" class="form-control campo-moeda valor" name="valor" id="valor" 
 					        placeholder="00,00">
 					    </div>
 				    </div>
@@ -89,7 +89,7 @@ use System\Session\Session;
 				    </div>
 
 			    	<div class="col-md-1">
-			    		<button type="submit" class="btn btn-success text-right" id="salvar-venda">
+			    		<button type="submit" class="btn btn-success text-right salvar-venda" id="salvar-venda">
 						    <i class="fas fa-save"></i> Salvar
 					    </button>
 			    	</div>
@@ -187,3 +187,29 @@ use System\Session\Session;
 		    </div>
 	   </div>
 </div>
+
+<script src="<?php echo BASEURL;?>/public/assets/js/core/jquery.min.js"></script>
+<script type="text/javascript">
+	$(function() {
+
+		$('.salvar-venda').click(function() {
+
+			if ($('.valor').val() == '') {
+				modalValidacao('Validação', 'Campo (Valor) deve ser preenchido!');
+				return false;
+			}
+
+			//alert($('.valor').val());
+
+		
+
+			return false;
+
+		});
+
+
+
+
+
+	});
+</script>

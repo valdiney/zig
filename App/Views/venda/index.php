@@ -191,7 +191,6 @@ use System\Session\Session;
 <script src="<?php echo BASEURL;?>/public/assets/js/core/jquery.min.js"></script>
 <script type="text/javascript">
 	$(function() {
-
 		$('.salvar-venda').click(function() {
 
 			if ($('.valor').val() == '') {
@@ -199,17 +198,8 @@ use System\Session\Session;
 				return false;
 			}
 
-			//alert($('.valor').val());
-
-		
-
-			return false;
+			return true;
 
 		});
-
-
-
-
-
 	});
 </script>

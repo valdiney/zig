@@ -79,3 +79,13 @@ function out64($string) {
 function real($valor) {
     return number_format($valor, 2,',','.');
 }
+
+function currentRouteFromMenu($route) {
+    $route = explode('/', $route);
+    $controller = explode('Controller', CONTROLLER_NAME)[0];
+    $method = METHOD_NAME;
+
+    if (ucfirst($route[0]) == $controller && $route[1] == $method) {
+        echo 'currentRouteFromMenu';
+    } 
+}

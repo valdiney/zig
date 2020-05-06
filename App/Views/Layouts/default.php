@@ -48,6 +48,10 @@ use System\Session\Session;
     object-fit: cover;
     object-position: center;
   }
+  .currentRouteFromMenu {
+    background:#f4f4f4;
+    border-radius:10px;
+  }
   </style>
 </head>
 
@@ -73,28 +77,32 @@ use System\Session\Session;
         <ul class="nav">
 
           <li class="">
-            <a href="<?php echo BASEURL;?>/home/index">
+            <a href="<?php echo BASEURL;?>/home/index"
+              class="<?php currentRouteFromMenu('home/index');?>">
               <i class="fas fa-tachometer-alt" style="color:#ff3333"></i>
               <p>Inicio</p>
             </a>
           </li>
 
           <li class="">
-            <a href="<?php echo BASEURL;?>/usuario/index">
+            <a href="<?php echo BASEURL;?>/usuario/index"
+              class="<?php currentRouteFromMenu('usuario/index');?>">
               <i class="fas fa-users" style="color:#33cccc"></i>
               <p>Usuários</p>
             </a>
           </li>
 
           <li class="">
-            <a href="<?php echo BASEURL;?>/venda/index">
+            <a href="<?php echo BASEURL;?>/venda/index" 
+              class="<?php currentRouteFromMenu('venda/index');?>">
               <i class="fas fa-piggy-bank" style="color:#00cc99"></i>
               <p>Vendas</p>
             </a>
           </li>
 
            <li class="">
-            <a href="<?php echo BASEURL;?>/venda/index">
+            <a href="<?php echo BASEURL;?>/relatorio/index" 
+              class="<?php currentRouteFromMenu('relatorio/index');?>">
               <i class="fas fa-file-invoice-dollar" style="color:#ffcc66"></i>
               <p>Relatórios</p>
             </a>

@@ -22,7 +22,8 @@ O intuito é disponibilizar uma plataforma com módulos que facilite e potencial
 <p>
   Criar um arquivo .env na raiz da aplicação! Coloque esses valores dentro do arquivo e salve!
 </p>
-<code>
+
+```TEXT
   APP_ENV=local
   TIMEZONE=America/Sao_Paulo
 
@@ -31,4 +32,4 @@ O intuito é disponibilizar uma plataforma com módulos que facilite e potencial
   HOST_USERNAME=abitat
   HOST_PASSWORD=abitatlive2019
   HOST_DBNAME=syst
-</code>
+```

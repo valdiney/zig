@@ -28,8 +28,8 @@ O intuito é disponibilizar uma plataforma com módulos que facilite e potencial
   TIMEZONE=America/Sao_Paulo
 
   DB_CONNECTION=mysql
-  HOST_NAME=abitat.cndd5nogbuuf.us-east-2.rds.amazonaws.com
-  HOST_USERNAME=abitat
-  HOST_PASSWORD=abitatlive2019
+  HOST_NAME=
+  HOST_USERNAME=
+  HOST_PASSWORD=
   HOST_DBNAME=syst
 ```

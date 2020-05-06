@@ -51,6 +51,7 @@ use System\Session\Session;
   .currentRouteFromMenu {
     background:#f4f4f4;
     border-radius:10px;
+    border:1px solid #dddddd;
   }
   </style>
 </head>

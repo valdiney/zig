@@ -27,7 +27,7 @@ class GetRoute
 		$this->veriFyControllerOnUrl();
 		$this->veriFyMethodOnUrl();
 
-		if ( ! defined('CONTROLLER_NAME') && ! defined('CONTROLLER_NAME') && ! defined('BASEURL')) {
+		if ( ! defined('CONTROLLER_NAME') && ! defined('BASEURL')) {
 			define('CONTROLLER_NAME', $this->controller);
 		    define('METHOD_NAME', $this->method);
 		    define('BASEURL', $this->getBaseUrl());

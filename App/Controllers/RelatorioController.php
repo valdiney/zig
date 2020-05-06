@@ -30,7 +30,6 @@ class RelatorioController extends Controller
 
 	public function index()
 	{
-		//currentRouteFromMenu('relatorio/index');
 		$this->view('relatorio/index', $this->layout); 	
 	}
 }

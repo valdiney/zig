@@ -9,6 +9,8 @@ use App\Models\Venda;
 use App\Models\Usuario;
 use App\Models\MeioPagamento;
 
+use App\Repositories\RelatorioVendasPorPeriodoRepository;
+
 class RelatorioController extends Controller
 {
 	protected $post;
@@ -30,6 +32,9 @@ class RelatorioController extends Controller
 
 	public function index()
 	{
-		$this->view('relatorio/index', $this->layout); 	
+		$relatorioVendas = new RelatorioVendasPorPeriodoRepository();
+		$vendas = $relatorioVendas->vendasPorPeriodo();
+
+		$this->view('relatorio/index', $this->layout, compact('relatorioVendas')); 	
 	}
 }

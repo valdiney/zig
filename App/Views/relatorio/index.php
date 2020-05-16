@@ -24,7 +24,7 @@
 		   	 <div class="card card-option" style="width: 18rem;">
 				  <div class="card-body">
 				  	<center><i class="fas fa-piggy-bank icon-sale" style="color:#ff9b9b"></i></center> <br>
-				    <center><a href="#" class="btn btn-primary">Vendas por período</a></center>
+				    <center><a href="<?php echo BASEURL;?>/relatorio/vendasPorPeriodo" class="btn btn-primary">Vendas por período</a></center>
 				 </div>
 			  </div>
 	     </div>

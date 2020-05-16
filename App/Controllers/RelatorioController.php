@@ -37,4 +37,12 @@ class RelatorioController extends Controller
 
 		$this->view('relatorio/index', $this->layout, compact('relatorioVendas')); 	
 	}
+
+	public function vendasPorPeriodo()
+	{
+		$usuario = new Usuario();
+		$usuarios = $usuario->usuarios($this->idCliente, $this->idPerfilUsuarioLogado);
+
+		$this->view('relatorio/vendasPorPeriodo/index', $this->layout, compact('usuarios'));
+	}
 }

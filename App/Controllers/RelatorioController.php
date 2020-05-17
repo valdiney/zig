@@ -49,18 +49,39 @@ class RelatorioController extends Controller
 		$vendas = [];
 
 		if ($this->post->hasPost()) {
+
+			$de = $this->post->data()->de;
+			$ate = $this->post->data()->ate;
+
 			$idUsuario = false;
 			if ($this->post->data()->id_usuario != 'todos') {
 				$idUsuario = $this->post->data()->id_usuario;
 			}
 
 			$vendas = $relatorioVendas->vendasPorPeriodo(
-				['de' => $this->post->data()->de, 'ate' => $this->post->data()->ate], 
+				['de' => $de, 'ate' => $ate], 
 				$idUsuario,
 				$this->idCliente
 		     );
+
+			$meiosDePagamento = $relatorioVendas->totalVendidoPorMeioDePagamento(
+				['de' => $de, 'ate' => $ate], 
+				$idUsuario,
+				$this->idCliente
+			);
+
+			$totalDasVendas = $relatorioVendas->totalDasVendas(
+				['de' => $de, 'ate' => $ate], 
+				$idUsuario,
+				$this->idCliente
+			);
 		}
 
-		$this->view('relatorio/vendasPorPeriodo/tabelaVendasPorPeriodo', false, compact('vendas'));
+		$this->view('relatorio/vendasPorPeriodo/tabelaVendasPorPeriodo', false, 
+			compact(
+				'vendas',
+				'meiosDePagamento',
+				'totalDasVendas'
+			));
 	}
 }

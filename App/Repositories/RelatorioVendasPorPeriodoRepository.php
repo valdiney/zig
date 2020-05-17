@@ -29,4 +29,48 @@ class RelatorioVendasPorPeriodoRepository
 
 		return $query;
 	}
+
+	public function totalVendidoPorMeioDePagamento(array $periodo, $idUsuario = false, $idCliente = false)
+    {
+    	$venda = new Venda();
+
+        $de = $periodo['de'];
+		$ate = $periodo['ate'];
+
+		$queryPorUsuario = false;
+		if ($idUsuario) {
+			$queryPorUsuario = "AND vendas.id_usuario = {$idUsuario}";
+		}
+
+        $query = $venda->query(
+            "SELECT meios_pagamentos.id AS idMeioPagamento, 
+            meios_pagamentos.legenda, SUM(vendas.valor) AS totalVendas FROM vendas 
+            INNER JOIN meios_pagamentos ON vendas.id_meio_pagamento = meios_pagamentos.id
+            WHERE vendas.id_cliente = {$idCliente}
+            AND DATE(vendas.created_at) BETWEEN '{$de}' AND '{$ate}' {$queryPorUsuario}
+            GROUP BY vendas.id_meio_pagamento"
+        );
+
+        return $query;
+    }
+
+    public function totalDasVendas(array $periodo, $idUsuario = false, $idCliente = false)
+    {
+    	$venda = new Venda();
+
+        $de = $periodo['de'];
+		$ate = $periodo['ate'];
+
+		$queryPorUsuario = false;
+		if ($idUsuario) {
+			$queryPorUsuario = "AND vendas.id_usuario = {$idUsuario}";
+		}
+
+        $query = $venda->query(
+            "SELECT SUM(valor) AS totalVendas FROM vendas WHERE id_cliente = {$idCliente}
+            AND DATE(vendas.created_at) BETWEEN '{$de}' AND '{$ate}' {$queryPorUsuario}"
+        );
+
+        return $query[0]->totalVendas;
+    }
 }

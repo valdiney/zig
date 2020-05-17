@@ -1,4 +1,33 @@
 <?php if (count($vendas) > 0):?>
+	<br>
+
+	<div style="float:right;">
+
+		<h6 style="text-align:right;">
+			Total:
+			<span style="color:#666666!important">R$ <?php echo real($totalDasVendas);?></span>
+		</h6>
+
+		<?php foreach ($meiosDePagamento as $tipo):?>
+			<?php if ($tipo->idMeioPagamento == 1):?>
+				 <span class="badge" style="background:#83e6cd;padding:5px">
+				      <?php echo $tipo->legenda;?> R$ <?php echo real($tipo->totalVendas);?>
+				 </span>
+			<?php elseif($tipo->idMeioPagamento == 2):?>
+			     <span class="badge" style="background:#9be6e6;padding:5px">
+				      <?php echo $tipo->legenda;?> R$ <?php echo real($tipo->totalVendas);?>
+				 </span>
+			<?php elseif($tipo->idMeioPagamento == 3):?>
+			     <span class="badge" style="background:#ff9b9b;padding:5px">
+				      <?php echo $tipo->legenda;?> R$ <?php echo real($tipo->totalVendas);?>
+				 </span>
+			<?php endif;?>
+	    <?php endforeach; ?>
+	</div>
+
+	<div style="clear:both;"></div>
+	<hr>
+
 	<table class="table tabela-ajustada">
 		<thead>
 			<tr>
@@ -21,6 +50,7 @@
 			<?php endforeach;?>
 		</tbody>
 	</table>
+	
 <?php else:?>
 	<br><br><br>
 	<center>

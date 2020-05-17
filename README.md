@@ -13,7 +13,7 @@ O intuito é disponibilizar uma plataforma com módulos que facilite e potencial
 - [x] Login
 - [x] Tela de vendas
 - [ ] Dashboard
-- [x] Relatórios
+- [x] Relatórios de vendas
 
 # Tela de Vendas
 <img src="https://raw.githubusercontent.com/valdiney/zig/master/prints/tela_de_venda.png"/>

@@ -1,124 +1,99 @@
 <?php use System\Session\Session; ?>
 
+<style type="text/css">
+	.imagem-perfil {
+		width:30px;
+	    height:30px;
+	    object-fit:cover;
+	    object-position:center;
+	    border-radius:50%;
+	}
+	.tabela-ajustada tr td {
+		padding-top:2px!important;
+		padding-bottom:2px!important;
+		font-size:12px;
+	}
+	.tabela-ajustada th {
+		font-size:13px!important;
+
+	}
+</style>
+
 <div class="row">
 
 	<div class="card col-lg-12 content-div">
 		<div class="card-body">
-	        <h5 class="card-title">Vendas por período!</h5>
+	        <h5 class="card-title"><i class="fas fa-file-invoice-dollar" style="color:#ffcc66"></i> 
+	           Vendas por período!
+	        </h5>
 	    </div>
+        
+        <form method="POST" action="<?php BASEURL;?>/relatorio/vendasChamadaAjax" id="form">
+		    <div class="row">
+	            <div class="col-md-4">
+	                <div class="form-group">
+	                    <label for="periodo_de">Período de</label>
+	                    <input type="date" class="form-control" name="de" id="periodo_de"
+	                    value="<?php echo date('Y').'-'.date('m').'-'.'01'?>">
+	                </div>
+	            </div>
 
-	    <div class="row">
-            <div class="col-md-4">
-                <div class="form-group">
-                    <label for="periodo_de">Período de</label>
-                    <input type="date" class="form-control" name="periodo_de" id="periodo_de"
-                    value="<?php echo date('Y').'-'.date('m').'-'.'01'?>">
-                </div>
-            </div>
+	            <div class="col-md-4">
+	                <div class="form-group">
+	                    <label for="periodo_ate">Período até</label>
+	                    <input type="date" class="form-control" name="ate" id="periodo_ate"
+	                    value="<?php echo date('Y-m-d')?>">
+	                </div>
+	            </div>
 
-            <div class="col-md-4">
-                <div class="form-group">
-                    <label for="periodo_ate">Período até</label>
-                    <input type="date" class="form-control" name="periodo_ate" id="periodo_ate"
-                    value="<?php echo date('Y-m-d')?>">
-                </div>
-            </div>
+	            <div class="col-md-3">
+				    <div class="form-group">
+				        <label for="id_usuario">Vendedor *</label>
+				        <select class="form-control" name="id_usuario" id="id_usuario">
+				        	<option value="todos">Todos</option>
+				        	<?php foreach ($usuarios as $usuario):?>
+					        		<option value="<?php echo $usuario->id;?>">
+					        			<?php echo $usuario->nome;?>
+					        		</option>
+				        	<?php endforeach;?>
+				        </select>
+				    </div>
 
-            <div class="col-md-3">
-			    <div class="form-group">
-			        <label for="id_usuario">Vendedor *</label>
-			        <select class="form-control" name="id_usuario" id="id_usuario">
-			        	<?php foreach ($usuarios as $usuario):?>
-			        		<?php if ($usuario->id == Session::get('idUsuario')):?>	
-			        			<option value="<?php echo $usuario->id;?>" selected>
-			        			    <?php echo $usuario->nome;?>
-			        		    </option>
-			        		<?php else:?>
-				        		<option value="<?php echo $usuario->id;?>">
-				        			<?php echo $usuario->nome;?>
-				        		</option>
-				        	<?php endif;?>
-			        	<?php endforeach;?>
-			        </select>
+				    <button type="submit" class="btn btn-sm btn-success text-right pull-right" id="buscar-vendas">
+				         <i class="fas fa-search"></i> Buscar
+			        </button>
 			    </div>
-
-			    <button type="submit" class="btn btn-sm btn-success text-right pull-right" id="salvar-venda">
-			         <i class="fas fa-search"></i> Buscar
-		        </button>
-		    </div>
-        </div><!--end row-->
-
+	        </div><!--end row-->
+        </form>
     <br>
 	
    </div>
 </div>
 
-
 <div class="row">
-
 	<div class="card col-lg-12 content-div">
-
-		<table id="example" class="display table" style="width:100%">
-	        <thead>
-	            <tr>
-	                <th>Nome</th>
-	                <th>Entrada</th>
-	                <th>Inicio intervalo</th>
-	                <th>Fim intervalo</th>
-	                <th>Saida</th>
-	                <th>Data</th>
-	            </tr>
-	        </thead>
-	        <tbody>
-	            <tr>
-	                <td>Tiger Nixon</td>
-	                <td>System Architect</td>
-	                <td>Edinburgh</td>
-	                <td>61</td>
-	                <td>2011/04/25</td>
-	                <td>$320,800</td>
-	            </tr>
-	            <tr>
-	                <td>Garrett Winters</td>
-	                <td>Accountant</td>
-	                <td>Tokyo</td>
-	                <td>63</td>
-	                <td>2011/07/25</td>
-	                <td>$170,750</td>
-	            </tr>
-	            <tr>
-	                <td>Ashton Cox</td>
-	                <td>Junior Technical Author</td>
-	                <td>San Francisco</td>
-	                <td>66</td>
-	                <td>2009/01/12</td>
-	                <td>$86,000</td>
-	            </tr>
-	            <tr>
-	                <td>Cedric Kelly</td>
-	                <td>Senior Javascript Developer</td>
-	                <td>Edinburgh</td>
-	                <td>22</td>
-	                <td>2012/03/29</td>
-	                <td>$433,060</td>
-	            </tr>
-	            
-	        <tfoot>
-	            <!--<tr>
-	                <th>Name</th>
-	                <th>Position</th>
-	                <th>Office</th>
-	                <th>Age</th>
-	                <th>Start date</th>
-	                <th>Salary</th>
-	            </tr>-->
-	        </tfoot>
-	    </table>
-		
-
-	
-
-    <br>
-	
+		<!--Renderiza a tabela de vendas-->
+		<div id="div-tabela-vendas"></div>
+        <br>
    </div>
-</div
+</div>
+
+<script src="<?php echo BASEURL;?>/public/assets/js/core/jquery.min.js"></script>
+
+<script type="text/javascript">
+	$("#buscar-vendas").click(function() {
+		vendas();
+		return false;
+	});
+
+	vendas();
+    
+    function vendas() {
+    	$('#div-tabela-vendas').html('<br><center><h3>Carregando...</h3></center>');
+		var rota = $('#form').attr('action');
+	        $.post(rota, $('#form').serialize(), function(resultado) {
+	        	$('#div-tabela-vendas').empty();
+	        	$('#div-tabela-vendas').append(resultado);
+	        });
+    }
+</script>

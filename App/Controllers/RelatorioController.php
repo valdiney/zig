@@ -32,10 +32,7 @@ class RelatorioController extends Controller
 
 	public function index()
 	{
-		$relatorioVendas = new RelatorioVendasPorPeriodoRepository();
-		$vendas = $relatorioVendas->vendasPorPeriodo();
-
-		$this->view('relatorio/index', $this->layout, compact('relatorioVendas')); 	
+		$this->view('relatorio/index', $this->layout); 	
 	}
 
 	public function vendasPorPeriodo()
@@ -44,5 +41,26 @@ class RelatorioController extends Controller
 		$usuarios = $usuario->usuarios($this->idCliente, $this->idPerfilUsuarioLogado);
 
 		$this->view('relatorio/vendasPorPeriodo/index', $this->layout, compact('usuarios'));
+	}
+
+	public function vendasChamadaAjax()
+	{
+		$relatorioVendas = new RelatorioVendasPorPeriodoRepository();
+		$vendas = [];
+
+		if ($this->post->hasPost()) {
+			$idUsuario = false;
+			if ($this->post->data()->id_usuario != 'todos') {
+				$idUsuario = $this->post->data()->id_usuario;
+			}
+
+			$vendas = $relatorioVendas->vendasPorPeriodo(
+				['de' => $this->post->data()->de, 'ate' => $this->post->data()->ate], 
+				$idUsuario,
+				$this->idCliente
+		     );
+		}
+
+		$this->view('relatorio/vendasPorPeriodo/tabelaVendasPorPeriodo', false, compact('vendas'));
 	}
 }

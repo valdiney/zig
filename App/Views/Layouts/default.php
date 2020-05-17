@@ -102,7 +102,7 @@ use System\Session\Session;
           </li>
 
            <li class="">
-            <a href="<?php echo BASEURL;?>/relatorio/index" 
+            <a href="<?php echo BASEURL;?>/relatorio/vendasPorPeriodo" 
               class="<?php currentRouteFromMenu('relatorio/index');?> 
               <?php currentRouteFromMenu('relatorio/vendasPorPeriodo');?>">
               <i class="fas fa-file-invoice-dollar" style="color:#ffcc66"></i>

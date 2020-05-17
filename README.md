@@ -52,5 +52,5 @@ php -S localhost:8000
 ```
 
 # Usuário de teste
-Email: admin@admin.com
+Email: admin@admin.com <br>
 Password: 33473347

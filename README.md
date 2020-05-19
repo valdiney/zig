@@ -50,3 +50,7 @@ Depois, rode o servidor php
 ```TEXT
 php -S localhost:8000
 ```
+
+# Usuário de teste
+Email: admin@admin.com <br>
+Password: 33473347

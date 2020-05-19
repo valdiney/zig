@@ -53,6 +53,14 @@ use System\Session\Session;
     border-radius:10px;
     border:1px solid #dddddd;
   }
+  .tabela-ajustada tr td {
+    padding-top:2px!important;
+    padding-bottom:2px!important;
+    font-size:12px!important;
+  }
+  .tabela-ajustada th {
+    font-size:13px!important;
+  }
   </style>
 </head>
 
@@ -210,7 +218,7 @@ use System\Session\Session;
 
   <script>
     $(function() {
-        jQuery('.campo-moeda')
+        jQuery('.campo-moeda, .mypreco')
         .maskMoney({
           prefix:'R$ ', 
           allowNegative: true, 

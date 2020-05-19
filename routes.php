@@ -29,3 +29,6 @@ $route->route('RelatorioController', 'vendasChamadaAjax',  $logged);
 
 # ----- ProdutoController --------------------------------
 $route->route('ProdutoController', 'index',  $logged);
+$route->route('ProdutoController', 'modalFormulario',  $logged);
+$route->route('ProdutoController', 'save',  $logged);
+$route->route('ProdutoController', 'update',  $logged);

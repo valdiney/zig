@@ -35,7 +35,7 @@ CREATE TABLE IF NOT EXISTS `meios_pagamentos` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
 
--- Copiando dados para a tabela syst.meios_pagamentos: ~2 rows (aproximadamente)
+-- Copiando dados para a tabela syst.meios_pagamentos: ~3 rows (aproximadamente)
 /*!40000 ALTER TABLE `meios_pagamentos` DISABLE KEYS */;
 INSERT INTO `meios_pagamentos` (`id`, `legenda`, `created_at`, `updated_at`) VALUES
 	(1, 'Dinheiro', '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
@@ -59,6 +59,29 @@ INSERT INTO `perfis` (`id`, `descricao`, `created_at`, `updated_at`) VALUES
 	(2, 'Admin', '2020-04-25 00:53:27', '0000-00-00 00:00:00'),
 	(4, 'Vendedor', '2020-04-25 00:53:32', '0000-00-00 00:00:00');
 /*!40000 ALTER TABLE `perfis` ENABLE KEYS */;
+
+-- Copiando estrutura para tabela syst.produtos
+CREATE TABLE IF NOT EXISTS `produtos` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `id_cliente` int(11) NOT NULL,
+  `nome` varchar(50) NOT NULL,
+  `preco` double NOT NULL DEFAULT '0',
+  `descricao` text,
+  `imagem` text,
+  `created_at` timestamp NOT NULL,
+  `updated_at` timestamp NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `FK_produtos_clientes` (`id_cliente`),
+  CONSTRAINT `FK_produtos_clientes` FOREIGN KEY (`id_cliente`) REFERENCES `clientes` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
+
+-- Copiando dados para a tabela syst.produtos: ~3 rows (aproximadamente)
+/*!40000 ALTER TABLE `produtos` DISABLE KEYS */;
+INSERT INTO `produtos` (`id`, `id_cliente`, `nome`, `preco`, `descricao`, `imagem`, `created_at`, `updated_at`) VALUES
+	(1, 1, 'Açái Tradicional', 1, 'Tigela de Açaí tradicional!', 'public/imagem/produtos/1589923097.jpg', '2020-05-19 17:13:05', '2020-05-19 18:43:24'),
+	(2, 1, 'Açaí de Banana', 13, 'bghghg', 'public/imagem/produtos/1589919313.jpg', '2020-05-19 17:15:13', '2020-05-19 17:15:13'),
+	(3, 1, 'Dell Vale de Uva', 18, 'Néctar de Uva Del Valle 1 Litro', 'public/imagem/produtos/1589923950.jpg', '2020-05-19 18:32:30', '2020-05-19 18:32:30');
+/*!40000 ALTER TABLE `produtos` ENABLE KEYS */;
 
 -- Copiando estrutura para tabela syst.sexos
 CREATE TABLE IF NOT EXISTS `sexos` (
@@ -125,9 +148,9 @@ CREATE TABLE IF NOT EXISTS `vendas` (
   CONSTRAINT `FK_vendas_clientes` FOREIGN KEY (`id_cliente`) REFERENCES `clientes` (`id`),
   CONSTRAINT `FK_vendas_meios_de_pagamento` FOREIGN KEY (`id_meio_pagamento`) REFERENCES `meios_pagamentos` (`id`),
   CONSTRAINT `FK_vendas_usuarios` FOREIGN KEY (`id_usuario`) REFERENCES `usuarios` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=60 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=62 DEFAULT CHARSET=latin1;
 
--- Copiando dados para a tabela syst.vendas: ~5 rows (aproximadamente)
+-- Copiando dados para a tabela syst.vendas: ~44 rows (aproximadamente)
 /*!40000 ALTER TABLE `vendas` DISABLE KEYS */;
 INSERT INTO `vendas` (`id`, `id_usuario`, `id_meio_pagamento`, `id_cliente`, `valor`, `created_at`, `updated_at`) VALUES
 	(1, 1, 1, 1, 11, '2020-04-25 01:58:13', '2020-04-25 01:58:13'),
@@ -171,7 +194,9 @@ INSERT INTO `vendas` (`id`, `id_usuario`, `id_meio_pagamento`, `id_cliente`, `va
 	(56, 1, 1, 1, 2440.8, '2020-05-18 22:16:09', '2020-05-18 22:16:09'),
 	(57, 1, 1, 1, 25, '2020-05-18 22:16:28', '2020-05-18 22:16:28'),
 	(58, 1, 1, 1, 15.45, '2020-05-18 22:17:17', '2020-05-18 22:17:17'),
-	(59, 1, 2, 1, 1000, '2020-05-18 22:23:19', '2020-05-18 22:23:19');
+	(59, 1, 2, 1, 1000, '2020-05-18 22:23:19', '2020-05-18 22:23:19'),
+	(60, 1, 1, 1, 1500, '2020-05-18 22:25:07', '2020-05-18 22:25:07'),
+	(61, 36, 3, 1, 1250, '2020-05-18 22:28:53', '2020-05-18 22:28:53');
 /*!40000 ALTER TABLE `vendas` ENABLE KEYS */;
 
 /*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;

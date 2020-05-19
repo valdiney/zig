@@ -76,8 +76,27 @@ function out64($string) {
     return false;
 }
 
+/*
+Formata o valor para Real antes de apresentar na View
+*/
 function real($valor) {
     return number_format($valor, 2,',','.');
+}
+
+/*
+Essa função prepara o valor da moeda pora ser gravado no banco
+Exemplo: Tranforma o valor ( 2.440,80 ) em ( 2440.80 )
+*/
+function formataValorMoedaParaGravacao($valor) {
+     $verificaPonto = ".";
+     if (strpos("[".$valor."]", "$verificaPonto")) {
+         $valor = str_replace('.','', $valor);
+         $valor = str_replace(',','.', $valor);
+     } else {
+         $valor = str_replace(',','.', $valor);   
+     }
+
+   return $valor;
 }
 
 function currentRouteFromMenu($route) {

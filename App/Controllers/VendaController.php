@@ -59,8 +59,8 @@ class VendaController extends Controller
 			$dados = (array) $this->post->data();
 			$dados['id_cliente'] = $this->idCliente;
             
-            # Troca o caractere virgula, por ponto
-		    $dados['valor'] = (float) str_replace(',', '.', $dados['valor']);
+            # Preparar o valor da moeda para ser armazenado
+		    $dados['valor'] = formataValorMoedaParaGravacao($dados['valor']);
 		    
 		    try {
 		    	$venda = new Venda();
@@ -71,11 +71,6 @@ class VendaController extends Controller
 			    dd($e->getMessage());
 		    }
 	    }
-	}
-
-	public function update()
-	{
-		
 	}
 
 	public function desfazerVenda()

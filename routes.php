@@ -26,3 +26,6 @@ $route->route('VendaController', 'save', $logged);
 $route->route('RelatorioController', 'index',  $logged);
 $route->route('RelatorioController', 'vendasPorPeriodo',  $logged);
 $route->route('RelatorioController', 'vendasChamadaAjax',  $logged);
+
+# ----- ProdutoController --------------------------------
+$route->route('ProdutoController', 'index',  $logged);

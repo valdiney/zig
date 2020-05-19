@@ -12,7 +12,7 @@ use System\Post\Post;
 use System\Get\Get;
 use System\Session\Session;
 
-class {$nome} 
+class {$nome} extends Controller
 {
 	protected {$vars}post;
 	protected {$vars}get;

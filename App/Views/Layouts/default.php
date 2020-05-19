@@ -102,6 +102,14 @@ use System\Session\Session;
           </li>
 
            <li class="">
+            <a href="<?php echo BASEURL;?>/produto/index" 
+              class="<?php currentRouteFromMenu('produto/index');?>">
+              <i class="fab fa-product-hunt" style="color:#99ccff"></i>
+              <p>Produtos</p>
+            </a>
+          </li>
+
+           <li class="">
             <a href="<?php echo BASEURL;?>/relatorio/vendasPorPeriodo" 
               class="<?php currentRouteFromMenu('relatorio/index');?> 
               <?php currentRouteFromMenu('relatorio/vendasPorPeriodo');?>">

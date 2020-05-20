@@ -37,64 +37,99 @@ use System\Session\Session;
 		font-size:13px!important;
 
 	}
+
+     .card-produtos {
+     	margin-top:10px;
+       
+        border-left:1px solid #dddddd;
+     	padding:0;
+     }
+	.card-produtos img {
+		width:100px;
+	    height:100px;
+	    object-fit:cover;
+	    object-position:center;
+	    margin:0 auto;
+	    display:block;
+	}
+	.produto-titulo {
+		font-size:11px!important;
+		text-align:center;
+		display:block;
+		margin-top:3px;
+	}
+	.produto-valor {
+		font-size:13px!important;
+		text-align:center;
+		font-weight:bold;
+	}
+	.div-inter-produtos {
+		background:#f4f3ef;
+	}
+
+	.img-produto-seleionado {
+		width:30px;
+	    height:30px;
+	    object-fit:cover;
+	    object-position:center;
+	    border-radius:50%;
+	    border:1px solid #dee2e6;
+	}
+
+	.campo-quantidade {
+		border:1px solid #dee2e6;
+		width:100px;
+		text-align:center;
+	}
 </style>
 
 <div class="row">
 
 	<div class="card col-lg-12 content-div">
 		<div class="card-body">
-	        <h5 class="card-title"><i class="fas fa-piggy-bank" style="color:#00cc99"></i> Registrar Venda</h5>
+	        <h5 class="card-title"><i class="fab fa-product-hunt" style="color:#99ccff"></i> Produtos</h5>
             
-            <form method="post" action="<?php echo BASEURL;?>/venda/save">
-		        <div class="row">
-	                
-		        	<div class="col-md-2">
-					    <div class="form-group">
-					        <label for="valor">R$ Valor *</label>
-					        <input type="text" class="form-control campo-moeda valor" name="valor" id="valor" 
-					        placeholder="00,00">
-					    </div>
-				    </div>
+            
+            <div class="row div-inter-produtos">
 
-				    <div class="col-md-3">
-					    <div class="form-group">
-					        <label for="id_meio_pagamento">Meios de pagamento *</label>
-					        <select class="form-control" name="id_meio_pagamento" id="id_meio_pagamento">
-					        	<?php foreach ($meiosPagamentos as $pagamento):?>
-					        		<option value="<?php echo $pagamento->id;?>">
-					        			<?php echo $pagamento->legenda;?>
-					        		</option>
-					        	<?php endforeach;?>
-					        </select>
-					    </div>
-				    </div>
+            	<div class="col-lg-2 card-produtos">
+            		<img src="https://www.ovale.com.br/_midias/jpg/2020/01/20/acai-883535.jpg">
+            		<center><span class="produto-titulo">AÇAÍ TRADICIONAL</span></center>
+            		<center><span class="produto-valor">R$ 20,00</span></center>
+            	</div>
 
-				    <div class="col-md-3">
-					    <div class="form-group">
-					        <label for="id_usuario">Vendedor *</label>
-					        <select class="form-control" name="id_usuario" id="id_usuario">
-					        	<?php foreach ($usuarios as $usuario):?>
-					        		<?php if ($usuario->id == Session::get('idUsuario')):?>	
-					        			<option value="<?php echo $usuario->id;?>" selected>
-					        			    <?php echo $usuario->nome;?>
-					        		    </option>
-					        		<?php else:?>
-						        		<option value="<?php echo $usuario->id;?>">
-						        			<?php echo $usuario->nome;?>
-						        		</option>
-						        	<?php endif;?>
-					        	<?php endforeach;?>
-					        </select>
-					    </div>
-				    </div>
+            	<div class="col-lg-2 card-produtos">
+            		<img src="https://www.supermercadosrondon.com.br/guiadecarnes/images/postagens/quer_fazer_hamburger_artesanal_perfeito_2019-05-14.jpg">
+            		<center><span class="produto-titulo">HAMBÚRGUER</span></center>
+            		<center><span class="produto-valor">R$ 30,00</span></center>
+            	</div>
 
-			    	<div class="col-md-1">
-			    		<button type="submit" class="btn btn-success text-right salvar-venda" id="salvar-venda">
-						    <i class="fas fa-save"></i> Salvar
-					    </button>
-			    	</div>
-		        </div>
-		    </form>
+            	<div class="col-lg-2 card-produtos">
+            		<img src="https://www.supermercadosrondon.com.br/guiadecarnes/images/postagens/receita_facil_de_estrogonofe_de_carne_2019-05-21.jpg">
+            		<center><span class="produto-titulo">ESTROGONOFE</span></center>
+            		<center><span class="produto-valor">R$ 25,50</span></center>
+            	</div>
+
+            	<div class="col-lg-2 card-produtos">
+            		<img src="https://www.supermercadosrondon.com.br/guiadecarnes/images/postagens/as_7_melhores_carnes_para_churrasco_21-05-2019.jpg">
+            		<center><span class="produto-titulo">CARNE CHURRASCO</span></center>
+            		<center><span class="produto-valor">R$ 18,15</span></center>
+            	</div>
+
+            	<div class="col-lg-2 card-produtos">
+            		<img src="https://cd.shoppub.com.br/cenourao/media/cache/7d/f4/7df4d5eff3efae9299961f143e281750.jpg">
+            		<center><span class="produto-titulo">GUARANÁ ANTÁRCTICA</span></center>
+            		<center><span class="produto-valor">R$ 3,49</span></center>
+            	</div>
+
+            	<div class="col-lg-2 card-produtos">
+            		<img src="https://cd.shoppub.com.br/cenourao/media/cache/da/72/da726fa39f4f96fb59233dee32714d07.jpg">
+            		<center><span class="produto-titulo">REFRIGERANTE ZERO COCA-COLA</span></center>
+            		<center><span class="produto-valor">R$ 3,99</span></center>
+            	</div>
+            	
+            </div>
+		     
 
 	    </div>
    </div>
@@ -102,91 +137,77 @@ use System\Session\Session;
 </div>
 
 
-
 <div class="row">
-		<div class="card card-two col-lg-6 content-div">
-			<div class="card-body">
-		        <h5 class="card-title" style="text-align:center">
-		        	<i class="fas fa-cart-arrow-down" style="color:#00cc99"></i> 
-		            Ultimas 10 vendas no dia!
-		        </h5>
 
-		        <center><small>Hoje: <?php echo date('d/m');?></small></center>
-                
-                <?php if (count($vendasGeralDoDia) > 0):?>
-			        <table class="table tabela-ajustada">
-			        	<thead>
-			        		<tr>
-			        			<th>#</th>
-				        		<th>Valor</th>
-				        		<th>Pagamento</th>
-				        		<th>Hora</th>
-			        		</tr>
-			        	</thead>
-			        	<tbody>	        		
-				        		<?php foreach($vendasGeralDoDia as $venda):?>
-				        			<tr>
-				        				<td><img class="imagem-perfil" src="<?php echo $venda->imagem;?>"></td>
-				        				<td>R$ <?php echo number_format($venda->valor, 2,',','.');?></td>
-				        				<td><?php echo $venda->legenda;?></td>
-				        				<td><?php echo $venda->data;?>h</td>
-				        			</tr>
-				        		<?php endforeach;?>
-			        	</tbody>
-			        </table>
-		        <?php else:?>
-		        	<br><br><br>
-		        	<center>
-		        	    <i class="fas fa-sad-tear" style="font-size:40px;opacity:0.70"></i>
-		        	    <br><br>
-		        		<h6 style="opacity:0.70">Não houve vendas hoje!</h6>
-		        	</center>
-		        <?php endif;?>
-		    </div>
-	   </div>
+	<div class="card col-lg-12 content-div">
+		<div class="card-body">
+	        <h5 class="card-title">
+	        	<i class="fas fa-piggy-bank" style="color:#00cc99"></i> 
+	        	Produtos selecionados
+	        </h5>
+            
+            
+		    <table class="table tabela-ajustada" style="width:100%">
+		        <thead>
+		            <tr>
+		            	<th>#</th>
+		                <th>Nome</th>
+		                <th>R$ Preço</th>
+		                <th>Quantidade</th>
+		                <th>Total</th>
+		                <th>Ação</th>
+		            </tr>
+		        </thead>
+		     <tbody>
+		     	<tr>
+		     		<td><img class="img-produto-seleionado" src="https://www.ovale.com.br/_midias/jpg/2020/01/20/acai-883535.jpg"></td>
+		     		<td>AÇAÍ TRADICIONAL</td>
+		     		<td>R$ 20,00</td>
+		     		<td><input type="number" name="" class="campo-quantidade"></td>
+		     		<td>R$ 40,00</td>
+		     		<td>
+		     			<button class="btn-sm btn-link">
+		     			     <i class="fas fa-times" style="color:#cc0000;font-size:18px"></i>
+		     		    </button>
+		     		</td>
+		     	</tr>
 
-	   <div class="card card-two col-lg-6 content-div">
-			<div class="card-body">
-		        <h5 class="card-title" style="text-align:center">
-		        	<i class="fas fa-cart-arrow-down" style="color:#00cc99;"></i> 
-		            Vendido até o momento
-		        </h5>
+		     	<tr>
+		     		<td><img class="img-produto-seleionado" src="https://www.supermercadosrondon.com.br/guiadecarnes/images/postagens/as_7_melhores_carnes_para_churrasco_21-05-2019.jpg"></td>
+		     		<td>CARNE CHURRASCO</td>
+		     		<td>R$ 18,15</td>
+		     		<td><input type="number" name="" class="campo-quantidade"></td>
+		     		<td>R$ 18,15</td>
+		     		<td>
+		     			<button class="btn-sm btn-link">
+		     			     <i class="fas fa-times" style="color:#cc0000;font-size:18px"></i>
+		     		    </button>
+		     		</td>
+		     	</tr>
 
-		        <center><small>Hoje: <?php echo date('d/m');?></small></center>
+		     	<tr>
+		     		<td><img class="img-produto-seleionado" src="https://cd.shoppub.com.br/cenourao/media/cache/7d/f4/7df4d5eff3efae9299961f143e281750.jpg"></td>
+		     		<td>GUARANÁ ANTÁRCTICA</td>
+		     		<td>R$ 3,49</td>
+		     		<td><input type="number" name="" class="campo-quantidade"></td>
+		     		<td>R$ 3,49</td>
+		     		<td>
+		     			<button class="btn-sm btn-link">
+		     			    <i class="fas fa-times" style="color:#cc0000;font-size:18px"></i>
+		     		    </button>
+		     		</td>
+		     	</tr>
+		     </tbody>
+	        	
+	        <tfoot></tfoot>
+	    </table>
 
-		        <center style="margin-top:20px">
-		        	<div>
-		        		<h3>R$ <?php echo number_format($totalVendasNoDia, 2,',','.'); ?></h3>
-		        		<?php foreach ($totalValorVendaPorMeioDePagamentoNoDia as $tipo):?>
-			        		<?php if ($tipo->idMeioPagamento == 1):?>
-			        			 <span class="badge" style="background:#83e6cd;padding:5px">
-			        			      <?php echo $tipo->legenda;?> R$ <?php echo real($tipo->totalVendas);?>
-			        			 </span>
-			        		<?php elseif($tipo->idMeioPagamento == 2):?>
-			        		     <span class="badge" style="background:#9be6e6;padding:5px">
-			        			      <?php echo $tipo->legenda;?> R$ <?php echo real($tipo->totalVendas);?>
-			        			 </span>
-			        		<?php elseif($tipo->idMeioPagamento == 3):?>
-			        		     <span class="badge" style="background:#ff9b9b;padding:5px">
-			        			      <?php echo $tipo->legenda;?> R$ <?php echo real($tipo->totalVendas);?>
-			        			 </span>
-			        		<?php endif;?>
-		        	    <?php endforeach; ?>
-		        	</div>
+	    </div>
+   </div>
 
-		        	<br>
-		        	<br>
-		        	
-		        	<?php if (is_null($totalVendaNoDiaAnterior)):?>
-		        		<small>Nenhuma venda foi realizada ontem!</small>
-		        	<?php else:?>
-		        		<small>Vendido ontem: <b>R$ <?php echo real($totalVendaNoDiaAnterior);?></b></small>
-		        	<?php endif; ?>
-
-		        </center>
-		    </div>
-	   </div>
 </div>
+
+
 
 <script src="<?php echo BASEURL;?>/public/assets/js/core/jquery.min.js"></script>
 <script type="text/javascript">

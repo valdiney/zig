@@ -66,7 +66,6 @@ use System\Session\Session;
 	.div-inter-produtos {
 		background:#f4f3ef;
 	}
-
 	.img-produto-seleionado {
 		width:30px;
 	    height:30px;
@@ -75,7 +74,6 @@ use System\Session\Session;
 	    border-radius:50%;
 	    border:1px solid #dee2e6;
 	}
-
 	.campo-quantidade {
 		border:1px solid #dee2e6;
 		width:100px;
@@ -92,19 +90,19 @@ use System\Session\Session;
             
             <div class="row div-inter-produtos">
 
-            	<div class="col-lg-2 card-produtos" onclick="selecionaProduto(1)">
+            	<div class="col-lg-2 card-produtos" onclick="colocarProdutosNaMesa(1)">
             		<img src="https://www.ovale.com.br/_midias/jpg/2020/01/20/acai-883535.jpg">
             		<center><span class="produto-titulo">AÇAÍ TRADICIONAL</span></center>
             		<center><span class="produto-valor">R$ 20,00</span></center>
             	</div>
 
-            	<div class="col-lg-2 card-produtos" onclick="selecionaProduto(2)">
+            	<div class="col-lg-2 card-produtos" onclick="colocarProdutosNaMesa(2)">
             		<img src="https://www.supermercadosrondon.com.br/guiadecarnes/images/postagens/quer_fazer_hamburger_artesanal_perfeito_2019-05-14.jpg">
             		<center><span class="produto-titulo">HAMBÚRGUER</span></center>
             		<center><span class="produto-valor">R$ 30,00</span></center>
             	</div>
 
-            	<div class="col-lg-2 card-produtos" onclick="selecionaProduto(3)">
+            	<div class="col-lg-2 card-produtos" onclick="colocarProdutosNaMesa(3)">
             		<img src="https://www.supermercadosrondon.com.br/guiadecarnes/images/postagens/receita_facil_de_estrogonofe_de_carne_2019-05-21.jpg">
             		<center><span class="produto-titulo">ESTROGONOFE</span></center>
             		<center><span class="produto-valor">R$ 25,50</span></center>
@@ -135,7 +133,6 @@ use System\Session\Session;
    </div>
 
 </div>
-
 
 <div class="row">
 
@@ -168,7 +165,6 @@ use System\Session\Session;
 	    </div>
    </div>
 
-
    <div class="card col-lg-2 content-div">
 		<div class="card-body">
 
@@ -187,6 +183,9 @@ use System\Session\Session;
 </div>
 
 <script src="<?php echo BASEURL;?>/public/assets/js/core/jquery.min.js"></script>
+<script src="<?php echo BASEURL;?>/public/js/helpers.js"></script>
+<script src="<?php echo BASEURL;?>/public/js/venda/funcoesPdvAvancado.js"></script>
+
 <script type="text/javascript">
 	$(function() {
 		$('.salvar-venda').click(function() {
@@ -200,44 +199,4 @@ use System\Session\Session;
 
 		});
 	});
-
-	obtemProdutosDaMesa();
-
-	function selecionaProduto(id) {
-	   var rota = "<?php echo BASEURL;?>/venda/mesaDeProdutosParaVenda/"+id;
-	   $.get(rota, function(data, status) {
-	   	   $(".tabela-de-produto tbody").empty();
-	   	   obtemProdutosDaMesa();
-	   });
-	}
-
-	function obtemProdutosDaMesa() {
-	   var rota = "<?php echo BASEURL;?>/venda/obtemProdutosDaMesa";
-	   $.get(rota, function(data, status) {
-
-	    var produto = JSON.parse(data);
-	   	    var t = "";
-	   	    $.each(produto, function(index, value) {
-		   	   	t += "<tr>";
-	            t += "<td>"+'<img class="img-produto-seleionado" src="'+value.imagem+'">'+"</td>";
-	            t += "<td>"+value.produto+"</td>";
-	            t += "<td>R$ "+value.preco+"</td>";
-	            t += "<td>"+'<input type="number" class="campo-quantidade" value="'+value.quantidade+'" onkeyup="alteraQuantidade('+value.id+', this.value)">'+"</td>";  
-	            t += "<td>R$ "+value.total+"</td>";
-	            t += "</tr>";
-	   	    });
-
-	   	   $(".tabela-de-produto tbody").append(t);
-	   });
-	}
-
-	function alteraQuantidade(id, quantidade) {
-		if (quantidade != 0 || quantidade != '') {
-			var rota = "<?php echo BASEURL;?>/venda/mudaAquantidadeDeUmDeterminadoProdutoNaMesa/"+id+"/"+quantidade;
-		    $.get(rota, function(data, status) {
-		   	    $(".tabela-de-produto tbody").empty();
-		   	    obtemProdutosDaMesa();
-		    });
-		}
-	}
 </script>

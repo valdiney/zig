@@ -75,14 +75,10 @@ class VendaController extends Controller
 	    }
 	}
 
-	public function desfazerVenda()
-	{
-		
-	}
-
-	public function mesaDeProdutosParaVenda()
+	public function colocarProdutosNaMesa()
 	{
 		//unset($_SESSION['venda']);
+		//dd($_SESSION['venda']);
 		//exit;
 		if ($this->get->position(0)) {
 			$id = $this->get->position(0);
@@ -110,14 +106,14 @@ class VendaController extends Controller
 		echo json_encode($_SESSION['venda']);
 	}
 
-	public function obtemProdutosDaMesa()
+	public function obterProdutosDaMesa()
 	{
 		if (isset($_SESSION['venda'])) {
 			echo json_encode($_SESSION['venda']);
 		} 
 	}
 
-	public function mudaAquantidadeDeUmDeterminadoProdutoNaMesa()
+	public function alterarAquantidadeDeUmProdutoNaMesa()
 	{
 		$id = $this->get->position(0);
 		$quantidade = $this->get->position(1);
@@ -126,5 +122,14 @@ class VendaController extends Controller
 			$_SESSION['venda'][$id]['quantidade'] = $quantidade;
 			$_SESSION['venda'][$id]['total'] = $quantidade * $_SESSION['venda'][$id]['preco'];
 		} 
+	}
+
+	public function retirarProdutoDaMesa()
+	{
+		$id = $this->get->position(0);
+
+		if (isset($_SESSION['venda'])) {
+			unset($_SESSION['venda'][$id]);
+		}
 	}
 }

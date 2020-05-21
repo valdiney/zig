@@ -22,9 +22,10 @@ $route->route('UsuarioController', 'update', $logged);
 # ----- VendaController --------------------------------
 $route->route('VendaController', 'index', $logged);
 $route->route('VendaController', 'save', $logged);
-$route->route('VendaController', 'mesaDeProdutosParaVenda',  $logged);
-$route->route('VendaController', 'obtemProdutosDaMesa',  $logged);
-$route->route('VendaController', 'mudaAquantidadeDeUmDeterminadoProdutoNaMesa',  $logged);
+$route->route('VendaController', 'colocarProdutosNaMesa',  $logged);
+$route->route('VendaController', 'obterProdutosDaMesa',  $logged);
+$route->route('VendaController', 'alterarAquantidadeDeUmProdutoNaMesa',  $logged);
+$route->route('VendaController', 'retirarProdutoDaMesa',  $logged);
 
 # ----- RelatorioController --------------------------------
 $route->route('RelatorioController', 'index',  $logged);

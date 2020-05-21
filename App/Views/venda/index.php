@@ -206,42 +206,38 @@ use System\Session\Session;
 	function selecionaProduto(id) {
 	   var rota = "<?php echo BASEURL;?>/venda/mesaDeProdutosParaVenda/"+id;
 	   $.get(rota, function(data, status) {
-	   	   
 	   	   $(".tabela-de-produto tbody").empty();
 	   	   obtemProdutosDaMesa();
-	   	 
 	   });
 	}
-
-    
 
 	function obtemProdutosDaMesa() {
 	   var rota = "<?php echo BASEURL;?>/venda/obtemProdutosDaMesa";
 	   $.get(rota, function(data, status) {
 
 	    var produto = JSON.parse(data);
-
-	   	   var t = "";
-
-	   	   $.each(produto, function(index, value) {
-
-	   	   	t += "<tr>";
-                
-                t += "<td>"+'<img class="img-produto-seleionado" src="'+value.imagem+'">'+"</td>";
-                t += "<td>"+value.produto+"</td>";
-                t += "<td>"+value.preco+"</td>";
-                t += "<td>"+'<input type="number" class="campo-quantidade" value="'+value.quantidade+'">'+"</td>";
-                
-
-            t += "</tr>";
-
-	   	   });
+	   	    var t = "";
+	   	    $.each(produto, function(index, value) {
+		   	   	t += "<tr>";
+	            t += "<td>"+'<img class="img-produto-seleionado" src="'+value.imagem+'">'+"</td>";
+	            t += "<td>"+value.produto+"</td>";
+	            t += "<td>R$ "+value.preco+"</td>";
+	            t += "<td>"+'<input type="number" class="campo-quantidade" value="'+value.quantidade+'" onkeyup="alteraQuantidade('+value.id+', this.value)">'+"</td>";  
+	            t += "<td>R$ "+value.total+"</td>";
+	            t += "</tr>";
+	   	    });
 
 	   	   $(".tabela-de-produto tbody").append(t);
-
-	   	
 	   });
 	}
 
-
+	function alteraQuantidade(id, quantidade) {
+		if (quantidade != 0 || quantidade != '') {
+			var rota = "<?php echo BASEURL;?>/venda/mudaAquantidadeDeUmDeterminadoProdutoNaMesa/"+id+"/"+quantidade;
+		    $.get(rota, function(data, status) {
+		   	    $(".tabela-de-produto tbody").empty();
+		   	    obtemProdutosDaMesa();
+		    });
+		}
+	}
 </script>

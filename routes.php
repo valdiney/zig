@@ -24,6 +24,7 @@ $route->route('VendaController', 'index', $logged);
 $route->route('VendaController', 'save', $logged);
 $route->route('VendaController', 'mesaDeProdutosParaVenda',  $logged);
 $route->route('VendaController', 'obtemProdutosDaMesa',  $logged);
+$route->route('VendaController', 'mudaAquantidadeDeUmDeterminadoProdutoNaMesa',  $logged);
 
 # ----- RelatorioController --------------------------------
 $route->route('RelatorioController', 'index',  $logged);

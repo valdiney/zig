@@ -101,7 +101,8 @@ class VendaController extends Controller
 					'produto' => $produto->nome,
 					'preco' => real($produto->preco),
 					'imagem' => $produto->imagem,
-					'quantidade' => 1
+					'quantidade' => 1,
+					'total' => $produto->preco * 1
 				];
 			}	
 		}
@@ -113,6 +114,17 @@ class VendaController extends Controller
 	{
 		if (isset($_SESSION['venda'])) {
 			echo json_encode($_SESSION['venda']);
+		} 
+	}
+
+	public function mudaAquantidadeDeUmDeterminadoProdutoNaMesa()
+	{
+		$id = $this->get->position(0);
+		$quantidade = $this->get->position(1);
+
+		if (isset($_SESSION['venda'])) {
+			$_SESSION['venda'][$id]['quantidade'] = $quantidade;
+			$_SESSION['venda'][$id]['total'] = $quantidade * $_SESSION['venda'][$id]['preco'];
 		} 
 	}
 }

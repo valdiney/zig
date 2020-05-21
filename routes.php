@@ -11,6 +11,8 @@ $route->route('LoginController', "logout");
 
 $logged = new Logged();
 
+$route->route('HomeController', 'index', $logged);
+
 # ----- UsuarioController --------------------------------
 $route->route('UsuarioController', 'index',  $logged);
 $route->route('UsuarioController', 'save',   $logged);
@@ -18,9 +20,10 @@ $route->route('UsuarioController', 'modal',  $logged);
 $route->route('UsuarioController', 'update', $logged);
 
 # ----- VendaController --------------------------------
-$route->route('HomeController', 'index', $logged);
 $route->route('VendaController', 'index', $logged);
 $route->route('VendaController', 'save', $logged);
+$route->route('VendaController', 'mesaDeProdutosParaVenda',  $logged);
+$route->route('VendaController', 'obtemProdutosDaMesa',  $logged);
 
 # ----- RelatorioController --------------------------------
 $route->route('RelatorioController', 'index',  $logged);

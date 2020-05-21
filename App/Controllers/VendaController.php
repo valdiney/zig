@@ -9,6 +9,8 @@ use App\Models\Venda;
 use App\Models\Usuario;
 use App\Models\MeioPagamento;
 
+use App\Models\Produto;
+
 class VendaController extends Controller
 {
 	protected $post;
@@ -76,5 +78,41 @@ class VendaController extends Controller
 	public function desfazerVenda()
 	{
 		
+	}
+
+	public function mesaDeProdutosParaVenda()
+	{
+		//unset($_SESSION['venda']);
+		//exit;
+		if ($this->get->position(0)) {
+			$id = $this->get->position(0);
+
+			if ( ! isset($_SESSION['venda'])) {
+				$_SESSION['venda'] = [];
+			} 
+
+			if ( ! isset($_SESSION['venda'][$id])) {
+
+				$produto = new Produto();
+				$produto = $produto->find($id);
+
+				$_SESSION['venda'][$id] = [
+					'id' => $id, 
+					'produto' => $produto->nome,
+					'preco' => real($produto->preco),
+					'imagem' => $produto->imagem,
+					'quantidade' => 1
+				];
+			}	
+		}
+
+		echo json_encode($_SESSION['venda']);
+	}
+
+	public function obtemProdutosDaMesa()
+	{
+		if (isset($_SESSION['venda'])) {
+			echo json_encode($_SESSION['venda']);
+		} 
 	}
 }

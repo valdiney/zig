@@ -92,19 +92,19 @@ use System\Session\Session;
             
             <div class="row div-inter-produtos">
 
-            	<div class="col-lg-2 card-produtos">
+            	<div class="col-lg-2 card-produtos" onclick="selecionaProduto(1)">
             		<img src="https://www.ovale.com.br/_midias/jpg/2020/01/20/acai-883535.jpg">
             		<center><span class="produto-titulo">AÇAÍ TRADICIONAL</span></center>
             		<center><span class="produto-valor">R$ 20,00</span></center>
             	</div>
 
-            	<div class="col-lg-2 card-produtos">
+            	<div class="col-lg-2 card-produtos" onclick="selecionaProduto(2)">
             		<img src="https://www.supermercadosrondon.com.br/guiadecarnes/images/postagens/quer_fazer_hamburger_artesanal_perfeito_2019-05-14.jpg">
             		<center><span class="produto-titulo">HAMBÚRGUER</span></center>
             		<center><span class="produto-valor">R$ 30,00</span></center>
             	</div>
 
-            	<div class="col-lg-2 card-produtos">
+            	<div class="col-lg-2 card-produtos" onclick="selecionaProduto(3)">
             		<img src="https://www.supermercadosrondon.com.br/guiadecarnes/images/postagens/receita_facil_de_estrogonofe_de_carne_2019-05-21.jpg">
             		<center><span class="produto-titulo">ESTROGONOFE</span></center>
             		<center><span class="produto-valor">R$ 25,50</span></center>
@@ -139,7 +139,7 @@ use System\Session\Session;
 
 <div class="row">
 
-	<div class="card col-lg-12 content-div">
+	<div class="card col-lg-10 content-div">
 		<div class="card-body">
 	        <h5 class="card-title">
 	        	<i class="fas fa-piggy-bank" style="color:#00cc99"></i> 
@@ -147,7 +147,7 @@ use System\Session\Session;
 	        </h5>
             
             
-		    <table class="table tabela-ajustada" style="width:100%">
+		    <table class="table tabela-ajustada tabela-de-produto" style="width:100%">
 		        <thead>
 		            <tr>
 		            	<th>#</th>
@@ -159,44 +159,7 @@ use System\Session\Session;
 		            </tr>
 		        </thead>
 		     <tbody>
-		     	<tr>
-		     		<td><img class="img-produto-seleionado" src="https://www.ovale.com.br/_midias/jpg/2020/01/20/acai-883535.jpg"></td>
-		     		<td>AÇAÍ TRADICIONAL</td>
-		     		<td>R$ 20,00</td>
-		     		<td><input type="number" name="" class="campo-quantidade"></td>
-		     		<td>R$ 40,00</td>
-		     		<td>
-		     			<button class="btn-sm btn-link">
-		     			     <i class="fas fa-times" style="color:#cc0000;font-size:18px"></i>
-		     		    </button>
-		     		</td>
-		     	</tr>
-
-		     	<tr>
-		     		<td><img class="img-produto-seleionado" src="https://www.supermercadosrondon.com.br/guiadecarnes/images/postagens/as_7_melhores_carnes_para_churrasco_21-05-2019.jpg"></td>
-		     		<td>CARNE CHURRASCO</td>
-		     		<td>R$ 18,15</td>
-		     		<td><input type="number" name="" class="campo-quantidade"></td>
-		     		<td>R$ 18,15</td>
-		     		<td>
-		     			<button class="btn-sm btn-link">
-		     			     <i class="fas fa-times" style="color:#cc0000;font-size:18px"></i>
-		     		    </button>
-		     		</td>
-		     	</tr>
-
-		     	<tr>
-		     		<td><img class="img-produto-seleionado" src="https://cd.shoppub.com.br/cenourao/media/cache/7d/f4/7df4d5eff3efae9299961f143e281750.jpg"></td>
-		     		<td>GUARANÁ ANTÁRCTICA</td>
-		     		<td>R$ 3,49</td>
-		     		<td><input type="number" name="" class="campo-quantidade"></td>
-		     		<td>R$ 3,49</td>
-		     		<td>
-		     			<button class="btn-sm btn-link">
-		     			    <i class="fas fa-times" style="color:#cc0000;font-size:18px"></i>
-		     		    </button>
-		     		</td>
-		     	</tr>
+		     	
 		     </tbody>
 	        	
 	        <tfoot></tfoot>
@@ -205,9 +168,23 @@ use System\Session\Session;
 	    </div>
    </div>
 
+
+   <div class="card col-lg-2 content-div">
+		<div class="card-body">
+
+			<center>
+				<span>Total:</span> <br>
+			<span><b>R$ 100,00</b></span>
+			</center>
+	        
+            <button class="btn btn-sm btn-success">
+	            Confirmar    	   
+	        </button>
+
+	    </div>
+   </div>
+
 </div>
-
-
 
 <script src="<?php echo BASEURL;?>/public/assets/js/core/jquery.min.js"></script>
 <script type="text/javascript">
@@ -223,4 +200,48 @@ use System\Session\Session;
 
 		});
 	});
+
+	obtemProdutosDaMesa();
+
+	function selecionaProduto(id) {
+	   var rota = "<?php echo BASEURL;?>/venda/mesaDeProdutosParaVenda/"+id;
+	   $.get(rota, function(data, status) {
+	   	   
+	   	   $(".tabela-de-produto tbody").empty();
+	   	   obtemProdutosDaMesa();
+	   	 
+	   });
+	}
+
+    
+
+	function obtemProdutosDaMesa() {
+	   var rota = "<?php echo BASEURL;?>/venda/obtemProdutosDaMesa";
+	   $.get(rota, function(data, status) {
+
+	    var produto = JSON.parse(data);
+
+	   	   var t = "";
+
+	   	   $.each(produto, function(index, value) {
+
+	   	   	t += "<tr>";
+                
+                t += "<td>"+'<img class="img-produto-seleionado" src="'+value.imagem+'">'+"</td>";
+                t += "<td>"+value.produto+"</td>";
+                t += "<td>"+value.preco+"</td>";
+                t += "<td>"+'<input type="number" class="campo-quantidade" value="'+value.quantidade+'">'+"</td>";
+                
+
+            t += "</tr>";
+
+	   	   });
+
+	   	   $(".tabela-de-produto tbody").append(t);
+
+	   	
+	   });
+	}
+
+
 </script>

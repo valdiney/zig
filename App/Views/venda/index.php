@@ -173,7 +173,7 @@ use System\Session\Session;
 			<span><b>R$ 100,00</b></span>
 			</center>
 	        
-            <button class="btn btn-sm btn-success">
+            <button class="btn btn-sm btn-success" onclick="saveVendasViaSession()">
 	            Confirmar    	   
 	        </button>
 
@@ -199,4 +199,19 @@ use System\Session\Session;
 
 		});
 	});
+
+	function saveVendasViaSession() {
+		var rota = getDomain()+"/venda/saveVendasViaSession";
+
+		modalValidacao('Salvando', 'Processando...');
+		modalValidacaoClose();
+
+		$.post(rota, function(result) {
+			var status = JSON.parse(result);
+			if (status.status == true) {
+				$(".tabela-de-produto tbody").empty();
+				modalValidacao('Venda', 'Venda realizada com Sucesso!');
+			}
+		});
+	}
 </script>

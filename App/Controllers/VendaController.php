@@ -17,6 +17,7 @@ class VendaController extends Controller
 	protected $get;
 	protected $layout;
 	protected $idCliente;
+	protected $idUsuario;
 	protected $idPerfilUsuarioLogado;
 	
 	public function __construct()
@@ -27,6 +28,7 @@ class VendaController extends Controller
 		$this->post = new Post();
 		$this->get = new Get();
 		$this->idCliente = Session::get('idCliente');
+		$this->idUsuario = Session::get('idUsuario');
 		$this->idPerfilUsuarioLogado = Session::get('idPerfil');
 	}
 
@@ -75,11 +77,37 @@ class VendaController extends Controller
 	    }
 	}
 
+	public function saveVendasViaSession()
+	{
+		$status = false;
+		foreach ($_SESSION['venda'] as $produto) {
+			$dados = [
+				'id_usuario' => $this->idUsuario,
+				'id_meio_pagamento' => 1,
+				'id_cliente' => $this->idCliente,
+				'id_produto' => $produto['id'],
+				'preco' => formataValorMoedaParaGravacao($produto['preco']),
+				'quantidade' => $produto['quantidade'],
+				'valor' => formataValorMoedaParaGravacao($produto['total'])
+			];
+
+			$venda = new Venda();
+			try {
+		        $venda->save($dados);
+		        $status = true;
+
+		        unset($_SESSION['venda']);
+
+		    } catch(\Exception $e) { 
+			    dd($e->getMessage());
+		    }
+		}
+        
+		echo json_encode(['status' => $status]);
+	}
+
 	public function colocarProdutosNaMesa()
 	{
-		//unset($_SESSION['venda']);
-		//dd($_SESSION['venda']);
-		//exit;
 		if ($this->get->position(0)) {
 			$id = $this->get->position(0);
 

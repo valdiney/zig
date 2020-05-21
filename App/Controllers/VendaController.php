@@ -108,8 +108,13 @@ class VendaController extends Controller
 
 	public function obterProdutosDaMesa()
 	{
+		$posicaoProduto = $this->get->position(0);
 		if (isset($_SESSION['venda'])) {
-			echo json_encode($_SESSION['venda']);
+			if ($posicaoProduto == 'ultimo') {
+				echo json_encode(end($_SESSION['venda']));
+			} else {
+				echo json_encode($_SESSION['venda']);
+			}
 		} 
 	}
 

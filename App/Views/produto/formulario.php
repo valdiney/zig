@@ -21,7 +21,7 @@
 		    <div class="form-group">
 		        <label for="preco">R$ Preço *</label>
 		        <input type="text" class="form-control campo-moeda mypreco" name="preco" id="preco"
-		        value="<?php echo isset($produto->id) ? $produto->id : ''?>">
+		        value="<?php echo isset($produto->preco) ? $produto->preco : ''?>">
 		    </div>
 		</div>
 

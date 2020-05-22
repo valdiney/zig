@@ -136,13 +136,12 @@ use System\Session\Session;
 
 <div class="row">
 
-	<div class="card col-lg-10 content-div">
+	<div class="card col-lg-9 content-div">
 		<div class="card-body">
 	        <h5 class="card-title">
 	        	<i class="fas fa-piggy-bank" style="color:#00cc99"></i> 
 	        	Produtos selecionados
 	        </h5>
-            
             
 		    <table class="table tabela-ajustada tabela-de-produto" style="width:100%">
 		        <thead>
@@ -155,32 +154,37 @@ use System\Session\Session;
 		                <th>Ação</th>
 		            </tr>
 		        </thead>
-		     <tbody>
-		     	
-		     </tbody>
-	        	
-	        <tfoot></tfoot>
-	    </table>
-
+		        <tbody></tbody>
+	            <tfoot></tfoot>
+	        </table>
 	    </div>
    </div>
 
-   <div class="card col-lg-2 content-div">
-		<div class="card-body">
-
+   <div class="card col-lg-3 content-div" style="background:transparent;box-shadow:none;padding-right:0">
+		<div class="card-body" style="background:white;border-radius:10px;box-shadow:#deddd9 1px 2px 10px">
 			<center>
 				<span>Total:</span> <br>
-			<span><b>R$ 100,00</b></span>
+			    <span><b class="b-mostra-valor-total">R$ 100,00</b></span>
 			</center>
-	        
-            <button class="btn btn-sm btn-success" onclick="saveVendasViaSession()">
+		    <hr>
+		    <div class="form-group">
+		        <label for="id_meio_pagamento">Meios de pagamento *</label>
+		        <select class="form-control" name="id_meio_pagamento" id="id_meio_pagamento">
+		        	<?php foreach ($meiosPagamentos as $pagamento):?>
+		        		<option value="<?php echo $pagamento->id;?>">
+		        			<?php echo $pagamento->legenda;?>
+		        		</option>
+		        	<?php endforeach;?>
+		        </select>
+		    </div>
+			  
+            <button class="btn btn-sm btn-success btn-block" onclick="saveVendasViaSession()">
 	            Confirmar    	   
 	        </button>
-
 	    </div>
    </div>
 
-</div>
+</div><!--end row-->
 
 <script src="<?php echo BASEURL;?>/public/assets/js/core/jquery.min.js"></script>
 <script src="<?php echo BASEURL;?>/public/js/helpers.js"></script>

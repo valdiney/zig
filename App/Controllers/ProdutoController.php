@@ -40,6 +40,8 @@ class ProdutoController extends Controller
 			$produto = new Produto();
 			$dados = (array) $this->post->data();
 			$dados['id_cliente'] = $this->idCliente;
+			
+			$dados['preco'] = formataValorMoedaParaGravacao($dados['preco']);
 
 			$imagem = uploadImageHelper(
 				new UploadFiles(), 
@@ -68,6 +70,8 @@ class ProdutoController extends Controller
 			$dados = (array) $this->post->only([
 				'nome', 'preco', 'descricao'
 			]);
+
+			$dados['preco'] = formataValorMoedaParaGravacao($dados['preco']);
 
 			if ( ! empty($_FILES["imagem"]['name'])) {
 

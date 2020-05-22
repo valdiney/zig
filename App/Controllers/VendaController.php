@@ -123,10 +123,10 @@ class VendaController extends Controller
 				$_SESSION['venda'][$id] = [
 					'id' => $id, 
 					'produto' => $produto->nome,
-					'preco' => real($produto->preco),
+					'preco' => $produto->preco,
 					'imagem' => $produto->imagem,
 					'quantidade' => 1,
-					'total' => $produto->preco * 1
+					'total' => $produto->preco
 				];
 			}	
 		}
@@ -164,5 +164,18 @@ class VendaController extends Controller
 		if (isset($_SESSION['venda'])) {
 			unset($_SESSION['venda'][$id]);
 		}
+	}
+
+	public function teste()
+	{
+		 /*$total = 0;
+         foreach($_SESSION['venda'] as $produto) {
+         	$total += $produto['total'];
+
+         }*/
+
+         dd($_SESSION['venda']);
+
+
 	}
 }

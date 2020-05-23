@@ -9,12 +9,14 @@ O intuito é disponibilizar uma plataforma com módulos que facilite e potencial
 </p>
 
 # Módulos
-- [x] Criação de Usuários
-- [x] Login
+- [x] Login no Sistema
+- [x] Cadastro de Usuários
+- [x] Cadastro de Produtos
 - [x] PDV Padrão 
 - [x] PDV Diferencial
-- [ ] Dashboard
 - [x] Relatórios de vendas
+- [ ] Dashboard
+- [ ] Tela de Pedidos
 
 # Ponto de vendas Padrão
 <img src="https://raw.githubusercontent.com/valdiney/zig/master/prints/tela_de_venda.png"/>

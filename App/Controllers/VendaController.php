@@ -46,6 +46,9 @@ class VendaController extends Controller
 		$usuario = new Usuario();
 		$usuarios = $usuario->usuarios($this->idCliente, $this->idPerfilUsuarioLogado);
 
+		$produto = new Produto();
+		$produtos = $produto->produtos($this->idCliente);
+
 		$this->view('venda/index', $this->layout, 
 			compact(
 				'vendasGeralDoDia', 
@@ -53,7 +56,9 @@ class VendaController extends Controller
 				'usuarios',
 				'totalVendasNoDia',
 				'totalValorVendaPorMeioDePagamentoNoDia',
-				'totalVendaNoDiaAnterior'
+				'totalVendaNoDiaAnterior',
+
+				'produtos'
 			));
 	}
 

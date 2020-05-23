@@ -40,9 +40,14 @@ use System\Session\Session;
 
      .card-produtos {
      	margin-top:10px;
-       
         border-left:1px solid #dddddd;
      	padding:0;
+     	float:left;
+     }
+
+     .card-produtos:hover {
+     	opacity:0.80;
+     	cursor:pointer;
      }
 	.card-produtos img {
 		width:100px;
@@ -79,6 +84,26 @@ use System\Session\Session;
 		width:100px;
 		text-align:center;
 	}
+
+	.div-inter-produtos {
+		overflow-y: scroll;
+		height:160px;
+		padding-bottom:10px;
+	}
+
+	.div-inter-produtos::-webkit-scrollbar-track {
+        background-color:white;
+    }
+    .div-inter-produtos::-webkit-scrollbar {
+        width: 3px;
+        background:#f0f4f7;
+    }
+    .div-inter-produtos::-webkit-scrollbar-thumb {
+        background:#d0d9e1;
+    }
+    .div-inter-produtos::-webkit-input-placeholder {
+        color: #8198ac;
+    }
 </style>
 
 <div class="row">
@@ -87,48 +112,16 @@ use System\Session\Session;
 		<div class="card-body">
 	        <h5 class="card-title"><i class="fab fa-product-hunt" style="color:#99ccff"></i> Produtos</h5>
             
-            
             <div class="row div-inter-produtos">
-
-            	<div class="col-lg-2 card-produtos" onclick="colocarProdutosNaMesa(1)">
-            		<img src="https://www.ovale.com.br/_midias/jpg/2020/01/20/acai-883535.jpg">
-            		<center><span class="produto-titulo">AÇAÍ TRADICIONAL</span></center>
-            		<center><span class="produto-valor">R$ 20,00</span></center>
-            	</div>
-
-            	<div class="col-lg-2 card-produtos" onclick="colocarProdutosNaMesa(2)">
-            		<img src="https://www.supermercadosrondon.com.br/guiadecarnes/images/postagens/quer_fazer_hamburger_artesanal_perfeito_2019-05-14.jpg">
-            		<center><span class="produto-titulo">HAMBÚRGUER</span></center>
-            		<center><span class="produto-valor">R$ 30,00</span></center>
-            	</div>
-
-            	<div class="col-lg-2 card-produtos" onclick="colocarProdutosNaMesa(3)">
-            		<img src="https://www.supermercadosrondon.com.br/guiadecarnes/images/postagens/receita_facil_de_estrogonofe_de_carne_2019-05-21.jpg">
-            		<center><span class="produto-titulo">ESTROGONOFE</span></center>
-            		<center><span class="produto-valor">R$ 25,50</span></center>
-            	</div>
-
-            	<div class="col-lg-2 card-produtos">
-            		<img src="https://www.supermercadosrondon.com.br/guiadecarnes/images/postagens/as_7_melhores_carnes_para_churrasco_21-05-2019.jpg">
-            		<center><span class="produto-titulo">CARNE CHURRASCO</span></center>
-            		<center><span class="produto-valor">R$ 18,15</span></center>
-            	</div>
-
-            	<div class="col-lg-2 card-produtos">
-            		<img src="https://cd.shoppub.com.br/cenourao/media/cache/7d/f4/7df4d5eff3efae9299961f143e281750.jpg">
-            		<center><span class="produto-titulo">GUARANÁ ANTÁRCTICA</span></center>
-            		<center><span class="produto-valor">R$ 3,49</span></center>
-            	</div>
-
-            	<div class="col-lg-2 card-produtos">
-            		<img src="https://cd.shoppub.com.br/cenourao/media/cache/da/72/da726fa39f4f96fb59233dee32714d07.jpg">
-            		<center><span class="produto-titulo">REFRIGERANTE ZERO COCA-COLA</span></center>
-            		<center><span class="produto-valor">R$ 3,99</span></center>
-            	</div>
-            	
-            </div>
-		     
-
+                <?php foreach ($produtos as $key => $produto):?>
+	            	<div class="col-lg-2 card-produtos" onclick="colocarProdutosNaMesa('<?php echo $produto->id;?>')">
+	            		<img src="<?php echo $produto->imagem;?>">
+	            		<center><span class="produto-titulo"><?php echo mb_strtoupper($produto->nome);?></span></center>
+	            		<center><span class="produto-valor">R$ <?php echo real($produto->preco);?></span></center>
+	            	</div>
+                <?php endforeach;?>
+            </div><!--div-inter-produtos-->
+		   
 	    </div>
    </div>
 

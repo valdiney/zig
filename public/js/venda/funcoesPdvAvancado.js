@@ -2,7 +2,7 @@ obterProdutosDaMesa();
 obterValorTotalDosProdutosNaMesa();
 
 /*Acrescenta um produto a seleção de venda*/
-function colocarProdutosNaMesa(id) {
+function colocarProdutosNaMesa(id, item) {
    var rota = getDomain()+"/venda/colocarProdutosNaMesa/"+id;
    $.get(rota, function(data, status) {
    	   obterOultimoProdutoColocadoNaMesa('ultimo');

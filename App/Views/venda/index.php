@@ -12,7 +12,6 @@ use System\Session\Session;
 	    object-position:center;
 	    border-radius:50%;
 	}
-
 	@media only screen and (min-width: 600px) {
 	  #salvar-venda {
 	  	margin-top:25px;
@@ -28,6 +27,9 @@ use System\Session\Session;
 		padding-right:3px;
 	}
 
+
+
+
 	.tabela-ajustada tr td {
 		padding-top:2px!important;
 		padding-bottom:2px!important;
@@ -37,17 +39,20 @@ use System\Session\Session;
 		font-size:13px!important;
 
 	}
-
      .card-produtos {
      	margin-top:10px;
         border-left:1px solid #dddddd;
      	padding:0;
      	float:left;
      }
-
-     .card-produtos:hover {
-     	opacity:0.80;
+     .card-produtos img:hover {
      	cursor:pointer;
+     	border:1px solid #7fe3ca;
+     }
+     .card-produtos img:active {
+     	cursor:pointer;
+     	border:1px solid #7fe3ca;
+     	box-shadow:silver 1px 1px 3px;
      }
 	.card-produtos img {
 		width:100px;
@@ -56,6 +61,10 @@ use System\Session\Session;
 	    object-position:center;
 	    margin:0 auto;
 	    display:block;
+	    border-radius:50%;
+	    border:1px solid gray;
+	    padding:3px;
+	    background:white;
 	}
 	.produto-titulo {
 		font-size:11px!important;
@@ -84,13 +93,11 @@ use System\Session\Session;
 		width:100px;
 		text-align:center;
 	}
-
 	.div-inter-produtos {
 		overflow-y: scroll;
 		height:160px;
 		padding-bottom:10px;
 	}
-
 	.div-inter-produtos::-webkit-scrollbar-track {
         background-color:white;
     }
@@ -114,7 +121,8 @@ use System\Session\Session;
             
             <div class="row div-inter-produtos">
                 <?php foreach ($produtos as $key => $produto):?>
-	            	<div class="col-lg-2 card-produtos" onclick="colocarProdutosNaMesa('<?php echo $produto->id;?>')">
+	            	<div class="col-lg-2 card-produtos" 
+	            	onclick="colocarProdutosNaMesa('<?php echo $produto->id;?>', this)">
 	            		<img src="<?php echo $produto->imagem;?>">
 	            		<center><span class="produto-titulo"><?php echo mb_strtoupper($produto->nome);?></span></center>
 	            		<center><span class="produto-valor">R$ <?php echo real($produto->preco);?></span></center>
@@ -143,7 +151,7 @@ use System\Session\Session;
 		                <th>Produto</th>
 		                <th>Preço</th>
 		                <th>Quantidade</th>
-		                <th>Total</th>
+		                <th>SubTotal</th>
 		                <th>Ação</th>
 		            </tr>
 		        </thead>

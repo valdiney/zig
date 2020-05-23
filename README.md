@@ -11,7 +11,8 @@ O intuito é disponibilizar uma plataforma com módulos que facilite e potencial
 # Módulos
 - [x] Criação de Usuários
 - [x] Login
-- [x] Telas de vendas - [x] PDV Padrão - [x] PDV Diferencial
+- [x] PDV Padrão 
+- [x] PDV Diferencial
 - [ ] Dashboard
 - [x] Relatórios de vendas
 

@@ -19,7 +19,7 @@ O intuito é disponibilizar uma plataforma com módulos que facilite e potencial
 <img src="https://raw.githubusercontent.com/valdiney/zig/master/prints/tela_de_venda.png"/>
 
 # Ponto de vendas Diferencial
-<img src="https://raw.githubusercontent.com/valdiney/zig/produtosNaVenda/prints/tela_de_venda_diferencial.png"/>
+<img src="https://raw.githubusercontent.com/valdiney/zig/master/prints/tela_de_venda_diferencial.png"/>
 
 # Tela de Relatório de vendas por período
 <img src="https://raw.githubusercontent.com/valdiney/zig/master/prints/tela_de_relatorio_por_periodo.png"/>

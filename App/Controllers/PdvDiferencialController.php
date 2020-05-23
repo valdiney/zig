@@ -1,17 +1,17 @@
-<?php 
+<?php
 namespace App\Controllers;
 use System\Controller\Controller;
 use System\Post\Post;
 use System\Get\Get;
 use System\Session\Session;
 
+use App\Models\ConfigPdv;
 use App\Models\Venda;
 use App\Models\Usuario;
 use App\Models\MeioPagamento;
-
 use App\Models\Produto;
 
-class VendaController extends Controller
+class PdvDiferencialController extends Controller
 {
 	protected $post;
 	protected $get;
@@ -19,7 +19,7 @@ class VendaController extends Controller
 	protected $idCliente;
 	protected $idUsuario;
 	protected $idPerfilUsuarioLogado;
-	
+
 	public function __construct()
 	{
 		parent::__construct();
@@ -34,52 +34,17 @@ class VendaController extends Controller
 
 	public function index()
 	{
-		$venda = new Venda();
-		$vendasGeralDoDia = $venda->vendasGeralDoDia($this->idCliente, 10);
-		$totalVendasNoDia = $venda->totalVendasNoDia($this->idCliente);
-		$totalValorVendaPorMeioDePagamentoNoDia = $venda->totalValorVendaPorMeioDePagamentoNoDia($this->idCliente);
-		$totalVendaNoDiaAnterior = $venda->totalVendasNoDia($this->idCliente, decrementDaysFromDate(1));
-
 		$meioPagamanto = new MeioPagamento();
 		$meiosPagamentos = $meioPagamanto->all();
-
-		$usuario = new Usuario();
-		$usuarios = $usuario->usuarios($this->idCliente, $this->idPerfilUsuarioLogado);
 
 		$produto = new Produto();
 		$produtos = $produto->produtos($this->idCliente);
 
-		$this->view('venda/index', $this->layout, 
+		$this->view('pdv/diferencial', $this->layout, 
 			compact(
-				'vendasGeralDoDia', 
 				'meiosPagamentos',
-				'usuarios',
-				'totalVendasNoDia',
-				'totalValorVendaPorMeioDePagamentoNoDia',
-				'totalVendaNoDiaAnterior',
-
 				'produtos'
 			));
-	}
-
-	public function save()
-	{
-		if ($this->post->hasPost()) {
-			$dados = (array) $this->post->data();
-			$dados['id_cliente'] = $this->idCliente;
-            
-            # Preparar o valor da moeda para ser armazenado
-		    $dados['valor'] = formataValorMoedaParaGravacao($dados['valor']);
-		    
-		    try {
-		    	$venda = new Venda();
-				$venda->save($dados);
-				return $this->get->redirectTo("venda/index");
-
-			} catch(\Exception $e) { 
-			    dd($e->getMessage());
-		    }
-	    }
 	}
 
 	public function saveVendasViaSession()
@@ -183,10 +148,5 @@ class VendaController extends Controller
 		}
 	    
         echo json_encode(['total' => $total]);
-	}
-
-	public function teste()
-	{
-		
 	}
 }

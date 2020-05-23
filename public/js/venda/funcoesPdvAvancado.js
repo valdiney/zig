@@ -3,7 +3,7 @@ obterValorTotalDosProdutosNaMesa();
 
 /*Acrescenta um produto a seleção de venda*/
 function colocarProdutosNaMesa(id, item) {
-   var rota = getDomain()+"/venda/colocarProdutosNaMesa/"+id;
+   var rota = getDomain()+"/pdvDiferencial/colocarProdutosNaMesa/"+id;
    $.get(rota, function(data, status) {
    	   obterOultimoProdutoColocadoNaMesa('ultimo');
    });
@@ -14,7 +14,7 @@ Acessa a rota que entrega um json com os produtos que foram selecionados
 e popula a tabela HTMl com esses produtos
 */
 function obterProdutosDaMesa() {
-   var rota = getDomain()+"/venda/obterProdutosDaMesa";
+   var rota = getDomain()+"/pdvDiferencial/obterProdutosDaMesa";
 
    $.get(rota, function(data, status) {
    	    var t = "";
@@ -40,7 +40,7 @@ function obterProdutosDaMesa() {
 
 /*Obtem o ultimo produto selecionado para a venda.*/
 function obterOultimoProdutoColocadoNaMesa(posicao) {
-   var rota = getDomain()+"/venda/obterProdutosDaMesa/ultimo";
+   var rota = getDomain()+"/pdvDiferencial/obterProdutosDaMesa/ultimo";
 
    $.get(rota, function(data, status) {
    	    var t = "";
@@ -67,7 +67,7 @@ function obterOultimoProdutoColocadoNaMesa(posicao) {
 /*Acrescenta ou decrementa a quantidade de um produto*/
 function alterarAquantidadeDeUmProdutoNaMesa(id, quantidade) {
 	if (quantidade != 0 || quantidade != '') {
-		var rota = getDomain()+"/venda/alterarAquantidadeDeUmProdutoNaMesa/"+id+"/"+quantidade;
+		var rota = getDomain()+"/pdvDiferencial/alterarAquantidadeDeUmProdutoNaMesa/"+id+"/"+quantidade;
 	    $.get(rota, function(data, status) {
 	   	    $(".tabela-de-produto tbody").empty();
 	   	    obterProdutosDaMesa();
@@ -78,7 +78,7 @@ function alterarAquantidadeDeUmProdutoNaMesa(id, quantidade) {
 
 /*Retira um produto da seleção de venda*/
 function retirarProdutoDaMesa(id, item) {
-	var rota = getDomain()+"/venda/retirarProdutoDaMesa/"+id;
+	var rota = getDomain()+"/pdvDiferencial/retirarProdutoDaMesa/"+id;
 	$.get(rota, function(data, status) {
 	   	var tr = $(item).closest('tr');     
         tr.fadeOut(400, function() {              
@@ -97,7 +97,7 @@ Obtem o valor total de todos os produtos selecionados.
 Leva em concideração o valor sobre a quantidade de produtos.
 */
 function obterValorTotalDosProdutosNaMesa() {
-  var rota = getDomain()+"/venda/obterValorTotalDosProdutosNaMesa/";
+  var rota = getDomain()+"/pdvDiferencial/obterValorTotalDosProdutosNaMesa/";
   $(".b-mostra-valor-total").text('Carregando...');
 
   $.get(rota, function(data, status) {
@@ -108,7 +108,7 @@ function obterValorTotalDosProdutosNaMesa() {
 
 /*Salva os produtos selecionados, ou seja, realiza a venda de fato!*/
 function saveVendasViaSession() {
-    var rota = getDomain()+"/venda/saveVendasViaSession";
+    var rota = getDomain()+"/pdvDiferencial/saveVendasViaSession";
 
     modalValidacao('Salvando', 'Processando...');
     modalValidacaoClose();

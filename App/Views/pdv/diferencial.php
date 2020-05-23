@@ -140,7 +140,7 @@ use System\Session\Session;
 	<div class="card col-lg-9 content-div">
 		<div class="card-body">
 	        <h5 class="card-title">
-	        	<i class="fas fa-piggy-bank" style="color:#00cc99"></i> 
+	        	<i class="fas fa-coins" style="color:#00cc99"></i> 
 	        	Produtos selecionados
 	        </h5>
             

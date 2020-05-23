@@ -1,5 +1,8 @@
 <?php 
 use System\Session\Session;
+use App\Models\ConfigPdv;
+$configPdv = new ConfigPdv();
+$configPdv = $configPdv->ConfigPdv(Session::get('idCliente'));
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -53,6 +56,14 @@ use System\Session\Session;
     border-radius:10px;
     border:1px solid #dddddd;
   }
+  .tabela-ajustada tr td {
+    padding-top:2px!important;
+    padding-bottom:2px!important;
+    font-size:12px!important;
+  }
+  .tabela-ajustada th {
+    font-size:13px!important;
+  }
   </style>
 </head>
 
@@ -92,12 +103,28 @@ use System\Session\Session;
               <p>Usuários</p>
             </a>
           </li>
-
+          
           <li class="">
-            <a href="<?php echo BASEURL;?>/venda/index" 
-              class="<?php currentRouteFromMenu('venda/index');?>">
-              <i class="fas fa-piggy-bank" style="color:#00cc99"></i>
-              <p>Vendas</p>
+            <?php if ($configPdv->id_tipo_pdv == 1):?>
+                <a href="<?php echo BASEURL;?>/pdvPadrao/index" 
+                  class="<?php currentRouteFromMenu('pdvPadrao/index');?>">
+                  <i class="fas fa-coins" style="color:#00cc99"></i>
+                  <p>PDV</p>
+                </a>
+             <?php elseif($configPdv->id_tipo_pdv == 2):?>
+                <a href="<?php echo BASEURL;?>/pdvDiferencial/index" 
+                  class="<?php currentRouteFromMenu('pdvDiferencial/index');?>">
+                  <i class="fas fa-coins" style="color:#00cc99"></i>
+                  <p>PDV</p>
+                </a>
+             <?php endif;?>
+          </li>
+
+           <li class="">
+            <a href="<?php echo BASEURL;?>/produto/index" 
+              class="<?php currentRouteFromMenu('produto/index');?>">
+              <i class="fab fa-product-hunt" style="color:#99ccff"></i>
+              <p>Produtos</p>
             </a>
           </li>
 
@@ -112,8 +139,8 @@ use System\Session\Session;
 
           <!--<li class="active-pro">
             <a>
-              <i class="fas fa-syringe"></i>
-              <p>Saúde para todos</p>
+              <i class="fas fa-cogs" style="color:#c3c3c3"></i>
+              <p><p>Configurações</p></p>
             </a>
           </li>-->
 
@@ -153,7 +180,13 @@ use System\Session\Session;
                 </a>
                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
                   <!--<a class="dropdown-item" href="#">Meus dados</a>-->
-                  <a class="dropdown-item" href="login/logout">Sair do Sistema</a>
+                  <a class="dropdown-item" href="<?php echo BASEURL;?>/configuracao/index">
+                    <i class="fas fa-cogs"></i> Configurações
+                  </a>
+                  <a class="dropdown-item" href="login/logout">
+                    <i class="fas fa-sign-out-alt"></i> Sair do Sistema
+                  </a>
+
                 </div>
               </li>
             </ul>
@@ -202,7 +235,7 @@ use System\Session\Session;
 
   <script>
     $(function() {
-        jQuery('.campo-moeda')
+        jQuery('.campo-moeda, .mypreco')
         .maskMoney({
           prefix:'R$ ', 
           allowNegative: true, 
@@ -215,3 +248,8 @@ use System\Session\Session;
 </body>
 
 </html>
+
+<!--
+  Layout
+  https://demos.creative-tim.com/bs3/paper-dashboard/dashboard.html?_ga=2.109253573.1911018205.1590242535-1802779238.1590242535#
+-->

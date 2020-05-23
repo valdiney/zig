@@ -26,6 +26,26 @@ INSERT INTO `clientes` (`id`, `nome`, `created_at`, `updated_at`) VALUES
 	(1, 'Cliente Teste', '2020-04-23 21:36:33', '2020-04-23 21:36:33');
 /*!40000 ALTER TABLE `clientes` ENABLE KEYS */;
 
+-- Copiando estrutura para tabela syst.config_pdv
+CREATE TABLE IF NOT EXISTS `config_pdv` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `id_cliente` int(11) NOT NULL,
+  `id_tipo_pdv` int(11) NOT NULL DEFAULT '1',
+  `created_at` timestamp NOT NULL,
+  `updated_at` timestamp NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `FK_config_pdv_clientes` (`id_cliente`),
+  KEY `FK_config_pdv_tipo_pdv` (`id_tipo_pdv`),
+  CONSTRAINT `FK_config_pdv_clientes` FOREIGN KEY (`id_cliente`) REFERENCES `clientes` (`id`),
+  CONSTRAINT `FK_config_pdv_tipo_pdv` FOREIGN KEY (`id_tipo_pdv`) REFERENCES `tipos_pdv` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
+
+-- Copiando dados para a tabela syst.config_pdv: ~1 rows (aproximadamente)
+/*!40000 ALTER TABLE `config_pdv` DISABLE KEYS */;
+INSERT INTO `config_pdv` (`id`, `id_cliente`, `id_tipo_pdv`, `created_at`, `updated_at`) VALUES
+	(3, 1, 1, '2020-05-23 15:37:10', '2020-05-23 19:22:58');
+/*!40000 ALTER TABLE `config_pdv` ENABLE KEYS */;
+
 -- Copiando estrutura para tabela syst.meios_pagamentos
 CREATE TABLE IF NOT EXISTS `meios_pagamentos` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
@@ -35,7 +55,7 @@ CREATE TABLE IF NOT EXISTS `meios_pagamentos` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
 
--- Copiando dados para a tabela syst.meios_pagamentos: ~2 rows (aproximadamente)
+-- Copiando dados para a tabela syst.meios_pagamentos: ~3 rows (aproximadamente)
 /*!40000 ALTER TABLE `meios_pagamentos` DISABLE KEYS */;
 INSERT INTO `meios_pagamentos` (`id`, `legenda`, `created_at`, `updated_at`) VALUES
 	(1, 'Dinheiro', '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
@@ -60,6 +80,33 @@ INSERT INTO `perfis` (`id`, `descricao`, `created_at`, `updated_at`) VALUES
 	(4, 'Vendedor', '2020-04-25 00:53:32', '0000-00-00 00:00:00');
 /*!40000 ALTER TABLE `perfis` ENABLE KEYS */;
 
+-- Copiando estrutura para tabela syst.produtos
+CREATE TABLE IF NOT EXISTS `produtos` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `id_cliente` int(11) NOT NULL,
+  `nome` varchar(50) NOT NULL,
+  `preco` double NOT NULL DEFAULT '0',
+  `descricao` text,
+  `imagem` text,
+  `created_at` timestamp NOT NULL,
+  `updated_at` timestamp NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `FK_produtos_clientes` (`id_cliente`),
+  CONSTRAINT `FK_produtos_clientes` FOREIGN KEY (`id_cliente`) REFERENCES `clientes` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=latin1;
+
+-- Copiando dados para a tabela syst.produtos: ~7 rows (aproximadamente)
+/*!40000 ALTER TABLE `produtos` DISABLE KEYS */;
+INSERT INTO `produtos` (`id`, `id_cliente`, `nome`, `preco`, `descricao`, `imagem`, `created_at`, `updated_at`) VALUES
+	(1, 1, 'Açái Tradicional', 10.5, 'Tigela de Açaí tradicional!', 'public/imagem/produtos/1589923097.jpg', '2020-05-19 17:13:05', '2020-05-21 22:40:09'),
+	(2, 1, 'Açaí de Banana', 13, 'bghghg', 'public/imagem/produtos/1589919313.jpg', '2020-05-19 17:15:13', '2020-05-19 17:15:13'),
+	(3, 1, 'Dell Vale de Uva', 18, 'Néctar de Uva Del Valle 1 Litro', 'public/imagem/produtos/1589923950.jpg', '2020-05-19 18:32:30', '2020-05-19 18:32:30'),
+	(4, 1, 'Guaraná Antárctica', 3.49, '', 'public/imagem/produtos/1590197371.jpg', '2020-05-22 22:29:31', '2020-05-22 22:29:31'),
+	(5, 1, 'Refrigerante zero coca-cola', 3.99, '', 'public/imagem/produtos/1590197622.jpg', '2020-05-22 22:33:42', '2020-05-22 22:33:42'),
+	(6, 1, 'HAMBÚRGUER', 30, '', 'public/imagem/produtos/1590197749.jpg', '2020-05-22 22:35:49', '2020-05-22 22:35:49'),
+	(7, 1, 'ESTROGONOFE', 25, '', 'public/imagem/produtos/1590197916.jpg', '2020-05-22 22:38:36', '2020-05-22 22:38:36');
+/*!40000 ALTER TABLE `produtos` ENABLE KEYS */;
+
 -- Copiando estrutura para tabela syst.sexos
 CREATE TABLE IF NOT EXISTS `sexos` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
@@ -75,6 +122,22 @@ INSERT INTO `sexos` (`id`, `descricao`, `created_at`, `updated_at`) VALUES
 	(1, 'Masculino', '2020-02-21 14:08:58', '0000-00-00 00:00:00'),
 	(2, 'Feminino', '2020-02-21 14:09:09', '0000-00-00 00:00:00');
 /*!40000 ALTER TABLE `sexos` ENABLE KEYS */;
+
+-- Copiando estrutura para tabela syst.tipos_pdv
+CREATE TABLE IF NOT EXISTS `tipos_pdv` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `descricao` varchar(50) NOT NULL,
+  `created_at` timestamp NOT NULL,
+  `updated_at` timestamp NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
+
+-- Copiando dados para a tabela syst.tipos_pdv: ~2 rows (aproximadamente)
+/*!40000 ALTER TABLE `tipos_pdv` DISABLE KEYS */;
+INSERT INTO `tipos_pdv` (`id`, `descricao`, `created_at`, `updated_at`) VALUES
+	(1, 'Padrão', '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+	(2, 'Diferencial', '2020-05-23 17:02:09', '2020-05-23 17:02:09');
+/*!40000 ALTER TABLE `tipos_pdv` ENABLE KEYS */;
 
 -- Copiando estrutura para tabela syst.usuarios
 CREATE TABLE IF NOT EXISTS `usuarios` (
@@ -115,6 +178,9 @@ CREATE TABLE IF NOT EXISTS `vendas` (
   `id_usuario` int(11) NOT NULL,
   `id_meio_pagamento` int(11) NOT NULL,
   `id_cliente` int(11) NOT NULL,
+  `id_produto` int(11) DEFAULT NULL,
+  `preco` double DEFAULT '0',
+  `quantidade` int(11) DEFAULT NULL,
   `valor` double NOT NULL DEFAULT '0',
   `created_at` timestamp NOT NULL,
   `updated_at` timestamp NOT NULL,
@@ -125,53 +191,59 @@ CREATE TABLE IF NOT EXISTS `vendas` (
   CONSTRAINT `FK_vendas_clientes` FOREIGN KEY (`id_cliente`) REFERENCES `clientes` (`id`),
   CONSTRAINT `FK_vendas_meios_de_pagamento` FOREIGN KEY (`id_meio_pagamento`) REFERENCES `meios_pagamentos` (`id`),
   CONSTRAINT `FK_vendas_usuarios` FOREIGN KEY (`id_usuario`) REFERENCES `usuarios` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=60 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=127 DEFAULT CHARSET=latin1;
 
--- Copiando dados para a tabela syst.vendas: ~5 rows (aproximadamente)
+-- Copiando dados para a tabela syst.vendas: ~46 rows (aproximadamente)
 /*!40000 ALTER TABLE `vendas` DISABLE KEYS */;
-INSERT INTO `vendas` (`id`, `id_usuario`, `id_meio_pagamento`, `id_cliente`, `valor`, `created_at`, `updated_at`) VALUES
-	(1, 1, 1, 1, 11, '2020-04-25 01:58:13', '2020-04-25 01:58:13'),
-	(2, 1, 3, 1, 12, '2020-04-25 01:58:43', '2020-04-25 01:58:43'),
-	(3, 1, 2, 1, 50, '2020-04-25 01:59:08', '2020-04-25 01:59:08'),
-	(6, 38, 2, 1, 40, '2020-04-25 19:22:24', '2020-04-25 19:22:24'),
-	(8, 38, 3, 1, 20, '2020-04-25 20:35:46', '2020-04-25 20:35:46'),
-	(9, 38, 1, 1, 12, '2020-04-25 21:38:50', '2020-04-25 21:38:50'),
-	(10, 1, 1, 1, 10, '2020-04-25 21:47:54', '2020-04-25 21:47:54'),
-	(11, 38, 1, 1, 15, '2020-04-26 09:26:22', '2020-04-26 09:26:22'),
-	(12, 38, 2, 1, 30, '2020-04-26 09:28:52', '2020-04-26 09:28:52'),
-	(15, 38, 1, 1, 15, '2020-04-26 09:49:29', '2020-04-26 09:49:29'),
-	(16, 38, 3, 1, 16, '2020-04-26 09:49:55', '2020-04-26 09:49:55'),
-	(17, 1, 1, 1, 25, '2020-04-27 23:08:22', '2020-04-27 23:08:22'),
-	(18, 1, 2, 1, 20, '2020-04-27 23:09:58', '2020-04-27 23:09:58'),
-	(19, 38, 3, 1, 15, '2020-04-27 23:10:28', '2020-04-27 23:10:28'),
-	(20, 36, 1, 1, 15, '2020-04-27 23:11:56', '2020-04-27 23:11:56'),
-	(21, 1, 1, 1, 15, '2020-04-28 16:03:18', '2020-04-28 16:03:18'),
-	(22, 35, 2, 1, 50, '2020-04-28 16:04:06', '2020-04-28 16:04:06'),
-	(23, 36, 3, 1, 12, '2020-04-28 16:04:24', '2020-04-28 16:04:24'),
-	(24, 2, 1, 1, 12, '2020-04-28 17:20:26', '2020-04-28 17:20:26'),
-	(25, 1, 1, 1, 15, '2020-04-28 17:45:52', '2020-04-28 17:45:52'),
-	(26, 1, 1, 1, 15, '2020-05-01 20:02:12', '2020-05-01 20:02:12'),
-	(27, 35, 3, 1, 25, '2020-05-01 20:02:36', '2020-05-01 20:02:36'),
-	(28, 36, 2, 1, 50, '2020-05-01 20:03:39', '2020-05-01 20:03:39'),
-	(29, 36, 1, 1, 12, '2020-05-01 20:52:10', '2020-05-01 20:52:10'),
-	(30, 42, 1, 1, 30, '2020-05-01 21:12:46', '2020-05-01 21:12:46'),
-	(32, 1, 1, 1, 0, '2020-05-03 13:32:15', '2020-05-03 13:32:15'),
-	(33, 1, 1, 1, 25, '2020-05-03 13:53:42', '2020-05-03 13:53:42'),
-	(34, 1, 1, 1, 50, '2020-05-05 21:35:54', '2020-05-05 21:35:54'),
-	(35, 1, 3, 1, 15, '2020-05-05 21:36:48', '2020-05-05 21:36:48'),
-	(36, 35, 2, 1, 12, '2020-05-05 21:55:46', '2020-05-05 21:55:46'),
-	(37, 38, 2, 1, 50, '2020-05-05 21:57:05', '2020-05-05 21:57:05'),
-	(38, 1, 1, 1, 15, '2020-05-16 03:05:30', '2020-05-16 03:05:30'),
-	(39, 36, 3, 1, 10, '2020-05-16 03:06:11', '2020-05-16 03:06:11'),
-	(40, 1, 2, 1, 25, '2020-05-16 18:26:12', '2020-05-16 18:26:12'),
-	(41, 1, 3, 1, 12, '2020-05-17 18:41:09', '2020-05-17 18:41:09'),
-	(53, 1, 1, 1, 2445, '2020-05-18 22:09:49', '2020-05-18 22:09:49'),
-	(54, 1, 1, 1, 2445, '2020-05-18 22:10:36', '2020-05-18 22:10:36'),
-	(55, 1, 1, 1, 2445.85, '2020-05-18 22:15:01', '2020-05-18 22:15:01'),
-	(56, 1, 1, 1, 2440.8, '2020-05-18 22:16:09', '2020-05-18 22:16:09'),
-	(57, 1, 1, 1, 25, '2020-05-18 22:16:28', '2020-05-18 22:16:28'),
-	(58, 1, 1, 1, 15.45, '2020-05-18 22:17:17', '2020-05-18 22:17:17'),
-	(59, 1, 2, 1, 1000, '2020-05-18 22:23:19', '2020-05-18 22:23:19');
+INSERT INTO `vendas` (`id`, `id_usuario`, `id_meio_pagamento`, `id_cliente`, `id_produto`, `preco`, `quantidade`, `valor`, `created_at`, `updated_at`) VALUES
+	(1, 1, 1, 1, 0, 0, 0, 11, '2020-04-25 01:58:13', '2020-04-25 01:58:13'),
+	(2, 1, 3, 1, 0, 0, 0, 12, '2020-04-25 01:58:43', '2020-04-25 01:58:43'),
+	(3, 1, 2, 1, 0, 0, 0, 50, '2020-04-25 01:59:08', '2020-04-25 01:59:08'),
+	(6, 38, 2, 1, 0, 0, 0, 40, '2020-04-25 19:22:24', '2020-04-25 19:22:24'),
+	(8, 38, 3, 1, 0, 0, 0, 20, '2020-04-25 20:35:46', '2020-04-25 20:35:46'),
+	(9, 38, 1, 1, 0, 0, 0, 12, '2020-04-25 21:38:50', '2020-04-25 21:38:50'),
+	(10, 1, 1, 1, 0, 0, 0, 10, '2020-04-25 21:47:54', '2020-04-25 21:47:54'),
+	(11, 38, 1, 1, 0, 0, 0, 15, '2020-04-26 09:26:22', '2020-04-26 09:26:22'),
+	(12, 38, 2, 1, 0, 0, 0, 30, '2020-04-26 09:28:52', '2020-04-26 09:28:52'),
+	(15, 38, 1, 1, 0, 0, 0, 15, '2020-04-26 09:49:29', '2020-04-26 09:49:29'),
+	(16, 38, 3, 1, 0, 0, 0, 16, '2020-04-26 09:49:55', '2020-04-26 09:49:55'),
+	(17, 1, 1, 1, 0, 0, 0, 25, '2020-04-27 23:08:22', '2020-04-27 23:08:22'),
+	(18, 1, 2, 1, 0, 0, 0, 20, '2020-04-27 23:09:58', '2020-04-27 23:09:58'),
+	(19, 38, 3, 1, 0, 0, 0, 15, '2020-04-27 23:10:28', '2020-04-27 23:10:28'),
+	(20, 36, 1, 1, 0, 0, 0, 15, '2020-04-27 23:11:56', '2020-04-27 23:11:56'),
+	(21, 1, 1, 1, 0, 0, 0, 15, '2020-04-28 16:03:18', '2020-04-28 16:03:18'),
+	(22, 35, 2, 1, 0, 0, 0, 50, '2020-04-28 16:04:06', '2020-04-28 16:04:06'),
+	(23, 36, 3, 1, 0, 0, 0, 12, '2020-04-28 16:04:24', '2020-04-28 16:04:24'),
+	(24, 2, 1, 1, 0, 0, 0, 12, '2020-04-28 17:20:26', '2020-04-28 17:20:26'),
+	(25, 1, 1, 1, 0, 0, 0, 15, '2020-04-28 17:45:52', '2020-04-28 17:45:52'),
+	(26, 1, 1, 1, 0, 0, 0, 15, '2020-05-01 20:02:12', '2020-05-01 20:02:12'),
+	(27, 35, 3, 1, 0, 0, 0, 25, '2020-05-01 20:02:36', '2020-05-01 20:02:36'),
+	(28, 36, 2, 1, 0, 0, 0, 50, '2020-05-01 20:03:39', '2020-05-01 20:03:39'),
+	(29, 36, 1, 1, 0, 0, 0, 12, '2020-05-01 20:52:10', '2020-05-01 20:52:10'),
+	(30, 42, 1, 1, 0, 0, 0, 30, '2020-05-01 21:12:46', '2020-05-01 21:12:46'),
+	(32, 1, 1, 1, 0, 0, 0, 0, '2020-05-03 13:32:15', '2020-05-03 13:32:15'),
+	(33, 1, 1, 1, 0, 0, 0, 25, '2020-05-03 13:53:42', '2020-05-03 13:53:42'),
+	(34, 1, 1, 1, 0, 0, 0, 50, '2020-05-05 21:35:54', '2020-05-05 21:35:54'),
+	(35, 1, 3, 1, 0, 0, 0, 15, '2020-05-05 21:36:48', '2020-05-05 21:36:48'),
+	(36, 35, 2, 1, 0, 0, 0, 12, '2020-05-05 21:55:46', '2020-05-05 21:55:46'),
+	(37, 38, 2, 1, 0, 0, 0, 50, '2020-05-05 21:57:05', '2020-05-05 21:57:05'),
+	(38, 1, 1, 1, 0, 0, 0, 15, '2020-05-16 03:05:30', '2020-05-16 03:05:30'),
+	(39, 36, 3, 1, 0, 0, 0, 10, '2020-05-16 03:06:11', '2020-05-16 03:06:11'),
+	(40, 1, 2, 1, 0, 0, 0, 25, '2020-05-16 18:26:12', '2020-05-16 18:26:12'),
+	(41, 1, 3, 1, 0, 0, 0, 12, '2020-05-17 18:41:09', '2020-05-17 18:41:09'),
+	(53, 1, 1, 1, 0, 0, 0, 2445, '2020-05-18 22:09:49', '2020-05-18 22:09:49'),
+	(54, 1, 1, 1, 0, 0, 0, 2445, '2020-05-18 22:10:36', '2020-05-18 22:10:36'),
+	(55, 1, 1, 1, 0, 0, 0, 2445.85, '2020-05-18 22:15:01', '2020-05-18 22:15:01'),
+	(56, 1, 1, 1, 0, 0, 0, 2440.8, '2020-05-18 22:16:09', '2020-05-18 22:16:09'),
+	(57, 1, 1, 1, 0, 0, 0, 25, '2020-05-18 22:16:28', '2020-05-18 22:16:28'),
+	(58, 1, 1, 1, 0, 0, 0, 15.45, '2020-05-18 22:17:17', '2020-05-18 22:17:17'),
+	(59, 1, 2, 1, 0, 0, 0, 1000, '2020-05-18 22:23:19', '2020-05-18 22:23:19'),
+	(60, 1, 1, 1, 0, 0, 0, 1500, '2020-05-18 22:25:07', '2020-05-18 22:25:07'),
+	(61, 36, 3, 1, 0, 0, 0, 1250, '2020-05-18 22:28:53', '2020-05-18 22:28:53'),
+	(125, 1, 1, 1, 6, 30, 2, 60, '2020-05-23 01:32:46', '2020-05-23 01:32:46'),
+	(126, 1, 1, 1, 5, 3.99, 2, 7.98, '2020-05-23 01:32:47', '2020-05-23 01:32:47'),
+	(127, 1, 1, 1, 2, 13, 1, 13, '2020-05-23 18:50:07', '2020-05-23 18:50:07'),
+	(128, 1, 1, 1, NULL, 0, NULL, 5, '2020-05-23 18:52:59', '2020-05-23 18:52:59');
 /*!40000 ALTER TABLE `vendas` ENABLE KEYS */;
 
 /*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;

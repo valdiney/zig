@@ -8,15 +8,6 @@
 	    object-position:center;
 	    border-radius:50%;
 	}
-	.tabela-ajustada tr td {
-		padding-top:2px!important;
-		padding-bottom:2px!important;
-		font-size:12px;
-	}
-	.tabela-ajustada th {
-		font-size:13px!important;
-
-	}
 </style>
 
 <div class="row">

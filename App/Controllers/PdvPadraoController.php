@@ -1,22 +1,24 @@
-<?php 
+<?php
 namespace App\Controllers;
 use System\Controller\Controller;
 use System\Post\Post;
 use System\Get\Get;
 use System\Session\Session;
 
+use App\Models\ConfigPdv;
 use App\Models\Venda;
 use App\Models\Usuario;
 use App\Models\MeioPagamento;
 
-class VendaController extends Controller
+class PdvPadraoController extends Controller
 {
 	protected $post;
 	protected $get;
 	protected $layout;
 	protected $idCliente;
+	protected $idUsuario;
 	protected $idPerfilUsuarioLogado;
-	
+
 	public function __construct()
 	{
 		parent::__construct();
@@ -25,6 +27,7 @@ class VendaController extends Controller
 		$this->post = new Post();
 		$this->get = new Get();
 		$this->idCliente = Session::get('idCliente');
+		$this->idUsuario = Session::get('idUsuario');
 		$this->idPerfilUsuarioLogado = Session::get('idPerfil');
 	}
 
@@ -42,7 +45,7 @@ class VendaController extends Controller
 		$usuario = new Usuario();
 		$usuarios = $usuario->usuarios($this->idCliente, $this->idPerfilUsuarioLogado);
 
-		$this->view('venda/index', $this->layout, 
+		$this->view('pdv/padrao', $this->layout, 
 			compact(
 				'vendasGeralDoDia', 
 				'meiosPagamentos',
@@ -65,16 +68,11 @@ class VendaController extends Controller
 		    try {
 		    	$venda = new Venda();
 				$venda->save($dados);
-				return $this->get->redirectTo("venda/index");
+				return $this->get->redirectTo("pdvPadrao/index");
 
 			} catch(\Exception $e) { 
 			    dd($e->getMessage());
 		    }
 	    }
-	}
-
-	public function desfazerVenda()
-	{
-		
 	}
 }

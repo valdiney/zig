@@ -118,6 +118,7 @@ function saveVendasViaSession() {
       if (status.status == true) {
         $(".tabela-de-produto tbody").empty();
         verificaSeTemProdutosNaMesa(1);
+        obterValorTotalDosProdutosNaMesa();
         modalValidacao('Venda', 'Venda realizada com Sucesso!');
       }
     });

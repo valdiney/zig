@@ -83,12 +83,12 @@ class VendaController extends Controller
 		foreach ($_SESSION['venda'] as $produto) {
 			$dados = [
 				'id_usuario' => $this->idUsuario,
-				'id_meio_pagamento' => 1,
+				'id_meio_pagamento' => $this->post->data()->id_meio_pagamento,
 				'id_cliente' => $this->idCliente,
 				'id_produto' => $produto['id'],
-				'preco' => formataValorMoedaParaGravacao($produto['preco']),
+				'preco' => $produto['preco'],
 				'quantidade' => $produto['quantidade'],
-				'valor' => formataValorMoedaParaGravacao($produto['total'])
+				'valor' => $produto['total']
 			];
 
 			$venda = new Venda();
@@ -143,7 +143,9 @@ class VendaController extends Controller
 			} else {
 				echo json_encode($_SESSION['venda']);
 			}
-		} 
+		} else {
+			echo json_encode([]);
+		}
 	}
 
 	public function alterarAquantidadeDeUmProdutoNaMesa()
@@ -166,16 +168,20 @@ class VendaController extends Controller
 		}
 	}
 
+	public function obterValorTotalDosProdutosNaMesa()
+	{
+		$total = 0;
+		if (isset($_SESSION['venda'])) {
+		    foreach($_SESSION['venda'] as $produto) {
+		        $total += $produto['total'];
+		    }
+		}
+	    
+        echo json_encode(['total' => $total]);
+	}
+
 	public function teste()
 	{
-		 /*$total = 0;
-         foreach($_SESSION['venda'] as $produto) {
-         	$total += $produto['total'];
-
-         }*/
-
-         dd($_SESSION['venda']);
-
-
+		
 	}
 }

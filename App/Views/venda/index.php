@@ -147,8 +147,8 @@ use System\Session\Session;
 		        <thead>
 		            <tr>
 		            	<th>#</th>
-		                <th>Nome</th>
-		                <th>R$ Preço</th>
+		                <th>Produto</th>
+		                <th>Preço</th>
 		                <th>Quantidade</th>
 		                <th>Total</th>
 		                <th>Ação</th>
@@ -164,7 +164,7 @@ use System\Session\Session;
 		<div class="card-body" style="background:white;border-radius:10px;box-shadow:#deddd9 1px 2px 10px">
 			<center>
 				<span>Total:</span> <br>
-			    <span><b class="b-mostra-valor-total">R$ 100,00</b></span>
+			    <span><b class="b-mostra-valor-total">R$ 00,00</b></span>
 			</center>
 		    <hr>
 		    <div class="form-group">
@@ -179,7 +179,7 @@ use System\Session\Session;
 		    </div>
 			  
             <button class="btn btn-sm btn-success btn-block" onclick="saveVendasViaSession()">
-	            Confirmar    	   
+	            <i class="fas fa-save"></i> Confirmar    	   
 	        </button>
 	    </div>
    </div>
@@ -203,19 +203,4 @@ use System\Session\Session;
 
 		});
 	});
-
-	function saveVendasViaSession() {
-		var rota = getDomain()+"/venda/saveVendasViaSession";
-
-		modalValidacao('Salvando', 'Processando...');
-		modalValidacaoClose();
-
-		$.post(rota, function(result) {
-			var status = JSON.parse(result);
-			if (status.status == true) {
-				$(".tabela-de-produto tbody").empty();
-				modalValidacao('Venda', 'Venda realizada com Sucesso!');
-			}
-		});
-	}
 </script>

@@ -28,6 +28,7 @@ $route->route('VendaController', 'alterarAquantidadeDeUmProdutoNaMesa',  $logged
 $route->route('VendaController', 'retirarProdutoDaMesa',  $logged);
 
 $route->route('VendaController', 'saveVendasViaSession',  $logged);
+$route->route('VendaController', 'obterValorTotalDosProdutosNaMesa',  $logged);
 $route->route('VendaController', 'teste',  $logged);
 
 # ----- RelatorioController --------------------------------

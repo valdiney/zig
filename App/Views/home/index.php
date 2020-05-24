@@ -1,68 +1,174 @@
+<style>
+   
+   
+</style>
+
 <div class="row">
 
-	<div class="card col-lg-12 content-div">
-		<div class="card-body">
-	        <h5 class="card-title">Registro de pontos</h5>
-	    </div>
+    <div class="col-lg-3 col-md-6 col-sm-6">
+        <div class="card card-stats">
+          <div class="card-body ">
+            <div class="row">
+              <div class="col-5 col-md-4">
+                <div class="icon-big text-center icon-warning">
+                  <i class="fas fa-coins" style="color:#00cc99"></i>
+                </div>
+              </div>
+              <div class="col-7 col-md-8">
+                <div class="numbers">
+                  <p class="card-category" style="font-size:12px">Vendas do mês</p>
+                  <p class="card-title" style="font-size:15px">R$ 3.250,00<p>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="card-footer ">
+            <hr>
+            <div class="stats">
+              <i class="fa fa-refresh"></i>
+              Update Now
+            </div>
+          </div>
+        </div>
+      </div>
 
-		<table id="example" class="display table" style="width:100%">
-	        <thead>
-	            <tr>
-	                <th>Nome</th>
-	                <th>Entrada</th>
-	                <th>Inicio intervalo</th>
-	                <th>Fim intervalo</th>
-	                <th>Saida</th>
-	                <th>Data</th>
-	            </tr>
-	        </thead>
-	        <tbody>
-	            <tr>
-	                <td>Tiger Nixon</td>
-	                <td>System Architect</td>
-	                <td>Edinburgh</td>
-	                <td>61</td>
-	                <td>2011/04/25</td>
-	                <td>$320,800</td>
-	            </tr>
-	            <tr>
-	                <td>Garrett Winters</td>
-	                <td>Accountant</td>
-	                <td>Tokyo</td>
-	                <td>63</td>
-	                <td>2011/07/25</td>
-	                <td>$170,750</td>
-	            </tr>
-	            <tr>
-	                <td>Ashton Cox</td>
-	                <td>Junior Technical Author</td>
-	                <td>San Francisco</td>
-	                <td>66</td>
-	                <td>2009/01/12</td>
-	                <td>$86,000</td>
-	            </tr>
-	            <tr>
-	                <td>Cedric Kelly</td>
-	                <td>Senior Javascript Developer</td>
-	                <td>Edinburgh</td>
-	                <td>22</td>
-	                <td>2012/03/29</td>
-	                <td>$433,060</td>
-	            </tr>
-	            
-	        <tfoot>
-	            <!--<tr>
-	                <th>Name</th>
-	                <th>Position</th>
-	                <th>Office</th>
-	                <th>Age</th>
-	                <th>Start date</th>
-	                <th>Salary</th>
-	            </tr>-->
-	        </tfoot>
-	    </table>
+      <div class="col-lg-3 col-md-6 col-sm-6">
+        <div class="card card-stats">
+          <div class="card-body ">
+            <div class="row">
+              <div class="col-5 col-md-4">
+                <div class="icon-big text-center icon-warning">
+                  <i class="fas fa-coins" style="color:#fc9898"></i>
+                </div>
+              </div>
+              <div class="col-7 col-md-8">
+                <div class="numbers">
+                  <p class="card-category" style="font-size:12px">Vendas do dia</p>
+                  <p class="card-title" style="font-size:15px">R$ 1000,00<p>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="card-footer ">
+            <hr>
+            <div class="stats">
+              <i class="fa fa-refresh"></i>
+              Update Now
+            </div>
+          </div>
+        </div>
+      </div>
 
-    <br>
-	
-   </div>
+      <div class="col-lg-3 col-md-6 col-sm-6">
+        <div class="card card-stats">
+          <div class="card-body ">
+            <div class="row">
+              <div class="col-5 col-md-4">
+                <div class="icon-big text-center icon-warning">
+                  <i class="nc-icon nc-globe text-warning"></i>
+                </div>
+              </div>
+              <div class="col-7 col-md-8">
+                <div class="numbers">
+                  <p class="card-category">Capacity</p>
+                  <p class="card-title">150GB<p>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="card-footer ">
+            <hr>
+            <div class="stats">
+              <i class="fa fa-refresh"></i>
+              Update Now
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-lg-3 col-md-6 col-sm-6">
+        <div class="card card-stats">
+          <div class="card-body ">
+            <div class="row">
+              <div class="col-5 col-md-4">
+                <div class="icon-big text-center icon-warning">
+                  <i class="nc-icon nc-globe text-warning"></i>
+                </div>
+              </div>
+              <div class="col-7 col-md-8">
+                <div class="numbers">
+                  <p class="card-category">Capacity</p>
+                  <p class="card-title">150GB<p>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="card-footer ">
+            <hr>
+            <div class="stats">
+              <i class="fa fa-refresh"></i>
+              Update Now
+            </div>
+          </div>
+        </div>
+      </div>
+
+   
+
 </div>
+
+<div class="row">
+
+    <div class="col-lg-6 col-md-6 col-sm-6">
+        <div class="card card-stats">
+          <div class="card-body ">
+            <canvas class="grafico" id="grafico-tipo-pagamento" width="400" height="170"></canvas>
+          </div>
+          <div class="card-footer ">
+            <hr>
+            <div class="stats">
+              <i class="fa fa-refresh"></i>
+              Update Now
+            </div>
+          </div>
+        </div>
+      </div>
+
+       <div class="col-lg-6 col-md-6 col-sm-6">
+        <div class="card card-stats">
+          <div class="card-body ">
+            <canvas class="grafico" id="grafico" width="400" height="170"></canvas>
+          </div>
+          <div class="card-footer ">
+            <hr>
+            <div class="stats">
+              <i class="fa fa-refresh"></i>
+              Update Now
+            </div>
+          </div>
+        </div>
+      </div>
+    
+</div>
+
+<script src="<?php echo BASEURL;?>/public/assets/chartjs/dist/Chart.min.js"></script>
+
+<script type="text/javascript">
+var ctx = document.getElementById("grafico-tipo-pagamento").getContext('2d');
+var myChart = new Chart(ctx, {
+    type: 'doughnut',
+        data: {
+            labels: [
+                'Dinheiro',
+                'Credito',
+                'Debito'
+            ],
+            datasets: [{
+              backgroundColor: ['#83e6cd','#9be6e6','#ff9b9b'],
+              data: [
+                10, 20, 30
+              ]
+            }]
+        }
+    });
+</script>

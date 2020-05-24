@@ -24,7 +24,7 @@ $configPdv = $configPdv->ConfigPdv(Session::get('idCliente'));
 
   <link rel="stylesheet" type="text/css" href="<?php echo BASEURL;?>/public/assets/css/bootstrap.min.css">
   <link rel="stylesheet" type="text/css" href="<?php echo BASEURL;?>/public/assets/css/paper-dashboard.css?v=2.0.0')}}">
-  <link rel="stylesheet" type="text/css" href="<?php echo BASEURL;?>/public/assets/demo/demo.css">
+ 
 
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
 
@@ -69,7 +69,7 @@ $configPdv = $configPdv->ConfigPdv(Session::get('idCliente'));
 
 <body class="">
 
-  <div class="wrapper ">
+  <div class="wrapper">
 
     <div class="sidebar" data-color="white" data-active-color="danger">
       <div class="logo">

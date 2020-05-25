@@ -9,7 +9,7 @@ class Modal
         echo '<div class="modal-dialog '.$attributes['width'].'">';
         echo '<div class="modal-content">';
         echo '<div class="modal-header">';
-        echo '<h4 class="modal-title">'.$attributes['title'].'</h4>';
+        echo '<h4 class="modal-title" style="margin-top:0;padding-top:0">'.$attributes['title'].'</h4>';
         echo '<button type="button" class="close" data-dismiss="modal">&times;</button>';
         echo '</div>';
         echo '<div class="modal-body into-modal">';

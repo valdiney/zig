@@ -28,7 +28,7 @@
 	<div style="clear:both;"></div>
 	<hr>
 
-	<table class="table tabela-ajustada">
+	<table class="table tabela-ajustada table-striped">
 		<thead>
 			<tr>
 				<th>#</th>

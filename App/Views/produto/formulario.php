@@ -20,8 +20,8 @@
 		<div class="col-md-4">
 		    <div class="form-group">
 		        <label for="preco">R$ Preço *</label>
-		        <input type="text" class="form-control campo-moeda mypreco" name="preco" id="preco"
-		        value="<?php echo isset($produto->preco) ? $produto->preco : ''?>">
+		        <input type="text" class="form-control campo-moeda" name="preco" id="preco" placeholder="00,00"
+		        value="<?php echo isset($produto->preco) ? real($produto->preco) : ''?>">
 		    </div>
 		</div>
 
@@ -51,3 +51,15 @@
 		<i class="fas fa-save"></i> Salvar
 	</button>
 </form>
+
+ <script>
+    $(function() {
+        jQuery('.campo-moeda')
+        .maskMoney({
+          prefix:'R$ ', 
+          allowNegative: false, 
+          thousands:'.', decimal:',', 
+          affixesStay: false
+        });
+    });
+ </script>

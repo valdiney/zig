@@ -19,7 +19,7 @@
 	        <h5 class="card-title"><i class="fab fa-product-hunt" style="color:#99ccff"></i> Produtos</h5>
 	    </div>
 
-	    <table class="table tabela-ajustada" style="width:100%">
+	    <table class="table tabela-ajustada table-striped" style="width:100%">
 	        <thead>
 	            <tr>
 	            	<th>#</th>
@@ -104,9 +104,11 @@
         } else {
             url = rota;
         }
-        
+         
+        $("#formulario").html("<center><h3>Carregando...</h3></center>");
         $("#modalFormulario").modal({backdrop: 'static'});
-        load(url, 'formulario');
+        
+        $("#formulario").load(url);
     }
 
     function salvarProduto() {

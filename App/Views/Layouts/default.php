@@ -28,18 +28,6 @@ $configPdv = $configPdv->ConfigPdv(Session::get('idCliente'));
 
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
 
-  <meta name="author" content="Valdney França">
-  <meta property="og:url" content="http://escoladoarduino.com.br/comedataiot/">
-  <meta property="og:title" content="Comedataiot.">
-  <meta property="og:site_name" content="Dendêdev">
-  <meta property="og:description" content="Software para armazenagem e amostragem de dados para IoT">
-  <meta property="og:image" content="http://escoladoarduino.com.br/comedataiot/public/img/visualize_graficos.jpg">
-  <meta property="og:image:type" content="image/jpeg">
-  <meta property="og:image:width" content="800">
-  <meta property="og:image:height" content="600">
-  <meta property="og:type" content="website">
-  <meta name="mobile-web-app-capable" content="yes">
-
   <style>
   .disabled:hover {
     cursor:no-drop!important;
@@ -64,7 +52,11 @@ $configPdv = $configPdv->ConfigPdv(Session::get('idCliente'));
   .tabela-ajustada th {
     font-size:13px!important;
   }
+  .table-striped > tbody > tr:nth-child(2n+1) > td, .table-striped > tbody > tr:nth-child(2n+1) > th {
+    background-color:#fffcf5;
+  }
   </style>
+
 </head>
 
 <body class="">
@@ -109,13 +101,13 @@ $configPdv = $configPdv->ConfigPdv(Session::get('idCliente'));
                 <a href="<?php echo BASEURL;?>/pdvPadrao/index" 
                   class="<?php currentRouteFromMenu('pdvPadrao/index');?>">
                   <i class="fas fa-coins" style="color:#00cc99"></i>
-                  <p>PDV</p>
+                  <p>PDV <small style="float:right;opacity:0.50">Padrão</small></p>
                 </a>
              <?php elseif($configPdv->id_tipo_pdv == 2):?>
                 <a href="<?php echo BASEURL;?>/pdvDiferencial/index" 
                   class="<?php currentRouteFromMenu('pdvDiferencial/index');?>">
                   <i class="fas fa-coins" style="color:#00cc99"></i>
-                  <p>PDV</p>
+                  <p>PDV <small style="float:right;opacity:0.50">Diferencial</small></p>
                 </a>
              <?php endif;?>
           </li>
@@ -235,10 +227,10 @@ $configPdv = $configPdv->ConfigPdv(Session::get('idCliente'));
 
   <script>
     $(function() {
-        jQuery('.campo-moeda, .mypreco')
+        jQuery('.campo-moeda')
         .maskMoney({
           prefix:'R$ ', 
-          allowNegative: true, 
+          allowNegative: false, 
           thousands:'.', decimal:',', 
           affixesStay: false
         });

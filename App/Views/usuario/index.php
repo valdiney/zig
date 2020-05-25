@@ -18,7 +18,7 @@
 	        <h5 class="card-title"><i class="fas fa-users"></i> Usuários</h5>
 	    </div>
 
-	    <table id="example" class="display table" style="width:100%">
+	    <table id="example" class="table tabela-ajustada table-striped" style="width:100%">
 	        <thead>
 	            <tr>
 	            	<th>#</th>

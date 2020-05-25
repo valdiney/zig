@@ -1,0 +1,40 @@
+<?php
+namespace App\Rules;
+use System\Get\Get;
+use System\Session\Session;
+
+use App\Models\ConfigPdv;
+
+class AcessoAoTipoDePdv
+{
+    protected $get;
+
+    public function __construct()
+    {
+        $this->get = new Get();
+    }
+
+    public function validate()
+    {
+        $configPdv = new ConfigPdv();
+        $configPdv = $configPdv->findBy('id_cliente', Session::get('idCliente'));
+        $rotaAtual = CONTROLLER_NAME.'/'.METHOD_NAME;
+        
+        /*
+        * Se a configuração estiver setada para o PDV Diferencial e tentar acessar o PDV Padrão, 
+          redireciona para o PDV diferencial
+        */
+        if ($rotaAtual == 'PdvPadraoController/index' && $configPdv->id_tipo_pdv == 2) {
+            $this->get->redirectTo("pdvDiferencial/index");
+        
+        /*
+        * Se a configuração estiver setada para o PDV padrão e tentar acessar o PDV Diferencial, 
+          redireciona para o PDV padrão
+        */
+        } elseif ($rotaAtual == 'PdvDiferencialController/index' && $configPdv->id_tipo_pdv == 1) {
+            $this->get->redirectTo("pdvPadrao/index");
+        } 
+
+        return false;
+    }
+}

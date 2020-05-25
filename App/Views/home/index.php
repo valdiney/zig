@@ -1,7 +1,4 @@
-<style>
-   
-   
-</style>
+<?php use App\Views\Layouts\HtmlComponents\Charts\Doughnut;?>
 
 <div class="row">
 
@@ -152,23 +149,10 @@
 </div>
 
 <script src="<?php echo BASEURL;?>/public/assets/chartjs/dist/Chart.min.js"></script>
-
-<script type="text/javascript">
-var ctx = document.getElementById("grafico-tipo-pagamento").getContext('2d');
-var myChart = new Chart(ctx, {
-    type: 'doughnut',
-        data: {
-            labels: [
-                'Dinheiro',
-                'Credito',
-                'Debito'
-            ],
-            datasets: [{
-              backgroundColor: ['#83e6cd','#9be6e6','#ff9b9b'],
-              data: [
-                10, 20, 30
-              ]
-            }]
-        }
-    });
-</script>
+<?php Doughnut::start(
+    'grafico-tipo-pagamento',
+    [10, 20, 30],
+    ['Dinheiro', 'Credito', 'Debito'], 
+    ["#83e6cd","#9be6e6","#ffe6b5"]
+);
+?>

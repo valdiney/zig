@@ -11,6 +11,8 @@ use App\Models\Usuario;
 use App\Models\MeioPagamento;
 use App\Models\Produto;
 
+use App\Rules\AcessoAoTipoDePdv;
+
 class PdvDiferencialController extends Controller
 {
 	protected $post;
@@ -30,6 +32,9 @@ class PdvDiferencialController extends Controller
 		$this->idCliente = Session::get('idCliente');
 		$this->idUsuario = Session::get('idUsuario');
 		$this->idPerfilUsuarioLogado = Session::get('idPerfil');
+
+		$acessoAoTipoDePdv = new AcessoAoTipoDePdv();
+		$acessoAoTipoDePdv->validate();
 	}
 
 	public function index()

@@ -2,7 +2,7 @@
 use System\Session\Session;
 use App\Models\ConfigPdv;
 $configPdv = new ConfigPdv();
-$configPdv = $configPdv->ConfigPdv(Session::get('idCliente'));
+$configPdv = $configPdv->configPdv(Session::get('idCliente'));
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -56,7 +56,6 @@ $configPdv = $configPdv->ConfigPdv(Session::get('idCliente'));
     background-color:#fffcf5;
   }
   </style>
-
 </head>
 
 <body class="">
@@ -222,7 +221,6 @@ $configPdv = $configPdv->ConfigPdv(Session::get('idCliente'));
   <script src="<?php echo BASEURL;?>/public/assets/js/core/bootstrap.min.js"></script>
   <script src="<?php echo BASEURL;?>/public/assets/js/plugins/perfect-scrollbar.jquery.min.js"></script>
   <script src="<?php echo BASEURL;?>/public/js/helpers.js"></script>
-
   <script src="<?php echo BASEURL;?>/public/js/mask.js"></script>
 
   <script>

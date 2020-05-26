@@ -12,13 +12,11 @@ use System\Session\Session;
 	    object-position:center;
 	    border-radius:50%;
 	}
-
 	@media only screen and (min-width: 600px) {
 	  #salvar-venda {
 	  	margin-top:25px;
 	  }
 	}
-
 	.card-two {
 		margin-top:10px;
 		border-radius:3px;
@@ -27,7 +25,6 @@ use System\Session\Session;
 		padding-left:3px;
 		padding-right:3px;
 	}
-
 	.tabela-ajustada tr td {
 		padding-top:2px!important;
 		padding-bottom:2px!important;
@@ -35,7 +32,6 @@ use System\Session\Session;
 	}
 	.tabela-ajustada th {
 		font-size:13px!important;
-
 	}
 </style>
 
@@ -192,14 +188,15 @@ use System\Session\Session;
 <script type="text/javascript">
 	$(function() {
 		$('.salvar-venda').click(function() {
-
 			if ($('.valor').val() == '') {
 				modalValidacao('Validação', 'Campo (Valor) deve ser preenchido!');
 				return false;
 			}
 
-			return true;
+			modalValidacao('Salvando', 'Processando...');
+			$(".close").hide();
 
+			return true;
 		});
 	});
 </script>

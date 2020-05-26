@@ -13,8 +13,13 @@
               </div>
               <div class="col-7 col-md-8">
                 <div class="numbers">
-                  <p class="card-category" style="font-size:12px">Vendas do mês</p>
-                  <p class="card-title" style="font-size:15px">R$ 3.250,00<p>
+                  <p class="card-category" style="font-size:12px">Vendas deste mês</p>
+                  <p class="card-title" style="font-size:15px">
+                    R$ <?php echo real($faturamentoDeVandasNoMes);?> <br>
+                    <small style="font-size:11px;opacity:0.40">
+                      Mês de <?php echo mesesPorExtensoEnumeroDoMes(date('m'));?>
+                    </small>
+                  <p>
                 </div>
               </div>
             </div>
@@ -22,8 +27,8 @@
           <div class="card-footer ">
             <hr>
             <div class="stats">
-              <i class="fa fa-refresh"></i>
-              Update Now
+              <i class="fas fa-coins" style="color:#048e6d"></i>
+              <small>Mês anterior <b>R$ <?php echo real($faturamentoDeVandasMesAnterior);?></b></small>
             </div>
           </div>
         </div>
@@ -41,7 +46,12 @@
               <div class="col-7 col-md-8">
                 <div class="numbers">
                   <p class="card-category" style="font-size:12px">Vendas do dia</p>
-                  <p class="card-title" style="font-size:15px">R$ 1000,00<p>
+                  <p class="card-title" style="font-size:15px">
+                    R$ <?php echo real($faturamentoDeVandasNoDia);?> <br>
+                    <small style="font-size:11px;opacity:0.40">
+                      Hoje, <?php echo diaSemana(date('d/m/Y'));?>
+                    </small>
+                  <p>
                 </div>
               </div>
             </div>
@@ -49,8 +59,8 @@
           <div class="card-footer ">
             <hr>
             <div class="stats">
-              <i class="fa fa-refresh"></i>
-              Update Now
+              <i class="fas fa-coins" style="color:#cf7474"></i>
+              <small>Dia anterior <b>R$ <?php echo real($faturamentoDeVandasNoDiaAnterior);?></b></small>
             </div>
           </div>
         </div>

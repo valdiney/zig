@@ -10,6 +10,8 @@ use App\Models\Venda;
 use App\Models\Usuario;
 use App\Models\MeioPagamento;
 
+use App\Repositories\VendasDoDiaRepository;
+
 use App\Rules\AcessoAoTipoDePdv;
 
 class PdvPadraoController extends Controller
@@ -38,11 +40,18 @@ class PdvPadraoController extends Controller
 
 	public function index()
 	{
-		$venda = new Venda();
-		$vendasGeralDoDia = $venda->vendasGeralDoDia($this->idCliente, 10);
-		$totalVendasNoDia = $venda->totalVendasNoDia($this->idCliente);
-		$totalValorVendaPorMeioDePagamentoNoDia = $venda->totalValorVendaPorMeioDePagamentoNoDia($this->idCliente);
-		$totalVendaNoDiaAnterior = $venda->totalVendasNoDia($this->idCliente, decrementDaysFromDate(1));
+		$vendasDoDiaRepository = new VendasDoDiaRepository();
+
+		$vendasGeralDoDia = $vendasDoDiaRepository->vendasGeralDoDia($this->idCliente, 10);
+		$totalVendasNoDia = $vendasDoDiaRepository->totalVendasNoDia($this->idCliente);
+
+		$totalValorVendaPorMeioDePagamentoNoDia = $vendasDoDiaRepository->totalValorVendaPorMeioDePagamentoNoDia(
+			$this->idCliente
+		);
+
+		$totalVendaNoDiaAnterior = $vendasDoDiaRepository->totalVendasNoDia(
+			$this->idCliente, decrementDaysFromDate(1)
+		);
 
 		$meioPagamanto = new MeioPagamento();
 		$meiosPagamentos = $meioPagamanto->all();

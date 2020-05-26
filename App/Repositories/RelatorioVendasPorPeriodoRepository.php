@@ -4,10 +4,16 @@ use App\Models\Venda;
 
 class RelatorioVendasPorPeriodoRepository
 {
+    protected $venda;
+
+    public function __construct()
+    {
+        $venda = new Venda();
+        $this->venda = $venda;
+    }
+
 	public function vendasPorPeriodo(array $periodo, $idUsuario = false, $idCliente = false)
 	{
-		$venda = new Venda();
-
 		$de = $periodo['de'];
 		$ate = $periodo['ate'];
 
@@ -16,7 +22,7 @@ class RelatorioVendasPorPeriodoRepository
 			$queryPorUsuario = "AND vendas.id_usuario = {$idUsuario}";
 		}
 
-		$query = $venda->query("
+		$query = $this->venda->query("
 			SELECT vendas.id, vendas.valor, DATE_FORMAT(vendas.created_at, '%H:%i') AS hora,
 			DATE_FORMAT(vendas.created_at, '%d/%m/%Y') AS data,
             meios_pagamentos.legenda, usuarios.id, usuarios.nome, usuarios.imagem 
@@ -32,8 +38,6 @@ class RelatorioVendasPorPeriodoRepository
 
 	public function totalVendidoPorMeioDePagamento(array $periodo, $idUsuario = false, $idCliente = false)
     {
-    	$venda = new Venda();
-
         $de = $periodo['de'];
 		$ate = $periodo['ate'];
 
@@ -42,7 +46,7 @@ class RelatorioVendasPorPeriodoRepository
 			$queryPorUsuario = "AND vendas.id_usuario = {$idUsuario}";
 		}
 
-        $query = $venda->query(
+        $query = $this->venda->query(
             "SELECT meios_pagamentos.id AS idMeioPagamento, 
             meios_pagamentos.legenda, SUM(vendas.valor) AS totalVendas FROM vendas 
             INNER JOIN meios_pagamentos ON vendas.id_meio_pagamento = meios_pagamentos.id
@@ -56,8 +60,6 @@ class RelatorioVendasPorPeriodoRepository
 
     public function totalDasVendas(array $periodo, $idUsuario = false, $idCliente = false)
     {
-    	$venda = new Venda();
-
         $de = $periodo['de'];
 		$ate = $periodo['ate'];
 
@@ -66,7 +68,7 @@ class RelatorioVendasPorPeriodoRepository
 			$queryPorUsuario = "AND vendas.id_usuario = {$idUsuario}";
 		}
 
-        $query = $venda->query(
+        $query = $this->venda->query(
             "SELECT SUM(valor) AS totalVendas FROM vendas WHERE id_cliente = {$idCliente}
             AND DATE(vendas.created_at) BETWEEN '{$de}' AND '{$ate}' {$queryPorUsuario}"
         );

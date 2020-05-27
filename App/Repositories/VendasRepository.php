@@ -11,20 +11,20 @@ class VendasRepository
 		$this->venda = new Venda();
 	}
 
-	public function faturamentoDeVendasNoMes($mes, $ano, $idCliente)
+	public function faturamentoDeVendasNoMes($mes, $ano, $idEmpresa)
 	{
         $query = $this->venda->query(
-            "SELECT SUM(valor) AS faturamentoDeVendas FROM vendas WHERE id_cliente = {$idCliente}
+            "SELECT SUM(valor) AS faturamentoDeVendas FROM vendas WHERE id_empresa = {$idEmpresa}
             AND MONTH(created_at) = '{$mes}' AND YEAR(created_at) = '{$ano}'"
         );
 
         return $query[0]->faturamentoDeVendas;
 	}
 
-	public function faturamentoDeVendasNoDia($dia, $mes, $idCliente)
+	public function faturamentoDeVendasNoDia($dia, $mes, $idEmpresa)
 	{
         $query = $this->venda->query(
-            "SELECT SUM(valor) AS faturamentoDeVendas FROM vendas WHERE id_cliente = {$idCliente}
+            "SELECT SUM(valor) AS faturamentoDeVendas FROM vendas WHERE id_empresa = {$idEmpresa}
             AND DAY(created_at) = '{$dia}' AND MONTH(created_at) = '{$mes}'"
         );
 

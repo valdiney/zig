@@ -13,7 +13,7 @@ class ConfiguracaoController extends Controller
 	protected $post;
 	protected $get;
 	protected $layout;
-	protected $idCliente;
+	protected $idEmpresa;
 	protected $idUsuario;
 	protected $idPerfilUsuarioLogado;
 
@@ -24,7 +24,7 @@ class ConfiguracaoController extends Controller
 
 		$this->post = new Post();
 		$this->get = new Get();
-		$this->idCliente = Session::get('idCliente');
+		$this->idEmpresa = Session::get('idEmpresa');
 		$this->idUsuario = Session::get('idUsuario');
 		$this->idPerfilUsuarioLogado = Session::get('idPerfil');
 	}
@@ -35,7 +35,7 @@ class ConfiguracaoController extends Controller
 		$tiposPdv = $tipoPdv->tiposPdv();
 
 		$configPdv = new ConfigPdv();
-		$configPdv = $configPdv->ConfigPdv($this->idCliente);
+		$configPdv = $configPdv->ConfigPdv($this->idEmpresa);
 
 		$this->view('configuracao/index', $this->layout, 
 			compact(

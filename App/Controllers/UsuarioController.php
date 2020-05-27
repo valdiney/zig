@@ -16,7 +16,7 @@ class UsuarioController extends Controller
 	protected $post;
 	protected $get;
 	protected $layout;
-	protected $idCliente;
+	protected $idEmpresa;
 	
 	public function __construct()
 	{
@@ -25,13 +25,13 @@ class UsuarioController extends Controller
 
 		$this->post = new Post();
 		$this->get = new Get();
-		$this->idCliente = Session::get('idCliente');
+		$this->idEmpresa = Session::get('idEmpresa');
 	}
 
 	public function index()
 	{
 		$usuario = new Usuario();
-		$usuarios = $usuario->usuarios($this->idCliente);
+		$usuarios = $usuario->usuarios($this->idEmpresa);
 
 		$this->view('usuario/index', $this->layout, compact('usuarios'));
 	}

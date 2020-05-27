@@ -17,7 +17,7 @@ class AcessoAoTipoDePdv
     public function validate()
     {
         $configPdv = new ConfigPdv();
-        $configPdv = $configPdv->findBy('id_cliente', Session::get('idCliente'));
+        $configPdv = $configPdv->findBy('id_empresa', Session::get('idEmpresa'));
         $rotaAtual = CONTROLLER_NAME.'/'.METHOD_NAME;
         
         /*

@@ -16,7 +16,7 @@ class RelatorioController extends Controller
 	protected $post;
 	protected $get;
 	protected $layout;
-	protected $idCliente;
+	protected $idEmpresa;
 	protected $idPerfilUsuarioLogado;
 	
 	public function __construct()
@@ -26,7 +26,7 @@ class RelatorioController extends Controller
 
 		$this->post = new Post();
 		$this->get = new Get();
-		$this->idCliente = Session::get('idCliente');
+		$this->idEmpresa = Session::get('idEmpresa');
 		$this->idPerfilUsuarioLogado = Session::get('idPerfil');
 	}
 
@@ -38,7 +38,7 @@ class RelatorioController extends Controller
 	public function vendasPorPeriodo()
 	{
 		$usuario = new Usuario();
-		$usuarios = $usuario->usuarios($this->idCliente, $this->idPerfilUsuarioLogado);
+		$usuarios = $usuario->usuarios($this->idEmpresa, $this->idPerfilUsuarioLogado);
 
 		$this->view('relatorio/vendasPorPeriodo/index', $this->layout, compact('usuarios'));
 	}
@@ -61,19 +61,19 @@ class RelatorioController extends Controller
 			$vendas = $relatorioVendas->vendasPorPeriodo(
 				['de' => $de, 'ate' => $ate], 
 				$idUsuario,
-				$this->idCliente
+				$this->idEmpresa
 		     );
 
 			$meiosDePagamento = $relatorioVendas->totalVendidoPorMeioDePagamento(
 				['de' => $de, 'ate' => $ate], 
 				$idUsuario,
-				$this->idCliente
+				$this->idEmpresa
 			);
 
 			$totalDasVendas = $relatorioVendas->totalDasVendas(
 				['de' => $de, 'ate' => $ate], 
 				$idUsuario,
-				$this->idCliente
+				$this->idEmpresa
 			);
 		}
 

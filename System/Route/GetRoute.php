@@ -106,6 +106,13 @@ class GetRoute
     */
 	public function getBaseUrl()
 	{
-		return "http://".$_SERVER['HTTP_HOST'];
+		$protocol = "http";
+		if ( ! is_null(getenv('HTTPS'))) {
+			if (getenv('HTTPS') == 'true') {
+			    $protocol = "https";
+			} 
+		}
+		
+		return "{$protocol}://".$_SERVER['HTTP_HOST'];
 	}
 }

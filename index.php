@@ -12,12 +12,12 @@ require_once(__DIR__ . '/vendor/autoload.php');
 use System\Route\GetRoute;
 use System\Route\SelectController;
 
-# Load controllers
-$route = new SelectController(new GetRoute);
-
 # Load env configuration
 $dotenv = new Dotenv\Dotenv(__DIR__);
 $dotenv->load();
+
+# Load controllers
+$route = new SelectController(new GetRoute);
 
 session_start();
 

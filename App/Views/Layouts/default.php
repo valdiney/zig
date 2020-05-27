@@ -86,14 +86,6 @@ $configPdv = $configPdv->configPdv(Session::get('idEmpresa'));
               <p>Inicio</p>
             </a>
           </li>
-
-          <li class="">
-            <a href="<?php echo BASEURL;?>/usuario/index"
-              class="<?php currentRouteFromMenu('usuario/index');?>">
-              <i class="fas fa-users" style="color:#33cccc"></i>
-              <p>Usuários</p>
-            </a>
-          </li>
           
           <li class="">
             <?php if ($configPdv->id_tipo_pdv == 1):?>
@@ -111,7 +103,7 @@ $configPdv = $configPdv->configPdv(Session::get('idEmpresa'));
              <?php endif;?>
           </li>
 
-           <li class="">
+          <li class="">
             <a href="<?php echo BASEURL;?>/produto/index" 
               class="<?php currentRouteFromMenu('produto/index');?>">
               <i class="fab fa-product-hunt" style="color:#99ccff"></i>
@@ -119,7 +111,23 @@ $configPdv = $configPdv->configPdv(Session::get('idEmpresa'));
             </a>
           </li>
 
-           <li class="">
+          <li class="">
+            <a href="<?php echo BASEURL;?>/cliente/index" 
+              class="<?php currentRouteFromMenu('cliente/index');?>">
+              <i class="fas fa-user-tie" style="color:#ad54da"></i>
+              <p>Clientes</p>
+            </a>
+          </li>
+
+          <li class="">
+            <a href="<?php echo BASEURL;?>/pedido/index" 
+              class="<?php currentRouteFromMenu('pedido/index');?>">
+              <i class="fas fa-shopping-basket" style="color:#ff99cc"></i>
+              <p>Pedidos</p>
+            </a>
+          </li>
+
+          <li class="">
             <a href="<?php echo BASEURL;?>/relatorio/vendasPorPeriodo" 
               class="<?php currentRouteFromMenu('relatorio/index');?> 
               <?php currentRouteFromMenu('relatorio/vendasPorPeriodo');?>">
@@ -171,6 +179,11 @@ $configPdv = $configPdv->configPdv(Session::get('idEmpresa'));
                 </a>
                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
                   <!--<a class="dropdown-item" href="#">Meus dados</a>-->
+
+                  <a class="dropdown-item" href="<?php echo BASEURL;?>/usuario/index">
+                    <i class="fas fa-users"></i> Usuários
+                  </a>
+
                   <a class="dropdown-item" href="<?php echo BASEURL;?>/configuracao/index">
                     <i class="fas fa-cogs"></i> Configurações
                   </a>

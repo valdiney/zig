@@ -46,3 +46,9 @@ $route->route('PdvDiferencialController', 'alterarAquantidadeDeUmProdutoNaMesa',
 $route->route('PdvDiferencialController', 'retirarProdutoDaMesa',  $logged);
 $route->route('PdvDiferencialController', 'saveVendasViaSession',  $logged);
 $route->route('PdvDiferencialController', 'obterValorTotalDosProdutosNaMesa',  $logged);
+
+# ----- ClienteController --------------------------------
+$route->route('ClienteController', 'index',  $logged);
+
+# ----- PedidoController --------------------------------
+$route->route('PedidoController', 'index',  $logged);

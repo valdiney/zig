@@ -36,6 +36,7 @@ O intuito é disponibilizar uma plataforma com módulos que facilite e potencial
 ```TEXT
   APP_ENV=local
   TIMEZONE=America/Sao_Paulo
+  HTTPS=false
 
   DB_CONNECTION=mysql
   HOST_NAME=

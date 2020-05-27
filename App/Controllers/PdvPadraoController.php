@@ -19,7 +19,7 @@ class PdvPadraoController extends Controller
 	protected $post;
 	protected $get;
 	protected $layout;
-	protected $idCliente;
+	protected $idEmpresa;
 	protected $idUsuario;
 	protected $idPerfilUsuarioLogado;
 
@@ -30,7 +30,7 @@ class PdvPadraoController extends Controller
 
 		$this->post = new Post();
 		$this->get = new Get();
-		$this->idCliente = Session::get('idCliente');
+		$this->idEmpresa = Session::get('idEmpresa');
 		$this->idUsuario = Session::get('idUsuario');
 		$this->idPerfilUsuarioLogado = Session::get('idPerfil');
         
@@ -42,22 +42,22 @@ class PdvPadraoController extends Controller
 	{
 		$vendasDoDiaRepository = new VendasDoDiaRepository();
 
-		$vendasGeralDoDia = $vendasDoDiaRepository->vendasGeralDoDia($this->idCliente, 10);
-		$totalVendasNoDia = $vendasDoDiaRepository->totalVendasNoDia($this->idCliente);
+		$vendasGeralDoDia = $vendasDoDiaRepository->vendasGeralDoDia($this->idEmpresa, 10);
+		$totalVendasNoDia = $vendasDoDiaRepository->totalVendasNoDia($this->idEmpresa);
 
 		$totalValorVendaPorMeioDePagamentoNoDia = $vendasDoDiaRepository->totalValorVendaPorMeioDePagamentoNoDia(
-			$this->idCliente
+			$this->idEmpresa
 		);
 
 		$totalVendaNoDiaAnterior = $vendasDoDiaRepository->totalVendasNoDia(
-			$this->idCliente, decrementDaysFromDate(1)
+			$this->idEmpresa, decrementDaysFromDate(1)
 		);
 
 		$meioPagamanto = new MeioPagamento();
 		$meiosPagamentos = $meioPagamanto->all();
 
 		$usuario = new Usuario();
-		$usuarios = $usuario->usuarios($this->idCliente, $this->idPerfilUsuarioLogado);
+		$usuarios = $usuario->usuarios($this->idEmpresa, $this->idPerfilUsuarioLogado);
 
 		$this->view('pdv/padrao', $this->layout, 
 			compact(
@@ -74,7 +74,7 @@ class PdvPadraoController extends Controller
 	{
 		if ($this->post->hasPost()) {
 			$dados = (array) $this->post->data();
-			$dados['id_cliente'] = $this->idCliente;
+			$dados['id_empresa'] = $this->idEmpresa;
             
             # Preparar o valor da moeda para ser armazenado
 		    $dados['valor'] = formataValorMoedaParaGravacao($dados['valor']);

@@ -12,12 +12,12 @@ class VendasDoDiaRepository
 		$this->venda = $venda;
 	}
 
-	public function vendasGeralDoDia($idCliente, $quantidade = false)
+	public function vendasGeralDoDia($idEmpresa, $quantidade = false)
     {
         $data = date('Y-m-d');
-        $queryContidade = false;
+        $queryQuantidade = false;
         if ($quantidade) {
-            $queryContidade = "LIMIT {$quantidade}";
+            $queryQuantidade = "LIMIT {$quantidade}";
         }
         
     	return $this->venda->query(
@@ -27,26 +27,26 @@ class VendasDoDiaRepository
             FROM vendas INNER JOIN usuarios
             ON vendas.id_usuario =  usuarios.id
             INNER JOIN meios_pagamentos ON vendas.id_meio_pagamento = meios_pagamentos.id
-            WHERE vendas.id_cliente = {$idCliente} AND DATE(vendas.created_at) = '{$data}'
-            ORDER BY vendas.created_at DESC {$queryContidade}"
+            WHERE vendas.id_empresa = {$idEmpresa} AND DATE(vendas.created_at) = '{$data}'
+            ORDER BY vendas.created_at DESC {$queryQuantidade}"
     	);
     }
 
-    public function totalVendasNoDia($idCliente, $data = false)
+    public function totalVendasNoDia($idEmpresa, $data = false)
     {
         if ( ! $data) {
             $data = date('Y-m-d');
         }
 
         $query = $this->venda->query(
-            "SELECT SUM(valor) AS totalVendas FROM vendas WHERE id_cliente = {$idCliente}
+            "SELECT SUM(valor) AS totalVendas FROM vendas WHERE id_empresa = {$idEmpresa}
             AND DATE(created_at) = '{$data}'"
         );
 
         return $query[0]->totalVendas;
     }
 
-    public function totalValorVendaPorMeioDePagamentoNoDia($idCliente, $idMeioPagamento = false, $data = false)
+    public function totalValorVendaPorMeioDePagamentoNoDia($idEmpresa, $idMeioPagamento = false, $data = false)
     {
         if ( ! $data) {
             $data = date('Y-m-d');
@@ -56,7 +56,7 @@ class VendasDoDiaRepository
             $query = $this->venda->query(
                 "SELECT meios_pagamentos.legenda, SUM(vendas.valor) AS totalVendas FROM vendas 
                 INNER JOIN meios_pagamentos ON vendas.id_meio_pagamento = meios_pagamentos.id
-                WHERE vendas.id_cliente = {$idCliente} AND vendas.id_meio_pagamento = {$idMeioPagamento}
+                WHERE vendas.id_empresa = {$idEmpresa} AND vendas.id_meio_pagamento = {$idMeioPagamento}
                 AND DATE(vendas.created_at) = '{$data}'"
            );
            
@@ -67,7 +67,7 @@ class VendasDoDiaRepository
             "SELECT meios_pagamentos.id AS idMeioPagamento, 
             meios_pagamentos.legenda, SUM(vendas.valor) AS totalVendas FROM vendas 
             INNER JOIN meios_pagamentos ON vendas.id_meio_pagamento = meios_pagamentos.id
-            WHERE vendas.id_cliente = {$idCliente}
+            WHERE vendas.id_empresa = {$idEmpresa}
             AND DATE(vendas.created_at) = '{$data}'
             GROUP BY vendas.id_meio_pagamento"
         );

@@ -18,7 +18,7 @@ class PdvDiferencialController extends Controller
 	protected $post;
 	protected $get;
 	protected $layout;
-	protected $idCliente;
+	protected $idEmpresa;
 	protected $idUsuario;
 	protected $idPerfilUsuarioLogado;
 
@@ -29,7 +29,7 @@ class PdvDiferencialController extends Controller
 
 		$this->post = new Post();
 		$this->get = new Get();
-		$this->idCliente = Session::get('idCliente');
+		$this->idEmpresa = Session::get('idEmpresa');
 		$this->idUsuario = Session::get('idUsuario');
 		$this->idPerfilUsuarioLogado = Session::get('idPerfil');
 
@@ -43,7 +43,7 @@ class PdvDiferencialController extends Controller
 		$meiosPagamentos = $meioPagamanto->all();
 
 		$produto = new Produto();
-		$produtos = $produto->produtos($this->idCliente);
+		$produtos = $produto->produtos($this->idEmpresa);
 
 		$this->view('pdv/diferencial', $this->layout, 
 			compact(
@@ -59,7 +59,7 @@ class PdvDiferencialController extends Controller
 			$dados = [
 				'id_usuario' => $this->idUsuario,
 				'id_meio_pagamento' => $this->post->data()->id_meio_pagamento,
-				'id_cliente' => $this->idCliente,
+				'id_empresa' => $this->idEmpresa,
 				'id_produto' => $produto['id'],
 				'preco' => $produto['preco'],
 				'quantidade' => $produto['quantidade'],

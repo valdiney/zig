@@ -2,7 +2,7 @@
 use System\Session\Session;
 use App\Models\ConfigPdv;
 $configPdv = new ConfigPdv();
-$configPdv = $configPdv->configPdv(Session::get('idCliente'));
+$configPdv = $configPdv->configPdv(Session::get('idEmpresa'));
 ?>
 <!DOCTYPE html>
 <html lang="en">

@@ -6,7 +6,7 @@
 			<input type="hidden" name="id" value="<?php echo $usuario->id;?>">
 		<?php endif;?>
 
-		<input type="hidden" name="id_cliente" value="1">
+		<input type="hidden" name="id_empresa" value="1">
 
 		<div class="col-md-4">
 		    <div class="form-group">

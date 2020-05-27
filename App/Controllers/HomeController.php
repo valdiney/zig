@@ -13,7 +13,7 @@ class HomeController extends Controller
 	protected $get;
 	protected $layout;
 	protected $vendasRepository;
-	protected $idCliente;
+	protected $idEmpresa;
 	protected $idUsuario;
 	protected $idPerfilUsuarioLogado;
 	
@@ -25,7 +25,7 @@ class HomeController extends Controller
 		$this->post = new Post();
 		$this->get = new Get();
 
-		$this->idCliente = Session::get('idCliente');
+		$this->idEmpresa = Session::get('idEmpresa');
 		$this->idUsuario = Session::get('idUsuario');
 		$this->idPerfilUsuarioLogado = Session::get('idPerfil');
 	}
@@ -35,19 +35,19 @@ class HomeController extends Controller
 		$vendasRepository = new VendasRepository();
 
         $faturamentoDeVandasNoMes = $vendasRepository->faturamentoDeVendasNoMes(
-            date('m'), date('Y'), $this->idCliente
+            date('m'), date('Y'), $this->idEmpresa
         );
 
         $faturamentoDeVandasNoDia = $vendasRepository->faturamentoDeVendasNoDia(
-        	date('d'), date('m'), $this->idCliente
+        	date('d'), date('m'), $this->idEmpresa
         );
 
         $faturamentoDeVandasMesAnterior = $vendasRepository->faturamentoDeVendasNoMes(
-        	decrementMonthtFromDate(1), date('Y'), $this->idCliente
+        	decrementMonthtFromDate(1), date('Y'), $this->idEmpresa
         );
 
         $faturamentoDeVandasNoDiaAnterior = $vendasRepository->faturamentoDeVendasNoDia(
-            date('d', strtotime(decrementDaysFromDate(1))), date('m'), $this->idCliente
+            date('d', strtotime(decrementDaysFromDate(1))), date('m'), $this->idEmpresa
         );
 
 		$this->view('home/index', $this->layout, 

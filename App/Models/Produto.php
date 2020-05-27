@@ -13,10 +13,10 @@ class Produto extends Model
     	parent::__construct();
     }
 
-    public function produtos($idCliente)
+    public function produtos($idEmpresa)
     {
     	return $this->query(
-    		"SELECT * FROM produtos WHERE id_cliente = {$idCliente}"
+    		"SELECT * FROM produtos WHERE id_empresa = {$idEmpresa}"
     	);
     }
 }

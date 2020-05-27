@@ -14,7 +14,7 @@ class ProdutoController extends Controller
 	protected $post;
 	protected $get;
 	protected $layout;
-	protected $idCliente;
+	protected $idEmpresa;
 
 	public function __construct()
 	{
@@ -23,13 +23,13 @@ class ProdutoController extends Controller
 
 		$this->post = new Post();
 		$this->get = new Get();
-		$this->idCliente = Session::get('idCliente');
+		$this->idEmpresa = Session::get('idEmpresa');
 	}
 
 	public function index()
 	{
 		$produto = new Produto();
-		$produtos = $produto->produtos($this->idCliente);
+		$produtos = $produto->produtos($this->idEmpresa);
 
 		$this->view('produto/index', $this->layout, compact('produtos'));
 	}
@@ -39,7 +39,7 @@ class ProdutoController extends Controller
 		if ($this->post->hasPost()) {
 			$produto = new Produto();
 			$dados = (array) $this->post->data();
-			$dados['id_cliente'] = $this->idCliente;
+			$dados['id_empresa'] = $this->idEmpresa;
 			
 			$dados['preco'] = formataValorMoedaParaGravacao($dados['preco']);
 

@@ -49,6 +49,9 @@ $route->route('PdvDiferencialController', 'obterValorTotalDosProdutosNaMesa',  $
 
 # ----- ClienteController --------------------------------
 $route->route('ClienteController', 'index',  $logged);
+$route->route('ClienteController', 'modalFormulario',  $logged);
+$route->route('ClienteController', 'save',  $logged);
+$route->route('ClienteController', 'update',  $logged);
 
 # ----- PedidoController --------------------------------
 $route->route('PedidoController', 'index',  $logged);

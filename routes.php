@@ -53,5 +53,11 @@ $route->route('ClienteController', 'modalFormulario',  $logged);
 $route->route('ClienteController', 'save',  $logged);
 $route->route('ClienteController', 'update',  $logged);
 
+# ----- EnderecoController --------------------------------
+$route->route('ClienteEnderecoController', 'index',  $logged);
+$route->route('ClienteEnderecoController', 'save',  $logged);
+$route->route('ClienteEnderecoController', 'update',  $logged);
+$route->route('ClienteEnderecoController', 'modalFormulario',  $logged);
+
 # ----- PedidoController --------------------------------
 $route->route('PedidoController', 'index',  $logged);

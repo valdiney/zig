@@ -113,7 +113,8 @@ $configPdv = $configPdv->configPdv(Session::get('idEmpresa'));
 
           <li class="">
             <a href="<?php echo BASEURL;?>/cliente/index" 
-              class="<?php currentRouteFromMenu('cliente/index');?>">
+              class="<?php currentRouteFromMenu('cliente/index');?>
+              <?php currentRouteFromMenu('clienteEndereco/index');?>">
               <i class="fas fa-user-tie" style="color:#ad54da"></i>
               <p>Clientes</p>
             </a>

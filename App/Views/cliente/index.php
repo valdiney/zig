@@ -51,7 +51,10 @@
 								      	<i class="fas fa-edit"></i> Editar
 								    </button>
 
-							        <a class="dropdown-item"  href=""><i class="fas fa-map-marker-alt"></i> Endereços</a>
+							        <a class="dropdown-item"  
+							        href="<?php echo BASEURL;?>/ClienteEndereco/index/<?php echo in64($cliente->id);?>">
+							        	<i class="fas fa-map-marker-alt"></i> Endereços
+							        </a>
 
 							    </div>
 							  </div>

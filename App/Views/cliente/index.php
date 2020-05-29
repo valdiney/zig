@@ -13,9 +13,7 @@
 	            <tr>
 	                <th>Nome / Rasão Social</th>
 	                <th>Email</th>
-	                <th>CNPJ / CPF</th>
-	                <th>Telefone</th>
-	                <th>Celular</th>
+	                <th>Designação</th>
 	                <th>Segmento</th>
 	                <th style="text-align:right;padding-right:0">
 	                	<?php $rota = BASEURL.'/cliente/modalFormulario';?>
@@ -32,9 +30,8 @@
 		            <tr>
 		            	<td><?php echo $cliente->nome;?></td>
 		            	<td><?php echo $cliente->email;?></td>
-		            	<td><?php echo ($cliente->idClienteTipo == 1) ? $cliente->cpf : $cliente->cnpj;?></td>
-		            	<td><?php echo $cliente->telefone;?></td>
-		            	<td><?php echo $cliente->celular;?></td>
+		            	<td><?php echo $cliente->descricaoClienteTipo;?></td>
+		             
 		            	<td>
 		            		<?php
 		            		echo ! is_null($cliente->descricaoSegmento) ? 
@@ -49,10 +46,12 @@
 							    </button>
 							    <div class="dropdown-menu" aria-labelledby="btnGroupDrop1">
 
-							      <button class="dropdown-item" href="#" 
-							      onclick="modalFormularioClientes('<?php echo $rota;?>', '<?php echo $cliente->id;?>')">
-							      	<i class="fas fa-edit"></i> Editar
-							      </button>
+							    	<button class="dropdown-item" href="#" 
+								      onclick="modalFormularioClientes('<?php echo $rota;?>', '<?php echo $cliente->id;?>')">
+								      	<i class="fas fa-edit"></i> Editar
+								    </button>
+
+							        <a class="dropdown-item"  href=""><i class="fas fa-map-marker-alt"></i> Endereços</a>
 
 							    </div>
 							  </div>

@@ -63,17 +63,31 @@ class ClienteEnderecoController extends Controller
 
 	public function update()
 	{
-		# Escreva aqui...
+		$clienteEndereco = new ClienteEndereco();
+		$dadosClienteEndereco = $clienteEndereco->find($this->post->data()->id);
+		$dados = (array) $this->post->only([
+		    'cep', 'endereco', 'bairro', 'cidade', 
+		    'estado', 'numero', 'complemento'
+		]);
+
+		try {
+			$clienteEndereco->update($dados, $dadosClienteEndereco->id);
+			return $this->get->redirectTo("clienteEndereco/index", [in64($dadosClienteEndereco->id_cliente)]);
+
+		} catch(\Exception $e) { 
+		    dd($e->getMessage());
+    	}
 	}
 
 	public function modalFormulario()
 	{
 		$clienteEndereco = false;
 		$idCliente = $this->get->position(0);
+		$idEnderecoCliente = $this->get->position(1);
 		
-		if ($this->get->position(1)) {
+		if ($idEnderecoCliente) {
         	$clienteEndereco = new ClienteEndereco();
-		    $clienteEndereco = $clienterEndereco->find($this->get->position(0));
+		    $clienteEndereco = $clienteEndereco->find($idEnderecoCliente);
         }
 
 		$this->view('clienteEndereco/formulario', null, 

@@ -58,9 +58,10 @@
 									      <i class="fas fa-cogs"></i>
 									    </button>
 									    <div class="dropdown-menu" aria-labelledby="btnGroupDrop1">
-
+                                          
+                                          <?php $rota = BASEURL.'/clienteEndereco/modalFormulario';?>
 									      <button class="dropdown-item" href="#" 
-									      onclick="">
+									      onclick="modalFormularioEndereco('<?php echo $rota;?>', <?php echo $cliente->id;?>, <?php echo $endereco->id;?>);">
 									      	<i class="fas fa-edit"></i> Editar
 									      </button>
 

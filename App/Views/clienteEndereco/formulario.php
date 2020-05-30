@@ -34,7 +34,7 @@
 
 		<div class="col-md-4">
 		    <div class="form-group">
-		        <label for="numero">Número</label>
+		        <label for="numero">Número *</label>
 		        <input type="text" class="form-control" name="numero" id="numero" placeholder="Exemplo: 14-E" 
 		        value="<?php echo isset($clienteEndereco->id) ? $clienteEndereco->numero : ''?>">
 		    </div>
@@ -67,7 +67,8 @@
 
     </div><!--end row-->
 
-	<button type="submit" class="btn btn-success btn-sm" style="float:right">
+	<button type="submit" class="btn btn-success btn-sm" style="float:right"
+	onclick="return salvarEndereco()">
 		<i class="fas fa-save"></i> Salvar
 	</button>
 
@@ -91,4 +92,25 @@
 		<?php endif;?>
     <?php endif;?>
 	
+
+	 function salvarEndereco() {
+    	if ($('#cep').val() == '') {
+			modalValidacao('Validação', 'Campo (CEP) deve ser preenchido!');
+			return false;
+
+		} else if ($('#endereco').val() == '') {
+			modalValidacao('Validação', 'Campo (Endereço) deve ser preenchido!');
+			return false;
+
+		} else if ($('#bairro').val() == '') {
+			modalValidacao('Validação', 'Campo (Bairro) deve ser preenchido!');
+			return false;
+
+		} else if ($('#numero').val() == '') {
+			modalValidacao('Validação', 'Campo (Número) deve ser preenchido!');
+			return false;
+		}
+
+	    return true;
+    }
 </script>

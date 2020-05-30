@@ -121,17 +121,4 @@
         
         $("#formulario").load(url);
     }
-
-    function salvarProduto() {
-    	if ($('#nome').val() == '') {
-			modalValidacao('Validação', 'Campo (Nome) deve ser preenchido!');
-			return false;
-
-		} else if ($('#preco').val() == '') {
-			modalValidacao('Validação', 'Campo (Preço) deve ser preenchido!');
-			return false;
-		}
-
-	    return true;
-    }
 </script>

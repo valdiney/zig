@@ -97,4 +97,15 @@ class ClienteController extends Controller
 				'clientesSegmentos'
 			));
 	}
+
+	public function verificaSeEmailExiste()
+	{
+		$cliente = new Cliente();
+		
+		if ($cliente->verificaSeEmailExiste(out64($this->get->position(0)))) {
+			echo json_encode(['status' => true]);
+		} else {
+			echo json_encode(['status' => false]);
+		}
+	}
 }

@@ -63,7 +63,7 @@ function uploadImageHelper($uploadClass, $folder, $image) {
 }
 
 function in64($string) {
-    $string = "jovemMantisfgbvfbbg656565fgffgfgfg_".$string;
+    $string = "atzxyzendMosterw_".$string;
     return base64_encode($string);
 }
 

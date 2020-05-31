@@ -24,4 +24,34 @@ class Cliente extends Model
 			LEFT JOIN clientes_tipos AS ct ON cl.id_cliente_tipo = ct.id
 			WHERE cl.id_empresa = {$idEmpresa}");
     }
+
+    public function verificaSeEmailExiste($email)
+    {
+        $query = $this->query("SELECT * FROM clientes WHERE email = '{$email}'");
+        if (count($query) > 0) {
+            return true;
+        }
+
+        return false;
+    }
+
+    public function cnpjExiste($email)
+    {
+        $query = $this->query("SELECT * FROM clientes WHERE cnpj = {$cnpj}");
+        if (count($query) > 0) {
+            return true;
+        }
+
+        return false;
+    }
+
+    public function cpfExiste($cep)
+    {
+        $query = $this->query("SELECT * FROM clientes WHERE email = {$cep}");
+        if (count($query) > 0) {
+            return true;
+        }
+
+        return false;
+    }
 }

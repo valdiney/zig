@@ -53,6 +53,8 @@ $route->route('ClienteController', 'modalFormulario',  $logged);
 $route->route('ClienteController', 'save',  $logged);
 $route->route('ClienteController', 'update',  $logged);
 
+$route->route('ClienteController', 'verificaSeEmailExiste',  $logged);
+
 # ----- EnderecoController --------------------------------
 $route->route('ClienteEnderecoController', 'index',  $logged);
 $route->route('ClienteEnderecoController', 'save',  $logged);

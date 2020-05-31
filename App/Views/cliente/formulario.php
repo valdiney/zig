@@ -16,9 +16,10 @@
 
 		<div class="col-md-4">
 		    <div class="form-group">
-		        <label for="email">E-mail *</label>
+		        <label for="email" class="label-email">E-mail *</label>
 		        <input type="text" class="form-control" name="email" id="email" placeholder="Digite o e-mail!" 
-		        value="<?php echo isset($cliente->id) ? $cliente->email : ''?>">
+		        value="<?php echo isset($cliente->id) ? $cliente->email : ''?>"
+		        onchange="verificaSeEmailExiste(this)">
 		    </div>
 		</div>
 
@@ -99,7 +100,7 @@
 
     </div><!--end row-->
 
-	<button type="submit" class="btn btn-success btn-sm" style="float:right"
+	<button type="submit" class="btn btn-success btn-sm button-salvar-clientes" style="float:right"
 	onclick="return salvarClientes()">
 		<i class="fas fa-save"></i> Salvar
 	</button>
@@ -152,5 +153,19 @@
 
 	    return true;
     }
-	
+
+    function verificaSeEmailExiste(email) {
+    	var rota = getDomain()+"/cliente/verificaSeEmailExiste/"+in64(email.value);
+    	$.get(rota, function(data, status) {
+    		var retorno = JSON.parse(data);
+    		if (retorno.status == true) {
+    			modalValidacao('Validação', 'Este Email já existe! Por favor, informe outro!');
+    			$('.button-salvar-clientes').attr('disabled', 'disabled');
+    			$('.label-email').html('E-mail * <small style="color:#cc0000!important">Este Email já existe!</small>');
+    		} else {
+    			$('.button-salvar-clientes').attr('disabled', false);
+    			$('.label-email').html('E-mail *');
+    		}
+    	});
+    }
 </script>

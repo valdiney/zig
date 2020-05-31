@@ -74,8 +74,8 @@
 
 </form>
 
+<script src="<?php echo BASEURL;?>/public/js/maskedInput.js"></script>
 <script>
-	
 	<?php if (isset($cliente->id)):?>
 		<?php if ($cliente->id_cliente_tipo == 1):?>
 
@@ -113,4 +113,8 @@
 
 	    return true;
     }
+	
+	jQuery(function($){
+	    jQuery("#cep").mask("99.999-999");
+	});
 </script>

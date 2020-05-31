@@ -54,6 +54,8 @@ $route->route('ClienteController', 'save',  $logged);
 $route->route('ClienteController', 'update',  $logged);
 
 $route->route('ClienteController', 'verificaSeEmailExiste',  $logged);
+$route->route('ClienteController', 'verificaSeCnpjExiste',  $logged);
+$route->route('ClienteController', 'verificaSeCpfExiste',  $logged);
 
 # ----- EnderecoController --------------------------------
 $route->route('ClienteEnderecoController', 'index',  $logged);

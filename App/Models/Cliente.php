@@ -35,9 +35,9 @@ class Cliente extends Model
         return false;
     }
 
-    public function cnpjExiste($email)
+    public function verificaSeCnpjExiste($cnpj)
     {
-        $query = $this->query("SELECT * FROM clientes WHERE cnpj = {$cnpj}");
+        $query = $this->query("SELECT * FROM clientes WHERE cnpj = '{$cnpj}'");
         if (count($query) > 0) {
             return true;
         }
@@ -45,9 +45,9 @@ class Cliente extends Model
         return false;
     }
 
-    public function cpfExiste($cep)
+    public function verificaSeCpfExiste($cpf)
     {
-        $query = $this->query("SELECT * FROM clientes WHERE email = {$cep}");
+        $query = $this->query("SELECT * FROM clientes WHERE cpf = '{$cpf}'");
         if (count($query) > 0) {
             return true;
         }

@@ -101,8 +101,27 @@ class ClienteController extends Controller
 	public function verificaSeEmailExiste()
 	{
 		$cliente = new Cliente();
-		
 		if ($cliente->verificaSeEmailExiste(out64($this->get->position(0)))) {
+			echo json_encode(['status' => true]);
+		} else {
+			echo json_encode(['status' => false]);
+		}
+	}
+
+	public function verificaSeCnpjExiste()
+	{
+		$cliente = new Cliente();
+		if ($cliente->verificaSeCnpjExiste(out64($this->get->position(0)))) {
+			echo json_encode(['status' => true]);
+		} else {
+			echo json_encode(['status' => false]);
+		}
+	}
+
+	public function verificaSeCpfExiste() 
+	{
+		$cliente = new Cliente();
+		if ($cliente->verificaSeCpfExiste(out64($this->get->position(0)))) {
 			echo json_encode(['status' => true]);
 		} else {
 			echo json_encode(['status' => false]);

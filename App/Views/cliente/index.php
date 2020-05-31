@@ -93,19 +93,4 @@
         $("#modalClientes").modal({backdrop: 'static'});
         $("#formulario").load(url);
     }
-
-    
-	function selecionarTipoDeCliente(item) {
-		var tipo = item.value;
-		if (tipo == 1) {
-			$("#cnpj").attr('disabled','disabled');
-			$("#id_cliente_segmento").attr('disabled','disabled');
-			$("#cpf").attr('disabled', false);
-		} else if (tipo == 2) {
-			$("#cnpj").attr('disabled', false);
-			$("#id_cliente_segmento").attr('disabled', false);
-			$("#cpf").attr('disabled', 'disabled');
-		}
-	}
-
 </script>

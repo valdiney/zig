@@ -16,7 +16,7 @@
 
 		<div class="col-md-4">
 		    <div class="form-group">
-		        <label for="email" class="label-email">E-mail *</label>
+		        <label for="email">E-mail * <span class="label-email"></span></label>
 		        <input type="text" class="form-control" name="email" id="email" placeholder="Digite o e-mail!" 
 		        value="<?php echo isset($cliente->id) ? $cliente->email : ''?>"
 		        onchange="verificaSeEmailExiste(this)">
@@ -65,17 +65,19 @@
 
 		<div class="col-md-4">
 		    <div class="form-group">
-		        <label for="cnpj">CNPJ *</label>
+		        <label for="cnpj">CNPJ * <span class="label-cnpj"></span></label>
 		        <input type="text" class="form-control" name="cnpj" id="cnpj" placeholder="Digite o CNPJ" 
-		        value="<?php echo isset($cliente->id) ? $cliente->cnpj : ''?>">
+		        value="<?php echo isset($cliente->id) ? $cliente->cnpj : ''?>"
+		        onchange="verificaSeCnpjExiste(this)">
 		    </div>
 		</div>
 
 		<div class="col-md-4">
 		    <div class="form-group">
-		        <label for="cpf">CPF *</label>
+		        <label for="cpf">CPF * <span class="label-cpf"></span></label>
 		        <input type="text" class="form-control" name="cpf" id="cpf" placeholder="Digite o CPF" 
-		        value="<?php echo isset($cliente->id) ? $cliente->cpf : ''?>">
+		        value="<?php echo isset($cliente->id) ? $cliente->cpf : ''?>"
+		        onchange="verificaSeCpfExiste(this)">
 		    </div>
 		</div>
 
@@ -125,8 +127,38 @@
 		<?php endif;?>
     <?php endif;?>
 
+    function selecionarTipoDeCliente(item) {
+		var tipo = item.value;
+		if (tipo == 1) {
+			$("#cnpj").attr('disabled','disabled');
+            
+            /*
+            Se verificou que CNPJ existe, mas depois trocou de pessoa juridica para pessoa fisica, 
+            desfaz as mudanças imposta sobre os elementos do formulario em consequencia do CNPJ existente.
+            */
+			if ($("#cnpj").val() != '') {
+				$("#cnpj").val('');
+				$('.button-salvar-clientes').attr('disabled', false);
+				$('.label-cnpj').html('');
+			}
+
+			if ($("#cpf").val() != '') {
+				$("#cpf").val('');
+				$('.button-salvar-clientes').attr('disabled', false);
+				$('.label-cpf').html('');
+			}
+			
+			$("#id_cliente_segmento").attr('disabled','disabled');
+			$("#cpf").attr('disabled', false);
+		} else if (tipo == 2) {
+			$("#cnpj").attr('disabled', false);
+			$("#id_cliente_segmento").attr('disabled', false);
+			$("#cpf").attr('disabled', 'disabled');
+		}
+	}
+
     jQuery(function($){
-	    jQuery("#cnpj").mask("99.999-999/9999-99");
+	    jQuery("#cnpj").mask("99.999.999/9999-99");
 	    jQuery("#cpf").mask("999.999.999-99");
 	    jQuery("#telefone").mask("(99) 9999-9999");
 	    jQuery("#celular").mask("(99) 99999-9999");
@@ -161,10 +193,40 @@
     		if (retorno.status == true) {
     			modalValidacao('Validação', 'Este Email já existe! Por favor, informe outro!');
     			$('.button-salvar-clientes').attr('disabled', 'disabled');
-    			$('.label-email').html('E-mail * <small style="color:#cc0000!important">Este Email já existe!</small>');
+    			$('.label-email').html('<small style="color:#cc0000!important">Este Email já existe!</small>');
     		} else {
     			$('.button-salvar-clientes').attr('disabled', false);
-    			$('.label-email').html('E-mail *');
+    			$('.label-email').html('');
+    		}
+    	});
+    }
+
+    function verificaSeCnpjExiste(cnpj) {
+		var rota = getDomain()+"/cliente/verificaSeCnpjExiste/"+in64(cnpj.value);
+    	$.get(rota, function(data, status) {
+    		var retorno = JSON.parse(data);
+    		if (retorno.status == true) {
+    			modalValidacao('Validação', 'Este CNPJ já existe! Por favor, informe outro!');
+    			$('.button-salvar-clientes').attr('disabled', 'disabled');
+    			$('.label-cnpj').html('<small style="color:#cc0000!important">Este CNPJ já existe!</small>');
+    		} else {
+    			$('.button-salvar-clientes').attr('disabled', false);
+    			$('.label-cnpj').html('');
+    		}
+    	});
+    }
+
+    function verificaSeCpfExiste(cpf) {
+		var rota = getDomain()+"/cliente/verificaSeCpfExiste/"+in64(cpf.value);
+    	$.get(rota, function(data, status) {
+    		var retorno = JSON.parse(data);
+    		if (retorno.status == true) {
+    			modalValidacao('Validação', 'Este CPF já existe! Por favor, informe outro!');
+    			$('.button-salvar-clientes').attr('disabled', 'disabled');
+    			$('.label-cpf').html('<small style="color:#cc0000!important">Este CPF já existe!</small>');
+    		} else {
+    			$('.button-salvar-clientes').attr('disabled', false);
+    			$('.label-cpf').html('');
     		}
     	});
     }

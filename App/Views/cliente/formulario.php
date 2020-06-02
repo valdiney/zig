@@ -23,7 +23,7 @@
 		    </div>
 		</div>
 
-
+        
 		<div class="col-md-4">
 		    <div class="form-group">
 		        <label for="password">Pessoa Física ou Jurídica *</label>
@@ -42,7 +42,7 @@
 		        </select>
 		    </div>
 		</div>
-
+        
 		<div class="col-md-4">
 		    <div class="form-group">
 		        <label for="password">Segmento *</label>
@@ -63,7 +63,7 @@
 		    </div>
 		</div>
 
-		<div class="col-md-4">
+		<div class="col-md-4 elemento-quando-for-pessoa-juridica">
 		    <div class="form-group">
 		        <label for="cnpj">CNPJ * <span class="label-cnpj"></span></label>
 		        <input type="text" class="form-control" name="cnpj" id="cnpj" placeholder="Digite o CNPJ" 
@@ -72,7 +72,7 @@
 		    </div>
 		</div>
 
-		<div class="col-md-4">
+		<div class="col-md-4 elemento-quando-for-pessoa-fisica">
 		    <div class="form-group">
 		        <label for="cpf">CPF * <span class="label-cpf"></span></label>
 		        <input type="text" class="form-control" name="cpf" id="cpf" placeholder="Digite o CPF" 
@@ -111,52 +111,31 @@
 
 <script src="<?php echo BASEURL;?>/public/js/maskedInput.js"></script>
 <script>
+	// Aplica as regras quando carregar a modal no modo edição
 	<?php if (isset($cliente->id)):?>
 		<?php if ($cliente->id_cliente_tipo == 1):?>
-
-			$("#cnpj").attr('disabled','disabled');
-			$("#id_cliente_segmento").attr('disabled','disabled');
-			$("#cpf").attr('disabled', false);
-
+			$(".elemento-quando-for-pessoa-juridica").hide();
+			$(".elemento-quando-for-pessoa-fisica").show();
 		<?php elseif ($cliente->id_cliente_tipo == 2):?>
-
-			$("#cnpj").attr('disabled', false);
-			$("#id_cliente_segmento").attr('disabled', false);
-			$("#cpf").attr('disabled', 'disabled');
-
+			$(".elemento-quando-for-pessoa-fisica").hide();
+		    $(".elemento-quando-for-pessoa-juridica").show();
 		<?php endif;?>
     <?php endif;?>
 
     function selecionarTipoDeCliente(item) {
-		var tipo = item.value;
-		if (tipo == 1) {
-			$("#cnpj").attr('disabled','disabled');
-            
-            /*
-            Se verificou que CNPJ existe, mas depois trocou de pessoa juridica para pessoa fisica, 
-            desfaz as mudanças imposta sobre os elementos do formulario em consequencia do CNPJ existente.
-            */
-			if ($("#cnpj").val() != '') {
-				$("#cnpj").val('');
-				$('.button-salvar-clientes').attr('disabled', false);
-				$('.label-cnpj').html('');
-			}
-
-			if ($("#cpf").val() != '') {
-				$("#cpf").val('');
-				$('.button-salvar-clientes').attr('disabled', false);
-				$('.label-cpf').html('');
-			}
-			
-			$("#id_cliente_segmento").attr('disabled','disabled');
-			$("#cpf").attr('disabled', false);
-		} else if (tipo == 2) {
-			$("#cnpj").attr('disabled', false);
-			$("#id_cliente_segmento").attr('disabled', false);
-			$("#cpf").attr('disabled', 'disabled');
+    	// Quando for pessoa fisica
+		if (item.value == 1) {
+			$(".elemento-quando-for-pessoa-juridica").hide();
+			$(".elemento-quando-for-pessoa-fisica").show();
+		
+		// Quando for pessoa juridica
+		} else if (item.value == 2) {
+		    $(".elemento-quando-for-pessoa-fisica").hide();
+		    $(".elemento-quando-for-pessoa-juridica").show();
 		}
 	}
-
+    
+    // Aplica as mascas nos elementos
     jQuery(function($){
 	    jQuery("#cnpj").mask("99.999.999/9999-99");
 	    jQuery("#cpf").mask("999.999.999-99");
@@ -178,7 +157,7 @@
 			return false;
 
 		} else if ($('#id_cliente_segmento').val() == 'selecione') {
-			modalValidacao('Validação', 'Qual o segmento deste cliente?');
+			modalValidacao('Validação', 'Em qual segmento este cliente atua?');
 			return false;
 
 		} 
@@ -186,7 +165,7 @@
 	    return true;
     }
 
-    function verificaSeEmailExiste(email) {
+    /*function verificaSeEmailExiste(email) {
     	var rota = getDomain()+"/cliente/verificaSeEmailExiste/"+in64(email.value);
     	$.get(rota, function(data, status) {
     		var retorno = JSON.parse(data);
@@ -229,5 +208,5 @@
     			$('.label-cpf').html('');
     		}
     	});
-    }
+    }*/
 </script>

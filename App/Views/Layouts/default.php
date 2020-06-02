@@ -55,6 +55,24 @@ $configPdv = $configPdv->configPdv(Session::get('idEmpresa'));
   .table-striped > tbody > tr:nth-child(2n+1) > td, .table-striped > tbody > tr:nth-child(2n+1) > th {
     background-color:#fffcf5;
   }
+  .clienteBorder {
+    border:1px solid #d4a8ea!important;
+  }
+  .produtoBorder {
+    border:1px solid #cae3fc!important;
+  }
+  .pdvBorder {
+    border:1px solid #7fe3ca!important;
+  }
+  .inicioBorder {
+    border:1px solid #ff9c9c!important;
+  }
+  .relatorioBorder {
+    border:1px solid #fce3b1!important;
+  }
+  .pedidoBorder {
+    border:1px solid #fccae3!important;
+  }
   </style>
 </head>
 
@@ -81,7 +99,7 @@ $configPdv = $configPdv->configPdv(Session::get('idEmpresa'));
 
           <li class="">
             <a href="<?php echo BASEURL;?>/home/index"
-              class="<?php currentRouteFromMenu('home/index');?>">
+              class="<?php currentRouteFromMenu('home/index', 'inicioBorder');?>">
               <i class="fas fa-tachometer-alt" style="color:#ff3333"></i>
               <p>Inicio</p>
             </a>
@@ -90,13 +108,13 @@ $configPdv = $configPdv->configPdv(Session::get('idEmpresa'));
           <li class="">
             <?php if ($configPdv->id_tipo_pdv == 1):?>
                 <a href="<?php echo BASEURL;?>/pdvPadrao/index" 
-                  class="<?php currentRouteFromMenu('pdvPadrao/index');?>">
+                  class="<?php currentRouteFromMenu('pdvPadrao/index', 'pdvBorder');?>">
                   <i class="fas fa-coins" style="color:#00cc99"></i>
                   <p>PDV <small style="float:right;opacity:0.50">Padrão</small></p>
                 </a>
              <?php elseif($configPdv->id_tipo_pdv == 2):?>
                 <a href="<?php echo BASEURL;?>/pdvDiferencial/index" 
-                  class="<?php currentRouteFromMenu('pdvDiferencial/index');?>">
+                  class="<?php currentRouteFromMenu('pdvDiferencial/index', 'pdvBorder');?>">
                   <i class="fas fa-coins" style="color:#00cc99"></i>
                   <p>PDV <small style="float:right;opacity:0.50">Diferencial</small></p>
                 </a>
@@ -105,7 +123,7 @@ $configPdv = $configPdv->configPdv(Session::get('idEmpresa'));
 
           <li class="">
             <a href="<?php echo BASEURL;?>/produto/index" 
-              class="<?php currentRouteFromMenu('produto/index');?>">
+              class="<?php currentRouteFromMenu('produto/index', 'produtoBorder');?>">
               <i class="fab fa-product-hunt" style="color:#99ccff"></i>
               <p>Produtos</p>
             </a>
@@ -113,8 +131,8 @@ $configPdv = $configPdv->configPdv(Session::get('idEmpresa'));
 
           <li class="">
             <a href="<?php echo BASEURL;?>/cliente/index" 
-              class="<?php currentRouteFromMenu('cliente/index');?>
-              <?php currentRouteFromMenu('clienteEndereco/index');?>">
+              class="<?php currentRouteFromMenu('cliente/index', 'clienteBorder');?>
+              <?php currentRouteFromMenu('clienteEndereco/index', 'clienteBorder');?>">
               <i class="fas fa-user-tie" style="color:#ad54da"></i>
               <p>Clientes</p>
             </a>
@@ -122,7 +140,7 @@ $configPdv = $configPdv->configPdv(Session::get('idEmpresa'));
 
           <li class="">
             <a href="<?php echo BASEURL;?>/pedido/index" 
-              class="<?php currentRouteFromMenu('pedido/index');?>">
+              class="<?php currentRouteFromMenu('pedido/index', 'pedidoBorder');?>">
               <i class="fas fa-shopping-basket" style="color:#ff99cc"></i>
               <p>Pedidos</p>
             </a>
@@ -130,8 +148,8 @@ $configPdv = $configPdv->configPdv(Session::get('idEmpresa'));
 
           <li class="">
             <a href="<?php echo BASEURL;?>/relatorio/vendasPorPeriodo" 
-              class="<?php currentRouteFromMenu('relatorio/index');?> 
-              <?php currentRouteFromMenu('relatorio/vendasPorPeriodo');?>">
+              class="<?php currentRouteFromMenu('relatorio/index', 'relatorioBorder');?> 
+              <?php currentRouteFromMenu('relatorio/vendasPorPeriodo', 'relatorioBorder');?>">
               <i class="fas fa-file-invoice-dollar" style="color:#ffcc66"></i>
               <p>Relatórios</p>
             </a>

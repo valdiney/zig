@@ -99,12 +99,12 @@ function formataValorMoedaParaGravacao($valor) {
    return $valor;
 }
 
-function currentRouteFromMenu($route) {
+function currentRouteFromMenu($route, $extraClass = false) {
     $route = explode('/', $route);
     $controller = explode('Controller', CONTROLLER_NAME)[0];
     $method = METHOD_NAME;
 
     if (ucfirst($route[0]) == $controller && $route[1] == $method) {
-        echo 'currentRouteFromMenu';
+        echo "currentRouteFromMenu {$extraClass}";
     } 
 }

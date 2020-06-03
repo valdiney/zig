@@ -100,8 +100,19 @@ class ClienteController extends Controller
 
 	public function verificaSeEmailExiste()
 	{
+		$email = out64($this->get->position(0));
+		$idCliente = $this->get->position(1);
 		$cliente = new Cliente();
-		if ($cliente->verificaSeEmailExiste(out64($this->get->position(0)))) {
+
+		if ($idCliente) {
+			$dadosCliente = $cliente->findBy('email', $email);
+			if ($dadosCliente && $idCliente == $dadosCliente->id) {
+				echo json_encode(['status' => false]);
+				return false;
+			}
+		}
+
+		if ($cliente->verificaSeEmailExiste($email)) {
 			echo json_encode(['status' => true]);
 		} else {
 			echo json_encode(['status' => false]);

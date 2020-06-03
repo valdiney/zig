@@ -8,8 +8,8 @@
 
 		<div class="col-md-4">
 		    <div class="form-group">
-		        <label for="nome">Nome / Razão social *</label>
-		        <input type="text" class="form-control" name="nome" id="nome" placeholder="Digite o nome do cliente!" 
+		        <label for="nome">Nome *</label>
+		        <input type="text" class="form-control" name="nome" id="nome" placeholder="Digite aqui..." 
 		        value="<?php echo isset($cliente->id) ? $cliente->nome : ''?>">
 		    </div>
 		</div>
@@ -19,14 +19,13 @@
 		        <label for="email">E-mail * <span class="label-email"></span></label>
 		        <input type="text" class="form-control" name="email" id="email" placeholder="Digite o e-mail!" 
 		        value="<?php echo isset($cliente->id) ? $cliente->email : ''?>"
-		        onchange="verificaSeEmailExiste(this)">
+		        onchange="verificaSeEmailExiste(this, <?php echo isset($cliente->id) ? $cliente->id : false;?>)">
 		    </div>
 		</div>
 
-        
 		<div class="col-md-4">
 		    <div class="form-group">
-		        <label for="password">Pessoa Física ou Jurídica *</label>
+		        <label for="id_cliente_tipo">Pessoa Física ou Jurídica *</label>
 		        <select class="form-control" name="id_cliente_tipo" id="id_cliente_tipo"
 		        onchange="selecionarTipoDeCliente(this)"> 
 		        	<option value="selecione">Selecione</option>
@@ -45,7 +44,7 @@
         
 		<div class="col-md-4">
 		    <div class="form-group">
-		        <label for="password">Segmento *</label>
+		        <label for="id_cliente_segmento">Segmento *</label>
 		        <select class="form-control" name="id_cliente_segmento" id="id_cliente_segmento"> 
 		        	<option value="selecione">Selecione</option>
 		        	<?php foreach ($clientesSegmentos as $clienteSegmento):?>
@@ -169,10 +168,17 @@
 	    return true;
     }
 
-    /*function verificaSeEmailExiste(email) {
-    	var rota = getDomain()+"/cliente/verificaSeEmailExiste/"+in64(email.value);
+    function verificaSeEmailExiste(email, id) {
+    	var idCliente = false;
+    	if (id) {
+    		idCliente = '/'+id;
+    	}
+
+    	var rota = getDomain()+"/cliente/verificaSeEmailExiste/"+in64(email.value)+idCliente;
     	$.get(rota, function(data, status) {
     		var retorno = JSON.parse(data);
+    		
+ 
     		if (retorno.status == true) {
     			modalValidacao('Validação', 'Este Email já existe! Por favor, informe outro!');
     			$('.button-salvar-clientes').attr('disabled', 'disabled');
@@ -183,6 +189,8 @@
     		}
     	});
     }
+
+    /*
 
     function verificaSeCnpjExiste(cnpj) {
 		var rota = getDomain()+"/cliente/verificaSeCnpjExiste/"+in64(cnpj.value);

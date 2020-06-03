@@ -160,6 +160,10 @@
 			modalValidacao('Validação', 'Em qual segmento este cliente atua?');
 			return false;
 
+		} else if ($('#cnpj').val() == '') {
+			modalValidacao('Validação', 'Campo (CNPJ) deve ser preenchido!');
+			return false;
+
 		} 
 
 	    return true;

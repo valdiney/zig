@@ -27,6 +27,10 @@ class Cliente extends Model
 
     public function verificaSeEmailExiste($email)
     {
+        if ( ! $email) {
+            return false;
+        }
+
         $query = $this->query("SELECT * FROM clientes WHERE email = '{$email}'");
         if (count($query) > 0) {
             return true;
@@ -37,6 +41,10 @@ class Cliente extends Model
 
     public function verificaSeCnpjExiste($cnpj)
     {
+        if ( ! $cnpj) {
+            return false;
+        }
+
         $query = $this->query("SELECT * FROM clientes WHERE cnpj = '{$cnpj}'");
         if (count($query) > 0) {
             return true;
@@ -47,8 +55,22 @@ class Cliente extends Model
 
     public function verificaSeCpfExiste($cpf)
     {
+        if ( ! $cpf) {
+            return false;
+        }
+
         $query = $this->query("SELECT * FROM clientes WHERE cpf = '{$cpf}'");
         if (count($query) > 0) {
+            return true;
+        }
+
+        return false;
+    }
+
+    public function seDadoNaoPertenceAoClienteEditado($nomeDoCampo, $valor, $idCliente)
+    { 
+        $dadosCliente = $this->findBy("{$nomeDoCampo}", $valor);
+        if ($dadosCliente && $idCliente != $dadosCliente->id) {
             return true;
         }
 

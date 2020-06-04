@@ -67,7 +67,7 @@
 		        <label for="cnpj">CNPJ * <span class="label-cnpj"></span></label>
 		        <input type="text" class="form-control" name="cnpj" id="cnpj" placeholder="Digite o CNPJ" 
 		        value="<?php echo isset($cliente->id) ? $cliente->cnpj : ''?>"
-		        onchange="verificaSeCnpjExiste(this)">
+		        onchange="verificaSeCnpjExiste(this, <?php echo isset($cliente->id) ? $cliente->id : false;?>)">
 		    </div>
 		</div>
 
@@ -169,16 +169,16 @@
     }
 
     function verificaSeEmailExiste(email, id) {
-    	var idCliente = false;
+    	var rota = getDomain()+"/cliente/verificaSeEmailExiste";    
     	if (id) {
-    		idCliente = '/'+id;
+    		rota += '/'+in64(email.value)+'/'+idCliente;
+    	} else {
+    		rota += '/'+in64(email.value);
     	}
 
-    	var rota = getDomain()+"/cliente/verificaSeEmailExiste/"+in64(email.value)+idCliente;
     	$.get(rota, function(data, status) {
     		var retorno = JSON.parse(data);
-    		
- 
+
     		if (retorno.status == true) {
     			modalValidacao('Validação', 'Este Email já existe! Por favor, informe outro!');
     			$('.button-salvar-clientes').attr('disabled', 'disabled');
@@ -190,12 +190,17 @@
     	});
     }
 
-    /*
+    function verificaSeCnpjExiste(cnpj, id) {
+		var rota = getDomain()+"/cliente/verificaSeCnpjExiste";
+		if (id) {
+    		rota += '/'+in64(cnpj.value)+'/'+idCliente;
+    	} else {
+    		rota += '/'+in64(cnpj.value);
+    	}
 
-    function verificaSeCnpjExiste(cnpj) {
-		var rota = getDomain()+"/cliente/verificaSeCnpjExiste/"+in64(cnpj.value);
     	$.get(rota, function(data, status) {
     		var retorno = JSON.parse(data);
+
     		if (retorno.status == true) {
     			modalValidacao('Validação', 'Este CNPJ já existe! Por favor, informe outro!');
     			$('.button-salvar-clientes').attr('disabled', 'disabled');
@@ -207,8 +212,14 @@
     	});
     }
 
-    function verificaSeCpfExiste(cpf) {
-		var rota = getDomain()+"/cliente/verificaSeCpfExiste/"+in64(cpf.value);
+    function verificaSeCpfExiste(cpf, id) {
+		var rota = getDomain()+"/cliente/verificaSeCpfExiste";
+		if (id) {
+    		rota += '/'+in64(cpf.value)+'/'+idCliente;
+    	} else {
+    		rota += '/'+in64(cpf.value);
+    	}
+
     	$.get(rota, function(data, status) {
     		var retorno = JSON.parse(data);
     		if (retorno.status == true) {
@@ -220,5 +231,5 @@
     			$('.label-cpf').html('');
     		}
     	});
-    }*/
+    }
 </script>

@@ -104,10 +104,13 @@ class ClienteController extends Controller
 		$idCliente = $this->get->position(1);
 		$cliente = new Cliente();
 
-		if ($idCliente) {
-			$dadosCliente = $cliente->findBy('email', $email);
-			if ($dadosCliente && $idCliente == $dadosCliente->id) {
-				echo json_encode(['status' => false]);
+		 /*
+        * Se for uma edição, 
+        * verifica se o EMAIL não pertence ao cliente que está sendo editado no momento
+        */
+		if ($idCliente && $email) {
+			if ($cliente->seDadoNaoPertenceAoClienteEditado('email', $email, $idCliente)) {
+				echo json_encode(['status' => true]);
 				return false;
 			}
 		}
@@ -121,8 +124,22 @@ class ClienteController extends Controller
 
 	public function verificaSeCnpjExiste()
 	{
+		$cnpj = out64($this->get->position(0));
+		$idCliente = $this->get->position(1);
 		$cliente = new Cliente();
-		if ($cliente->verificaSeCnpjExiste(out64($this->get->position(0)))) {
+
+        /*
+        * Se for uma edição, 
+        * verifica se o CNPJ não pertence ao cliente que está sendo editado no momento
+        */
+		if ($idCliente && $cnpj) {
+			if ($cliente->seDadoNaoPertenceAoClienteEditado('cnpj', $cnpj, $idCliente)) {
+				echo json_encode(['status' => true]);
+				return false;
+			}
+		}
+
+		if ($cliente->verificaSeCnpjExiste($cnpj)) {
 			echo json_encode(['status' => true]);
 		} else {
 			echo json_encode(['status' => false]);
@@ -131,7 +148,21 @@ class ClienteController extends Controller
 
 	public function verificaSeCpfExiste() 
 	{
+		$cpf = out64($this->get->position(0));
+		$idCliente = $this->get->position(1);
 		$cliente = new Cliente();
+
+		/*
+        * Se for uma edição, 
+        * verifica se o CPF não pertence ao cliente que está sendo editado no momento
+        */
+		if ($idCliente && $cpf) {
+			if ($cliente->seDadoNaoPertenceAoClienteEditado('cpf', $cpf, $idCliente)) {
+				echo json_encode(['status' => true]);
+				return false;
+			}
+		}
+
 		if ($cliente->verificaSeCpfExiste(out64($this->get->position(0)))) {
 			echo json_encode(['status' => true]);
 		} else {

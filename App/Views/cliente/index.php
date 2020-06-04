@@ -11,7 +11,7 @@
 		<table id="example" class="table tabela-ajustada table-striped" style="width:100%">
 	        <thead>
 	            <tr>
-	                <th>Nome / Rasão Social</th>
+	                <th>Nome</th>
 	                <th>Email</th>
 	                <th>Designação</th>
 	                <th>Segmento</th>

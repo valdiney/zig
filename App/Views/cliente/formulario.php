@@ -76,7 +76,7 @@
 		        <label for="cpf">CPF * <span class="label-cpf"></span></label>
 		        <input type="text" class="form-control" name="cpf" id="cpf" placeholder="Digite o CPF" 
 		        value="<?php echo isset($cliente->id) ? $cliente->cpf : ''?>"
-		        onchange="verificaSeCpfExiste(this)">
+		        onchange="verificaSeCpfExiste(this, <?php echo isset($cliente->id) ? $cliente->id : false;?>)">
 		    </div>
 		</div>
 
@@ -143,12 +143,18 @@
 	});
 
 	function salvarClientes() {
+		var idClienteTipo = $("#id_cliente_tipo");
+
     	if ($('#nome').val() == '') {
 			modalValidacao('Validação', 'Campo (Nome) deve ser preenchido!');
 			return false;
 
 		} else if ($('#email').val() == '') {
 			modalValidacao('Validação', 'Campo (Email) deve ser preenchido!');
+			return false;
+
+		} else if ( ! emailValido($('#email').val())) {
+			modalValidacao('Validação', 'Digite um Email valido!'); 
 			return false;
 
 		} else if ($('#id_cliente_tipo').val() == 'selecione') {
@@ -159,8 +165,20 @@
 			modalValidacao('Validação', 'Em qual segmento este cliente atua?');
 			return false;
 
-		} else if ($('#cnpj').val() == '') {
+		} else if (idClienteTipo.val() == 1 && $('#cpf').val() == '') {
+			modalValidacao('Validação', 'Campo (CPF) deve ser preenchido!');
+			return false;
+
+		} else if (idClienteTipo.val() == 1 && ! cpfValido($('#cpf').val())) {
+			modalValidacao('Validação', 'Digite um (CPF) valido!');
+			return false;
+
+		} else if (idClienteTipo.val() == 2 && $('#cnpj').val() == '') {
 			modalValidacao('Validação', 'Campo (CNPJ) deve ser preenchido!');
+			return false;
+
+		} else if (idClienteTipo.val() == 2 && ! CNPJvalido($('#cnpj').val())) {
+			modalValidacao('Validação', 'Digite um (CNPJ) valido!');
 			return false;
 
 		} 

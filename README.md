@@ -13,7 +13,7 @@ O intuito é disponibilizar uma plataforma com módulos que facilite e potencial
 - [x] Cadastro de Usuários
 - [x] Cadastro de Produtos
 - [x] PDV Padrão 
-- [x] PDV Diferencial
+- [x] PDV Diferencial (PDV com mais recursos)
 - [x] Relatórios de vendas
 - [ ] Dashboard
 - [x] Cadastro de Clientes

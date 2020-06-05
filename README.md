@@ -17,7 +17,7 @@ O intuito é disponibilizar uma plataforma com módulos que facilite e potencial
 - [x] Relatórios de vendas
 - [ ] Dashboard
 - [x] Cadastro de Clientes
-- [ ] Tela de Pedidos
+- [ ] Pedidos
 
 # Ponto de vendas Padrão
 <img src="https://raw.githubusercontent.com/valdiney/zig/master/prints/tela_de_venda.png"/>

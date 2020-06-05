@@ -5,7 +5,7 @@ O ZigMoney é um projeto que visa ajudar pequenos comércios que precisam regist
 </p>
 
 <p>
-O intuito é disponibilizar uma plataforma com módulos que facilite e potencialize o controle de informações de vendas totalmente online e sem perda de tempo em planilhas eletrônicas. 
+O intuito é disponibilizar uma plataforma com módulos que facilite e potencialize o controle de informações de vendas totalmente online. 
 </p>
 
 # Módulos

@@ -46,3 +46,22 @@ $route->route('PdvDiferencialController', 'alterarAquantidadeDeUmProdutoNaMesa',
 $route->route('PdvDiferencialController', 'retirarProdutoDaMesa',  $logged);
 $route->route('PdvDiferencialController', 'saveVendasViaSession',  $logged);
 $route->route('PdvDiferencialController', 'obterValorTotalDosProdutosNaMesa',  $logged);
+
+# ----- ClienteController --------------------------------
+$route->route('ClienteController', 'index',  $logged);
+$route->route('ClienteController', 'modalFormulario',  $logged);
+$route->route('ClienteController', 'save',  $logged);
+$route->route('ClienteController', 'update',  $logged);
+
+$route->route('ClienteController', 'verificaSeEmailExiste',  $logged);
+$route->route('ClienteController', 'verificaSeCnpjExiste',  $logged);
+$route->route('ClienteController', 'verificaSeCpfExiste',  $logged);
+
+# ----- EnderecoController --------------------------------
+$route->route('ClienteEnderecoController', 'index',  $logged);
+$route->route('ClienteEnderecoController', 'save',  $logged);
+$route->route('ClienteEnderecoController', 'update',  $logged);
+$route->route('ClienteEnderecoController', 'modalFormulario',  $logged);
+
+# ----- PedidoController --------------------------------
+$route->route('PedidoController', 'index',  $logged);

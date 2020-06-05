@@ -11,6 +11,101 @@
 /*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
 /*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
 
+-- Copiando estrutura para tabela syst.clientes
+CREATE TABLE IF NOT EXISTS `clientes` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `id_empresa` int(11) NOT NULL,
+  `id_cliente_tipo` int(11) NOT NULL,
+  `id_cliente_segmento` int(11) DEFAULT NULL,
+  `nome` varchar(50) NOT NULL,
+  `email` varchar(50) NOT NULL,
+  `cnpj` varchar(50) DEFAULT NULL,
+  `cpf` varchar(50) DEFAULT NULL,
+  `telefone` varchar(50) DEFAULT NULL,
+  `celular` varchar(50) DEFAULT NULL,
+  `created_at` timestamp NOT NULL,
+  `updated_at` timestamp NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `FK_clientes_tipos_clientes` (`id_cliente_tipo`),
+  KEY `FK_clientes_clientes_segmentos` (`id_cliente_segmento`),
+  KEY `FK_clientes_empresas` (`id_empresa`),
+  CONSTRAINT `FK_clientes_clientes_segmentos` FOREIGN KEY (`id_cliente_segmento`) REFERENCES `clientes_segmentos` (`id`),
+  CONSTRAINT `FK_clientes_empresas` FOREIGN KEY (`id_empresa`) REFERENCES `empresas` (`id`),
+  CONSTRAINT `FK_clientes_tipos_clientes` FOREIGN KEY (`id_cliente_tipo`) REFERENCES `clientes_tipos` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=latin1;
+
+-- Copiando dados para a tabela syst.clientes: ~4 rows (aproximadamente)
+/*!40000 ALTER TABLE `clientes` DISABLE KEYS */;
+INSERT INTO `clientes` (`id`, `id_empresa`, `id_cliente_tipo`, `id_cliente_segmento`, `nome`, `email`, `cnpj`, `cpf`, `telefone`, `celular`, `created_at`, `updated_at`) VALUES
+	(2, 1, 2, 2, 'Açaí dos meus Sonhos', 'acaidosmeussonhos@gmail.com', '33.271.493/0001-53', NULL, '(71) 9873-9218', '(71) 45564-6556', '2020-05-28 17:46:58', '2020-06-02 00:04:11'),
+	(4, 1, 1, 4, 'Mariana Luna de Jesus', 'mariana@gmail.com', '90.902.478/0001-08', '896.811.810-64', '(71) 9873-9218', '(71) 98530-0528', '2020-05-28 18:23:59', '2020-06-02 00:04:21'),
+	(5, 1, 2, 3, 'Pizzaria Segue o Baile', 'pizzariasegueobaile@hotmail.com', '90.902.478/0001-08', NULL, '(71) 98739-2183', '(71)98530-0528', '2020-05-28 21:13:44', '2020-05-28 21:13:44'),
+	(7, 1, 2, 2, 'Limpa Cano', 'limpacano@gmail.com', '41.977.238/0001-59', NULL, '(71) 9873-9218', '(71) 45564-6556', '2020-05-31 17:25:50', '2020-05-31 17:25:50');
+/*!40000 ALTER TABLE `clientes` ENABLE KEYS */;
+
+-- Copiando estrutura para tabela syst.clientes_enderecos
+CREATE TABLE IF NOT EXISTS `clientes_enderecos` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `id_empresa` int(11) NOT NULL DEFAULT '0',
+  `id_cliente` int(11) NOT NULL DEFAULT '0',
+  `cep` varchar(50) DEFAULT NULL,
+  `endereco` varchar(50) NOT NULL,
+  `bairro` varchar(50) NOT NULL,
+  `cidade` varchar(50) DEFAULT NULL,
+  `estado` varchar(50) DEFAULT NULL,
+  `numero` int(11) DEFAULT NULL,
+  `complemento` text,
+  `created_at` timestamp NOT NULL,
+  `updated_at` timestamp NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `FK_clientes_enderecos_empresas` (`id_empresa`),
+  KEY `FK_clientes_enderecos_clientes` (`id_cliente`),
+  CONSTRAINT `FK_clientes_enderecos_clientes` FOREIGN KEY (`id_cliente`) REFERENCES `clientes` (`id`),
+  CONSTRAINT `FK_clientes_enderecos_empresas` FOREIGN KEY (`id_empresa`) REFERENCES `empresas` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=18 DEFAULT CHARSET=latin1;
+
+-- Copiando dados para a tabela syst.clientes_enderecos: ~3 rows (aproximadamente)
+/*!40000 ALTER TABLE `clientes_enderecos` DISABLE KEYS */;
+INSERT INTO `clientes_enderecos` (`id`, `id_empresa`, `id_cliente`, `cep`, `endereco`, `bairro`, `cidade`, `estado`, `numero`, `complemento`, `created_at`, `updated_at`) VALUES
+	(3, 1, 4, '41927210', '2ª travessa são benedito', 'Chapada do Rio vermelho', 'salvador', 'Bahia', 14, NULL, '2020-05-29 12:30:33', '2020-05-29 22:04:00'),
+	(4, 1, 4, '41927210', '2ª travessa são benedito', 'Chapada do Rio vermelho', 'salvador', 'Bahia', 14, ' bg ', '2020-05-29 12:31:48', '2020-05-29 12:31:48'),
+	(5, 1, 4, '41927210', '2ª travessa são benedito', 'Chapada do Rio vermelho', 'salvador', 'Bahia', 56, 'Casa', '2020-05-29 12:32:23', '2020-05-29 14:11:53');
+/*!40000 ALTER TABLE `clientes_enderecos` ENABLE KEYS */;
+
+-- Copiando estrutura para tabela syst.clientes_segmentos
+CREATE TABLE IF NOT EXISTS `clientes_segmentos` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `descricao` varchar(50) NOT NULL,
+  `created_at` timestamp NOT NULL,
+  `updated_at` timestamp NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
+
+-- Copiando dados para a tabela syst.clientes_segmentos: ~3 rows (aproximadamente)
+/*!40000 ALTER TABLE `clientes_segmentos` DISABLE KEYS */;
+INSERT INTO `clientes_segmentos` (`id`, `descricao`, `created_at`, `updated_at`) VALUES
+	(1, 'Restaurante', '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+	(2, 'Hamburgueria', '2020-05-28 10:28:08', '2020-05-28 10:28:09'),
+	(3, 'Pizzaria', '2020-05-28 10:28:52', '2020-05-28 10:28:53'),
+	(4, 'Outros...', '2020-06-02 00:00:26', '2020-06-02 00:00:27');
+/*!40000 ALTER TABLE `clientes_segmentos` ENABLE KEYS */;
+
+-- Copiando estrutura para tabela syst.clientes_tipos
+CREATE TABLE IF NOT EXISTS `clientes_tipos` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `descricao` varchar(50) NOT NULL,
+  `created_at` timestamp NOT NULL,
+  `updated_at` timestamp NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
+
+-- Copiando dados para a tabela syst.clientes_tipos: ~2 rows (aproximadamente)
+/*!40000 ALTER TABLE `clientes_tipos` DISABLE KEYS */;
+INSERT INTO `clientes_tipos` (`id`, `descricao`, `created_at`, `updated_at`) VALUES
+	(1, 'Pessoa Fisica', '2020-05-28 10:24:51', '2020-05-28 10:24:52'),
+	(2, 'Pessoa Juridica', '2020-05-28 10:25:05', '2020-05-28 10:25:06');
+/*!40000 ALTER TABLE `clientes_tipos` ENABLE KEYS */;
+
 -- Copiando estrutura para tabela syst.config_pdv
 CREATE TABLE IF NOT EXISTS `config_pdv` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
@@ -28,7 +123,7 @@ CREATE TABLE IF NOT EXISTS `config_pdv` (
 -- Copiando dados para a tabela syst.config_pdv: ~1 rows (aproximadamente)
 /*!40000 ALTER TABLE `config_pdv` DISABLE KEYS */;
 INSERT INTO `config_pdv` (`id`, `id_empresa`, `id_tipo_pdv`, `created_at`, `updated_at`) VALUES
-	(3, 1, 1, '2020-05-23 15:37:10', '2020-05-27 15:32:41');
+	(3, 1, 2, '2020-05-23 15:37:10', '2020-05-27 17:40:46');
 /*!40000 ALTER TABLE `config_pdv` ENABLE KEYS */;
 
 -- Copiando estrutura para tabela syst.empresas
@@ -191,9 +286,9 @@ CREATE TABLE IF NOT EXISTS `vendas` (
   CONSTRAINT `FK_vendas_clientes` FOREIGN KEY (`id_empresa`) REFERENCES `empresas` (`id`),
   CONSTRAINT `FK_vendas_meios_de_pagamento` FOREIGN KEY (`id_meio_pagamento`) REFERENCES `meios_pagamentos` (`id`),
   CONSTRAINT `FK_vendas_usuarios` FOREIGN KEY (`id_usuario`) REFERENCES `usuarios` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=151 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=153 DEFAULT CHARSET=latin1;
 
--- Copiando dados para a tabela syst.vendas: ~58 rows (aproximadamente)
+-- Copiando dados para a tabela syst.vendas: ~65 rows (aproximadamente)
 /*!40000 ALTER TABLE `vendas` DISABLE KEYS */;
 INSERT INTO `vendas` (`id`, `id_usuario`, `id_meio_pagamento`, `id_empresa`, `id_produto`, `preco`, `quantidade`, `valor`, `created_at`, `updated_at`) VALUES
 	(1, 1, 1, 1, 0, 0, 0, 11, '2020-04-25 01:58:13', '2020-04-25 01:58:13'),
@@ -265,7 +360,9 @@ INSERT INTO `vendas` (`id`, `id_usuario`, `id_meio_pagamento`, `id_empresa`, `id
 	(147, 1, 2, 1, 2, 13, 1, 13, '2020-05-27 15:30:04', '2020-05-27 15:30:04'),
 	(148, 1, 2, 1, 5, 3.99, 2, 7.98, '2020-05-27 15:30:05', '2020-05-27 15:30:05'),
 	(149, 1, 2, 1, 6, 30, 1, 30, '2020-05-27 15:30:07', '2020-05-27 15:30:07'),
-	(150, 36, 3, 1, NULL, 0, NULL, 17, '2020-05-27 15:33:16', '2020-05-27 15:33:16');
+	(150, 36, 3, 1, NULL, 0, NULL, 17, '2020-05-27 15:33:16', '2020-05-27 15:33:16'),
+	(151, 1, 1, 1, 7, 25, 1, 25, '2020-05-28 22:14:06', '2020-05-28 22:14:06'),
+	(152, 1, 1, 1, 4, 3.49, 2, 6.98, '2020-05-30 03:07:19', '2020-05-30 03:07:19');
 /*!40000 ALTER TABLE `vendas` ENABLE KEYS */;
 
 /*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;

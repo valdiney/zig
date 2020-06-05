@@ -16,6 +16,7 @@ O intuito é disponibilizar uma plataforma com módulos que facilite e potencial
 - [x] PDV Diferencial
 - [x] Relatórios de vendas
 - [ ] Dashboard
+- [x] Clientes
 - [ ] Tela de Pedidos
 
 # Ponto de vendas Padrão

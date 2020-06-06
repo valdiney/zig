@@ -1,11 +1,11 @@
 # ZigMoney
-Projeto em desenvolvimento!
+🚧 Projeto em desenvolvimento!
 <p>
 O ZigMoney é um projeto que visa ajudar pequenos comércios que precisam registrar suas vendas diárias de forma simples e organizada. Trata-se de um sistema web escrito em PHP e Mysql. 
 </p>
 
 <p>
-O intuito é disponibilizar uma plataforma com módulos que facilite e potencialize o controle de informações de vendas totalmente online e sem perda de tempo em planilhas eletrônicas. 
+O intuito é disponibilizar uma plataforma com módulos que facilite e potencialize o controle de informações de vendas totalmente online. 
 </p>
 
 # Módulos
@@ -13,10 +13,11 @@ O intuito é disponibilizar uma plataforma com módulos que facilite e potencial
 - [x] Cadastro de Usuários
 - [x] Cadastro de Produtos
 - [x] PDV Padrão 
-- [x] PDV Diferencial
+- [x] PDV Diferencial (PDV com mais recursos)
 - [x] Relatórios de vendas
 - [ ] Dashboard
-- [ ] Tela de Pedidos
+- [x] Cadastro de Clientes
+- [ ] Pedidos
 
 # Ponto de vendas Padrão
 <img src="https://raw.githubusercontent.com/valdiney/zig/master/prints/tela_de_venda.png"/>

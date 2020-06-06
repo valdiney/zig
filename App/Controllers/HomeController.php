@@ -58,4 +58,9 @@ class HomeController extends Controller
 				'faturamentoDeVandasNoDiaAnterior'
 			));
 	}
+
+	public function teste()
+	{
+		echo 'teste';
+	}
 }

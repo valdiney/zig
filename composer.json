@@ -1,6 +1,6 @@
 {
-    "name": "valdiney/ofir_framework",
-    "description": "This is the Ofir Development, a simple PHP framework.",
+    "name": "valdiney/vai",
+    "description": "This is the zig project.",
     "type": "project",
     "license": "MIT",
     "authors": [

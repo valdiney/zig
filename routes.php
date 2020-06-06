@@ -5,63 +5,70 @@
 use App\Rules\Logged;
 
 # ----- LoginController --------------------------------
-$route->index('LoginController', "index");
-$route->route('LoginController', "logar");
-$route->route('LoginController', "logout");
+$route->create('/', 'LoginController@index');
 
-$logged = new Logged();
 
-$route->route('HomeController', 'index', $logged);
+$route->create('login/index', 'LoginController@index');
+$route->create('login/logar', 'LoginController@logar');
+$route->create('login/logout', 'LoginController@logout');
+
+$route->create('home/index', 'HomeController@index');
 
 # ----- UsuarioController --------------------------------
-$route->route('UsuarioController', 'index',  $logged);
-$route->route('UsuarioController', 'save',   $logged);
-$route->route('UsuarioController', 'modal',  $logged);
-$route->route('UsuarioController', 'update', $logged);
+$route->create('usuario/index', 'UsuarioController@index');
+$route->create('usuario/save', 'UsuarioController@save');
+$route->create('usuario/modal', 'UsuarioController@modal');
+$route->create('usuario/update', 'UsuarioController@update');
 
 # ----- RelatorioController --------------------------------
-$route->route('RelatorioController', 'index',  $logged);
-$route->route('RelatorioController', 'vendasPorPeriodo',  $logged);
-$route->route('RelatorioController', 'vendasChamadaAjax',  $logged);
+$route->create('relatorio/index', 'RelatorioController@index');
+$route->create('relatorio/vendasPorPeriodo', 'RelatorioController@vendasPorPeriodo');
+$route->create('relatorio/vendasChamadaAjax', 'RelatorioController@vendasChamadaAjax');
 
 # ----- ProdutoController --------------------------------
-$route->route('ProdutoController', 'index',  $logged);
-$route->route('ProdutoController', 'modalFormulario',  $logged);
-$route->route('ProdutoController', 'save',  $logged);
-$route->route('ProdutoController', 'update',  $logged);
+$route->create('produto/index', 'ProdutoController@index');
+$route->create('produto/modalFormulario', 'ProdutoController@modalFormulario');
+$route->create('produto/save', 'ProdutoController@save');
+$route->create('produto/update', 'ProdutoController@update');
 
 # ----- ConfiguracaoController --------------------------------
-$route->route('ConfiguracaoController', 'index',  $logged);
-$route->route('ConfiguracaoController', 'alterarConfigPdv',  $logged);
+$route->create('configuracao/index', 'ConfiguracaoController@index');
+$route->create('configuracao/alterarConfigPdv', 'ConfiguracaoController@alterarConfigPdv');
 
 # ----- PdvPadraoController  --------------------------------
-$route->route('PdvPadraoController', 'index',  $logged);
-$route->route('PdvPadraoController', 'save',  $logged);
+$route->create('pdvPadrao/index', 'PdvPadraoController@index');
+$route->create('pdvPadrao/save', 'PdvPadraoController@save');
 
 # ----- PdvDiferencialController  --------------------------------
-$route->route('PdvDiferencialController', 'index',  $logged);
-$route->route('PdvDiferencialController', 'colocarProdutosNaMesa',  $logged);
-$route->route('PdvDiferencialController', 'obterProdutosDaMesa',  $logged);
-$route->route('PdvDiferencialController', 'alterarAquantidadeDeUmProdutoNaMesa',  $logged);
-$route->route('PdvDiferencialController', 'retirarProdutoDaMesa',  $logged);
-$route->route('PdvDiferencialController', 'saveVendasViaSession',  $logged);
-$route->route('PdvDiferencialController', 'obterValorTotalDosProdutosNaMesa',  $logged);
+$route->create('pdvDiferencial/index', 'PdvDiferencialController@index');
+$route->create('pdvDiferencial/colocarProdutosNaMesa', 'PdvDiferencialController@colocarProdutosNaMesa');
+$route->create('pdvDiferencial/obterProdutosDaMesa', 'PdvDiferencialController@obterProdutosDaMesa');
+
+$route->create('pdvDiferencial/alterarAquantidadeDeUmProdutoNaMesa', 'PdvDiferencialController@alterarAquantidadeDeUmProdutoNaMesa');
+
+$route->create('pdvDiferencial/retirarProdutoDaMesa', 'PdvDiferencialController@retirarProdutoDaMesa');
+$route->create('pdvDiferencial/saveVendasViaSession', 'PdvDiferencialController@saveVendasViaSession');
+
+$route->create('pdvDiferencial/obterValorTotalDosProdutosNaMesa', 'PdvDiferencialController@obterValorTotalDosProdutosNaMesa');
 
 # ----- ClienteController --------------------------------
-$route->route('ClienteController', 'index',  $logged);
-$route->route('ClienteController', 'modalFormulario',  $logged);
-$route->route('ClienteController', 'save',  $logged);
-$route->route('ClienteController', 'update',  $logged);
+$route->create('cliente/index', 'ClienteController@index');
+$route->create('cliente/modalFormulario', 'ClienteController@modalFormulario');
+$route->create('cliente/save', 'ClienteController@save');
+$route->create('cliente/update', 'ClienteController@update');
 
-$route->route('ClienteController', 'verificaSeEmailExiste',  $logged);
-$route->route('ClienteController', 'verificaSeCnpjExiste',  $logged);
-$route->route('ClienteController', 'verificaSeCpfExiste',  $logged);
+$route->create('cliente/verificaSeEmailExiste', 'ClienteController@verificaSeEmailExiste');
+$route->create('cliente/verificaSeCnpjExiste', 'ClienteController@verificaSeCnpjExiste');
+$route->create('cliente/verificaSeCpfExiste', 'ClienteController@verificaSeCpfExiste');
 
 # ----- EnderecoController --------------------------------
-$route->route('ClienteEnderecoController', 'index',  $logged);
-$route->route('ClienteEnderecoController', 'save',  $logged);
-$route->route('ClienteEnderecoController', 'update',  $logged);
-$route->route('ClienteEnderecoController', 'modalFormulario',  $logged);
+$route->create('clienteEndereco/index', 'ClienteEnderecoController@index');
+$route->create('clienteEndereco/save', 'ClienteEnderecoController@save');
+$route->create('clienteEndereco/update', 'ClienteEnderecoController@update');
+$route->create('clienteEndereco/modalFormulario', 'ClienteEnderecoController@modalFormulario');
 
 # ----- PedidoController --------------------------------
-$route->route('PedidoController', 'index',  $logged);
+$route->create('pedido/index', 'PedidoController@index');
+
+# Run Router
+$route->run();

@@ -16,6 +16,9 @@ class GetRoute
 	private $controller;
 	private $method;
 
+	private $controllerNameAliases;
+	private $methodNameAliases;
+
 	public $existControllerOnRoute = false;
 	public $existMethodOnRoute = false;
 
@@ -34,6 +37,16 @@ class GetRoute
 	    }
 
 		$this->getUrlVariables();
+	}
+
+	public function getControllerNameAliases()
+	{
+		return $this->controllerNameAliases;
+	}
+
+	public function getMethodNameAliases()
+	{
+		return $this->methodNameAliases;
 	}
     
     /**
@@ -56,6 +69,7 @@ class GetRoute
 
 		if (array_key_exists(3, $this->urlParamethers)) {
 			$this->controller = ucfirst($this->urlParamethers[3]).'Controller';
+			$this->controllerNameAliases = $this->urlParamethers[3];
 		} 
 	}
     
@@ -64,8 +78,9 @@ class GetRoute
     */
 	private function veriFyMethodOnUrl()
 	{
-		if (array_key_exists(4, $this->urlParamethers)) {
+       if (array_key_exists(4, $this->urlParamethers)) {
 			$this->method = $this->urlParamethers[4];
+			$this->methodNameAliases = $this->urlParamethers[4];
 		} 
 	}
 

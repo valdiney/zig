@@ -26,8 +26,8 @@
     <center>
     	<span>404</span> <br>
     	<h1 style="opacity:0.60">Poxa! Essa rota não foi encontrada!</h1>
-    	<i style="opacity:0.80">
-    		<?php echo BASEURL .'/' . explode('Controller', CONTROLLER_NAME)[0] . '/'. METHOD_NAME; ?>	
+    	<i style="opacity:0.80;color:#cc0033">
+    		<?php echo "http://".$_SERVER['HTTP_HOST']. $_SERVER['REQUEST_URI']; ?>	
     	</i>
     </center> 
 </body>

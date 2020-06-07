@@ -6,8 +6,6 @@ use App\Rules\Logged;
 
 # ----- LoginController --------------------------------
 $route->create('/', 'LoginController@index');
-
-
 $route->create('login/index', 'LoginController@index');
 $route->create('login/logar', 'LoginController@logar');
 $route->create('login/logout', 'LoginController@logout');

@@ -189,7 +189,7 @@
     function verificaSeEmailExiste(email, id) {
     	var rota = getDomain()+"/cliente/verificaSeEmailExiste";    
     	if (id) {
-    		rota += '/'+in64(email.value)+'/'+idCliente;
+    		rota += '/'+in64(email.value)+'/'+id;
     	} else {
     		rota += '/'+in64(email.value);
     	}
@@ -211,7 +211,7 @@
     function verificaSeCnpjExiste(cnpj, id) {
 		var rota = getDomain()+"/cliente/verificaSeCnpjExiste";
 		if (id) {
-    		rota += '/'+in64(cnpj.value)+'/'+idCliente;
+    		rota += '/'+in64(cnpj.value)+'/'+id;
     	} else {
     		rota += '/'+in64(cnpj.value);
     	}
@@ -233,7 +233,7 @@
     function verificaSeCpfExiste(cpf, id) {
 		var rota = getDomain()+"/cliente/verificaSeCpfExiste";
 		if (id) {
-    		rota += '/'+in64(cpf.value)+'/'+idCliente;
+    		rota += '/'+in64(cpf.value)+'/'+id;
     	} else {
     		rota += '/'+in64(cpf.value);
     	}

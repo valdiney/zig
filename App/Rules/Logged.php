@@ -12,12 +12,12 @@ class Logged
         $this->get = new Get();
     }
 
-    public function validate()
+    public function isValid()
     {
-        if ( ! Session::hasSession('logged')) {
+        if (Session::hasSession('logged')) {
+            return true;  
+        } else {
             $this->get->redirectTo("");
-        } 
-
-        return false;
+        }  
     }
 }

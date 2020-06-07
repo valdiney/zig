@@ -9,6 +9,7 @@ use App\Models\ConfigPdv;
 use App\Models\Venda;
 use App\Models\Usuario;
 use App\Models\MeioPagamento;
+use App\Rules\Logged;
 
 use App\Repositories\VendasDoDiaRepository;
 
@@ -36,6 +37,9 @@ class PdvPadraoController extends Controller
         
         $acessoAoTipoDePdv = new AcessoAoTipoDePdv();
 		$acessoAoTipoDePdv->validate();
+
+		$logged = new Logged();
+		$logged->isValid();
 	}
 
 	public function index()

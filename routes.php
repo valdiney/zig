@@ -2,7 +2,6 @@
 /*-----------------------------------------------------
 * Declaração das rotas do Sistema
 */
-use App\Rules\Logged;
 
 # ----- LoginController --------------------------------
 $route->create('/', 'LoginController@index');

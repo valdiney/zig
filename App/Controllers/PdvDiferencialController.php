@@ -10,6 +10,7 @@ use App\Models\Venda;
 use App\Models\Usuario;
 use App\Models\MeioPagamento;
 use App\Models\Produto;
+use App\Rules\Logged;
 
 use App\Rules\AcessoAoTipoDePdv;
 
@@ -35,6 +36,9 @@ class PdvDiferencialController extends Controller
 
 		$acessoAoTipoDePdv = new AcessoAoTipoDePdv();
 		$acessoAoTipoDePdv->validate();
+
+		$logged = new Logged();
+		$logged->isValid();
 	}
 
 	public function index()

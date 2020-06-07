@@ -4,6 +4,7 @@ use System\Controller\Controller;
 use System\Post\Post;
 use System\Get\Get;
 use System\Session\Session;
+use App\Rules\Logged;
 
 use App\Models\TipoPdv;
 use App\Models\ConfigPdv;
@@ -27,6 +28,9 @@ class ConfiguracaoController extends Controller
 		$this->idEmpresa = Session::get('idEmpresa');
 		$this->idUsuario = Session::get('idUsuario');
 		$this->idPerfilUsuarioLogado = Session::get('idPerfil');
+
+		$logged = new Logged();
+		$logged->isValid();
 	}
 
 	public function index()

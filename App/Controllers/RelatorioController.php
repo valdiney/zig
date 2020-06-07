@@ -4,6 +4,7 @@ use System\Controller\Controller;
 use System\Post\Post;
 use System\Get\Get;
 use System\Session\Session;
+use App\Rules\Logged;
 
 use App\Models\Venda;
 use App\Models\Usuario;
@@ -28,6 +29,9 @@ class RelatorioController extends Controller
 		$this->get = new Get();
 		$this->idEmpresa = Session::get('idEmpresa');
 		$this->idPerfilUsuarioLogado = Session::get('idPerfil');
+
+		$logged = new Logged();
+		$logged->isValid();
 	}
 
 	public function index()

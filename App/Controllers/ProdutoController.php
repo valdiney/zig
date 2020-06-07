@@ -4,6 +4,7 @@ use System\Controller\Controller;
 use System\Post\Post;
 use System\Get\Get;
 use System\Session\Session;
+use App\Rules\Logged;
 
 use App\Models\Produto;
 
@@ -24,6 +25,9 @@ class ProdutoController extends Controller
 		$this->post = new Post();
 		$this->get = new Get();
 		$this->idEmpresa = Session::get('idEmpresa');
+
+		$logged = new Logged();
+		$logged->isValid();
 	}
 
 	public function index()

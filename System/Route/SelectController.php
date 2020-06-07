@@ -20,6 +20,8 @@ class SelectController
 	private $allRouters = [];
 	private $routerAliases;
 
+	private $atual;
+
     /**
     * The construc method receive the getRoute instance.
     * @param getRoute Object
@@ -37,6 +39,19 @@ class SelectController
 		$arrayExplode = explode('@', $controllerAndMethod);
 
 		$this->allRouters[$aliases] = [
+			'controller' => $arrayExplode[0],
+			'method' => $arrayExplode[1]
+		];
+	}
+
+	public function createInGoup(string $aliases, string $controllerAndMethod)
+	{
+		$arrayExplode = explode('@', $controllerAndMethod);
+
+		$this->atual = $aliases;
+
+		$this->allRouters[$aliases] = [
+			'aliases' => $aliases,
 			'controller' => $arrayExplode[0],
 			'method' => $arrayExplode[1]
 		];

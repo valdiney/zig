@@ -1,9 +1,4 @@
--- --------------------------------------------------------
--- Servidor:                     abitat.cndd5nogbuuf.us-east-2.rds.amazonaws.com
--- Versão do servidor:           5.7.26-log - Source distribution
--- OS do Servidor:               Linux
--- HeidiSQL Versão:              10.3.0.5771
--- --------------------------------------------------------
+
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET NAMES utf8 */;

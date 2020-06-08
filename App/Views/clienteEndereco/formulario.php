@@ -12,7 +12,8 @@
 		    <div class="form-group">
 		        <label for="cep">CEP*</label>
 		        <input type="text" class="form-control" name="cep" id="cep" placeholder="Digite o CEP!" 
-		        value="<?php echo isset($clienteEndereco->id) ? $clienteEndereco->cep : ''?>">
+		        value="<?php echo isset($clienteEndereco->id) ? $clienteEndereco->cep : ''?>"
+		        onchange="return buscarEnderecoViaCep(this)">
 		    </div>
 		</div>
 
@@ -117,4 +118,15 @@
 	jQuery(function($){
 	    jQuery("#cep").mask("99.999-999");
 	});
+
+	function buscarEnderecoViaCep(cep) {
+		var rota = getDomain()+"/clienteEndereco/buscarEnderecoViaCep/"+in64(cep.value);
+	   $.get(rota, function(data, status) {
+	   	   var dados = JSON.parse(data);
+	   	   $("#endereco").val(dados.logradouro);
+	   	   $("#bairro").val(dados.bairro);
+	   	   $("#cidade").val(dados.localidade);
+	   	   $("#estado").val(dados.uf);
+	   });
+	}
 </script>

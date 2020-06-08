@@ -108,3 +108,15 @@ function currentRouteFromMenu($route, $extraClass = false) {
         echo "currentRouteFromMenu {$extraClass}";
     } 
 }
+
+function fileGet($url) {
+    $context = stream_context_create([
+        'http' => [
+            'ignore_errors' => true,
+            'method'        => 'GET'
+        ]
+    ]);
+
+    $jsonFile = file_get_contents($url, false, $context);
+    return json_decode($jsonFile, true);
+}

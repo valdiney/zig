@@ -83,6 +83,21 @@ class ClienteEnderecoController extends Controller
     	}
 	}
 
+	public function buscarEnderecoViaCep()
+	{
+		$cep = out64($this->get->position(0));
+		$cep = str_replace('.', '', $cep);
+		$cep = str_replace('-', '', $cep);
+
+		$resposta = fileGet("https://viacep.com.br/ws/{$cep}/json/");
+
+		if ( ! is_null($resposta)) {
+			echo json_encode($resposta);
+		} else {
+			echo json_encode(['status' => 'Cep não encontrado']);
+		}
+	}
+
 	public function modalFormulario()
 	{
 		$clienteEndereco = false;

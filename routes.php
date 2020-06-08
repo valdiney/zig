@@ -63,6 +63,7 @@ $route->create('clienteEndereco/index', 'ClienteEnderecoController@index');
 $route->create('clienteEndereco/save', 'ClienteEnderecoController@save');
 $route->create('clienteEndereco/update', 'ClienteEnderecoController@update');
 $route->create('clienteEndereco/modalFormulario', 'ClienteEnderecoController@modalFormulario');
+$route->create('clienteEndereco/buscarEnderecoViaCep', 'ClienteEnderecoController@buscarEnderecoViaCep');
 
 # ----- PedidoController --------------------------------
 $route->create('pedido/index', 'PedidoController@index');

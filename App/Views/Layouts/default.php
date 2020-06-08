@@ -19,12 +19,13 @@ $configPdv = $configPdv->configPdv(Session::get('idEmpresa'));
   <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0, shrink-to-fit=no' name='viewport' />
   <!--     Fonts and icons     -->
   <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700,200" rel="stylesheet" />
-  <link href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css" rel="stylesheet">
+
   <!-- CSS Files -->
 
   <link rel="stylesheet" type="text/css" href="<?php echo BASEURL;?>/public/assets/css/bootstrap.min.css">
   <link rel="stylesheet" type="text/css" href="<?php echo BASEURL;?>/public/assets/css/paper-dashboard.css?v=2.0.0')}}">
- 
+  <link rel="stylesheet" type="text/css" href="<?php echo BASEURL;?>/public/css/bootstrap.min.css.map">
+
 
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
 
@@ -77,10 +78,9 @@ $configPdv = $configPdv->configPdv(Session::get('idEmpresa'));
 </head>
 
 <body class="">
-
   <div class="wrapper">
-
     <div class="sidebar" data-color="white" data-active-color="danger">
+
       <div class="logo">
         <a href="http://www.creative-tim.com" class="simple-text logo-mini">
           <div class="logo-image-small">
@@ -93,140 +93,73 @@ $configPdv = $configPdv->configPdv(Session::get('idEmpresa'));
           <span style="color:#33cccc">Money</span>
         </a>
       </div>
+    
+      <!--Carrega o menu lateral da aplicação-->
+      <?php require_once('menuLeft.php');?>
 
-      <div class="sidebar-wrapper">
-        <ul class="nav">
-
-          <li class="">
-            <a href="<?php echo BASEURL;?>/home/index"
-              class="<?php currentRouteFromMenu('home/index', 'inicioBorder');?>">
-              <i class="fas fa-tachometer-alt" style="color:#ff3333"></i>
-              <p>Inicio</p>
-            </a>
-          </li>
-          
-          <li class="">
-            <?php if ($configPdv->id_tipo_pdv == 1):?>
-                <a href="<?php echo BASEURL;?>/pdvPadrao/index" 
-                  class="<?php currentRouteFromMenu('pdvPadrao/index', 'pdvBorder');?>">
-                  <i class="fas fa-coins" style="color:#00cc99"></i>
-                  <p>PDV <small style="float:right;opacity:0.50">Padrão</small></p>
-                </a>
-             <?php elseif($configPdv->id_tipo_pdv == 2):?>
-                <a href="<?php echo BASEURL;?>/pdvDiferencial/index" 
-                  class="<?php currentRouteFromMenu('pdvDiferencial/index', 'pdvBorder');?>">
-                  <i class="fas fa-coins" style="color:#00cc99"></i>
-                  <p>PDV <small style="float:right;opacity:0.50">Diferencial</small></p>
-                </a>
-             <?php endif;?>
-          </li>
-
-          <li class="">
-            <a href="<?php echo BASEURL;?>/produto/index" 
-              class="<?php currentRouteFromMenu('produto/index', 'produtoBorder');?>">
-              <i class="fab fa-product-hunt" style="color:#99ccff"></i>
-              <p>Produtos</p>
-            </a>
-          </li>
-
-          <li class="">
-            <a href="<?php echo BASEURL;?>/cliente/index" 
-              class="<?php currentRouteFromMenu('cliente/index', 'clienteBorder');?>
-              <?php currentRouteFromMenu('clienteEndereco/index', 'clienteBorder');?>">
-              <i class="fas fa-user-tie" style="color:#ad54da"></i>
-              <p>Clientes</p>
-            </a>
-          </li>
-
-          <li class="">
-            <a href="<?php echo BASEURL;?>/pedido/index" 
-              class="<?php currentRouteFromMenu('pedido/index', 'pedidoBorder');?>">
-              <i class="fas fa-shopping-basket" style="color:#ff99cc"></i>
-              <p>Pedidos</p>
-            </a>
-          </li>
-
-          <li class="">
-            <a href="<?php echo BASEURL;?>/relatorio/vendasPorPeriodo" 
-              class="<?php currentRouteFromMenu('relatorio/index', 'relatorioBorder');?> 
-              <?php currentRouteFromMenu('relatorio/vendasPorPeriodo', 'relatorioBorder');?>">
-              <i class="fas fa-file-invoice-dollar" style="color:#ffcc66"></i>
-              <p>Relatórios</p>
-            </a>
-          </li>
-
-          <!--<li class="active-pro">
-            <a>
-              <i class="fas fa-cogs" style="color:#c3c3c3"></i>
-              <p><p>Configurações</p></p>
-            </a>
-          </li>-->
-
-        </ul>
-      </div>
     </div>
 
-    <div class="main-panel">
-      <!-- Navbar -->
-      <nav class="navbar navbar-expand-lg navbar-absolute fixed-top navbar-transparent">
-        <div class="container-fluid">
+      <div class="main-panel">
+        <!-- Navbar -->
+        <nav class="navbar navbar-expand-lg navbar-absolute fixed-top navbar-transparent">
+          <div class="container-fluid">
 
-          <div class="navbar-wrapper">
-            <div class="navbar-toggle">
-              <button type="button" class="navbar-toggler">
-                <span class="navbar-toggler-bar bar1"></span>
-                <span class="navbar-toggler-bar bar2"></span>
-                <span class="navbar-toggler-bar bar3"></span>
-              </button>
+            <div class="navbar-wrapper">
+              <div class="navbar-toggle">
+                <button type="button" class="navbar-toggler">
+                  <span class="navbar-toggler-bar bar1"></span>
+                  <span class="navbar-toggler-bar bar2"></span>
+                  <span class="navbar-toggler-bar bar3"></span>
+                </button>
+              </div>
+              <a class="navbar-brand" href="#" style="text-transform:lowercase!important;" 
+              onclick="event.preventDefault();">
+                <img class="perfil" src="<?php echo Session::get('imagem')?>">
+                
+                <i style="text-transform: capitalize;">
+                  <?php echo Session::get('nomeUsuario');?>
+                </i>
+              </a>
             </div>
-            <a class="navbar-brand" href="#" style="text-transform:lowercase!important;" 
-            onclick="event.preventDefault();">
-              <img class="perfil" src="<?php echo Session::get('imagem')?>">
-              
-              <i style="text-transform: capitalize;">
-                <?php echo Session::get('nomeUsuario');?>
-              </i>
-            </a>
+
+            <div class="collapse navbar-collapse justify-content-end" id="navigation">
+              <ul class="navbar-nav">
+                  <li class="nav-item btn-rotate dropdown">
+                  <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <i class="nc-icon nc-settings-gear-65"></i>
+                    
+                  </a>
+                  <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
+                    <!--<a class="dropdown-item" href="#">Meus dados</a>-->
+
+                    <a class="dropdown-item" href="<?php echo BASEURL;?>/usuario/index">
+                      <i class="fas fa-users"></i> Usuários
+                    </a>
+
+                    <a class="dropdown-item" href="<?php echo BASEURL;?>/configuracao/index">
+                      <i class="fas fa-cogs"></i> Configurações
+                    </a>
+                    <a class="dropdown-item" href="login/logout">
+                      <i class="fas fa-sign-out-alt"></i> Sair do Sistema
+                    </a>
+
+                  </div>
+                </li>
+              </ul>
+            </div>
+
           </div>
-
-          <div class="collapse navbar-collapse justify-content-end" id="navigation">
-            <ul class="navbar-nav">
-                <li class="nav-item btn-rotate dropdown">
-                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                  <i class="nc-icon nc-settings-gear-65"></i>
-                  
-                </a>
-                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
-                  <!--<a class="dropdown-item" href="#">Meus dados</a>-->
-
-                  <a class="dropdown-item" href="<?php echo BASEURL;?>/usuario/index">
-                    <i class="fas fa-users"></i> Usuários
-                  </a>
-
-                  <a class="dropdown-item" href="<?php echo BASEURL;?>/configuracao/index">
-                    <i class="fas fa-cogs"></i> Configurações
-                  </a>
-                  <a class="dropdown-item" href="login/logout">
-                    <i class="fas fa-sign-out-alt"></i> Sair do Sistema
-                  </a>
-
-                </div>
-              </li>
-            </ul>
-          </div>
-
+        </nav>
+        <!-- End Navbar -->
+        
+        <div class="content">
+          <!--Include the content into the layout-->
+          <?php $this->viewRender();?>
         </div>
-      </nav>
-      <!-- End Navbar -->
-      
-      <div class="content">
-        <!--Include the content into the layout-->
-        <?php $this->viewRender();?>
-      </div>
-  </div>
-      
+
     </div>
   </div>
+</div>
 
 
   <div id="modal-validacao" class="modal fade bd-example-modal-lg" role="dialog" 
@@ -254,6 +187,7 @@ $configPdv = $configPdv->configPdv(Session::get('idEmpresa'));
   <script src="<?php echo BASEURL;?>/public/assets/js/plugins/perfect-scrollbar.jquery.min.js"></script>
   <script src="<?php echo BASEURL;?>/public/js/helpers.js"></script>
   <script src="<?php echo BASEURL;?>/public/js/mask.js"></script>
+  <script src="<?php echo BASEURL;?>/public/assets/js/paper-dashboard.min.js"></script>
 
   <script>
     $(function() {
@@ -264,6 +198,11 @@ $configPdv = $configPdv->configPdv(Session::get('idEmpresa'));
           thousands:'.', decimal:',', 
           affixesStay: false
         });
+
+
+        $("#menu").click(function() {
+          $(".collapse").toggle();
+        })
     });
   </script>
 

@@ -47,13 +47,19 @@ class ProdutoController extends Controller
 			
 			$dados['preco'] = formataValorMoedaParaGravacao($dados['preco']);
 
-			$imagem = uploadImageHelper(
+			$retornoImagem = uploadImageHelper(
 				new UploadFiles(), 
 				'public/imagem/produtos/', 
 				$_FILES["imagem"]
 			);
+
+			# Verifica de houve erro durante o upload de imagem
+			if (is_array($retornoImagem)) {
+				Session::flash('error', $retornoImagem['error']);
+				return $this->get->redirectTo("produto/index");
+			}
             
-		    $dados['imagem'] = $imagem;
+		    $dados['imagem'] = $retornoImagem;
 
 			try {
 				$produto->save($dados);
@@ -82,13 +88,19 @@ class ProdutoController extends Controller
                 # Deleta a imagem anterior
 				unlink($dadosProduto->imagem);
 
-				$imagem = uploadImageHelper(
+				$retornoImagem = uploadImageHelper(
 					new UploadFiles(), 
 					'public/imagem/produtos/', 
 					$_FILES["imagem"]
 				);
+
+				# Verifica de houve erro durante o upload de imagem
+				if (is_array($retornoImagem)) {
+					Session::flash('error', $retornoImagem['error']);
+					return $this->get->redirectTo("produto/index");
+				}
                 
-				$dados['imagem'] = $imagem;
+				$dados['imagem'] = $retornoImagem;
 			}
 
 			try {

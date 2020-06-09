@@ -47,13 +47,19 @@ class UsuarioController extends Controller
 			$dados = (array) $this->post->data();
 			$dados['password'] = createHash($dados['password']);
 			
-			$imagem = uploadImageHelper(
+			$retornoImagem = uploadImageHelper(
 				new UploadFiles(), 
 				'public/imagem/perfil_usuarios/', 
 				$_FILES["imagem"]
 			);
             
-		    $dados['imagem'] = $imagem;
+            # Verifica de houve erro durante o upload de imagem
+			if (is_array($retornoImagem)) {
+				Session::flash('error', $retornoImagem['error']);
+				return $this->get->redirectTo("usuario/index");
+			}
+            
+		    $dados['imagem'] = $retornoImagem;
 
 			try {
 				$usuario->save($dados);
@@ -81,13 +87,19 @@ class UsuarioController extends Controller
                 # Deleta a imagem anterior
 				unlink($dadosUsuario->imagem);
 
-				$imagem = uploadImageHelper(
+				$retornoImagem = uploadImageHelper(
 					new UploadFiles(), 
 					'public/imagem/perfil_usuarios/', 
 					$_FILES["imagem"]
 				);
+
+				# Verifica de houve erro durante o upload de imagem
+				if (is_array($retornoImagem)) {
+					Session::flash('error', $retornoImagem['error']);
+					return $this->get->redirectTo("usuario/index");
+				}
                 
-				$dados['imagem'] = $imagem;
+				$dados['imagem'] = $retornoImagem;
 			}
 
 			if ( ! is_null($this->post->data()->password)) {

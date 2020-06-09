@@ -68,8 +68,7 @@ class UploadFiles
         $this->allowedFileSize = $fileSize;
     }
 
-    # This method do the input validation
-    public function move()
+    private function executeValidations()
     {
         $this->config["fileLength"] = 1024 * 1024 * $this->allowedFileSize;
         $this->config["theExtensions"] = $this->extensions;
@@ -89,16 +88,20 @@ class UploadFiles
         if (array_search($prepareExtensions, $this->config["theExtensions"]) === false) {
             $this->internalErrors["1"] = true;
             return false;
-        }
+        } 
 
         # Verify the max file limit
         if ($this->config["fileLength"] < $this->file["size"]) {
             $this->internalErrors["2"] = true;
             return false;
         }
+    }
 
-        if (($moved = $this->moveFile())) {
-            return $moved;
+    # Exectute the Move File action
+    public function move()
+    {
+        if ($this->moveFile()) {
+            return true;
         }
 
         return false;
@@ -151,6 +154,8 @@ class UploadFiles
     # This method get status of errors
     public function getErrors()
     {
+        $this->executeValidations();
+
         if ( ! is_null($this->internalErrors["1"])) {
             return 1;
         } elseif ( ! is_null($this->internalErrors["2"])) {

@@ -31,6 +31,7 @@ function createHash($password = null) {
 function uploadImageHelper($uploadClass, $folder, $image) {
 	$uploadClass->file($image);
 	$uploadClass->folder($folder);
+    $uploadClass->extensions(array("png","jpg","jpeg"));
 
 	$error = null;
 	switch ($uploadClass->getErrors()) {
@@ -49,14 +50,15 @@ function uploadImageHelper($uploadClass, $folder, $image) {
     }
 
     try {
+
         if ( $error !== null) {
-            throw new Exception($error);
+            throw new \Exception($error);
         }
 
         $uploadClass->move();
        
     } catch(\Exception $e) {
-        echo "Ocorreu um erro ao tentar fazer o Upload: " . $e->getMessage();
+        return ['error' => $e->getMessage()];
     }
 
     return $uploadClass->destinationPath();

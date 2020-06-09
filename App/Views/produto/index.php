@@ -18,6 +18,8 @@
 		<div class="card-body">
 	        <h5 class="card-title"><i class="fab fa-product-hunt" style="color:#99ccff"></i> Produtos</h5>
 	    </div>
+	    <!-- Mostra as mensagens de erro-->
+	    <?php require_once('App/Views/Layouts/HtmlComponents/FlashMessage.php');?>
 
 	    <table class="table tabela-ajustada table-striped" style="width:100%">
 	        <thead>

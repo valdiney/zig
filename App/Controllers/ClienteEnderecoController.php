@@ -91,10 +91,10 @@ class ClienteEnderecoController extends Controller
 
 		$resposta = fileGet("https://viacep.com.br/ws/{$cep}/json/");
 
-		if ( ! is_null($resposta)) {
-			echo json_encode($resposta);
+		if ( ! isset($resposta['erro'])) {
+			echo json_encode(['status' => true, 'conteudo' => $resposta]);
 		} else {
-			echo json_encode(['status' => 'Cep não encontrado']);
+			echo json_encode(['status' => false, 'mensagem' => 'Cep não encontrado!']);
 		}
 	}
 

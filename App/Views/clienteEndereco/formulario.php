@@ -1,3 +1,12 @@
+<style type="text/css">
+	small {
+		#small-mensagem {
+			font-size:8px!important;
+			opacity:0.60;
+		}
+	}
+</style>
+
 <form method="post" action="<?php echo isset($clienteEndereco->id) ? BASEURL.'/clienteEndereco/update' : BASEURL.'/clienteEndereco/save';?>"
 	enctype='multipart/form-data'>
 	<div class="row">
@@ -120,13 +129,21 @@
 	});
 
 	function buscarEnderecoViaCep(cep) {
+		modalValidacao('Validação', 'Buscando CEP...');
+
 		var rota = getDomain()+"/clienteEndereco/buscarEnderecoViaCep/"+in64(cep.value);
-	   $.get(rota, function(data, status) {
+	    $.get(rota, function(data, status) {
 	   	   var dados = JSON.parse(data);
-	   	   $("#endereco").val(dados.logradouro);
-	   	   $("#bairro").val(dados.bairro);
-	   	   $("#cidade").val(dados.localidade);
-	   	   $("#estado").val(dados.uf);
-	   });
+
+           if (dados.status == true) {
+           	   modalValidacaoClose();
+	           $("#endereco").val(dados.conteudo.logradouro);
+		   	   $("#bairro").val(dados.conteudo.bairro);
+		   	   $("#cidade").val(dados.conteudo.localidade);
+		   	   $("#estado").val(dados.conteudo.uf);
+           } else {
+           	   modalValidacao('Validação', dados.mensagem + '<br><small id="small-mensagem">Preencha o endereço manualmente!</small>');
+           }
+	    });
 	}
 </script>

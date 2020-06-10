@@ -173,4 +173,34 @@ class ClienteController extends Controller
 			echo json_encode(['status' => false]);
 		}
 	}
+
+	function desativarCliente()
+	{
+		$id = $this->get->position(0);
+		$cliente = new Cliente();
+		$dados['deleted_at'] = date('Y-m-d H:i:s');
+
+		try {
+			$cliente->update($dados, $id);
+		    echo json_encode(['status' => true]);
+
+		} catch(\Exception $e) { 
+		    dd($e->getMessage());
+    	}
+	}
+
+	function ativarCliente()
+	{
+		$id = $this->get->position(0);
+		$cliente = new Cliente();
+		$dados['deleted_at'] = null;
+
+		try {
+			$cliente->update($dados, $id);
+		    echo json_encode(['status' => true]);
+
+		} catch(\Exception $e) { 
+		    dd($e->getMessage());
+    	}
+	}
 }

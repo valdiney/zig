@@ -53,6 +53,8 @@ $route->create('cliente/index', 'ClienteController@index');
 $route->create('cliente/modalFormulario', 'ClienteController@modalFormulario');
 $route->create('cliente/save', 'ClienteController@save');
 $route->create('cliente/update', 'ClienteController@update');
+$route->create('cliente/desativarCliente', 'ClienteController@desativarCliente');
+$route->create('cliente/ativarCliente', 'ClienteController@ativarCliente');
 
 $route->create('cliente/verificaSeEmailExiste', 'ClienteController@verificaSeEmailExiste');
 $route->create('cliente/verificaSeCnpjExiste', 'ClienteController@verificaSeCnpjExiste');

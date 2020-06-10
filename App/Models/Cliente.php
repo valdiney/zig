@@ -16,7 +16,7 @@ class Cliente extends Model
     public function clientes($idEmpresa)
     {
     	return $this->query("
-    		SELECT cl.id, cl.nome, cl.email, cl.cnpj, cl.cpf, cl.telefone, cl.celular,
+    		SELECT cl.id, cl.nome, cl.email, cl.cnpj, cl.cpf, cl.telefone, cl.celular, cl.deleted_at,
 			cs.id AS idSegmento, cs.descricao AS descricaoSegmento, 
 			ct.id AS idClienteTipo, ct.descricao AS descricaoClienteTipo
 			FROM clientes AS cl

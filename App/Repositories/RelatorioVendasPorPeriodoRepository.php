@@ -1,6 +1,7 @@
 <?php 
 namespace App\Repositories;
 use App\Models\Venda;
+use App\Services\RelatorioXlsService\GerarRelatorioDeVendasPorPeriodoXlsService;
 
 class RelatorioVendasPorPeriodoRepository
 {
@@ -74,5 +75,20 @@ class RelatorioVendasPorPeriodoRepository
         );
 
         return $query[0]->totalVendas;
+    }
+
+    public function gerarRelatioDeVendasPorPeriodoXls(array $periodo, $idUsuario = false, $idEmpresa = false)
+    {
+        $gerarXls = new GerarRelatorioDeVendasPorPeriodoXlsService();
+        $gerarXls->setTitulo("Relatório de vendas por perído");
+        $gerarXls->setNomeDoArquivo("RelatorioDeVendas");
+            
+        $vendas = $this->vendasPorPeriodo(
+            ['de' => $periodo['de'], 'ate' => $periodo['ate']], 
+            $idUsuario,
+            $idEmpresa
+        );
+
+        $gerarXls->gerarXsl($vendas);
     }
 }

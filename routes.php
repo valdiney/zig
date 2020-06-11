@@ -21,6 +21,7 @@ $route->create('usuario/update', 'UsuarioController@update');
 $route->create('relatorio/index', 'RelatorioController@index');
 $route->create('relatorio/vendasPorPeriodo', 'RelatorioController@vendasPorPeriodo');
 $route->create('relatorio/vendasChamadaAjax', 'RelatorioController@vendasChamadaAjax');
+$route->create('relatorio/gerarXls', 'RelatorioController@gerarXls');
 
 # ----- ProdutoController --------------------------------
 $route->create('produto/index', 'ProdutoController@index');

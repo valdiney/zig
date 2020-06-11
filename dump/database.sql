@@ -1,5 +1,5 @@
 -- --------------------------------------------------------
--- Servidor:                     abitat.cndd5nogbuuf.us-east-2.rds.amazonaws.com
+-- Servidor:                     
 -- Versão do servidor:           5.7.26-log - Source distribution
 -- OS do Servidor:               Linux
 -- HeidiSQL Versão:              10.3.0.5771

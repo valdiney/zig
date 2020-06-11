@@ -30,9 +30,10 @@ class GerarRelatorioDeVendasPorPeriodoXlsService
 
 		foreach($vendas as $venda) {
 			$valorVenda = number_format($venda->valor, 2,',','.');
+			$tipoDePagamento = $venda->legenda;
 			$html .= "<tr>
-				<td>R$ {$valorVenda}</td>
-				<td>{$venda->legenda}</td>
+				<td bgcolor='#fffcf5'>R$ {$valorVenda}</td>
+				<td>{$tipoDePagamento}</td>
 				<td>{$venda->hora}h</td>
 				<td>{$venda->data}</td>
 			</tr>";
@@ -51,6 +52,7 @@ class GerarRelatorioDeVendasPorPeriodoXlsService
 		header ("Cache-Control: no-cache, must-revalidate");
 		header ("Pragma: no-cache");
 		header ("Content-type: application/x-msexcel");
+		//header( "Content-type: application/vnd.ms-excel; charset=UTF-8");
 		header ("Content-Disposition: attachment; filename=\"{$this->nomeDoArquivo}\"" );
 		header ("Content-Description: PHP Generated Data" );
 	}

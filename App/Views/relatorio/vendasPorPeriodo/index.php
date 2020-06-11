@@ -8,6 +8,10 @@
 	    object-position:center;
 	    border-radius:50%;
 	}
+	.cool-btn {
+		background:#1da1f2;
+		color:white!important;
+	}
 </style>
 
 <div class="row">
@@ -37,7 +41,7 @@
 	                </div>
 	            </div>
 
-	            <div class="col-md-3">
+	            <div class="col-md-4">
 				    <div class="form-group">
 				        <label for="id_usuario">Vendedor *</label>
 				        <select class="form-control" name="id_usuario" id="id_usuario">
@@ -50,12 +54,27 @@
 				        </select>
 				    </div>
 
-				    <button type="submit" class="btn btn-sm btn-success text-right pull-right" id="buscar-vendas">
-				         <i class="fas fa-search"></i> Buscar
-			        </button>
+				    <button type="submit" class="btn btn-sm btn-success text-right pull-right" id="buscar-vendas"
+				    style="margin-left:10px">
+					    <i class="fas fa-search"></i> Buscar
+				    </button>
+
+				    <a onclick="baixarEmFormatoXls()"
+				    	class="cool-btn btn btn-sm btn-defoult text-right pull-right" 
+				        id="baixar-xls" title="Baixar em formato XLS!">
+					    <i class="fas fa-cloud-download-alt"></i> Xls
+				    </a>
+
+				    <a class="cool-btn btn btn-sm btn-defoult text-right pull-right" 
+				    id="baixar-xls" title="Baixar em formato XLS!" disabled>
+					    <i class="fas fa-cloud-download-alt"></i> PDF
+				    </a>
+
 			    </div>
+
 	        </div><!--end row-->
         </form>
+  
     <br>
 	
    </div>
@@ -87,4 +106,14 @@
 	        	$('#div-tabela-vendas').append(resultado);
 	        });
     }
+
+    function baixarEmFormatoXls() {
+    	var rota = "<?php echo BASEURL;?>/relatorio/gerarXls";
+    	rota += "/"+$("#periodo_de").val();
+    	rota += "/"+$("#periodo_ate").val();
+    	rota += "/"+$("#id_usuario").val();
+
+    	window.location.href = rota;
+    }
+
 </script>

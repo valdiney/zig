@@ -91,41 +91,13 @@ class RelatorioController extends Controller
 
 	public function gerarXls()
 	{
-
-		/*
-		$arquivo = "teste.xls";
-
-		$html = '';
-		$html .= '<table border="1">';
-		$html .= '<tr>';
-		$html .= '<td colspan="5">Planilha Mensagem de Contatos</tr>';
-		$html .= '</tr>';
-		
-		
-		$html .= '<tr>';
-		$html .= '<td><b>ID</b></td>';
-		$html .= '<td><b>Nome</b></td>';
-		$html .= '<td><b>E-mail</b></td>';
-		$html .= '<td><b>Assunto</b></td>';
-		$html .= '<td><b>Data</b></td>';
-		$html .= '</tr>';
-
-		header ("Expires: Mon, 26 Jul 1997 05:00:00 GMT");
-		header ("Last-Modified: " . gmdate("D,d M YH:i:s") . " GMT");
-		header ("Cache-Control: no-cache, must-revalidate");
-		header ("Pragma: no-cache");
-		header ("Content-type: application/x-msexcel");
-		header ("Content-Disposition: attachment; filename=\"{$arquivo}\"" );
-		header ("Content-Description: PHP Generated Data" );
-		// Envia o conteúdo do arquivo
-		echo $html;
-		*/
-
-        $idUsuario = false;
         $relatorioVendas = new RelatorioVendasPorPeriodoRepository();
-        $periodo = ['de' => '2020-05-01', 'ate' => '2020-06-11'];
+        $periodo = [
+        	'de'  => $this->get->position(0), 
+        	'ate' => $this->get->position(1)
+        ];
+        
+        $idUsuario = $this->get->position(3);
 		$relatorioVendas->gerarRelatioDeVendasPorPeriodoXls($periodo, $idUsuario, $this->idEmpresa);
-
-
 	}
 }

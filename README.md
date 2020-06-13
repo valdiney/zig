@@ -19,7 +19,7 @@ O intuito é disponibilizar uma plataforma com módulos que facilite e potencial
 - [x] Cadastro de Clientes
 - [ ] Pedidos
 - [ ] Exportar relatórios para PDF
-- [ ] Exportar relatórios para Excel
+- [x] Exportar relatórios para Excel
 - [ ] Definir tipos de perfis de Usuários
 
 # Ponto de vendas Padrão

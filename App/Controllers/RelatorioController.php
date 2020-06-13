@@ -12,6 +12,7 @@ use App\Models\MeioPagamento;
 
 use App\Repositories\RelatorioVendasPorPeriodoRepository;
 
+
 class RelatorioController extends Controller
 {
 	protected $post;

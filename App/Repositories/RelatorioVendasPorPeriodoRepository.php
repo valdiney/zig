@@ -80,20 +80,17 @@ class RelatorioVendasPorPeriodoRepository
     public function gerarRelatioDeVendasPorPeriodoXls(array $periodo, $idUsuario = false, $idEmpresa = false)
     {
         $periodo = ['de' => $periodo['de'], 'ate' => $periodo['ate']];
-        $de = date('d/m/Y', strtotime($periodo['de']));
-        $ate = date('d/m/Y', strtotime($periodo['ate']));
+        $vendas = $this->vendasPorPeriodo($periodo, $idUsuario, $idEmpresa);
 
         $gerarXls = new GerarRelatorioDeVendasPorPeriodoXlsService();
-        $gerarXls->setTitulo(utf8_decode("Relatório de vendas por período. {$de} à {$ate}"));
-        $gerarXls->setNomeDoArquivo("Relatório de vendas por período");
-        $gerarXls->setPeriodo($periodo);
-            
-        $vendas = $this->vendasPorPeriodo(
-            $periodo, 
-            $idUsuario,
-            $idEmpresa
-        );
+        $gerarXls->setDiretorio('public/arquivos_temporarios');
+        $gerarXls->setNomeDoArquivo('Relatorio de vendas por periodo'.$idEmpresa);
 
-        return $gerarXls->gerarXsl($vendas);
+        $gerarXls->setPeriodo([
+            'de' => date('d/m/Y', strtotime($periodo['de'])),
+            'ate' => date('d/m/Y', strtotime($periodo['ate']))
+        ]);
+
+        $gerarXls->gerarXsl($vendas);
     }
 }

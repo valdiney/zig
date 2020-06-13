@@ -21,6 +21,8 @@
     },
     "minimum-stability": "stable",
     "require": {
-        "vlucas/phpdotenv": "^2.5"
+        "vlucas/phpdotenv": "^2.5",
+        "phpoffice/phpspreadsheet": "^1.13",
+        "symfony/symfony": "^5.1"
     }
 }

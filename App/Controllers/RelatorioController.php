@@ -98,7 +98,7 @@ class RelatorioController extends Controller
         	'ate' => $this->get->position(1)
         ];
         
-        $idUsuario = $this->get->position(3);
+        $idUsuario = ($this->get->position(2) == 'todos') ? false : $this->get->position(2);
 		$relatorioVendas->gerarRelatioDeVendasPorPeriodoXls($periodo, $idUsuario, $this->idEmpresa);
 	}
 }

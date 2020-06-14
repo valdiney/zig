@@ -10,7 +10,7 @@ O intuito é disponibilizar uma plataforma com módulos que facilite e potencial
 
 <p>
   Achou o projeto legal e gostaria de fazer uma doação? <a href="https://pag.ae/7W6_WBpg2" target="_blank">
-  <b>Click aqui! A sua ajuda é bem vinda!</b></a> 
+  <b>Clique aqui! A sua ajuda é bem vinda!</b></a> 
 </p>
 
 # Módulos

@@ -66,10 +66,4 @@ php -S localhost:8000
 Email: admin@admin.com <br>
 Password: 33473347
 
-<form action="https://pagseguro.uol.com.br/checkout/v2/donation.html" method="post">
-<!-- NÃO EDITE OS COMANDOS DAS LINHAS ABAIXO -->
-<input type="hidden" name="currency" value="BRL" />
-<input type="hidden" name="receiverEmail" value="valdiney.2@hotmail.com" />
-<input type="hidden" name="iot" value="button" />
-<input type="image" src="https://stc.pagseguro.uol.com.br/public/img/botoes/doacoes/120x53-doar.gif" name="submit" alt="Pague com PagSeguro - é rápido, grátis e seguro!" />
-</form>
+https://pag.ae/7W6_WBpg2

@@ -3,10 +3,13 @@ obterValorTotalDosProdutosNaMesa();
 
 /*Acrescenta um produto a seleção de venda*/
 function colocarProdutosNaMesa(id, item) {
-   var rota = getDomain()+"/pdvDiferencial/colocarProdutosNaMesa/"+id;
-   $.get(rota, function(data, status) {
-   	   obterOultimoProdutoColocadoNaMesa('ultimo');
-   });
+  modalMensagemAdicionandoProdutosAMessa();
+
+  var rota = getDomain()+"/pdvDiferencial/colocarProdutosNaMesa/"+id;
+  $.get(rota, function(data, status) {
+   	  obterOultimoProdutoColocadoNaMesa('ultimo');
+      modalValidacaoClose();
+  });
 }
 
 /*
@@ -134,4 +137,8 @@ function verificaSeTemProdutosNaMesa(t) {
   } else {
       $(".colspan").hide();
   }
+}
+
+function modalMensagemAdicionandoProdutosAMessa() {
+  modalValidacao('Validação', 'Adicionando...');
 }

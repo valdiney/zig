@@ -3,7 +3,6 @@
 use App\Views\Layouts\HtmlComponents\Modal;
 use System\Session\Session;
 ?>
-
 <style type="text/css">
 	.imagem-perfil {
 		width:30px;

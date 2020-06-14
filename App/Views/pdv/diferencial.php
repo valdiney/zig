@@ -3,7 +3,6 @@
 use App\Views\Layouts\HtmlComponents\Modal;
 use System\Session\Session;
 ?>
-
 <style type="text/css">
 	.imagem-perfil {
 		width:30px;
@@ -17,7 +16,6 @@ use System\Session\Session;
 	  	margin-top:25px;
 	  }
 	}
-
 	.card-two {
 		margin-top:10px;
 		border-radius:3px;
@@ -26,10 +24,6 @@ use System\Session\Session;
 		padding-left:3px;
 		padding-right:3px;
 	}
-
-
-
-
 	.tabela-ajustada tr td {
 		padding-top:2px!important;
 		padding-bottom:2px!important;
@@ -39,7 +33,7 @@ use System\Session\Session;
 		font-size:13px!important;
 
 	}
-     .card-produtos {
+    .card-produtos {
      	margin-top:10px;
         border-left:1px solid #dddddd;
      	padding:0;
@@ -47,13 +41,14 @@ use System\Session\Session;
      }
      .card-produtos img:hover {
      	cursor:pointer;
-     	border:1px solid #7fe3ca;
-     }
+     	border:2px solid #7fe3ca;
+     	filter: brightness(95%);
+    }
      .card-produtos img:active {
      	cursor:pointer;
      	border:1px solid #7fe3ca;
      	box-shadow:silver 1px 1px 3px;
-     }
+    }
 	.card-produtos img {
 		width:100px;
 	    height:100px;
@@ -123,7 +118,7 @@ use System\Session\Session;
                 <?php foreach ($produtos as $key => $produto):?>
 	            	<div class="col-lg-2 card-produtos" 
 	            	onclick="colocarProdutosNaMesa('<?php echo $produto->id;?>', this)">
-	            		<img src="<?php echo $produto->imagem;?>">
+	            		<img src="<?php echo $produto->imagem;?>" title="Adicionar!">
 	            		<center><span class="produto-titulo"><?php echo mb_strtoupper($produto->nome);?></span></center>
 	            		<center><span class="produto-valor">R$ <?php echo real($produto->preco);?></span></center>
 	            	</div>
@@ -190,18 +185,3 @@ use System\Session\Session;
 <script src="<?php echo BASEURL;?>/public/assets/js/core/jquery.min.js"></script>
 <script src="<?php echo BASEURL;?>/public/js/helpers.js"></script>
 <script src="<?php echo BASEURL;?>/public/js/venda/funcoesPdvAvancado.js"></script>
-
-<script type="text/javascript">
-	$(function() {
-		$('.salvar-venda').click(function() {
-
-			if ($('.valor').val() == '') {
-				modalValidacao('Validação', 'Campo (Valor) deve ser preenchido!');
-				return false;
-			}
-
-			return true;
-
-		});
-	});
-</script>

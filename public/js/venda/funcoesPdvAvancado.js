@@ -66,7 +66,9 @@ function obterOultimoProdutoColocadoNaMesa(posicao) {
 
 /*Acrescenta ou decrementa a quantidade de um produto*/
 function alterarAquantidadeDeUmProdutoNaMesa(id, quantidade) {
-	if (quantidade != 0 || quantidade != '') {
+  quantidade = Number(quantidade);
+ 
+	if (quantidade > 0 && quantidade != '') {
 		var rota = getDomain()+"/pdvDiferencial/alterarAquantidadeDeUmProdutoNaMesa/"+id+"/"+quantidade;
 	    $.get(rota, function(data, status) {
 	   	    $(".tabela-de-produto tbody").empty();

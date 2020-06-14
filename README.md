@@ -5,12 +5,12 @@ O ZigMoney é um projeto que visa ajudar pequenos comércios que precisam regist
 </p>
 
 <p>
-  Achou o projeto legal e gostaria de fazer uma doação? <a href="https://pag.ae/7W6_WBpg2" target="_blank">
-  Click aqui e contribuia! Sua ajuda é bem vinda!</a>
+O intuito é disponibilizar uma plataforma com módulos que facilite e potencialize o controle de informações de vendas totalmente online. 
 </p>
 
 <p>
-O intuito é disponibilizar uma plataforma com módulos que facilite e potencialize o controle de informações de vendas totalmente online. 
+  Achou o projeto legal e gostaria de fazer uma doação? <a href="https://pag.ae/7W6_WBpg2" target="_blank">
+  Click aqui e contribua! A sua ajuda é bem vinda!</a> 
 </p>
 
 # Módulos

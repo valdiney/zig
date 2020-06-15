@@ -18,7 +18,8 @@ A Lucia tem um pequeno comercio e luta bravamente para mantê-lo! Porém, a Luci
 </p>
 
 # Observações
-1. O projeto está sendo escrito em PHP padrão MCV, não está sendo utilizado nenhum framework de mercado!  “Felizmente ou infelizmente”! Porém, para quem conhece PHP e quer contribuir, o processe é bem simples!  
+1. O projeto está sendo escrito em PHP padrão MCV, não está sendo utilizado nenhum framework de mercado!  <br> 
+*“Felizmente ou infelizmente”*! Porém, para quem conhece PHP e quer contribuir, o processe é bem simples!  
 
 # Módulos
 - [x] Login no Sistema

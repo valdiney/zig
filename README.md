@@ -25,7 +25,7 @@ A Lucia tem um pequeno comercio e luta bravamente para mantê-lo! Porém, a Luci
 * Todos nós iremos morrer um dia. 
 * Sabemos que não temos o melhor código do mundo.
 * A credite, sabemos que você também não tem! 😂 <br>
-Isso não significa que você não possa melhorar o código ou questioná-lo! Mas se você conhece PHP e quer contribuir, acredito que o processo seja bem simples! Lembre-se, nos dias de hoje temos o composer e Interoperabilidade entre bibliotecas! 
+Isso não significa que você não possa melhorar o código ou questioná-lo! Mas se você conhece PHP e quer contribuir, acredito que o processo seja bem simples! Lembre-se, nos dias de hoje temos o composer e Interoperabilidade entre bibliotecas! ❤
 
 3. Não queremos reescrever o sistema na sua linguagem preferida! Muitas pessoas parecem querer contribuir, desde que usemos as ferramentas que elas usam. Node.js, Mongodb, React, Vue.js, Angular, Microsserviços... Respeitamos todas essas tecnologias, mas não é viável ficarmos mudando de tecnologia a todo momento!
 

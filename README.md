@@ -27,7 +27,7 @@ A Lucia tem um pequeno comercio e luta bravamente para mantê-lo! Porém, a Luci
 * A credite, sabemos que você também não tem! 😂 <br>
 Isso não significa que você não possa melhorar o código ou questioná-lo! Mas pegue leve no estresse! 
 
-3. Possa ser que você queira contribuir, mas não queremos reescrever o sistema na sua linguagem preferida! Muitas pessoas parece querer contribuir, desde que usemos as ferramentas que elas usam. Node.js, Mongodb, React, Vue.js, Angular, Misroserviços... Respeitamos todas essas tecnologias, mas não é viável ficar mudando e nunca entregar nada! 
+3. Não queremos reescrever o sistema na sua linguagem preferida! Muitas pessoas parecem querer contribuir, desde que usemos as ferramentas que elas usam. Node.js, Mongodb, React, Vue.js, Angular, Misroserviços... Respeitamos todas essas tecnologias, mas não é viável ficar mudando e nunca entregar nada! 
 
 # Módulos
 - [x] Login no Sistema

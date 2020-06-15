@@ -26,10 +26,13 @@ class RelatorioVendasPorPeriodoRepository
 		$query = $this->venda->query("
 			SELECT vendas.id, vendas.valor, DATE_FORMAT(vendas.created_at, '%H:%i') AS hora,
 			DATE_FORMAT(vendas.created_at, '%d/%m/%Y') AS data,
-            meios_pagamentos.legenda, usuarios.id, usuarios.nome, usuarios.imagem 
+            meios_pagamentos.legenda, usuarios.id, usuarios.nome AS nomeUsuario, usuarios.imagem,
+            vendas.preco, vendas.quantidade,
+            produtos.id AS idProduto, produtos.nome AS nomeProduto
             FROM vendas INNER JOIN usuarios
-            ON vendas.id_usuario =  usuarios.id
+            ON vendas.id_usuario = usuarios.id
             INNER JOIN meios_pagamentos ON vendas.id_meio_pagamento = meios_pagamentos.id
+            LEFT JOIN produtos ON vendas.id_produto = produtos.id
             WHERE vendas.id_empresa = {$idEmpresa} AND DATE(vendas.created_at) 
             BETWEEN '{$de}' AND '{$ate}' {$queryPorUsuario}
             ORDER BY vendas.created_at DESC");

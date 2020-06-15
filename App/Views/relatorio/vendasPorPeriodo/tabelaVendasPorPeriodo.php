@@ -32,8 +32,10 @@
 		<thead>
 			<tr>
 				<th>#</th>
-	    		<th>Valor</th>
-	    		<th>Pagamento</th>
+	    		<th>Preço</th>
+	    		<th>Quantidade</th>
+	    		<th>Total</th>
+	    		<th>Meio Pagamento</th>
 	    		<th>Hora</th>
 	    		<th>Data</th>
 			</tr>
@@ -41,7 +43,23 @@
 		<tbody>	        		
 			<?php foreach($vendas as $venda):?>
 				<tr>
-					<td><img class="imagem-perfil" src="<?php echo $venda->imagem;?>"></td>
+					<td>
+						<img class="imagem-perfil" src="<?php echo $venda->imagem;?>" 
+						title="<?php echo $venda->nomeUsuario;?>">
+					</td>
+
+					<?php if ($venda->preco != 0):?>
+					    <td>R$ <?php echo number_format($venda->preco, 2,',','.');?></td>
+					<?php else:?>
+						<td><small>Não consta produto</small></td>
+					<?php endif;?>
+                    
+                    <?php if ( ! is_null($venda->quantidade)):?>
+					    <td><?php echo $venda->quantidade;?></td>
+					<?php else:?>
+						<td><small>Não consta</small></td>
+					<?php endif;?>
+
 					<td>R$ <?php echo number_format($venda->valor, 2,',','.');?></td>
 					<td><?php echo $venda->legenda;?></td>
 					<td><?php echo $venda->hora;?>h</td>

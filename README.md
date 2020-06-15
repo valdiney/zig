@@ -17,27 +17,6 @@ O intuito é disponibilizar uma plataforma com módulos que facilite e potencial
 A Lucia tem um pequeno comercio e luta bravamente para mantê-lo! Porém, a Lucia tem problemas em registrar suas vendas! Já usou papel, planilhas e até mesmo outros sistemas complicados! Será que nós da ZigMoney conseguiremos ajudar as varias Lucias espalhadas pelo nosso Brasil?
 </p>
 
-# Observações
-1. O projeto está sendo escrito em PHP padrão MCV, não está sendo utilizado nenhum framework de mercado!  <br> 
-*“Felizmente ou infelizmente”*! Mas se você conhece PHP e quer contribuir, acredito que o processo seja bem simples! Lembre-se, nos dias de hoje temos o composer e Interoperabilidade entre bibliotecas! ❤
-
-<hr>
-
-2. Há três certezas nessa vida! São elas: 
-* Todos nós iremos morrer um dia. 
-* Sabemos que não temos o melhor código do mundo.
-* A credite, sabemos que você também não tem! 😂 <br> <br>
-
-Isso não significa que você não possa melhorar o código ou questioná-lo! Mas pegue leve no estresse a vida é uma só!
-<hr>
-
-3. Não queremos reescrever o sistema na sua linguagem preferida! Muitas pessoas parecem querer contribuir, desde que usemos as ferramentas que elas usam. Node.js, Mongodb, React, Vue.js, Angular, Microsserviços... Respeitamos todas essas tecnologias, mas não é viável ficarmos mudando de tecnologia a todo momento!
-
-<hr>
-
-4. Não nos  matamos olhando a "concorrência"! Pois o nosso intuito é criar uma ferramenta que realmente possa ajudar e agregar valor! Essa é a nossa tarefa! O desenvolvimento do projeto deve ser criativo, consciente e divertido! E não uma matilha em modo siga o líder! 
-<hr>
-
 # Módulos
 - [x] Login no Sistema
 - [x] Cadastro de Usuários

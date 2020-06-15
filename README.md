@@ -22,9 +22,9 @@ A Lucia tem um pequeno comercio e luta bravamente para mantê-lo! Porém, a Luci
 *“Felizmente ou infelizmente”*! Porém, para quem conhece PHP e quer contribuir, o processe é bem simples! 
 
 2. Há três certezas nessa vida! São elas: 
-- [x] Todos nós iremos morrer um dia. 
-- [x] Sabemos que não temos o melhor código do mundo.
-- [x] A credite, sabemos que você também não! 😂
+* Todos nós iremos morrer um dia. 
+* Sabemos que não temos o melhor código do mundo.
+* A credite, sabemos que você também não! 😂
 
 
 # Módulos

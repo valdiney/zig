@@ -17,6 +17,9 @@ O intuito é disponibilizar uma plataforma com módulos que facilite e potencial
 A Lucia tem um pequeno comercio e luta bravamente para mantê-lo! Porém, a Lucia tem problemas em registrar suas vendas! Já usou papel, planilhas e até mesmo outros sistemas complicados! Será que nós da ZigMoney conseguiremos ajudar as varias Lucias espalhadas pelo nosso Brasil?
 </p>
 
+# Observações
+1. O projeto está sendo escrito em PHP padrão MCV, não está sendo utilizado nenhum framework de mercado!  “Felizmente ou infelizmente”! Porém, para quem conhece PHP e quer contribuir, o processe é bem simples!  
+
 # Módulos
 - [x] Login no Sistema
 - [x] Cadastro de Usuários

@@ -19,7 +19,7 @@ A Lucia tem um pequeno comercio e luta bravamente para mantê-lo! Porém, a Luci
 
 # Observações
 1. O projeto está sendo escrito em PHP padrão MCV, não está sendo utilizado nenhum framework de mercado!  <br> 
-*“Felizmente ou infelizmente”*! Porém, para quem conhece PHP e quer contribuir, o processe é bem simples! 
+*“Felizmente ou infelizmente”*! Mas se você conhece PHP e quer contribuir, acredito que o processe é bem simples! 
 
 2. Há três certezas nessa vida! São elas: 
 * Todos nós iremos morrer um dia. 
@@ -29,7 +29,7 @@ Isso não significa que você não possa melhorar o código ou questioná-lo! Ma
 
 3. Não queremos reescrever o sistema na sua linguagem preferida! Muitas pessoas parecem querer contribuir, desde que usemos as ferramentas que elas usam. Node.js, Mongodb, React, Vue.js, Angular, Misroserviços... Respeitamos todas essas tecnologias, mas não é viável ficar mudando e nunca entregar nada! 
 
-4. Não nos  matamos olhando a "concorrência"! Pois o nosso intuito é criar uma ferramenta que realmente possa ajudar e agregar valor! Essa é a nossa tarefa! O desenvolvimento do projeto deve ser criativo, consciente e divertido! E não uma matilha de siga o líder! 
+4. Não nos  matamos olhando a "concorrência"! Pois o nosso intuito é criar uma ferramenta que realmente possa ajudar e agregar valor! Essa é a nossa tarefa! O desenvolvimento do projeto deve ser criativo, consciente e divertido! E não uma matilha em modo siga o líder! 
 
 # Módulos
 - [x] Login no Sistema

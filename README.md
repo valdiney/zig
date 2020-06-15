@@ -19,15 +19,16 @@ A Lucia tem um pequeno comercio e luta bravamente para mantê-lo! Porém, a Luci
 
 # Observações
 1. O projeto está sendo escrito em PHP padrão MCV, não está sendo utilizado nenhum framework de mercado!  <br> 
-*“Felizmente ou infelizmente”*! Mas se você conhece PHP e quer contribuir, acredito que o processo é bem simples! 
+*“Felizmente ou infelizmente”*! Mas se você conhece PHP e quer contribuir, acredito que o processo seja bem simples! Lembre-se, nos dias de hoje temos o composer e Interoperabilidade entre bibliotecas! ❤
+
 <hr>
 
 2. Há três certezas nessa vida! São elas: 
 * Todos nós iremos morrer um dia. 
 * Sabemos que não temos o melhor código do mundo.
-* A credite, sabemos que você também não tem! 😂 <br>
-Isso não significa que você não possa melhorar o código ou questioná-lo! Mas se você conhece PHP e quer contribuir, acredito que o processo seja bem simples! Lembre-se, nos dias de hoje temos o composer e Interoperabilidade entre bibliotecas! ❤
+* A credite, sabemos que você também não tem! 😂 <br> <br>
 
+Isso não significa que você não possa melhorar o código ou questioná-lo! Mas pegue leve no estresse a vida é uma só!
 <hr>
 
 3. Não queremos reescrever o sistema na sua linguagem preferida! Muitas pessoas parecem querer contribuir, desde que usemos as ferramentas que elas usam. Node.js, Mongodb, React, Vue.js, Angular, Microsserviços... Respeitamos todas essas tecnologias, mas não é viável ficarmos mudando de tecnologia a todo momento!

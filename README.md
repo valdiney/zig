@@ -24,7 +24,8 @@ A Lucia tem um pequeno comercio e luta bravamente para mantê-lo! Porém, a Luci
 2. Há três certezas nessa vida! São elas: 
 * Todos nós iremos morrer um dia. 
 * Sabemos que não temos o melhor código do mundo.
-* A credite, sabemos que você também não! 😂
+* A credite, sabemos que você também não tem! 😂
+Isso não significa que você não possa melhorar o código ou questioná-lo! 
 
 
 # Módulos

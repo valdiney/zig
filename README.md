@@ -15,6 +15,11 @@ O intuito é disponibilizar uma plataforma com módulos que facilite e potencial
   <b>Clique aqui! A sua ajuda é bem vinda!</b></a> 
 </p>
 
+# Persona do Projeto
+<p>
+A Lucia tem um pequeno comercio e luta bravamente para mantê-lo! Porém, a Lucia tem problemas em registrar suas vendas! Já usou papel, planilhas e até mesmo outros sistemas complicados! Será que nós da ZigMoney conseguiremos ajudar as varias Lucias espalhadas pelo nosso Brasil?
+</p>
+
 # Módulos
 - [x] Login no Sistema
 - [x] Cadastro de Usuários

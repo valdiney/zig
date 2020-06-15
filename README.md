@@ -19,7 +19,7 @@ A Lucia tem um pequeno comercio e luta bravamente para mantê-lo! Porém, a Luci
 
 # Observações
 1. O projeto está sendo escrito em PHP padrão MCV, não está sendo utilizado nenhum framework de mercado!  <br> 
-*“Felizmente ou infelizmente”*! Mas se você conhece PHP e quer contribuir, acredito que o processe é bem simples! 
+*“Felizmente ou infelizmente”*! Mas se você conhece PHP e quer contribuir, acredito que o processo é bem simples! 
 
 2. Há três certezas nessa vida! São elas: 
 * Todos nós iremos morrer um dia. 

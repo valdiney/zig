@@ -30,4 +30,9 @@ class VendasRepository
 
         return $query[0]->faturamentoDeVendas;
 	}
+
+	public function percentualMeiosDePagamento()
+	{
+		
+	}
 }

@@ -54,17 +54,15 @@ class HomeController extends Controller
             date('d', strtotime(decrementDaysFromDate(1))), date('m'), $this->idEmpresa
         );
 
+        $percentualMeiosDePagamento = $vendasRepository->percentualMeiosDePagamento($this->idEmpresa);
+
 		$this->view('home/index', $this->layout, 
 			compact(
 				'faturamentoDeVandasNoMes',
 				'faturamentoDeVandasNoDia',
 				'faturamentoDeVandasMesAnterior',
-				'faturamentoDeVandasNoDiaAnterior'
+				'faturamentoDeVandasNoDiaAnterior',
+				'percentualMeiosDePagamento'
 			));
-	}
-
-	public function teste()
-	{
-		echo 'teste';
 	}
 }

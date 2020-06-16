@@ -115,6 +115,8 @@
             <div class="stats">
               <i class="fa fa-refresh"></i>
               Update Now
+              
+
             </div>
           </div>
         </div>
@@ -144,7 +146,7 @@
        <div class="col-lg-6 col-md-6 col-sm-6">
         <div class="card card-stats">
           <div class="card-body ">
-            <canvas class="grafico" id="grafico" width="400" height="170"></canvas>
+            <canvas class="grafico" id="grafi-vendas-por-dia" width="400" height="230"></canvas>
           </div>
           <div class="card-footer ">
             <hr>
@@ -159,10 +161,70 @@
 </div>
 
 <script src="<?php echo BASEURL;?>/public/assets/chartjs/dist/Chart.min.js"></script>
+
 <?php Doughnut::start(
-    'grafico-tipo-pagamento',
-    [10, 20, 30],
-    ['Dinheiro', 'Credito', 'Debito'], 
-    ["#83e6cd","#9be6e6","#ffe6b5"]
-);
-?>
+  'grafico-tipo-pagamento',
+  $percentualMeiosDePagamento->medias,
+  $percentualMeiosDePagamento->legendas, 
+  ["#83e6cd","#9be6e6","#ffe6b5"]
+);?>
+
+
+<script>
+  var ctx = document.getElementById("grafi-vendas-por-dia");
+var myChart = new Chart(ctx, {
+  type: 'bar',
+  data: {
+    labels: ["2015-01", "2015-02", "2015-03", "2015-04", "2015-05", "2015-06", "2015-07", "2015-08", "2015-09", "2015-10", "2015-11", "2015-12"],
+    datasets: [{
+      label: '# of Tomatoes',
+      data: [12, 19, 3, 5, 2, 3, 20, 3, 5, 6, 2, 1],
+      backgroundColor: [
+        'rgba(255, 99, 132, 0.2)',
+        'rgba(54, 162, 235, 0.2)',
+        'rgba(255, 206, 86, 0.2)',
+        'rgba(75, 192, 192, 0.2)',
+        'rgba(153, 102, 255, 0.2)',
+        'rgba(255, 159, 64, 0.2)',
+        'rgba(255, 99, 132, 0.2)',
+        'rgba(54, 162, 235, 0.2)',
+        'rgba(255, 206, 86, 0.2)',
+        'rgba(75, 192, 192, 0.2)',
+        'rgba(153, 102, 255, 0.2)',
+        'rgba(255, 159, 64, 0.2)'
+      ],
+      borderColor: [
+        'rgba(255,99,132,1)',
+        'rgba(54, 162, 235, 1)',
+        'rgba(255, 206, 86, 1)',
+        'rgba(75, 192, 192, 1)',
+        'rgba(153, 102, 255, 1)',
+        'rgba(255, 159, 64, 1)',
+        'rgba(255,99,132,1)',
+        'rgba(54, 162, 235, 1)',
+        'rgba(255, 206, 86, 1)',
+        'rgba(75, 192, 192, 1)',
+        'rgba(153, 102, 255, 1)',
+        'rgba(255, 159, 64, 1)'
+      ],
+      borderWidth: 1
+    }]
+  },
+  options: {
+    responsive: false,
+    scales: {
+      xAxes: [{
+        ticks: {
+          maxRotation: 90,
+          minRotation: 80
+        }
+      }],
+      yAxes: [{
+        ticks: {
+          beginAtZero: true
+        }
+      }]
+    }
+  }
+});
+</script>

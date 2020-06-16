@@ -31,8 +31,31 @@ class VendasRepository
         return $query[0]->faturamentoDeVendas;
 	}
 
-	public function percentualMeiosDePagamento()
+	public function percentualMeiosDePagamento($idEmpresa)
 	{
-		
+		$query = $this->venda->query("
+			SELECT mpg.legenda, SUM(vendas.valor) AS total, 
+			ROUND((COUNT(*) / (SELECT COUNT(*) FROM vendas)),2) * 100 AS media
+			FROM vendas
+			INNER JOIN meios_pagamentos AS mpg ON vendas.id_meio_pagamento = mpg.id
+			WHERE vendas.id_empresa = {$idEmpresa}
+			GROUP BY vendas.id_meio_pagamento
+		");
+        
+        $legendas = [];
+        $medias = [];
+		foreach ($query as $valor) {
+			array_push($legendas, $valor->legenda);
+			array_push($medias, $valor->media);
+		}
+
+		return (object) ['legendas' => $legendas, 'medias' => $medias];
 	}
 }
+
+
+/*
+SELECT DAY(created_at) AS DATA, COUNT(*) FROM vendas
+WHERE MONTH(created_at) = MONTH(NOW())
+GROUP BY DAY(created_at)
+*/

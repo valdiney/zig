@@ -139,10 +139,10 @@
           </div>
           <div class="card-footer ">
             <hr>
-            <div class="stats">
+            <!--<div class="stats">
               <i class="fa fa-refresh"></i>
               Update Now
-            </div>
+            </div>-->
           </div>
         </div>
       </div>
@@ -158,10 +158,10 @@
           </div>
           <div class="card-footer ">
             <hr>
-            <div class="stats">
+            <!--<div class="stats">
               <i class="fa fa-refresh"></i>
               Update Now
-            </div>
+            </div>-->
           </div>
         </div>
       </div>

@@ -56,13 +56,18 @@ class HomeController extends Controller
 
         $percentualMeiosDePagamento = $vendasRepository->percentualMeiosDePagamento($this->idEmpresa);
 
+        $quantidadeDeVendasRealizadasPorDia = $vendasRepository->quantidadeDeVendasRealizadasPorDia(
+        	[], $this->idEmpresa
+        );
+        
 		$this->view('home/index', $this->layout, 
 			compact(
 				'faturamentoDeVandasNoMes',
 				'faturamentoDeVandasNoDia',
 				'faturamentoDeVandasMesAnterior',
 				'faturamentoDeVandasNoDiaAnterior',
-				'percentualMeiosDePagamento'
+				'percentualMeiosDePagamento',
+				'quantidadeDeVendasRealizadasPorDia'
 			));
 	}
 }

@@ -51,6 +51,17 @@ class VendasRepository
 
 		return (object) ['legendas' => $legendas, 'medias' => $medias];
 	}
+
+	public function quantidadeDeVendasRealizadasPorDia(array $periodo, $idEmpresa)
+	{
+		$query = $this->venda->query("
+			SELECT DATE_FORMAT(created_at, '%d/%m') AS data, COUNT(*) AS quantidade FROM vendas
+			WHERE MONTH(created_at) = MONTH(NOW()) AND id_empresa = {$idEmpresa}
+			GROUP BY DAY(created_at) ORDER BY DATE_FORMAT(created_at, '%d/%m') ASC
+		");
+
+		return $query;
+	}
 }
 
 

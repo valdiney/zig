@@ -130,8 +130,12 @@
 
     <div class="col-lg-6 col-md-6 col-sm-6">
         <div class="card card-stats">
-          <div class="card-body ">
-            <canvas class="grafico" id="grafico-tipo-pagamento" width="400" height="170"></canvas>
+          <div class="card-body">
+            <center>
+              Meios de pagamento.
+              <small style="opacity:0.70">Ultimos 30 dias</small>
+            </center>
+            <canvas class="grafico" id="grafico-tipo-pagamento" width="400" height="186"></canvas>
           </div>
           <div class="card-footer ">
             <hr>
@@ -145,8 +149,12 @@
 
        <div class="col-lg-6 col-md-6 col-sm-6">
         <div class="card card-stats">
-          <div class="card-body ">
-            <canvas class="grafico" id="grafi-vendas-por-dia" width="400" height="230"></canvas>
+          <div class="card-body">
+            <center>
+              Vendas por dia.
+              <small style="opacity:0.70">Ultimos 30 dias</small>
+            </center>
+            <canvas class="grafico" id="grafi-vendas-por-dia" width="400" height="185"></canvas>
           </div>
           <div class="card-footer ">
             <hr>
@@ -175,53 +183,35 @@
 var myChart = new Chart(ctx, {
   type: 'bar',
   data: {
-    labels: ["2015-01", "2015-02", "2015-03", "2015-04", "2015-05", "2015-06", "2015-07", "2015-08", "2015-09", "2015-10", "2015-11", "2015-12"],
+    labels: [
+    <?php foreach ($quantidadeDeVendasRealizadasPorDia as $valor):?>
+      "<?php echo $valor->data;?>",
+    <?php endforeach?>
+    ],
     datasets: [{
-      label: '# of Tomatoes',
-      data: [12, 19, 3, 5, 2, 3, 20, 3, 5, 6, 2, 1],
-      backgroundColor: [
-        'rgba(255, 99, 132, 0.2)',
-        'rgba(54, 162, 235, 0.2)',
-        'rgba(255, 206, 86, 0.2)',
-        'rgba(75, 192, 192, 0.2)',
-        'rgba(153, 102, 255, 0.2)',
-        'rgba(255, 159, 64, 0.2)',
-        'rgba(255, 99, 132, 0.2)',
-        'rgba(54, 162, 235, 0.2)',
-        'rgba(255, 206, 86, 0.2)',
-        'rgba(75, 192, 192, 0.2)',
-        'rgba(153, 102, 255, 0.2)',
-        'rgba(255, 159, 64, 0.2)'
+      label: 'Vendas',
+      data: [
+        <?php foreach ($quantidadeDeVendasRealizadasPorDia as $valor):?>
+          <?php echo $valor->quantidade .',';?>
+        <?php endforeach?>
       ],
-      borderColor: [
-        'rgba(255,99,132,1)',
-        'rgba(54, 162, 235, 1)',
-        'rgba(255, 206, 86, 1)',
-        'rgba(75, 192, 192, 1)',
-        'rgba(153, 102, 255, 1)',
-        'rgba(255, 159, 64, 1)',
-        'rgba(255,99,132,1)',
-        'rgba(54, 162, 235, 1)',
-        'rgba(255, 206, 86, 1)',
-        'rgba(75, 192, 192, 1)',
-        'rgba(153, 102, 255, 1)',
-        'rgba(255, 159, 64, 1)'
-      ],
+      backgroundColor: '#00cccc',
+      borderColor: '#255949',
       borderWidth: 1
     }]
   },
   options: {
-    responsive: false,
+    responsive: true,
     scales: {
       xAxes: [{
         ticks: {
-          maxRotation: 90,
-          minRotation: 80
+          //maxRotation: 90,
+          //minRotation: 80
         }
       }],
       yAxes: [{
         ticks: {
-          beginAtZero: true
+          //beginAtZero: true
         }
       }]
     }

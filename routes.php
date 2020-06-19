@@ -71,5 +71,10 @@ $route->create('clienteEndereco/buscarEnderecoViaCep', 'ClienteEnderecoControlle
 # ----- PedidoController --------------------------------
 $route->create('pedido/index', 'PedidoController@index');
 
+
+$route->create('pwa/login', 'Api\InicioPwaController@index');
+$route->create('pwa/logar', 'Api\LoginController@logar');
+$route->create('pwa/pdv', 'Api\InicioPwaController@pdv');
+
 # Run Router
 $route->run();

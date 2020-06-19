@@ -43,19 +43,6 @@ class SelectController
 			'method' => $arrayExplode[1]
 		];
 	}
-
-	public function createInGoup(string $aliases, string $controllerAndMethod)
-	{
-		$arrayExplode = explode('@', $controllerAndMethod);
-
-		$this->atual = $aliases;
-
-		$this->allRouters[$aliases] = [
-			'aliases' => $aliases,
-			'controller' => $arrayExplode[0],
-			'method' => $arrayExplode[1]
-		];
-	}
     
     /**
     * The method is used to instantiate the controller

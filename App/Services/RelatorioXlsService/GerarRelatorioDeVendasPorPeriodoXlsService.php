@@ -44,12 +44,22 @@ class GerarRelatorioDeVendasPorPeriodoXlsService
         $sheet->setCellValue('A1', "Relatório de vendas por período.{$this->periodo['de']} à {$this->periodo['ate']}");
 
         $dados = [];
-        $dados[] = ['Usuário', 'Valor', 'Tipo Pagamento', 'Hora', 'Data'];
+        $dados[] = [
+            'Usuário', 
+            'preço',
+            'Quantidade',
+            'Total',
+            'Meio Pagamento',
+            'Hora',
+            'Data'
+        ];
 
         foreach($vendas as $venda) {
             $dados[] = [
-                $venda->nome,
-                number_format($venda->valor, 2,',','.'),
+                $venda->nomeUsuario,
+                ($venda->preco != 0) ? 'R$ ' .number_format($venda->preco, 2,',','.') : 'Não consta',
+                ( ! is_null($venda->quantidade)) ? $venda->quantidade : 'Não consta',
+                'R$ ' .number_format($venda->valor, 2,',','.'),
                 $venda->legenda,
                 $venda->hora,
                 $venda->data
@@ -70,8 +80,12 @@ class GerarRelatorioDeVendasPorPeriodoXlsService
 
         # Celula Data
         $spreadsheet->getActiveSheet()->getColumnDimension('E')->setAutoSize(true);
+        
+        # Usa negito no header da planilha
+        $spreadsheet->getActiveSheet()->getStyle('A2:G2')->getFont()->setBold(true);
 
-        $spreadsheet->getActiveSheet()->getStyle('A2:E2')->getFont()->setBold(true);
+        # Celula data
+        $spreadsheet->getActiveSheet()->getColumnDimension('G')->setWidth(20);
         
         # Define o estilo do Header
         $header = [
@@ -95,7 +109,7 @@ class GerarRelatorioDeVendasPorPeriodoXlsService
             ]
         ];
         
-        $spreadsheet->getActiveSheet()->getStyle('A2:E2')->applyFromArray($header);
+        $spreadsheet->getActiveSheet()->getStyle('A2:G2')->applyFromArray($header);
         $sheet->fromArray($dados, NULL,'A2');
 
         $streamedResponse = new StreamedResponse();

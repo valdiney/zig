@@ -23,6 +23,7 @@
     "require": {
         "vlucas/phpdotenv": "^2.5",
         "phpoffice/phpspreadsheet": "^1.13",
-        "symfony/symfony": "^5.1"
+        "symfony/symfony": "^5.1",
+        "lcobucci/jwt": "^3.3"
     }
 }

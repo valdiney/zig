@@ -62,6 +62,17 @@ class VendasRepository
 
 		return $query;
 	}
+
+	public function valorDeVendasRealizadasPorDia(array $periodo, $idEmpresa)
+	{
+		$query = $this->venda->query("
+			SELECT DATE_FORMAT(created_at, '%d/%m') AS data, SUM(valor) AS valor FROM vendas
+			WHERE MONTH(created_at) = MONTH(NOW()) AND id_empresa = {$idEmpresa}
+			GROUP BY DAY(created_at) ORDER BY DATE_FORMAT(created_at, '%d/%m') ASC
+		");
+
+		return $query;
+	}
 }
 
 

@@ -72,13 +72,13 @@
             <div class="row">
               <div class="col-5 col-md-4">
                 <div class="icon-big text-center icon-warning">
-                  <i class="nc-icon nc-globe text-warning"></i>
+                  <i class="fab fa-product-hunt" style="color:#99ccff"></i>
                 </div>
               </div>
               <div class="col-7 col-md-8">
                 <div class="numbers">
-                  <p class="card-category">Capacity</p>
-                  <p class="card-title">150GB<p>
+                  <p class="card-category" style="font-size:12px">Produtos a venda</p>
+                  <p class="card-title" style="font-size:15px">Ativos 10<p>
                 </div>
               </div>
             </div>
@@ -86,8 +86,8 @@
           <div class="card-footer ">
             <hr>
             <div class="stats">
-              <i class="fa fa-refresh"></i>
-              Update Now
+              <i class="fab fa-product-hunt" style="color:#99ccff"></i>
+              <small>Produtos inativos <b>5</b></small>
             </div>
           </div>
         </div>
@@ -99,13 +99,13 @@
             <div class="row">
               <div class="col-5 col-md-4">
                 <div class="icon-big text-center icon-warning">
-                  <i class="nc-icon nc-globe text-warning"></i>
+                  <i class="fas fa-user-tie" style="color:#ad54da"></i>
                 </div>
               </div>
               <div class="col-7 col-md-8">
                 <div class="numbers">
-                  <p class="card-category">Capacity</p>
-                  <p class="card-title">150GB<p>
+                  <p class="card-category" style="font-size:12px">Clientes</p>
+                  <p class="card-title" style="font-size:15px">Ativos 7<p>
                 </div>
               </div>
             </div>
@@ -113,8 +113,8 @@
           <div class="card-footer ">
             <hr>
             <div class="stats">
-              <i class="fa fa-refresh"></i>
-              Update Now
+              <i class="fas fa-user-tie" style="color:#ad54da"></i>
+              <small>Clientes inativos <b>3</b></small>
               
 
             </div>
@@ -189,7 +189,7 @@ var myChart = new Chart(ctx, {
     <?php endforeach?>
     ],
     datasets: [{
-      label: 'Vendas',
+      label: 'Quantidade',
       data: [
         <?php foreach ($quantidadeDeVendasRealizadasPorDia as $valor):?>
           <?php echo $valor->quantidade .',';?>
@@ -198,20 +198,22 @@ var myChart = new Chart(ctx, {
       backgroundColor: '#00cccc',
       borderColor: '#255949',
       borderWidth: 1
-    }]
+    }
+    ]
   },
   options: {
     responsive: true,
     scales: {
       xAxes: [{
         ticks: {
-          //maxRotation: 90,
-          //minRotation: 80
+          maxRotation: 90,
+          minRotation: 80
         }
       }],
       yAxes: [{
         ticks: {
-          //beginAtZero: true
+          beginAtZero: false,
+          min: 0
         }
       }]
     }

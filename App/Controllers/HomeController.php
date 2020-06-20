@@ -59,6 +59,10 @@ class HomeController extends Controller
         $quantidadeDeVendasRealizadasPorDia = $vendasRepository->quantidadeDeVendasRealizadasPorDia(
         	[], $this->idEmpresa
         );
+
+        $valorDeVendasRealizadasPorDia = $vendasRepository->valorDeVendasRealizadasPorDia(
+            [], $this->idEmpresa
+        );
         
 		$this->view('home/index', $this->layout, 
 			compact(
@@ -67,7 +71,8 @@ class HomeController extends Controller
 				'faturamentoDeVandasMesAnterior',
 				'faturamentoDeVandasNoDiaAnterior',
 				'percentualMeiosDePagamento',
-				'quantidadeDeVendasRealizadasPorDia'
+				'quantidadeDeVendasRealizadasPorDia',
+				'valorDeVendasRealizadasPorDia'
 			));
 	}
 }

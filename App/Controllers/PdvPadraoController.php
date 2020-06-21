@@ -34,12 +34,12 @@ class PdvPadraoController extends Controller
 		$this->idEmpresa = Session::get('idEmpresa');
 		$this->idUsuario = Session::get('idUsuario');
 		$this->idPerfilUsuarioLogado = Session::get('idPerfil');
-        
-        $acessoAoTipoDePdv = new AcessoAoTipoDePdv();
-		$acessoAoTipoDePdv->validate();
 
 		$logged = new Logged();
 		$logged->isValid();
+        
+        $acessoAoTipoDePdv = new AcessoAoTipoDePdv();
+		$acessoAoTipoDePdv->validate();
 	}
 
 	public function index()

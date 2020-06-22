@@ -27,7 +27,7 @@ A Lucia tem um pequeno comercio e luta bravamente para mantê-lo! Porém, a Luci
 - [ ] Dashboard
 - [x] Cadastro de Clientes
 - [ ] Pedidos
-- [ ] Exportar relatórios para PDF
+- [x] Exportar relatórios para PDF
 - [x] Exportar relatórios para Excel
 - [ ] Definir tipos de perfis de Usuários
 

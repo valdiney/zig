@@ -32,19 +32,19 @@
 		<thead>
 			<tr>
 				<th>#</th>
-	    		<th>Preço</th>
-	    		<th>Quantidade</th>
-	    		<th>Total</th>
-	    		<th>Meio Pagamento</th>
-	    		<th>Hora</th>
-	    		<th>Data</th>
+        <th>Preço</th>
+        <th>Quantidade</th>
+        <th>Total</th>
+        <th>Meio Pagamento</th>
+        <th>Hora</th>
+        <th>Data</th>
 			</tr>
 		</thead>
 		<tbody>	        		
 			<?php foreach($vendas as $venda):?>
 				<tr>
 					<td>
-						<img class="imagem-perfil" src="<?php echo $venda->imagem;?>" 
+						<img class="imagem-perfil" src="<?php echo BASEURL.'/'.$venda->imagem;?>" 
 						title="<?php echo $venda->nomeUsuario;?>">
 					</td>
 

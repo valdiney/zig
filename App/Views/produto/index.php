@@ -45,7 +45,7 @@
                         <td>
                         	<?php if ( ! is_null($produto->imagem) && $produto->imagem != ''):?>
 		            			<center>
-		            				<img src="<?php echo $produto->imagem;?>" width="40" class="imagem-produto">
+		            				<img src="<?php echo BASEURL.'/'.$produto->imagem;?>" width="40" class="imagem-produto">
 		            			</center>
 		            		<?php else:?>
 		            			<center><i class="fab fa-product-hunt" style="font-size:40px"></i></center>

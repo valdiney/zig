@@ -24,7 +24,7 @@ class GetRoute
 
 	public function __construct()
 	{
-		$this->baseUrl = "http://".$_SERVER['HTTP_HOST']. $_SERVER['REQUEST_URI'];
+		$this->baseUrl = $this->getBaseUrl();
 
 		$this->getControllerAndMethod();
 		$this->veriFyControllerOnUrl();
@@ -32,10 +32,9 @@ class GetRoute
 
 		if ( ! defined('CONTROLLER_NAME') && ! defined('BASEURL')) {
 			define('CONTROLLER_NAME', $this->controller);
-		    define('METHOD_NAME', $this->method);
-		    define('BASEURL', $this->getBaseUrl());
-	    }
-
+      define('METHOD_NAME', $this->method);
+      define('BASEURL', $this->getBaseUrl());
+    }
 		$this->getUrlVariables();
 	}
 
@@ -55,7 +54,12 @@ class GetRoute
     */
 	private function getControllerAndMethod()
 	{
-		$this->urlParamethers = explode('/', $this->baseUrl);
+    $scriptName = dirname($_SERVER['SCRIPT_NAME'], 1);
+    $requestUri = str_replace("{$scriptName}/", '', $_SERVER['REQUEST_URI']);
+    $requestUri = trim($requestUri, '/');
+    if ($requestUri) {
+      $this->urlParamethers = explode('/', $requestUri);
+    }
 	}
     
     /**
@@ -66,10 +70,9 @@ class GetRoute
 		if ( ! empty($this->urlParamethers[3])) {
 			$this->existControllerOnRoute = true;
 		}
-
-		if (array_key_exists(3, $this->urlParamethers)) {
-			$this->controller = ucfirst($this->urlParamethers[3]).'Controller';
-			$this->controllerNameAliases = $this->urlParamethers[3];
+		if ($this->urlParamethers && array_key_exists(0, $this->urlParamethers)) {
+			$this->controller = ucfirst($this->urlParamethers[0]).'Controller';
+			$this->controllerNameAliases = $this->urlParamethers[0];
 		} 
 	}
     
@@ -78,21 +81,24 @@ class GetRoute
     */
 	private function veriFyMethodOnUrl()
 	{
-       if (array_key_exists(4, $this->urlParamethers)) {
-			$this->method = $this->urlParamethers[4];
-			$this->methodNameAliases = $this->urlParamethers[4];
-		} 
+    if ($this->urlParamethers && array_key_exists(1, $this->urlParamethers)) {
+			$this->method = $this->urlParamethers[1];
+			$this->methodNameAliases = $this->urlParamethers[1];
+		}
 	}
 
 	public function getUrlVariables()
 	{
+    if ($this->urlParamethers == null) {
+      return [];
+    }
 		$data = [];
 		foreach ($this->urlParamethers as $key => $value) {
-			if ($key >= 5) {
+			if ($key >= 2) {
 				array_push($data, $value);
 			}
 		}
-		
+	
 		return $data;
 	}
     
@@ -125,9 +131,10 @@ class GetRoute
 		if ( ! is_null(getenv('HTTPS'))) {
 			if (getenv('HTTPS') == 'true') {
 			    $protocol = "https";
-			} 
-		}
-		
-		return "{$protocol}://".$_SERVER['HTTP_HOST'];
+			}
+    }
+    $branch = dirname($_SERVER['SCRIPT_NAME'], 1);
+    $branch = trim($branch, '/');
+    return "{$protocol}://{$_SERVER['HTTP_HOST']}/{$branch}";
 	}
 }

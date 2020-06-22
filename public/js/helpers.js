@@ -35,7 +35,7 @@ function getPath() {
    return window.location.pathname;
 }
 function getDomain() {
-   return getProtocol()+'//'+getHost();
+   return document.querySelector('base').href;
 }
 function link(url) {
    location.href = url;

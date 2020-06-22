@@ -35,7 +35,6 @@ class GetRoute
       define('METHOD_NAME', $this->method);
       define('BASEURL', $this->getBaseUrl());
     }
-
 		$this->getUrlVariables();
 	}
 
@@ -57,6 +56,7 @@ class GetRoute
 	{
     $scriptName = dirname($_SERVER['SCRIPT_NAME'], 1);
     $requestUri = str_replace("{$scriptName}/", '', $_SERVER['REQUEST_URI']);
+    $requestUri = trim($requestUri, '/');
     if ($requestUri) {
       $this->urlParamethers = explode('/', $requestUri);
     }

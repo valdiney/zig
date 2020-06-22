@@ -24,6 +24,7 @@
         "vlucas/phpdotenv": "^2.5",
         "phpoffice/phpspreadsheet": "^1.13",
         "symfony/symfony": "^5.1",
-        "lcobucci/jwt": "^3.3"
+        "lcobucci/jwt": "^3.3",
+        "dompdf/dompdf": "^0.8.5"
     }
 }

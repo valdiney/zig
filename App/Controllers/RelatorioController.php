@@ -92,13 +92,24 @@ class RelatorioController extends Controller
 
 	public function gerarXls()
 	{
-        $relatorioVendas = new RelatorioVendasPorPeriodoRepository();
-        $periodo = [
-        	'de'  => $this->get->position(0), 
-        	'ate' => $this->get->position(1)
-        ];
-        
-        $idUsuario = ($this->get->position(2) == 'todos') ? false : $this->get->position(2);
+    $relatorioVendas = new RelatorioVendasPorPeriodoRepository();
+    $periodo = [
+      'de'  => $this->get->position(0), 
+      'ate' => $this->get->position(1)
+    ];
+    $idUsuario = ($this->get->position(2) == 'todos') ? false : $this->get->position(2);
 		$relatorioVendas->gerarRelatioDeVendasPorPeriodoXls($periodo, $idUsuario, $this->idEmpresa);
+	}
+
+	public function gerarPDF()
+	{
+    $relatorioVendas = new RelatorioVendasPorPeriodoRepository();
+    $periodo = [
+      'de'  => $this->get->position(0), 
+      'ate' => $this->get->position(1)
+    ];
+    
+    $idUsuario = ($this->get->position(2) == 'todos') ? false : $this->get->position(2);
+		$relatorioVendas->gerarRelatioDeVendasPorPeriodoPDF($periodo, $idUsuario, $this->idEmpresa);
 	}
 }

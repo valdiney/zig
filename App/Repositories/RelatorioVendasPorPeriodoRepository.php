@@ -1,6 +1,7 @@
 <?php 
 namespace App\Repositories;
 use App\Models\Venda;
+use App\Services\RelatorioPDFService\GerarRelatorioDeVendasPorPeriodoPDFService;
 use App\Services\RelatorioXlsService\GerarRelatorioDeVendasPorPeriodoXlsService;
 
 class RelatorioVendasPorPeriodoRepository
@@ -95,5 +96,22 @@ class RelatorioVendasPorPeriodoRepository
         ]);
 
         $gerarXls->gerarXsl($vendas);
+    }
+
+    public function gerarRelatioDeVendasPorPeriodoPDF(array $periodo, $idUsuario = false, $idEmpresa = false)
+    {
+        $periodo = ['de' => $periodo['de'], 'ate' => $periodo['ate']];
+        $vendas = $this->vendasPorPeriodo($periodo, $idUsuario, $idEmpresa);
+
+        $gerarXls = new GerarRelatorioDeVendasPorPeriodoPDFService();
+        $gerarXls->setDiretorio('public/arquivos_temporarios');
+        $gerarXls->setNomeDoArquivo('Relatorio de vendas por periodo'.$idEmpresa);
+
+        $gerarXls->setPeriodo([
+            'de' => date('d/m/Y', strtotime($periodo['de'])),
+            'ate' => date('d/m/Y', strtotime($periodo['ate']))
+        ]);
+
+        $gerarXls->gerarPDF($vendas);
     }
 }

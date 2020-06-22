@@ -185,7 +185,7 @@ var myChart = new Chart(ctx, {
   data: {
     labels: [
     <?php foreach ($quantidadeDeVendasRealizadasPorDia as $valor):?>
-      "<?php echo $valor->data;?>",
+      <?php echo "\"{$valor->data}\",";?>
     <?php endforeach?>
     ],
     datasets: [{

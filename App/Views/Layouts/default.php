@@ -114,7 +114,7 @@ $configPdv = $configPdv->configPdv(Session::get('idEmpresa'));
               </div>
               <a class="navbar-brand" href="#" style="text-transform:lowercase!important;" 
               onclick="event.preventDefault();">
-                <img class="perfil" src="<?php echo Session::get('imagem')?>">
+                <img class="perfil" src="<?php echo BASEURL .'/'. Session::get('imagem')?>">
                 
                 <i style="text-transform: capitalize;">
                   <?php echo Session::get('nomeUsuario');?>

@@ -23,7 +23,7 @@
 	        </h5>
 	    </div>
         
-        <form method="POST" action="<?php BASEURL;?>/relatorio/vendasChamadaAjax" id="form">
+        <form method="POST" action="<?php echo BASEURL;?>/relatorio/vendasChamadaAjax" id="form">
 		    <div class="row">
 	            <div class="col-md-4">
 	                <div class="form-group">
@@ -65,8 +65,9 @@
 					    <i class="fas fa-cloud-download-alt"></i> Xls
 				    </a>
 
-				    <a class="cool-btn btn btn-sm btn-defoult text-right pull-right" 
-				    id="baixar-xls" title="Baixar em formato XLS!" disabled>
+				    <a onclick="baixarEmFormatoPDF()"
+              class="cool-btn btn btn-sm btn-defoult text-right pull-right" 
+				      id="baixar-pdf" title="Baixar em formato PDF!">
 					    <i class="fas fa-cloud-download-alt"></i> PDF
 				    </a>
 
@@ -109,6 +110,15 @@
 
     function baixarEmFormatoXls() {
     	var rota = "<?php echo BASEURL;?>/relatorio/gerarXls";
+    	rota += "/"+$("#periodo_de").val();
+    	rota += "/"+$("#periodo_ate").val();
+    	rota += "/"+$("#id_usuario").val();
+
+    	window.location.href = rota;
+    }
+
+    function baixarEmFormatoPDF() {
+    	var rota = "<?php echo BASEURL;?>/relatorio/gerarPDF";
     	rota += "/"+$("#periodo_de").val();
     	rota += "/"+$("#periodo_ate").val();
     	rota += "/"+$("#id_usuario").val();

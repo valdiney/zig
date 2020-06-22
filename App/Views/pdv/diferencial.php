@@ -118,7 +118,7 @@ use System\Session\Session;
                 <?php foreach ($produtos as $key => $produto):?>
 	            	<div class="col-lg-2 card-produtos" 
 	            	onclick="colocarProdutosNaMesa('<?php echo $produto->id;?>', this)">
-	            		<img src="<?php echo $produto->imagem;?>" title="Adicionar!">
+	            		<img src="<?php echo BASEURL .'/'. $produto->imagem;?>" title="Adicionar!">
 	            		<center><span class="produto-titulo"><?php echo mb_strtoupper($produto->nome);?></span></center>
 	            		<center><span class="produto-valor">R$ <?php echo real($produto->preco);?></span></center>
 	            	</div>

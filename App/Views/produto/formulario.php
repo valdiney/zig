@@ -30,7 +30,7 @@
 		        <label for="imagem">Escolher Imagem do Produto</label>
 		        <input type="file" class="form-control" name="imagem" id="imagem"> <br>
 		        <?php if (isset($produto->id)):?>
-		             <img src="<?php echo $produto->imagem;?>" class="imagem-produto">
+		             <img src="<?php echo BASEURL.'/'.$produto->imagem;?>" class="imagem-produto">
 		        <?php else:?>
 		        	 <i class="fab fa-product-hunt" style="font-size:40px"></i>
 		        <?php endif;?>

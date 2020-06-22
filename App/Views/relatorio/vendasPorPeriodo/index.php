@@ -23,7 +23,7 @@
 	        </h5>
 	    </div>
         
-        <form method="POST" action="<?php BASEURL;?>/relatorio/vendasChamadaAjax" id="form">
+        <form method="POST" action="<?php echo BASEURL;?>/relatorio/vendasChamadaAjax" id="form">
 		    <div class="row">
 	            <div class="col-md-4">
 	                <div class="form-group">

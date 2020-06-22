@@ -121,7 +121,7 @@ use System\Session\Session;
 			        	<tbody>	        		
 				        		<?php foreach($vendasGeralDoDia as $venda):?>
 				        			<tr>
-				        				<td><img class="imagem-perfil" src="<?php echo $venda->imagem;?>"></td>
+				        				<td><img class="imagem-perfil" src="<?php echo BASEURL.'/'.$venda->imagem;?>"></td>
 				        				<td>R$ <?php echo number_format($venda->valor, 2,',','.');?></td>
 				        				<td><?php echo $venda->legenda;?></td>
 				        				<td><?php echo $venda->data;?>h</td>

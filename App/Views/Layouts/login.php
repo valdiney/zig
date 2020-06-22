@@ -3,7 +3,7 @@
 <head>
 	<title>Zig</title>
 	<meta charset="utf-8">
-    <base href="<?php echo BASEURL;?>">
+  <base href="<?php echo BASEURL;?>">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<link rel="stylesheet" type="text/css" href="<?php echo BASEURL;?>/public/css/bootstrap.css">
 	<link rel="stylesheet" type="text/css" href="<?php echo BASEURL;?>/public/css/login.css">

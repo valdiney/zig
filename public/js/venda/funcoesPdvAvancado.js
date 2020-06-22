@@ -26,7 +26,7 @@ function obterProdutosDaMesa() {
         if (produtos.length != 0) {
      	    $.each(produtos, function(index, value) {
       		  t += "<tr id='id-tr-"+value.id+"'>";
-  	        t += "<td>"+'<img class="img-produto-seleionado" src="'+value.imagem+'">'+"</td>";
+  	        t += "<td>"+'<img class="img-produto-seleionado" src="'+getDomain()+'/'+value.imagem+'">'+"</td>";
   	        t += "<td>"+value.produto+"</td>";
   	        t += "<td>R$ "+real(value.preco)+"</td>";
   	        t += "<td>"+'<input type="number" class="campo-quantidade" value="'+value.quantidade+'" onchange="alterarAquantidadeDeUmProdutoNaMesa('+value.id+', this.value)">'+"</td>";  
@@ -51,7 +51,7 @@ function obterOultimoProdutoColocadoNaMesa(posicao) {
    	  
         if ($("#id-tr-"+value.id).length == 0) {
           t += "<tr id='id-tr-"+value.id+"'>";
-  		    t += "<td>"+'<img class="img-produto-seleionado" src="'+value.imagem+'">'+"</td>";
+  		    t += "<td>"+'<img class="img-produto-seleionado" src="'+getDomain()+'/'+value.imagem+'">'+"</td>";
   		    t += "<td>"+value.produto+"</td>";
   		    t += "<td>R$ "+real(value.preco)+"</td>";
   		    t += "<td>"+'<input type="number" class="campo-quantidade" value="'+value.quantidade+'" onchange="alterarAquantidadeDeUmProdutoNaMesa('+value.id+', this.value)">'+"</td>";  

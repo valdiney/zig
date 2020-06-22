@@ -22,7 +22,7 @@ ini_set('session.gc_maxlifetime', 43200);
 
 session_start();
 
-date_default_timezone_set('America/Bahia');
+date_default_timezone_set(getenv('TIMEZONE', 'America/Bahia'));
 require_once(__DIR__ . '/vendor/autoload.php');
 
 use System\Route\GetRoute;

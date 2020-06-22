@@ -70,9 +70,9 @@ class GetRoute
 		if ( ! empty($this->urlParamethers[3])) {
 			$this->existControllerOnRoute = true;
 		}
-		if ($this->urlParamethers && array_key_exists(3, $this->urlParamethers)) {
-			$this->controller = ucfirst($this->urlParamethers[3]).'Controller';
-			$this->controllerNameAliases = $this->urlParamethers[3];
+		if ($this->urlParamethers && array_key_exists(0, $this->urlParamethers)) {
+			$this->controller = ucfirst($this->urlParamethers[0]).'Controller';
+			$this->controllerNameAliases = $this->urlParamethers[0];
 		} 
 	}
     
@@ -81,10 +81,10 @@ class GetRoute
     */
 	private function veriFyMethodOnUrl()
 	{
-    if ($this->urlParamethers && array_key_exists(4, $this->urlParamethers)) {
-			$this->method = $this->urlParamethers[4];
-			$this->methodNameAliases = $this->urlParamethers[4];
-		} 
+    if ($this->urlParamethers && array_key_exists(1, $this->urlParamethers)) {
+			$this->method = $this->urlParamethers[1];
+			$this->methodNameAliases = $this->urlParamethers[1];
+		}
 	}
 
 	public function getUrlVariables()
@@ -94,11 +94,11 @@ class GetRoute
     }
 		$data = [];
 		foreach ($this->urlParamethers as $key => $value) {
-			if ($key >= 5) {
+			if ($key >= 2) {
 				array_push($data, $value);
 			}
 		}
-		
+	
 		return $data;
 	}
     

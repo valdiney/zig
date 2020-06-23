@@ -66,7 +66,7 @@
 				    </a>
 
 				    <a onclick="baixarEmFormatoPDF()"
-              class="cool-btn btn btn-sm btn-defoult text-right pull-right" 
+                      class="cool-btn btn btn-sm btn-defoult text-right pull-right" 
 				      id="baixar-pdf" title="Baixar em formato PDF!">
 					    <i class="fas fa-cloud-download-alt"></i> PDF
 				    </a>

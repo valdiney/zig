@@ -32,12 +32,12 @@
 		<thead>
 			<tr>
 				<th>#</th>
-        <th>Preço</th>
-        <th>Quantidade</th>
-        <th>Total</th>
-        <th>Meio Pagamento</th>
-        <th>Hora</th>
-        <th>Data</th>
+		        <th>Preço</th>
+		        <th>Quantidade</th>
+		        <th>Total</th>
+		        <th>Meio Pagamento</th>
+		        <th>Hora</th>
+		        <th>Data</th>
 			</tr>
 		</thead>
 		<tbody>	        		

@@ -41,9 +41,8 @@ $configPdv = $configPdv->configPdv(Session::get('idEmpresa'));
     object-position: center;
   }
   .currentRouteFromMenu {
-    background:#f4f4f4;
+    background:#3b3b3a;
     border-radius:10px;
-    border:1px solid #dddddd;
   }
   .tabela-ajustada tr td {
     padding-top:2px!important;
@@ -56,30 +55,12 @@ $configPdv = $configPdv->configPdv(Session::get('idEmpresa'));
   .table-striped > tbody > tr:nth-child(2n+1) > td, .table-striped > tbody > tr:nth-child(2n+1) > th {
     background-color:#fffcf5;
   }
-  .clienteBorder {
-    border:1px solid #d4a8ea!important;
-  }
-  .produtoBorder {
-    border:1px solid #cae3fc!important;
-  }
-  .pdvBorder {
-    border:1px solid #7fe3ca!important;
-  }
-  .inicioBorder {
-    border:1px solid #ff9c9c!important;
-  }
-  .relatorioBorder {
-    border:1px solid #fce3b1!important;
-  }
-  .pedidoBorder {
-    border:1px solid #fccae3!important;
-  }
   </style>
 </head>
 
 <body class="">
   <div class="wrapper">
-    <div class="sidebar" data-color="white" data-active-color="danger">
+    <div class="sidebar" data-color="black" data-active-color="danger">
 
       <div class="logo">
         <a href="http://www.creative-tim.com" class="simple-text logo-mini">
@@ -87,10 +68,12 @@ $configPdv = $configPdv->configPdv(Session::get('idEmpresa'));
             
           </div>
         </a>
-        <a href="http://www.creative-tim.com" class="simple-text logo-normal">
-          <i class="fas fa-piggy-bank" style="font-size:20px;"></i> 
-          <span style="color:#ff3333">Zig</span> 
-          <span style="color:#33cccc">Money</span>
+        <a href="<?php echo BASEURL;?>/pdvDiferencial/index" class="simple-text logo-normal">
+          <span style="color:#00cc66;">&nbsp;&nbsp;&nbsp;
+            <i class="fas fa-dollar-sign"></i> <b style="opacity:0.70">TONIE</b>
+          </span>
+          <!--<span>Zig</span> 
+          <span>Money</span>-->
         </a>
       </div>
     

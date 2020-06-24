@@ -9,6 +9,7 @@ use App\Rules\Logged;
 use App\Models\Usuario;
 use App\Models\Sexo;
 use App\Models\Perfil;
+use App\Models\Modulo;
 
 use App\Services\UploadService\UploadFiles;
 
@@ -125,19 +126,24 @@ class UsuarioController extends Controller
 
 		$perfil = new Perfil();
 		$perfis = $perfil->all();
-        
+
         $usuario = false;
 
         if ($this->get->position(0)) {
         	$usuario = new Usuario();
 		    $usuario = $usuario->find($this->get->position(0));
         }
-		
+
 		$this->view('usuario/formulario', null, 
 			compact(
 				'sexos', 
 				'usuario',
 				'perfis'
 			));
+	}
+
+	public function permissoes()
+	{
+		$this->view('usuario/permissoes', $this->layout);
 	}
 }

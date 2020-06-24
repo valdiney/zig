@@ -61,6 +61,11 @@
 						    </button>
 						    <div class="dropdown-menu" aria-labelledby="btnGroupDrop1">
 
+						      <a class="dropdown-item" 
+						      href="<?php echo BASEURL;?>/usuario/permissoes/<?php echo in64($usuario->id);?>"> 
+						      	<i class="fas fa-user-lock"></i> Permissões
+						      </a>
+
 						      <button class="dropdown-item" href="#" 
 						      onclick="modalUsuarios('<?php echo $rota;?>', <?php echo $usuario->id;?>);">
 						      	<i class="fas fa-edit"></i> Editar

@@ -16,6 +16,7 @@ $route->create('usuario/index', 'UsuarioController@index');
 $route->create('usuario/save', 'UsuarioController@save');
 $route->create('usuario/modal', 'UsuarioController@modal');
 $route->create('usuario/update', 'UsuarioController@update');
+$route->create('usuario/permissoes', 'UsuarioController@permissoes');
 
 # ----- RelatorioController --------------------------------
 $route->create('relatorio/index', 'RelatorioController@index');

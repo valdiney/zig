@@ -119,9 +119,14 @@ $configPdv = $configPdv->configPdv(Session::get('idEmpresa'));
                       <i class="fas fa-users"></i> Usuários
                     </a>
 
+                    <a class="dropdown-item disabled" href="" onclick="return false;">
+                      <i class="fas fa-store"></i> Empresas
+                    </a>
+
                     <a class="dropdown-item" href="<?php echo BASEURL;?>/configuracao/index">
                       <i class="fas fa-cogs"></i> Configurações
                     </a>
+
                     <a class="dropdown-item" href="login/logout">
                       <i class="fas fa-sign-out-alt"></i> Sair do Sistema
                     </a>

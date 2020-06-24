@@ -70,7 +70,9 @@
 </div>
 <script>
   const urlNav = `${location.origin}${location.pathname}`;
-  const elmNav = document.querySelector(`.sidebar-wrapper li a[href='${urlNav}']`)
+  const elmNav = document.querySelector(`.sidebar-wrapper li a[href='${urlNav}']`);
+
+  console.log(urlNav, elmNav);
   if (elmNav) {
     elmNav.parentNode.classList.add('active');
   }

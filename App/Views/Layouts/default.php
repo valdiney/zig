@@ -55,6 +55,9 @@ $configPdv = $configPdv->configPdv(Session::get('idEmpresa'));
   .table-striped > tbody > tr:nth-child(2n+1) > td, .table-striped > tbody > tr:nth-child(2n+1) > th {
     background-color:#fffcf5;
   }
+  .active {
+    color:#0a9850!important;
+  }
   </style>
 </head>
 

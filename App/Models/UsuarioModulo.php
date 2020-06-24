@@ -17,7 +17,7 @@ class UsuarioModulo extends Model
     {
     	return $this->query("
     		SELECT modulos.id AS idModulo, usm.id AS idUsuarioModulo, 
-    		usm.id_usuario AS idUsuario, usm.id_empresa AS idEmpresa, modulos.descricao AS modulo,
+    		usm.id_usuario AS idUsuario, usm.id_empresa AS idEmpresa, modulos.descricao AS nomeModulo,
             usm.consultar, usm.criar, usm.editar, usm.excluir, usm.created_at, usm.updated_at
             FROM usuarios_modulos AS usm
             INNER JOIN modulos ON usm.id_modulo = modulos.id

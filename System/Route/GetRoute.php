@@ -55,10 +55,10 @@ class GetRoute
 	private function getControllerAndMethod()
 	{
     $scriptName = dirname($_SERVER['SCRIPT_NAME'], 1);
-    $requestUri = str_replace("{$scriptName}/", '', $_SERVER['REQUEST_URI']);
-    $requestUri = trim($requestUri, '/');
-    if ($requestUri) {
-      $this->urlParamethers = explode('/', $requestUri);
+    $redirectUrl = str_replace("{$scriptName}/", '', $_SERVER['REDIRECT_URL']);
+    $redirectUrl = trim($redirectUrl, '/');
+    if ($redirectUrl) {
+      $this->urlParamethers = explode('/', $redirectUrl);
     }
 	}
     

@@ -77,5 +77,8 @@ $route->create('pwa/login', 'Api\InicioPwaController@index');
 $route->create('pwa/logar', 'Api\LoginController@logar');
 $route->create('pwa/pdv', 'Api\InicioPwaController@pdv');
 
+# ----- PedidoController --------------------------------
+$route->create('logs/index', 'LogAcessoController@index');
+
 # Run Router
 $route->run();

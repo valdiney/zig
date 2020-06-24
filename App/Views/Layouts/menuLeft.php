@@ -52,6 +52,14 @@
       </a>
     </li>
 
+    <li class="">
+      <a href="<?php echo BASEURL; ?>/logs/index" class="<?php currentRouteFromMenu('logs/index', 'logsBorder'); ?>
+        <?php currentRouteFromMenu('clienteEndereco/index', 'logsBorder'); ?>">
+        <i class="fas fa-user-tie" style="color:#6b50bb"></i>
+        <p>Log de acessos</p>
+      </a>
+    </li>
+
     <!--<li class="active-pro">
       <a>
         <i class="fas fa-cogs" style="color:#c3c3c3"></i>

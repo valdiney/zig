@@ -32,9 +32,10 @@ class GetRoute
 
 		if ( ! defined('CONTROLLER_NAME') && ! defined('BASEURL')) {
 			define('CONTROLLER_NAME', $this->controller);
-      define('METHOD_NAME', $this->method);
-      define('BASEURL', $this->getBaseUrl());
-    }
+		    define('METHOD_NAME', $this->method);
+		    define('BASEURL', $this->getBaseUrl());
+		}
+
 		$this->getUrlVariables();
 	}
 
@@ -54,12 +55,13 @@ class GetRoute
     */
 	private function getControllerAndMethod()
 	{
-    $scriptName = dirname($_SERVER['SCRIPT_NAME'], 1);
-    $requestUri = str_replace("{$scriptName}/", '', $_SERVER['REQUEST_URI']);
-    $requestUri = trim($requestUri, '/');
-    if ($requestUri) {
-      $this->urlParamethers = explode('/', $requestUri);
-    }
+	    $scriptName = dirname($_SERVER['SCRIPT_NAME'], 1);
+	    $redirectUrl = str_replace("{$scriptName}/", '', $_SERVER['REQUEST_URI']);
+	    $redirectUrl = trim($redirectUrl, '/');
+
+	    if ($redirectUrl) {
+	        $this->urlParamethers = explode('/', $redirectUrl);
+	    }
 	}
     
     /**
@@ -89,9 +91,10 @@ class GetRoute
 
 	public function getUrlVariables()
 	{
-    if ($this->urlParamethers == null) {
-      return [];
-    }
+	    if ($this->urlParamethers == null) {
+	      return [];
+	    }
+
 		$data = [];
 		foreach ($this->urlParamethers as $key => $value) {
 			if ($key >= 2) {
@@ -132,9 +135,10 @@ class GetRoute
 			if (getenv('HTTPS') == 'true') {
 			    $protocol = "https";
 			}
-    }
-    $branch = dirname($_SERVER['SCRIPT_NAME'], 1);
-    $branch = trim($branch, '/');
-    return "{$protocol}://{$_SERVER['HTTP_HOST']}/{$branch}";
+        }
+
+	    $branch = dirname($_SERVER['SCRIPT_NAME'], 1);
+	    $branch = trim($branch, '/');
+	    return "{$protocol}://{$_SERVER['HTTP_HOST']}{$branch}";
 	}
 }

@@ -1,5 +1,7 @@
 <?php 
 namespace App\Controllers;
+
+use App\Models\LogAcesso;
 use System\Controller\Controller;
 use System\Post\Post;
 use System\Get\Get;
@@ -37,6 +39,11 @@ class LoginController extends Controller
 			$dadosUsuario = $usuario->findBy('email', $email);
            
 			if ($usuario->userExist(['email' => $email, 'password' => $password])) {
+        $log = new LogAcesso();
+        $dados = [];
+        $dados['id_usuario'] = $dadosUsuario->id;
+        $dados['id_empresa'] = $dadosUsuario->id_empresa;
+        $log->save($dados);
 				
 				Session::set('idUsuario', $dadosUsuario->id);
 				Session::set('idPerfil', $dadosUsuario->id_perfil);

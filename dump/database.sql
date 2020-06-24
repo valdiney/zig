@@ -127,7 +127,7 @@ CREATE TABLE IF NOT EXISTS `config_pdv` (
 -- Copiando dados para a tabela syst.config_pdv: ~1 rows (aproximadamente)
 /*!40000 ALTER TABLE `config_pdv` DISABLE KEYS */;
 INSERT INTO `config_pdv` (`id`, `id_empresa`, `id_tipo_pdv`, `created_at`, `updated_at`) VALUES
-	(3, 1, 2, '2020-05-23 15:37:10', '2020-06-22 13:29:53');
+	(3, 1, 1, '2020-05-23 15:37:10', '2020-06-24 12:01:24');
 /*!40000 ALTER TABLE `config_pdv` ENABLE KEYS */;
 
 -- Copiando estrutura para tabela syst.empresas
@@ -139,11 +139,32 @@ CREATE TABLE IF NOT EXISTS `empresas` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
 
--- Copiando dados para a tabela syst.empresas: ~1 rows (aproximadamente)
+-- Copiando dados para a tabela syst.empresas: ~0 rows (aproximadamente)
 /*!40000 ALTER TABLE `empresas` DISABLE KEYS */;
 INSERT INTO `empresas` (`id`, `nome`, `created_at`, `updated_at`) VALUES
 	(1, 'Cliente Teste', '2020-04-23 21:36:33', '2020-04-23 21:36:33');
 /*!40000 ALTER TABLE `empresas` ENABLE KEYS */;
+
+-- Copiando estrutura para tabela syst.log_acessos
+CREATE TABLE IF NOT EXISTS `log_acessos` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `id_usuario` int(11) NOT NULL DEFAULT '0',
+  `id_empresa` int(11) NOT NULL DEFAULT '0',
+  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00' ON UPDATE CURRENT_TIMESTAMP,
+  `deleted_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
+  PRIMARY KEY (`id`),
+  KEY `FK_log_usuarios` (`id_usuario`),
+  KEY `FK_log_clientes` (`id_empresa`),
+  CONSTRAINT `FK_log_clientes` FOREIGN KEY (`id_empresa`) REFERENCES `empresas` (`id`),
+  CONSTRAINT `FK_log_usuarios` FOREIGN KEY (`id_usuario`) REFERENCES `usuarios` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
+
+-- Copiando dados para a tabela syst.log_acessos: ~0 rows (aproximadamente)
+/*!40000 ALTER TABLE `log_acessos` DISABLE KEYS */;
+INSERT INTO `log_acessos` (`id`, `id_usuario`, `id_empresa`, `created_at`, `updated_at`, `deleted_at`) VALUES
+	(1, 1, 1, '2020-06-24 12:34:39', '2020-06-24 12:34:39', '0000-00-00 00:00:00');
+/*!40000 ALTER TABLE `log_acessos` ENABLE KEYS */;
 
 -- Copiando estrutura para tabela syst.meios_pagamentos
 CREATE TABLE IF NOT EXISTS `meios_pagamentos` (
@@ -154,7 +175,7 @@ CREATE TABLE IF NOT EXISTS `meios_pagamentos` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
 
--- Copiando dados para a tabela syst.meios_pagamentos: ~3 rows (aproximadamente)
+-- Copiando dados para a tabela syst.meios_pagamentos: ~2 rows (aproximadamente)
 /*!40000 ALTER TABLE `meios_pagamentos` DISABLE KEYS */;
 INSERT INTO `meios_pagamentos` (`id`, `legenda`, `created_at`, `updated_at`) VALUES
 	(1, 'Dinheiro', '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
@@ -287,7 +308,7 @@ CREATE TABLE IF NOT EXISTS `usuarios` (
   CONSTRAINT `FK_usuarios_sexo` FOREIGN KEY (`id_sexo`) REFERENCES `sexos` (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=50 DEFAULT CHARSET=latin1;
 
--- Copiando dados para a tabela syst.usuarios: ~11 rows (aproximadamente)
+-- Copiando dados para a tabela syst.usuarios: ~10 rows (aproximadamente)
 /*!40000 ALTER TABLE `usuarios` DISABLE KEYS */;
 INSERT INTO `usuarios` (`id`, `id_empresa`, `nome`, `email`, `password`, `id_sexo`, `id_perfil`, `imagem`, `created_at`, `updated_at`) VALUES
 	(1, 1, 'França', 'admin@admin.com', '3b5df72898847f008454f4ed60280d6bdffc890d', 1, 2, 'public/imagem/perfil_usuarios/1585493352.jpg', '2020-05-27 18:29:11', '2020-05-27 15:29:09'),
@@ -299,7 +320,6 @@ INSERT INTO `usuarios` (`id`, `id_empresa`, `nome`, `email`, `password`, `id_sex
 	(43, 1, 'Testador', 'testador@gmail.com', '3b5df72898847f008454f4ed60280d6bdffc890d', 1, 1, 'public/imagem/perfil_usuarios/1587774607.jpg', '2020-04-25 00:55:18', '2020-04-25 00:30:07'),
 	(46, 1, 'Lucas Amorin', 'lucas@hotmail.com', '3b5df72898847f008454f4ed60280d6bdffc890d', 1, 4, 'public/imagem/perfil_usuarios/1591812394.jpeg', '2020-06-10 18:07:50', '2020-06-10 15:07:50'),
 	(47, 1, 'Leonardo Souza', 'leonardo@hotmail.com', '3b5df72898847f008454f4ed60280d6bdffc890d', 1, 4, 'public/imagem/perfil_usuarios/1591813053.jpg', '2020-06-10 18:17:33', '2020-06-10 15:17:33'),
-	(48, 1, 'França França dos Santos', '44rc4@acdmin.com', '3b5df72898847f008454f4ed60280d6bdffc890d', 1, 1, 'public/imagem/perfil_usuarios/1591650006.pdf', '2020-06-08 18:00:06', '2020-06-08 18:00:06'),
 	(49, 1, 'Anderson Oliveira', 'andersonoliver480@gmail.com', '3b5df72898847f008454f4ed60280d6bdffc890d', 1, 2, 'public/imagem/perfil_usuarios/1592172985.png', '2020-06-14 22:16:25', '2020-06-14 19:16:25');
 /*!40000 ALTER TABLE `usuarios` ENABLE KEYS */;
 
@@ -359,9 +379,9 @@ CREATE TABLE IF NOT EXISTS `vendas` (
   CONSTRAINT `FK_vendas_clientes` FOREIGN KEY (`id_empresa`) REFERENCES `empresas` (`id`),
   CONSTRAINT `FK_vendas_meios_de_pagamento` FOREIGN KEY (`id_meio_pagamento`) REFERENCES `meios_pagamentos` (`id`),
   CONSTRAINT `FK_vendas_usuarios` FOREIGN KEY (`id_usuario`) REFERENCES `usuarios` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=209 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=211 DEFAULT CHARSET=latin1;
 
--- Copiando dados para a tabela syst.vendas: ~128 rows (aproximadamente)
+-- Copiando dados para a tabela syst.vendas: ~130 rows (aproximadamente)
 /*!40000 ALTER TABLE `vendas` DISABLE KEYS */;
 INSERT INTO `vendas` (`id`, `id_usuario`, `id_meio_pagamento`, `id_empresa`, `id_produto`, `preco`, `quantidade`, `valor`, `created_at`, `updated_at`) VALUES
 	(1, 1, 1, 1, 0, 0, 0, 11, '2020-04-25 01:58:13', '2020-04-25 01:58:13'),
@@ -491,7 +511,9 @@ INSERT INTO `vendas` (`id`, `id_usuario`, `id_meio_pagamento`, `id_empresa`, `id
 	(205, 1, 2, 1, 3, 18, 1, 18, '2020-06-22 20:57:46', '2020-06-22 20:57:46'),
 	(206, 1, 2, 1, 6, 30, 1, 30, '2020-06-22 20:57:47', '2020-06-22 20:57:47'),
 	(207, 1, 2, 1, 10, 26, 1, 26, '2020-06-23 18:16:39', '2020-06-23 18:16:39'),
-	(208, 1, 2, 1, 4, 3.49, 1, 3.49, '2020-06-23 18:16:39', '2020-06-23 18:16:39');
+	(208, 1, 2, 1, 4, 3.49, 1, 3.49, '2020-06-23 18:16:39', '2020-06-23 18:16:39'),
+	(209, 1, 1, 1, 3, 18, 1, 18, '2020-06-24 11:50:24', '2020-06-24 11:50:24'),
+	(210, 36, 3, 1, NULL, 0, NULL, 17, '2020-06-24 12:01:47', '2020-06-24 12:01:47');
 /*!40000 ALTER TABLE `vendas` ENABLE KEYS */;
 
 /*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;

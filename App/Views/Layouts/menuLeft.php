@@ -68,3 +68,10 @@
 
   </ul>
 </div>
+<script>
+  const urlNav = `${location.origin}${location.pathname}`;
+  const elmNav = document.querySelector(`.sidebar-wrapper li a[href='${urlNav}']`)
+  if (elmNav) {
+    elmNav.parentNode.classList.add('active');
+  }
+</script>

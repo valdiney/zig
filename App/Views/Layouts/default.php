@@ -127,6 +127,10 @@ $configPdv = $configPdv->configPdv(Session::get('idEmpresa'));
                       <i class="fas fa-cogs"></i> Configurações
                     </a>
 
+                    <a class="dropdown-item" href="<?php echo BASEURL; ?>/logs/index">
+                      <i class="fas fa-file-signature"></i> Logs de acessos
+                    </a>
+
                     <a class="dropdown-item" href="login/logout">
                       <i class="fas fa-sign-out-alt"></i> Sair do Sistema
                     </a>

@@ -95,19 +95,16 @@
 <script>
 	$(function() {
 		
-		$('.label_checkbox').each(function(item, value) {
-			var status = true;
+		$('.label_checkbox input').each(function(item, value) {
+			var status = null;
 			$(this).click(function() {
-                
-				if (status == true) {
+				if (value.checked == true) {
 					status = false;
-					$(this).addClass('labelActive');
+					$(this).parent().addClass('labelActive');
 				} else {
 					status = true;
-					$(this).removeClass('labelActive');
+					$(this).parent().removeClass('labelActive');
 				}
-
-				console.log(status);
 			});
 		});
 	});

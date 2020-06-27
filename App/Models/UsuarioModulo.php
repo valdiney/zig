@@ -24,4 +24,55 @@ class UsuarioModulo extends Model
             WHERE usm.id_empresa = {$idEmpresa} AND usm.id_usuario = {$idUsuario}
     	");
     }
+
+    public function usuariosModulosPorIdUsuarioEIdModulo($idUsuario, $idModulo)
+    {
+        return $this->queryGetOne("
+            SELECT * FROM usuarios_modulos WHERE id_usuario = {$idUsuario}
+            AND id_modulo = {$idModulo}
+        ");
+    }
+
+    public function salvarPermissoes($idUsuario, $idModulo, $tipoPermissao)
+    {
+        $dadosUsuarioModulo = $this->usuariosModulosPorIdUsuarioEIdModulo($idUsuario, $idModulo);
+
+        if ($tipoPermissao == 'consultar') {
+            if ($dadosUsuarioModulo->consultar) {
+                $dados['consultar'] = false;
+            } else {
+                $dados['consultar'] = true;
+            }
+        }
+
+        if ($tipoPermissao == 'criar') {
+            if ($dadosUsuarioModulo->criar) {
+                $dados['criar'] = false;
+            } else {
+                $dados['criar'] = true;
+            }
+        }
+
+        if ($tipoPermissao == 'editar') {
+            if ($dadosUsuarioModulo->editar) {
+                $dados['editar'] = false;
+            } else {
+                $dados['editar'] = true;
+            }
+        }
+
+        if ($tipoPermissao == 'excluir') {
+            if ($dadosUsuarioModulo->excluir) {
+                $dados['excluir'] = false;
+            } else {
+                $dados['excluir'] = true;
+            }
+        }
+
+        if ($this->update($dados, $dadosUsuarioModulo->id)) {
+            return true;
+        }
+
+        return false;
+    }
 }

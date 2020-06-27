@@ -81,6 +81,7 @@ $route->create('pwa/pdv', 'Api\InicioPwaController@pdv');
 $route->create('logs/index', 'LogAcessoController@index');
 
 $route->create('usuario/permissoes', 'UsuarioModuloController@index');
+$route->create('usuario/salvarPermissoes', 'UsuarioModuloController@salvarPermissoes');
 
 # Router run
 $route->run();

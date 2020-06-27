@@ -42,14 +42,18 @@ class UsuarioModuloController extends Controller
 		$this->view('usuario/permissoes', $this->layout, compact('usuarioModulos'));
 	}
 
-	public function save()
+	public function salvarPermissoes()
 	{
-		# Escreva aqui...
-	}
+		$idUsuario = $this->get->position(0);
+		$idModulo = $this->get->position(1);
+		$tipoPermissao = $this->get->position(2);
 
-	public function update()
-	{
-		# Escreva aqui...
+		$usuarioModulo = new UsuarioModulo();
+		
+		if ($usuarioModulo->salvarPermissoes($idUsuario, $idModulo, $tipoPermissao)) {
+			echo json_encode(['status' => true]);
+		} else {
+			echo json_encode(['status' => false]);
+		}
 	}
 }
-

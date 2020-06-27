@@ -47,7 +47,13 @@
 		            			<?php echo ($modulo->consultar == 1) ? 'labelActive' : false;?>">
 		                		<input type="checkbox" name="consultar" 
 		                		id="conultar_<?php echo $modulo->idUsuarioModulo;?>"
-		                		<?php echo ($modulo->consultar == 1) ? 'checked' : false;?>>
+		                		<?php echo ($modulo->consultar == 1) ? 'checked' : false;?>
+		                		onclick="selecionarPermissao(
+		                			<?php echo $modulo->idUsuario;?>,
+		                			<?php echo $modulo->idModulo;?>,
+		                			'consultar',
+		                			this
+		                		)">
 	                	    </label>
 		            	</td>
 
@@ -57,7 +63,13 @@
 		            			<?php echo ($modulo->criar == 1) ? 'labelActive' : false;?>">
 		                		<input type="checkbox" name="consultar" 
 		                		id="criar_<?php echo $modulo->idUsuarioModulo;?>"
-		                		<?php echo ($modulo->criar == 1) ? 'checked' : false;?>>
+		                		<?php echo ($modulo->criar == 1) ? 'checked' : false;?>
+		                		onclick="selecionarPermissao(
+		                			<?php echo $modulo->idUsuario;?>,
+		                			<?php echo $modulo->idModulo;?>,
+		                			'criar',
+		                			this
+		                		)">
 	                	    </label>
 		            	</td>
 
@@ -67,7 +79,13 @@
 		            			<?php echo ($modulo->editar == 1) ? 'labelActive' : false;?>">
 		                		<input type="checkbox" name="consultar" 
 		                		id="editar_<?php echo $modulo->idUsuarioModulo;?>"
-		                		<?php echo ($modulo->editar == 1) ? 'checked' : false;?>>
+		                		<?php echo ($modulo->editar == 1) ? 'checked' : false;?>
+		                		onclick="selecionarPermissao(
+		                			<?php echo $modulo->idUsuario;?>,
+		                			<?php echo $modulo->idModulo;?>,
+		                			'editar',
+		                			this
+		                		)">
 	                	    </label>
 		            	</td>
 
@@ -77,7 +95,13 @@
 		            			<?php echo ($modulo->excluir == 1) ? 'labelActive' : false;?>">
 		                		<input type="checkbox" name="consultar" 
 		                		id="excluir_<?php echo $modulo->idUsuarioModulo;?>"
-		                		<?php echo ($modulo->excluir == 1) ? 'checked' : false;?>>
+		                		<?php echo ($modulo->excluir == 1) ? 'checked' : false;?>
+		                		onclick="selecionarPermissao(
+		                			<?php echo $modulo->idUsuario;?>,
+		                			<?php echo $modulo->idModulo;?>,
+		                			'excluir',
+		                			this
+		                		)">
 	                	    </label>
 		            	</td>
 		                
@@ -93,19 +117,24 @@
 
 <script src="<?php echo BASEURL;?>/public/assets/js/core/jquery.min.js"></script>
 <script>
-	$(function() {
+	function selecionarPermissao(idUsuario, idModulo, tipoPermissao, htmlItem) {
+		var rota = getDomain()+"/usuario/salvarPermissoes/"+idUsuario+"/"+idModulo+"/"+tipoPermissao;
+	    $.get(rota, function(data, status) {
+	    	var dados = JSON.parse(data);
+	    	destacarPermissoes(htmlItem);
+	    });
+	}
+
+	function destacarPermissoes(htmlItem) {
+		var label = htmlItem.parentElement;
 		
-		$('.label_checkbox input').each(function(item, value) {
-			var status = null;
-			$(this).click(function() {
-				if (value.checked == true) {
-					status = false;
-					$(this).parent().addClass('labelActive');
-				} else {
-					status = true;
-					$(this).parent().removeClass('labelActive');
-				}
-			});
-		});
-	});
+		var status = null;
+		if (htmlItem.checked == true) {
+			status = false;
+			label.classList.add('labelActive');
+		} else {
+			status = true;
+			label.classList.remove('labelActive');
+		}
+	}
 </script>

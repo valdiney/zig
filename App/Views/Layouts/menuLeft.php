@@ -9,55 +9,69 @@
       </a>
     </li>
     
-    <li class="">
-      <?php if ($configPdv->id_tipo_pdv == 1):?>
-          <a href="<?php echo BASEURL;?>/pdvPadrao/index" 
-            class="<?php currentRouteFromMenu('pdvPadrao/index', 'pdvBorder');?>">
-            <i class="fas fa-coins"></i>
-            <p>PDV <small style="float:right;opacity:0.50">Padrão</small></p>
-          </a>
-       <?php elseif($configPdv->id_tipo_pdv == 2):?>
-          <a href="<?php echo BASEURL;?>/pdvDiferencial/index" 
-            class="<?php currentRouteFromMenu('pdvDiferencial/index', 'pdvBorder');?>">
-            <i class="fas fa-coins"></i>
-            <p>PDV <small style="float:right;opacity:0.50">Diferencial</small></p>
-          </a>
-       <?php endif;?>
-    </li>
-
-    <li class="">
-      <a href="<?php echo BASEURL;?>/produto/index" 
-        class="<?php currentRouteFromMenu('produto/index', 'produtoBorder');?>">
-        <i class="fab fa-product-hunt"></i>
-        <p>Produtos</p>
-      </a>
-    </li>
-
-    <li class="">
-      <a href="<?php echo BASEURL;?>/cliente/index" 
-        class="<?php currentRouteFromMenu('cliente/index', 'clienteBorder');?>
-        <?php currentRouteFromMenu('clienteEndereco/index', 'clienteBorder');?>">
-        <i class="fas fa-user-tie"></i>
-        <p>Clientes</p>
-      </a>
-    </li>
-
-    <li class="">
-      <a href="<?php echo BASEURL;?>/pedido/index" 
-        class="<?php currentRouteFromMenu('pedido/index', 'pedidoBorder');?>">
-        <i class="fas fa-shopping-basket"></i>
-        <p>Pedidos</p>
-      </a>
-    </li>
-
-    <li class="">
-      <a href="<?php echo BASEURL;?>/relatorio/vendasPorPeriodo" 
-        class="<?php currentRouteFromMenu('relatorio/index', 'relatorioBorder');?> 
-        <?php currentRouteFromMenu('relatorio/vendasPorPeriodo', 'relatorioBorder');?>">
-        <i class="fas fa-file-invoice-dollar"></i>
-        <p>Relatórios</p>
-      </a>
-    </li>
+    <!--Modulo PDV Padrão e Diferencial-->
+      <li class="">
+        <!--Modulo Relatórios-->
+        <?php if ($configPdv->id_tipo_pdv == 1):?>
+            <a href="<?php echo BASEURL;?>/pdvPadrao/index" 
+              class="<?php currentRouteFromMenu('pdvPadrao/index', 'pdvBorder');?>">
+              <i class="fas fa-coins"></i>
+              <p>PDV <small style="float:right;opacity:0.50">Padrão</small></p>
+            </a>
+         <?php elseif($configPdv->id_tipo_pdv == 2):?>
+            <a href="<?php echo BASEURL;?>/pdvDiferencial/index" 
+              class="<?php currentRouteFromMenu('pdvDiferencial/index', 'pdvBorder');?>">
+              <i class="fas fa-coins"></i>
+              <p>PDV <small style="float:right;opacity:0.50">Diferencial</small></p>
+            </a>
+         <?php endif;?>
+      </li>
+    
+    <!--Modulo Produtos-->
+    <?php if ($usuarioModuloPermissoes[8][0]->consultar):?>
+      <li class="">
+        <a href="<?php echo BASEURL;?>/produto/index" 
+          class="<?php currentRouteFromMenu('produto/index', 'produtoBorder');?>">
+          <i class="fab fa-product-hunt"></i>
+          <p>Produtos</p>
+        </a>
+      </li>
+    <?php endif;?>
+    
+    <!--Modulo Clientes-->
+    <?php if ($usuarioModuloPermissoes[7][0]->consultar):?>
+      <li class="">
+        <a href="<?php echo BASEURL;?>/cliente/index" 
+          class="<?php currentRouteFromMenu('cliente/index', 'clienteBorder');?>
+          <?php currentRouteFromMenu('clienteEndereco/index', 'clienteBorder');?>">
+          <i class="fas fa-user-tie"></i>
+          <p>Clientes</p>
+        </a>
+      </li>
+    <?php endif;?>
+    
+    <!--Modulo Pedidos-->
+    <?php if ($usuarioModuloPermissoes[9][0]->consultar):?>
+      <li class="">
+        <a href="<?php echo BASEURL;?>/pedido/index" 
+          class="<?php currentRouteFromMenu('pedido/index', 'pedidoBorder');?>">
+          <i class="fas fa-shopping-basket"></i>
+          <p>Pedidos</p>
+        </a>
+      </li>
+    <?php endif;?>
+    
+    <!--Modulo Relatórios-->
+    <?php if ($usuarioModuloPermissoes[10][0]->consultar):?>
+      <li class="">
+        <a href="<?php echo BASEURL;?>/relatorio/vendasPorPeriodo" 
+          class="<?php currentRouteFromMenu('relatorio/index', 'relatorioBorder');?> 
+          <?php currentRouteFromMenu('relatorio/vendasPorPeriodo', 'relatorioBorder');?>">
+          <i class="fas fa-file-invoice-dollar"></i>
+          <p>Relatórios</p>
+        </a>
+      </li>
+    <?php endif;?>
 
     <!--<li class="active-pro">
       <a>

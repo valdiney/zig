@@ -33,6 +33,23 @@ class UsuarioModulo extends Model
         ");
     }
 
+    public function usuariosModulosPorIdUsuario($idUsuario)
+    {
+        $query = $this->query("
+            SELECT modulos.id AS idModulo, modulos.descricao AS nomeModulo,
+            usm.id AS idUsuarioModulo, usm.consultar, usm.criar, usm.editar, usm.excluir
+            FROM usuarios_modulos AS usm INNER JOIN modulos ON usm.id_modulo = modulos.id 
+            WHERE id_usuario = {$idUsuario}
+        ");
+        
+        $dados = [];
+        foreach ($query as $valor) {
+            $dados[$valor->idModulo] = [$valor];
+        }
+
+        return $dados;
+    }
+
     public function salvarPermissoes($idUsuario, $idModulo, $tipoPermissao)
     {
         $dadosUsuarioModulo = $this->usuariosModulosPorIdUsuarioEIdModulo($idUsuario, $idModulo);

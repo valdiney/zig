@@ -8,6 +8,7 @@ use System\Get\Get;
 use System\Session\Session;
 
 use App\Models\Usuario;
+use App\Models\UsuarioModulo;
 
 class LoginController extends Controller
 {
@@ -39,12 +40,15 @@ class LoginController extends Controller
 			$dadosUsuario = $usuario->findBy('email', $email);
            
 			if ($usuario->userExist(['email' => $email, 'password' => $password])) {
-        $log = new LogAcesso();
-        $dados = [];
-        $dados['id_usuario'] = $dadosUsuario->id;
-        $dados['id_empresa'] = $dadosUsuario->id_empresa;
-        $log->save($dados);
+
+				# Grava o Log de Acessos
+		        $log = new LogAcesso();
+		        $dados = [];
+		        $dados['id_usuario'] = $dadosUsuario->id;
+		        $dados['id_empresa'] = $dadosUsuario->id_empresa;
+		        $log->save($dados);
 				
+				# Coloca dados necessarios na sessão
 				Session::set('idUsuario', $dadosUsuario->id);
 				Session::set('idPerfil', $dadosUsuario->id_perfil);
 				Session::set('idEmpresa', $dadosUsuario->id_empresa);
@@ -52,6 +56,13 @@ class LoginController extends Controller
 				Session::set('idSexoUsuario', $dadosUsuario->id_sexo);
 				Session::set('emailUsuario', $dadosUsuario->email);
 				Session::set('imagem', $dadosUsuario->imagem);
+
+                # Coloca na sessão o Objeto de permissões do Usuario
+				$usuarioModulo = new UsuarioModulo();
+
+				Session::set('objetoPermissao', serialize(
+					$usuarioModulo->usuariosModulosPorIdUsuario($dadosUsuario->id)
+				));
 
 				return $this->get->redirectTo("home/index");
 			}

@@ -9,6 +9,8 @@ use App\Rules\Logged;
 use App\Models\Usuario;
 use App\Models\Sexo;
 use App\Models\Perfil;
+use App\Models\Modulo;
+use App\Models\UsuarioModulo;
 
 use App\Services\UploadService\UploadFiles;
 
@@ -47,26 +49,47 @@ class UsuarioController extends Controller
 			$dados = (array) $this->post->data();
 			$dados['password'] = createHash($dados['password']);
 			
-			$retornoImagem = uploadImageHelper(
-				new UploadFiles(), 
-				'public/imagem/perfil_usuarios/', 
-				$_FILES["imagem"]
-			);
-            
-            # Verifica de houve erro durante o upload de imagem
-			if (is_array($retornoImagem)) {
-				Session::flash('error', $retornoImagem['error']);
-				return $this->get->redirectTo("usuario/index");
-			}
-            
-		    $dados['imagem'] = $retornoImagem;
+			# Valida imagem somente se existir no envio
+			if (isset($dados['imagem'])) {
+				$retornoImagem = uploadImageHelper(
+					new UploadFiles(), 
+					'public/imagem/perfil_usuarios/', 
+					$_FILES["imagem"]
+				);
+	            
+	            # Verifica se houve erro durante o upload de imagem
+				if (is_array($retornoImagem)) {
+					Session::flash('error', $retornoImagem['error']);
+					return $this->get->redirectTo("usuario/index");
+				}
+	            
+			    $dados['imagem'] = $retornoImagem;
+		    }
 
 			try {
+				# Cadastra Usuário
 				$usuario->save($dados);
+			} catch(\Exception $e) { 
+    		    dd('Erro ao cadastrar Usuário ' . $e->getMessage());
+    	    }
+
+    	    try {
+    	    	$modulo = new Modulo();
+    	    	$modulos = $modulo->all();
+                
+                # Criar as Permissões do Usuário
+    	    	$usuarioModulo = new UsuarioModulo();
+    	    	$usuarioModulo->criarPermissoesAoCadstrarUsuario(
+    	    		$modulos,
+    	    		$usuario->lastId(),
+    	    		$this->idEmpresa,
+    	    		$dados['id_perfil']
+    	    	);
+
 				return $this->get->redirectTo("usuario/index");
 
 			} catch(\Exception $e) { 
-    		    dd($e->getMessage());
+    		    dd('Erro ao cadastrar Criar Permissões ' . $e->getMessage());
     	    }
 		} 
 	}

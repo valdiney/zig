@@ -9,7 +9,7 @@ $configPdv = $configPdv->configPdv(Session::get('idEmpresa'));
 $usuarioModulo = new UsuarioModulo();
 $usuarioModuloPermissoes = unserialize(Session::get('objetoPermissao'));
 
-//dd($usuarioModuloPermissoes[8][0]);
+//dd($usuarioModuloPermissoes);
 ?>
 <!DOCTYPE html>
 <html lang="en">

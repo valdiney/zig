@@ -12,13 +12,13 @@
     <!--Modulo PDV Padrão e Diferencial-->
       <li class="">
         <!--Modulo Relatórios-->
-        <?php if ($configPdv->id_tipo_pdv == 1):?>
+        <?php if ($configPdv->id_tipo_pdv == 1 && $usuarioModuloPermissoes[5][0]->consultar):?>
             <a href="<?php echo BASEURL;?>/pdvPadrao/index" 
               class="<?php currentRouteFromMenu('pdvPadrao/index', 'pdvBorder');?>">
               <i class="fas fa-coins"></i>
               <p>PDV <small style="float:right;opacity:0.50">Padrão</small></p>
             </a>
-         <?php elseif($configPdv->id_tipo_pdv == 2):?>
+         <?php elseif($configPdv->id_tipo_pdv == 2 && $usuarioModuloPermissoes[6][0]->consultar):?>
             <a href="<?php echo BASEURL;?>/pdvDiferencial/index" 
               class="<?php currentRouteFromMenu('pdvDiferencial/index', 'pdvBorder');?>">
               <i class="fas fa-coins"></i>

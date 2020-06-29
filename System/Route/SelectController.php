@@ -57,11 +57,11 @@ class SelectController
 			$stringToArray = explode('\\', $controller);
 			$controllerName = end($stringToArray);
 			$controllerNameWithfullNamespace = implode("\\", array_values($stringToArray));
-			$controller = "App\Controllers\\".$controllerNameWithfullNamespace;
+			$controller = "../App\Controllers\\".$controllerNameWithfullNamespace;
 			
 		} else {
 			$controllerName = $controller;
-			$controller = "App\Controllers\\".$controller;
+			$controller = "../App\Controllers\\".$controller;
 		}
 
 		# Instanciate the Controller
@@ -79,7 +79,7 @@ class SelectController
     			$this->allRouters["{$this->routerAliases}"]['method']
     		);
         } else {
-        	require_once('App/Views/Layouts/404.php');
+        	require_once('../App/Views/Layouts/404.php');
         }
 	}
 }

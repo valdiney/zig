@@ -55,7 +55,7 @@ class GetRoute
     */
 	private function getControllerAndMethod()
 	{
-	    $scriptName = dirname($_SERVER['SCRIPT_NAME'], 1);
+	    $scriptName = dirname($_SERVER['SCRIPT_NAME'], 2);
 	    $redirectUrl = str_replace("{$scriptName}/", '', $_SERVER['REQUEST_URI']);
 	    $redirectUrl = trim($redirectUrl, '/');
 
@@ -75,7 +75,7 @@ class GetRoute
 		if ($this->urlParamethers && array_key_exists(0, $this->urlParamethers)) {
 			$this->controller = ucfirst($this->urlParamethers[0]).'Controller';
 			$this->controllerNameAliases = $this->urlParamethers[0];
-		} 
+		}
 	}
     
     /**
@@ -137,8 +137,9 @@ class GetRoute
 			}
         }
 
-	    $branch = dirname($_SERVER['SCRIPT_NAME'], 1);
-	    $branch = trim($branch, '/');
-	    return "{$protocol}://{$_SERVER['HTTP_HOST']}{$branch}";
+	    $branch  = dirname($_SERVER['SCRIPT_NAME'], 2);
+	    $branch  = trim($branch, '/');
+	    $baseUrl = "{$protocol}://{$_SERVER['HTTP_HOST']}{$branch}";
+      return $baseUrl;
 	}
 }

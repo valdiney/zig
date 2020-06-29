@@ -18,7 +18,7 @@
 	        <h5 class="card-title"><i class="fas fa-users"></i> Usuários</h5>
 	    </div>
         <!-- Mostra as mensagens de erro-->
-	    <?php require_once('../App/Views/Layouts/HtmlComponents/FlashMessage.php');?>
+	    <?php require_once('App/Views/Layouts/HtmlComponents/FlashMessage.php');?>
 
 	    <table id="example" class="table tabela-ajustada table-striped" style="width:100%">
 	        <thead>

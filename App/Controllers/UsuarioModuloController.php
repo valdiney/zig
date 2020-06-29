@@ -8,6 +8,7 @@ use App\Rules\Logged;
 
 use App\Models\Modulo;
 use App\Models\UsuarioModulo;
+use App\Models\Usuario;
 
 class UsuarioModuloController extends Controller
 {
@@ -39,7 +40,14 @@ class UsuarioModuloController extends Controller
         	$idUsuario
         );
 
-		$this->view('usuario/permissoes', $this->layout, compact('usuarioModulos'));
+        $usuario = new Usuario();
+        $usuario = $usuario->find($idUsuario);
+
+		$this->view('usuario/permissoes', $this->layout, 
+			compact(
+				'usuarioModulos',
+				'usuario'
+			));
 	}
 
 	public function salvarPermissoes()

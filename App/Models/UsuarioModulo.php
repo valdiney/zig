@@ -50,6 +50,22 @@ class UsuarioModulo extends Model
         return $dados;
     }
 
+    public function criarPermissoesAoCadstrarUsuario($modulos, $idUsuario, $idEmpresa, $perfilUsuario = false)
+    {
+        $permissoes = [];
+        foreach ($modulos as $modulo) {
+            $permissoes['id_usuario'] = $idUsuario;
+            $permissoes['id_empresa'] = $idEmpresa;
+            $permissoes['id_modulo'] = $modulo->id;
+            $permissoes['consultar'] = true;
+            $permissoes['criar'] = true;
+            $permissoes['editar'] = true;
+            $permissoes['excluir'] = true;
+
+            $this->save($permissoes);
+        }
+    }
+
     public function salvarPermissoes($idUsuario, $idModulo, $tipoPermissao)
     {
         $dadosUsuarioModulo = $this->usuariosModulosPorIdUsuarioEIdModulo($idUsuario, $idModulo);

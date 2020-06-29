@@ -9,9 +9,15 @@
 	label:hover {
 		opacity:0.80;
 	}
-
 	.labelActive {
 		background:#ccffcc;
+	}
+	.nome-usuario {
+		font-size:12px;!important;
+		background:#f4f3ef;
+		border-radius:10px;
+		border:1px solid #dddddd;
+		padding:5px;
 	}
 	
 </style>
@@ -22,6 +28,8 @@
 		<div class="card-body">
 	        <h5 class="card-title"><i class="fas fa-user-lock"></i> 
 	            Permissões
+
+	            <i class="nome-usuario"><b>Usuário</b>: <?php echo $usuario->nome; ?></i>
 	        </h5>
 	    </div>
 

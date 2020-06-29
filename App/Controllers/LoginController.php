@@ -8,6 +8,7 @@ use System\Get\Get;
 use System\Session\Session;
 
 use App\Models\Usuario;
+use App\Models\Modulo;
 use App\Models\UsuarioModulo;
 
 class LoginController extends Controller
@@ -56,6 +57,9 @@ class LoginController extends Controller
 				Session::set('idSexoUsuario', $dadosUsuario->id_sexo);
 				Session::set('emailUsuario', $dadosUsuario->email);
 				Session::set('imagem', $dadosUsuario->imagem);
+                
+                # Gera as Permissões para os usuarios que ainda não tem permissões
+				$this->gerarPermissoes($dadosUsuario);
 
                 # Coloca na sessão o Objeto de permissões do Usuario
 				$usuarioModulo = new UsuarioModulo();
@@ -76,5 +80,25 @@ class LoginController extends Controller
 	{
 		Session::logout();
 		return $this->get->redirectTo("login");
+	}
+    
+    # Gera as Permissões para os usuarios que ainda não tem permissões
+	public function gerarPermissoes($usuario)
+	{
+		$modulo = new Modulo();
+    	$modulos = $modulo->all();
+        
+        # Criar as Permissões do Usuário
+    	$usuarioModulo = new UsuarioModulo();
+        
+        # Se o usuario ainda não tiver permissões cadastradas
+    	if (count($usuarioModulo->usuariosModulosPorIdUsuario($usuario->id)) == 0) {
+    		$usuarioModulo->criarPermissoesAoCadstrarUsuario(
+	    		$modulos,
+	    		$usuario->id,
+	    		$usuario->id_empresa,
+	    		$usuario->id_perfil
+    	    );
+    	}
 	}
 }

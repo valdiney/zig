@@ -56,14 +56,14 @@ class ProdutoController extends Controller
 			# Verifica de houve erro durante o upload de imagem
 			if (is_array($retornoImagem)) {
 				Session::flash('error', $retornoImagem['error']);
-				return $this->get->redirectTo("produto/index");
+				return $this->get->redirectTo("produto");
 			}
             
 		    $dados['imagem'] = $retornoImagem;
 
 			try {
 				$produto->save($dados);
-				return $this->get->redirectTo("produto/index");
+				return $this->get->redirectTo("produto");
 
 			} catch(\Exception $e) { 
     		    dd($e->getMessage());
@@ -97,7 +97,7 @@ class ProdutoController extends Controller
 				# Verifica de houve erro durante o upload de imagem
 				if (is_array($retornoImagem)) {
 					Session::flash('error', $retornoImagem['error']);
-					return $this->get->redirectTo("produto/index");
+					return $this->get->redirectTo("produto");
 				}
                 
 				$dados['imagem'] = $retornoImagem;
@@ -105,7 +105,7 @@ class ProdutoController extends Controller
 
 			try {
 				$produto->update($dados, $dadosProduto->id);
-				return $this->get->redirectTo("produto/index");
+				return $this->get->redirectTo("produto");
 
 			} catch(\Exception $e) { 
     		    dd($e->getMessage());

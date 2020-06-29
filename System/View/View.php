@@ -29,7 +29,7 @@ class View
 		$this->viewName = $viewName;
 
         # Full path to View
-		$fullPathToView = "../App/Views/{$this->viewName}.php";
+		$fullPathToView = __DIR__ . "/../../App/Views/{$this->viewName}.php";
 
 		try {
 			if (file_exists($fullPathToView)) {
@@ -59,7 +59,7 @@ class View
 		$this->layoutName = $layoutName;
 
 		# Full path to Layout
-		$fullPathToLayout = "../App/Views/Layouts/{$this->layoutName}.php";
+		$fullPathToLayout = __DIR__."/../../App/Views/Layouts/{$this->layoutName}.php";
 
 		try {
 			if (file_exists($fullPathToLayout)) {

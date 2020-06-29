@@ -64,17 +64,17 @@ class LoginController extends Controller
 					$usuarioModulo->usuariosModulosPorIdUsuario($dadosUsuario->id)
 				));
 
-				return $this->get->redirectTo("home/index");
+				return $this->get->redirectTo("home");
 			}
             
             Session::flash('error', 'Usuário não encontrado!');
-			return $this->get->redirectTo("login/index");
+			return $this->get->redirectTo("login");
 		}
 	}
 
 	public function logout()
 	{
 		Session::logout();
-		return $this->get->redirectTo("login/index");
+		return $this->get->redirectTo("login");
 	}
 }

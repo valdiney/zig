@@ -78,7 +78,7 @@ $usuarioModuloPermissoes = unserialize(Session::get('objetoPermissao'));
             
           </div>
         </a>
-        <a href="<?php echo BASEURL;?>/pdvDiferencial/index" class="simple-text logo-normal">
+        <a href="<?php echo BASEURL;?>/pdvDiferencial" class="simple-text logo-normal">
           <span style="color:#00cc66;">&nbsp;&nbsp;&nbsp;
             <i class="fas fa-dollar-sign"></i> <b style="opacity:0.70">TONIE</b>
           </span>
@@ -125,7 +125,7 @@ $usuarioModuloPermissoes = unserialize(Session::get('objetoPermissao'));
                   <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
                     <!--<a class="dropdown-item" href="#">Meus dados</a>-->
 
-                    <a class="dropdown-item" href="<?php echo BASEURL;?>/usuario/index">
+                    <a class="dropdown-item" href="<?php echo BASEURL;?>/usuario">
                       <i class="fas fa-users"></i> Usuários
                     </a>
 
@@ -133,11 +133,11 @@ $usuarioModuloPermissoes = unserialize(Session::get('objetoPermissao'));
                       <i class="fas fa-store"></i> Empresas
                     </a>
 
-                    <a class="dropdown-item" href="<?php echo BASEURL;?>/configuracao/index">
+                    <a class="dropdown-item" href="<?php echo BASEURL;?>/configuracao">
                       <i class="fas fa-cogs"></i> Configurações
                     </a>
 
-                    <a class="dropdown-item" href="<?php echo BASEURL; ?>/logs/index">
+                    <a class="dropdown-item" href="<?php echo BASEURL; ?>/logs">
                       <i class="fas fa-file-signature"></i> Logs de acessos
                     </a>
 

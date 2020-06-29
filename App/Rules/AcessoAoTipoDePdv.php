@@ -25,14 +25,14 @@ class AcessoAoTipoDePdv
           redireciona para o PDV diferencial
         */
         if ($rotaAtual == 'PdvPadraoController/index' && $configPdv->id_tipo_pdv == 2) {
-            $this->get->redirectTo("pdvDiferencial/index");
+            $this->get->redirectTo("pdvDiferencial");
         
         /*
         * Se a configuração estiver setada para o PDV padrão e tentar acessar o PDV Diferencial, 
           redireciona para o PDV padrão
         */
         } elseif ($rotaAtual == 'PdvDiferencialController/index' && $configPdv->id_tipo_pdv == 1) {
-            $this->get->redirectTo("pdvPadrao/index");
+            $this->get->redirectTo("pdvPadrao");
         } 
 
         return false;

@@ -86,7 +86,7 @@ class PdvPadraoController extends Controller
 		    try {
 		    	$venda = new Venda();
 				$venda->save($dados);
-				return $this->get->redirectTo("pdvPadrao/index");
+				return $this->get->redirectTo("pdvPadrao");
 
 			} catch(\Exception $e) { 
 			    dd($e->getMessage());

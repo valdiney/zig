@@ -57,7 +57,7 @@ class GerarRelatorioDeVendasPorPeriodoPDFService
     //
     $dompdf = new Dompdf();
     // $dompdf->setPaper('A4', 'landscape');
-    $file = 'App/Views/relatorio/relatorioPDF.php';
+    $file = __DIR__.'/../../Views/relatorio/relatorioPDF.php';
     define("DOMPDF_ENABLE_PHP", true);
     $dompdf->set_option('chroot', $file);
     // $file = file_get_contents($file);

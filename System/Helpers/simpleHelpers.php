@@ -106,7 +106,7 @@ function currentRouteFromMenu($route, $extraClass = false) {
     $controller = explode('Controller', CONTROLLER_NAME)[0];
     $method = METHOD_NAME;
 
-    if (ucfirst($route[0]) == $controller && $route[1] == $method) {
+    if (ucfirst($route[0]) == $controller && (!isset($route[1]) || $route[1] == $method)) {
         echo "currentRouteFromMenu {$extraClass}";
     } 
 }

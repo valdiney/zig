@@ -60,7 +60,7 @@ class UsuarioController extends Controller
 	            # Verifica se houve erro durante o upload de imagem
 				if (is_array($retornoImagem)) {
 					Session::flash('error', $retornoImagem['error']);
-					return $this->get->redirectTo("usuario/index");
+					return $this->get->redirectTo("usuario");
 				}
 	            
 			    $dados['imagem'] = $retornoImagem;
@@ -86,7 +86,7 @@ class UsuarioController extends Controller
     	    		$dados['id_perfil']
     	    	);
 
-				return $this->get->redirectTo("usuario/index");
+				return $this->get->redirectTo("usuario");
 
 			} catch(\Exception $e) { 
     		    dd('Erro ao cadastrar Criar Permissões ' . $e->getMessage());
@@ -119,7 +119,7 @@ class UsuarioController extends Controller
 				# Verifica de houve erro durante o upload de imagem
 				if (is_array($retornoImagem)) {
 					Session::flash('error', $retornoImagem['error']);
-					return $this->get->redirectTo("usuario/index");
+					return $this->get->redirectTo("usuario");
 				}
                 
 				$dados['imagem'] = $retornoImagem;
@@ -133,7 +133,7 @@ class UsuarioController extends Controller
 
 			try {
 				$usuario->update($dados, $dadosUsuario->id);
-				return $this->get->redirectTo("usuario/index");
+				return $this->get->redirectTo("usuario");
 
 			} catch(\Exception $e) { 
     		    dd($e->getMessage());

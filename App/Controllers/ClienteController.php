@@ -51,7 +51,7 @@ class ClienteController extends Controller
 
 			try {
 				$cliente->save($dados);
-				return $this->get->redirectTo("cliente/index");
+				return $this->get->redirectTo("cliente");
 
 			} catch(\Exception $e) { 
     		    dd($e->getMessage());
@@ -72,7 +72,7 @@ class ClienteController extends Controller
 
 		try {
 			$cliente->update($dados, $dadosCliente->id);
-			return $this->get->redirectTo("cliente/index");
+			return $this->get->redirectTo("cliente");
 
 		} catch(\Exception $e) { 
 		    dd($e->getMessage());

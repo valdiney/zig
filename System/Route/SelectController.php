@@ -31,7 +31,10 @@ class SelectController
 		$this->getRoute = $getRoute;
 		$this->controller = $getRoute->getControllerName();
 		$this->method = $getRoute->getMethodName();
-		$this->routerAliases = $this->getRoute->getControllerNameAliases().'/'.$this->getRoute->getMethodNameAliases(); 
+		$this->routerAliases = $this->getRoute->getControllerNameAliases();
+    if ($this->getRoute->getMethodNameAliases()) {
+      $this->routerAliases = "{$this->routerAliases}/{$this->getRoute->getMethodNameAliases()}"; 
+    }
 	}
 
 	public function create(string $aliases, string $controllerAndMethod)
@@ -52,34 +55,37 @@ class SelectController
     */
 	public function instantiateController(string $controller, string $method)
 	{
-		# Verifying if exist the character \\ in Controller name
-		if (strstr($controller,'\\')) {
-			$stringToArray = explode('\\', $controller);
-			$controllerName = end($stringToArray);
-			$controllerNameWithfullNamespace = implode("\\", array_values($stringToArray));
-			$controller = "App\Controllers\\".$controllerNameWithfullNamespace;
-			
-		} else {
-			$controllerName = $controller;
-			$controller = "App\Controllers\\".$controller;
-		}
+      # Verifying if exist the character \\ in Controller name
+      if (strstr($controller,'\\')) {
+        $stringToArray = explode('\\', $controller);
+        $controllerName = end($stringToArray);
+        $controllerNameWithfullNamespace = implode("\\", array_values($stringToArray));
+        $controller = "App\Controllers\\".$controllerNameWithfullNamespace;
 
-		# Instanciate the Controller
-        $controller = new $controller;
+      } else {
+        $controllerName = $controller;
+        $controller = "App\Controllers\\".$controller;
+      }
 
-        # Call the Controller Method
-        return $controller->{$method}();
+      # Instanciate the Controller
+      $controller = new $controller;
+
+      # Call the Controller Method
+      return $controller->{$method}();
 	} 
 
 	public function run()
 	{
-        if (array_key_exists("{$this->routerAliases}", $this->allRouters)) {
-    		$this->instantiateController(
-    			$this->allRouters["{$this->routerAliases}"]['controller'],
-    			$this->allRouters["{$this->routerAliases}"]['method']
-    		);
-        } else {
-        	require_once('App/Views/Layouts/404.php');
-        }
+      if ($this->routerAliases == '' && !isset($this->allRouters['']) && isset($this->allRouters['/'])) {
+        $this->routerAliases = '/';
+      }
+      if (array_key_exists($this->routerAliases, $this->allRouters)) {
+        $this->instantiateController(
+          $this->allRouters[$this->routerAliases]['controller'],
+          $this->allRouters[$this->routerAliases]['method']
+        );
+      } else {
+        require_once(__DIR__.'/../../App/Views/Layouts/404.php');
+      }
 	}
 }

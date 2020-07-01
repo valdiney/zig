@@ -72,7 +72,6 @@ $route->create('clienteEndereco/buscarEnderecoViaCep', 'ClienteEnderecoControlle
 # ----- PedidoController --------------------------------
 $route->create('pedido', 'PedidoController@index');
 
-
 $route->create('pwa/login', 'Api\InicioPwaController@index');
 $route->create('pwa/logar', 'Api\LoginController@logar');
 $route->create('pwa/pdv', 'Api\InicioPwaController@pdv');
@@ -80,8 +79,12 @@ $route->create('pwa/pdv', 'Api\InicioPwaController@pdv');
 # ----- LogController --------------------------------
 $route->create('logs', 'LogAcessoController@index');
 
+# ----- PermissaoController --------------------------------
 $route->create('usuario/permissoes', 'UsuarioModuloController@index');
 $route->create('usuario/salvarPermissoes', 'UsuarioModuloController@salvarPermissoes');
+
+# ----- EmpresaController --------------------------------
+$route->create('empresa', 'EmpresaController@index');
 
 # Router run
 $route->run();

@@ -129,7 +129,7 @@ $usuarioModuloPermissoes = unserialize(Session::get('objetoPermissao'));
                       <i class="fas fa-users"></i> Usuários
                     </a>
 
-                    <a class="dropdown-item disabled" href="" onclick="return false;">
+                    <a class="dropdown-item" href="<?php echo BASEURL;?>/empresa">
                       <i class="fas fa-store"></i> Empresas
                     </a>
 

@@ -1,0 +1,20 @@
+CREATE TABLE IF NOT EXISTS `usuarios_modulos` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `id_usuario` int(11) NOT NULL,
+  `id_empresa` int(11) NOT NULL,
+  `id_modulo` int(11) NOT NULL,
+  `consultar` int(11) NOT NULL DEFAULT '1',
+  `criar` int(11) NOT NULL DEFAULT '1',
+  `editar` int(11) NOT NULL DEFAULT '1',
+  `excluir` int(11) NOT NULL DEFAULT '1',
+  `created_at` timestamp NOT NULL,
+  `updated_at` timestamp NOT NULL,
+  `deleted_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `FK_usuarios_modulos_usuarios` (`id_usuario`),
+  KEY `FK_usuarios_modulos_empresas` (`id_empresa`),
+  KEY `FK_usuarios_modulos_modulos_permissoes` (`id_modulo`),
+  CONSTRAINT `FK_usuarios_modulos_empresas` FOREIGN KEY (`id_empresa`) REFERENCES `empresas` (`id`),
+  CONSTRAINT `FK_usuarios_modulos_modulos_permissoes` FOREIGN KEY (`id_modulo`) REFERENCES `modulos` (`id`),
+  CONSTRAINT `FK_usuarios_modulos_usuarios` FOREIGN KEY (`id_usuario`) REFERENCES `usuarios` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=latin1;

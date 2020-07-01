@@ -12,12 +12,14 @@ class NativeQuery
 		$this->db = $pdo;
 	}
 
-	public function query($query)
+	public function query($query, $return = true)
 	{
     $sql = $this->db->query($query);
-    $sql->execute();
 
-		return $sql->fetchAll(\PDO::FETCH_OBJ);
+    if ($return) {
+      $sql->execute();
+      return $sql->fetchAll(\PDO::FETCH_OBJ);
+    }
 	}
 
 	public function insert($query, $data = [])

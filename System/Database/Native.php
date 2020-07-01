@@ -1,4 +1,4 @@
-<?php 
+<?php
 namespace System\Database;
 
 use PDO;
@@ -14,13 +14,13 @@ use PDOException;
 class Native
 {
     private static $pdo;
-    
+
     public static function connect()
     {
         if ( ! isset($pdo)) {
             try {
                 self::$pdo = new PDO(
-                    "mysql:" . "host=" . getenv('HOST_NAME') . ";" . 
+                    "mysql:" . "host=" . getenv('HOST_NAME') . ";" .
                     "dbname=" . getenv('HOST_DBNAME'), getenv('HOST_USERNAME'), getenv('HOST_PASSWORD'),
                     array(PDO::MYSQL_ATTR_INIT_COMMAND => "SET NAMES utf8"));
                 // exibe erro somente em diplay_errors=true

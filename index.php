@@ -32,4 +32,4 @@ use System\Route\SelectController;
 $route = new SelectController(new GetRoute);
 
 # Load routes
-require_once(__DIR__ . '/routes.php');
+require_once(__DIR__ . '/routes/routes.php');

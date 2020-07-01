@@ -13,7 +13,7 @@
 
  <form class="form-signin" method="post" action="<?php echo BASEURL;?>/login/logar">
   <div class="form-label-group">
-    <input type="email" id="email" name="email" class="form-control" placeholder="Email address" 
+    <input type="email" id="email" name="email" class="form-control" placeholder="Email address"
     required autofocus>
     <label for="email">Email</label>
   </div>

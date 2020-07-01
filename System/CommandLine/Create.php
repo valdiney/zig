@@ -2,31 +2,23 @@
 
 namespace System\CommandLine;
 
-class Command
+class Create
 {
-  protected $arguments = [];
   protected $argumentClass = null;
   protected $argumentsList = [
-    'help'    => 'System\CommandLine\Help',
-    'create'  => 'System\CommandLine\Create',
-    'migrate' => 'System\CommandLine\Migrate',
+    'controller' => 'System\CommandLine\Create\Controller',
+    'migration'  => 'System\CommandLine\Create\Migration',
   ];
 
-  public function run(array $args)
+  public function __construct(array $args)
   {
-    if (!count($args)) {
-      $args = ['help'];
-    }
-    $this->arguments = $args;
     $this->argumentClass = $args[0];
     if (!isset($this->argumentsList[$this->argumentClass])) {
-      echo "O comando não existe!\n";
+      echo "O comando não existe dentro de create!\n";
       exit(0);
     }
-    // remove first index
     array_shift($args);
     $this->argumentClass = $this->argumentsList[$this->argumentClass];
     $this->argumentClass = new $this->argumentClass($args);
   }
-
 }

@@ -1,3 +1,4 @@
+#!/usr/bin/env php
 <?php
 
 define('IS_TERMINAL', true);

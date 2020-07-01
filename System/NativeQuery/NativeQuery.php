@@ -1,5 +1,7 @@
-<?php 
+<?php
 namespace System\NativeQuery;
+
+use PDOException;
 
 class NativeQuery
 {
@@ -10,19 +12,28 @@ class NativeQuery
 		$this->db = $pdo;
 	}
 
-	public function query($query)
+	public function query($query, $return = true)
 	{
-		$sql = $this->db->query($query);
-		$sql->execute();
-        
-		return $sql->fetchAll(\PDO::FETCH_OBJ);
+    $sql = $this->db->query($query);
+
+    if ($return) {
+      $sql->execute();
+      return $sql->fetchAll(\PDO::FETCH_OBJ);
+    }
+	}
+
+	public function insert($query, $data = [])
+	{
+    $sql = $this->db->prepare($query);
+    $sql->execute($data);
+    return $sql;
 	}
 
 	public function queryGetOne($query)
 	{
 		$sql = $this->db->query($query);
 		$sql->execute();
-        
+
 		return (object) $sql->fetch(\PDO::FETCH_OBJ);
 	}
 
@@ -56,7 +67,7 @@ class NativeQuery
 	}
 
 	public function update(Array $data, $id, $field_name = false)
-	{   
+	{
 		if ($this->timestamps) {
             $data['updated_at'] = date('Y/m/d H:i:s');
 		}
@@ -67,17 +78,17 @@ class NativeQuery
 		if ($field_name) {
 			$primary_key_name = $field_name;
 		}
-		
+
 		# Prepare the fields
 		$set = "set";
 		foreach ($data as $key => $item) {
 			$set .= " " . $key . " = " . "?" . ", ";
 		}
-        
+
         $set_size = strlen($set);
 		$token = substr($set, -$set_size, -2);
 		$token .= " WHERE {$primary_key_name} = " . "?";
-        
+
         # prepare the values
         $values = "";
         foreach ($data as $item) {
@@ -86,7 +97,7 @@ class NativeQuery
 
         $values .= $id;
         $data[] = $id;
-       
+
         $comma_explode = array();
         foreach ($data as $item) {
         	$comma_explode[] = $item;
@@ -103,7 +114,7 @@ class NativeQuery
     * @param id : int : Id of the archive in the database
     * @return boolean or an array
     */
-    
+
 	public function find($id = 0)
 	{
 		$id = (int) $id;

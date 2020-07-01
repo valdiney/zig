@@ -1,4 +1,4 @@
-<?php 
+<?php
 function createMessage($e) {
 	echo "
 		<style>body{background:#f1f1f1;}</style>
@@ -11,8 +11,10 @@ function createMessage($e) {
 }
 
 function dd($data) {
-	echo "<style>body {background:black;}</style>";
-	echo "<pre style='background:#f4f5f7;border:3px solid #00cc99;padding:10px'>";
+  if (!defined('IS_TERMINAL')) {
+    echo "<style>body {background:black;}</style>";
+    echo "<pre style='background:#f4f5f7;border:3px solid #00cc99;padding:10px'>";
+  }
 	print_r($data);
 	exit;
 }
@@ -56,7 +58,7 @@ function uploadImageHelper($uploadClass, $folder, $image) {
         }
 
         $uploadClass->move();
-       
+
     } catch(\Exception $e) {
         return ['error' => $e->getMessage()];
     }
@@ -95,7 +97,7 @@ function formataValorMoedaParaGravacao($valor) {
          $valor = str_replace('.','', $valor);
          $valor = str_replace(',','.', $valor);
      } else {
-         $valor = str_replace(',','.', $valor);   
+         $valor = str_replace(',','.', $valor);
      }
 
    return $valor;
@@ -108,7 +110,7 @@ function currentRouteFromMenu($route, $extraClass = false) {
 
     if (ucfirst($route[0]) == $controller && (!isset($route[1]) || $route[1] == $method)) {
         echo "currentRouteFromMenu {$extraClass}";
-    } 
+    }
 }
 
 function fileGet($url) {

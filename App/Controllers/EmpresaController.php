@@ -8,6 +8,7 @@ use App\Rules\Logged;
 
 use App\Models\Empresa;
 use App\Models\ClienteSegmento;
+use App\Models\ConfigPdv;
 
 class EmpresaController extends Controller
 {
@@ -46,6 +47,14 @@ class EmpresaController extends Controller
 
 			try {
 				$empresa->save($dados);
+                
+                # Seta um tipo de PDV para a Empresa
+				$configPdv = new ConfigPdv();
+				$configPdv->save([
+					'id_empresa' => $empresa->lastId(),
+					'id_tipo_pdv' => 1
+				]);
+
 				return $this->get->redirectTo("empresa");
 
 			} catch(\Exception $e) { 

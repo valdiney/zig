@@ -6,6 +6,9 @@ use System\Get\Get;
 use System\Session\Session;
 use App\Rules\Logged;
 
+use App\Models\Empresa;
+use App\Models\ClienteSegmento;
+
 class EmpresaController extends Controller
 {
 	protected $post;
@@ -29,17 +32,50 @@ class EmpresaController extends Controller
 
 	public function index()
 	{
-		$this->view('empresa/index', $this->layout);
+		$empresa = new Empresa();
+		$empresas = $empresa->all();
+
+		$this->view('empresa/index', $this->layout, compact("empresas"));
 	}
 
 	public function save()
 	{
-		# Escreva aqui...
+		if ($this->post->hasPost()) {
+			$empresa = new Empresa();
+			$dados = (array) $this->post->data();
+
+			try {
+				$empresa->save($dados);
+				return $this->get->redirectTo("empresa");
+
+			} catch(\Exception $e) { 
+    		    dd($e->getMessage());
+    	    }
+    	}
 	}
 
 	public function update()
 	{
 		# Escreva aqui...
+	}
+
+	public function modalFormulario()
+	{
+		$empresa = false;
+		
+		if ($this->get->position(0)) {
+        	$empresa = new Produto();
+		    $empresa = $empresa->find($this->get->position(0));
+        }
+
+        $segmento = new ClienteSegmento();
+        $segmentos = $segmento->all();
+
+		$this->view('empresa/formulario', null, 
+			compact(
+				'empresa', 
+				'segmentos'
+			));
 	}
 }
 

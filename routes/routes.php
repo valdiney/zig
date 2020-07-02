@@ -85,6 +85,9 @@ $route->create('usuario/salvarPermissoes', 'UsuarioModuloController@salvarPermis
 
 # ----- EmpresaController --------------------------------
 $route->create('empresa', 'EmpresaController@index');
+$route->create('empresa/save', 'EmpresaController@save');
+$route->create('empresa/update', 'EmpresaController@update');
+$route->create('empresa/modalFormulario', 'EmpresaController@modalFormulario');
 
 # Router run
 $route->run();

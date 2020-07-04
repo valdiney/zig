@@ -1,4 +1,4 @@
-<?php use App\Views\Layouts\HtmlComponents\Charts\Doughnut;?>
+<?php use System\HtmlComponents\Charts\Doughnut;?>
 
 <div class="row">
 

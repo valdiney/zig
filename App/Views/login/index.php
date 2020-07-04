@@ -1,3 +1,6 @@
+<!--Usando o Html Components-->
+<?php use System\HtmlComponents\FlashMessage\FlashMessage;?>
+
 <style>
   body, .container, .row {
     min-height: 100vh;
@@ -8,7 +11,7 @@
 </style>
 
 <div class="col-md-12">
-	<?php require_once('App/Views/Layouts/HtmlComponents/FlashMessage.php');?>
+	<?php FlashMessage::show();?>
 </div>
 
  <form class="form-signin" method="post" action="<?php echo BASEURL;?>/login/logar">

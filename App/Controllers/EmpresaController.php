@@ -87,4 +87,3 @@ class EmpresaController extends Controller
 			));
 	}
 }
-

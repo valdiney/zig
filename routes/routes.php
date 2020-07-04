@@ -63,7 +63,7 @@ $route->create('cliente/verificaSeCnpjExiste', 'ClienteController@verificaSeCnpj
 $route->create('cliente/verificaSeCpfExiste', 'ClienteController@verificaSeCpfExiste');
 
 # ----- EnderecoController --------------------------------
-$route->create('clienteEndereco', 'ClienteEnderecoController@index');
+$route->create('clienteEndereco/index', 'ClienteEnderecoController@index');
 $route->create('clienteEndereco/save', 'ClienteEnderecoController@save');
 $route->create('clienteEndereco/update', 'ClienteEnderecoController@update');
 $route->create('clienteEndereco/modalFormulario', 'ClienteEnderecoController@modalFormulario');

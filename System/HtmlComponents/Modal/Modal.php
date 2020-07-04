@@ -1,5 +1,5 @@
 <?php
-namespace App\Views\Layouts\HtmlComponents;
+namespace System\HtmlComponents\Modal;
 
 class Modal
 {

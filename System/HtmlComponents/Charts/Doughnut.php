@@ -1,5 +1,6 @@
 <?php 
-namespace App\Views\Layouts\HtmlComponents\Charts;
+namespace System\HtmlComponents\Charts;
+
 class Doughnut
 {
 	public static function start($canvasId, Array $data, Array $labels, Array $colors = [])

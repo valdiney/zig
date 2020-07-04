@@ -62,11 +62,6 @@ class Session
 	public static function getFlash($name = null)
 	{
 		$name = 'flash_' . $name;
-		if (isset($_SESSION[$name])) {
-			echo $_SESSION[$name];
-			unset($_SESSION[$name]);
-		}
-
-		return false;
+		return $_SESSION[$name];
 	}
 }

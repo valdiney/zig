@@ -1,5 +1,5 @@
 <!--Usando o Html Components-->
-<?php use App\Views\Layouts\HtmlComponents\Modal;?>
+<?php use System\HtmlComponents\Modal\Modal;?>
 
 <style type="text/css">
 	.imagem-produto {

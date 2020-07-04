@@ -51,7 +51,7 @@
 		$.post(rota, {'idConfigPdv': idConfigPdv, 'idTipoPdv': idTipoPdv}, function(result) {
 			tipoPdv = JSON.parse(result);
 			if (tipoPdv.status == true) {
-				window.location.href = getDomain()+"/configuracao/index";
+				window.location.href = getDomain()+"/configuracao";
 			}
 		});
 	}

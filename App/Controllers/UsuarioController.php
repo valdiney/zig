@@ -107,8 +107,10 @@ class UsuarioController extends Controller
 
 			if ( ! empty($_FILES["imagem"]['name'])) {
 
-                # Deleta a imagem anterior
-				unlink($dadosUsuario->imagem);
+                if (file_exists($dadosUsuario->imagem)) {
+                	# Deleta a imagem anterior
+				    unlink($dadosUsuario->imagem);
+                }
 
 				$retornoImagem = uploadImageHelper(
 					new UploadFiles(), 

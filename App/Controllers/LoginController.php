@@ -10,6 +10,7 @@ use System\Session\Session;
 use App\Models\Usuario;
 use App\Models\Modulo;
 use App\Models\UsuarioModulo;
+use App\Models\Perfil;
 
 class LoginController extends Controller
 {
@@ -48,10 +49,14 @@ class LoginController extends Controller
 		        $dados['id_usuario'] = $dadosUsuario->id;
 		        $dados['id_empresa'] = $dadosUsuario->id_empresa;
 		        $log->save($dados);
+
+		        $perfil = new Perfil();
+		        $perfil = $perfil->find($dadosUsuario->id_perfil);
 				
 				# Coloca dados necessarios na sessão
 				Session::set('idUsuario', $dadosUsuario->id);
 				Session::set('idPerfil', $dadosUsuario->id_perfil);
+				Session::set('legendaPerfil', $perfil->descricao);
 				Session::set('idEmpresa', $dadosUsuario->id_empresa);
 				Session::set('nomeUsuario', $dadosUsuario->nome);
 				Session::set('idSexoUsuario', $dadosUsuario->id_sexo);

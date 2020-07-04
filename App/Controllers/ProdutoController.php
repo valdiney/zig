@@ -84,10 +84,12 @@ class ProdutoController extends Controller
 			$dados['preco'] = formataValorMoedaParaGravacao($dados['preco']);
 
 			if ( ! empty($_FILES["imagem"]['name'])) {
-
-                # Deleta a imagem anterior
-				unlink($dadosProduto->imagem);
-
+                
+                if (file_exists($dadosProduto->imagem) {
+                	# Deleta a imagem anterior
+				    unlink($dadosProduto->imagem);
+                }
+                
 				$retornoImagem = uploadImageHelper(
 					new UploadFiles(), 
 					'public/imagem/produtos/', 

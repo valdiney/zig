@@ -5,6 +5,7 @@ use System\Post\Post;
 use System\Get\Get;
 use System\Session\Session;
 use App\Rules\Logged;
+use App\Rules\UsuarioPermissaoRule;
 
 use App\Models\Empresa;
 use App\Models\ClienteSegmento;
@@ -29,6 +30,12 @@ class EmpresaController extends Controller
 		$this->idEmpresa = Session::get('idEmpresa');
 		$this->idUsuario = Session::get('idUsuario');
 		$this->idPerfilUsuarioLogado = Session::get('idPerfil');
+
+		$logged = new Logged();
+		$logged->isValid();
+
+		$usuarioPermissaoRule = new UsuarioPermissaoRule();
+		$usuarioPermissaoRule->isValid(3); # O Número (3) é o id do Modulo Empresa
 	}
 
 	public function index()

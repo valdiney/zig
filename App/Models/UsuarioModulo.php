@@ -13,15 +13,22 @@ class UsuarioModulo extends Model
     	parent::__construct();
     }
 
-    public function usuariosModulosPorIdEmpresaEIdUsuario($idEmpresa, $idUsuario)
+    public function usuariosModulosPorIdEmpresaEIdUsuario($idEmpresa, $idUsuario, $idPerfil)
     {
+        # Busca o Modulo Empresas somente para perfis Super Admin
+        $queryIdPerfil = "";
+        if ($idPerfil != 1) {
+            $queryIdPerfil = "AND modulos.id != 3";
+        }
+
     	return $this->query("
     		SELECT modulos.id AS idModulo, usm.id AS idUsuarioModulo, 
     		usm.id_usuario AS idUsuario, usm.id_empresa AS idEmpresa, modulos.descricao AS nomeModulo,
             usm.consultar, usm.criar, usm.editar, usm.excluir, usm.created_at, usm.updated_at
             FROM usuarios_modulos AS usm
             INNER JOIN modulos ON usm.id_modulo = modulos.id
-            WHERE usm.id_empresa = {$idEmpresa} AND usm.id_usuario = {$idUsuario}
+            WHERE usm.id_empresa = {$idEmpresa} AND usm.id_usuario = {$idUsuario} 
+            {$queryIdPerfil}
     	");
     }
 

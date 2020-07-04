@@ -65,6 +65,13 @@ $usuarioModuloPermissoes = unserialize(Session::get('objetoPermissao'));
   .active {
     color:#0a9850!important;
   }
+  .legendaPerfil {
+    font-size:12px;!important;
+    background:#f4f3ef;
+    border-radius:10px;
+    border:1px solid #dddddd;
+    padding:5px;
+  }
   </style>
 </head>
 
@@ -111,6 +118,10 @@ $usuarioModuloPermissoes = unserialize(Session::get('objetoPermissao'));
                 
                 <i style="text-transform: capitalize;">
                   <?php echo Session::get('nomeUsuario');?>
+                  <small style="font-size:11px;" class="legendaPerfil">
+                    <i class="fas fa-circle" style="color:#00cc99;font-size:8px"></i>
+                    <?php echo Session::get('legendaPerfil');?>
+                  </small>
                 </i>
               </a>
             </div>
@@ -128,10 +139,13 @@ $usuarioModuloPermissoes = unserialize(Session::get('objetoPermissao'));
                     <a class="dropdown-item" href="<?php echo BASEURL;?>/usuario">
                       <i class="fas fa-users"></i> Usuários
                     </a>
-
-                    <a class="dropdown-item" href="<?php echo BASEURL;?>/empresa">
-                      <i class="fas fa-store"></i> Empresas
-                    </a>
+                    
+                    <!--Modulo Empresas-->
+                    <?php if ($usuarioModuloPermissoes[3][0]->consultar):?>
+                      <a class="dropdown-item" href="<?php echo BASEURL;?>/empresa">
+                        <i class="fas fa-store"></i> Empresas
+                      </a>
+                    <?php endif;?>
 
                     <a class="dropdown-item" href="<?php echo BASEURL;?>/configuracao">
                       <i class="fas fa-cogs"></i> Configurações

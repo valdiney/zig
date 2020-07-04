@@ -33,15 +33,15 @@ class UsuarioModuloController extends Controller
 	public function index()
 	{
 		$idUsuario = out64($this->get->position(0));
+		$usuario = new Usuario();
+        $usuario = $usuario->find($idUsuario);
 
         $usuarioModulo = new UsuarioModulo();
         $usuarioModulos = $usuarioModulo->usuariosModulosPorIdEmpresaEIdUsuario(
         	$this->idEmpresa, 
-        	$idUsuario
+        	$idUsuario,
+        	$usuario->id_perfil
         );
-
-        $usuario = new Usuario();
-        $usuario = $usuario->find($idUsuario);
 
 		$this->view('usuario/permissoes', $this->layout, 
 			compact(

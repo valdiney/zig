@@ -47,9 +47,15 @@ class ProdutoController extends Controller
 			
 			$dados['preco'] = formataValorMoedaParaGravacao($dados['preco']);
 
+			# Pega o diretório setado no .env
+            $diretorioImagem = getenv('DIRETORIO_IMAGENS_PRODUTO');
+            if (is_null($diretorioImagem)) {
+            	$diretorioImagem = 'public/imagem/produtos/';
+            }
+
 			$retornoImagem = uploadImageHelper(
 				new UploadFiles(), 
-				'public/imagem/produtos/', 
+				$diretorioImagem, 
 				$_FILES["imagem"]
 			);
 
@@ -85,14 +91,20 @@ class ProdutoController extends Controller
 
 			if ( ! empty($_FILES["imagem"]['name'])) {
                 
-                if (file_exists($dadosProduto->imagem) {
+                if (file_exists($dadosProduto->imagem)) {
                 	# Deleta a imagem anterior
 				    unlink($dadosProduto->imagem);
                 }
                 
+                # Pega o diretório setado no .env
+	            $diretorioImagem = getenv('DIRETORIO_IMAGENS_PRODUTO');
+	            if (is_null($diretorioImagem)) {
+	            	$diretorioImagem = 'public/imagem/produtos/';
+	            }
+
 				$retornoImagem = uploadImageHelper(
 					new UploadFiles(), 
-					'public/imagem/produtos/', 
+					$diretorioImagem, 
 					$_FILES["imagem"]
 				);
 

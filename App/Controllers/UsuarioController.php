@@ -51,9 +51,16 @@ class UsuarioController extends Controller
 			
 			# Valida imagem somente se existir no envio
 			if (isset($dados['imagem'])) {
+
+				# Pega o diretório setado no .env
+                $diretorioImagem = getenv('DIRETORIO_IMAGENS_PERFIL_USUARIO');
+                if (is_null($diretorioImagem)) {
+                	$diretorioImagem = 'public/imagem/perfil_usuarios/';
+                }
+
 				$retornoImagem = uploadImageHelper(
 					new UploadFiles(), 
-					'public/imagem/perfil_usuarios/', 
+					$diretorioImagem, 
 					$_FILES["imagem"]
 				);
 	            
@@ -111,10 +118,16 @@ class UsuarioController extends Controller
                 	# Deleta a imagem anterior
 				    unlink($dadosUsuario->imagem);
                 }
+                
+                # Pega o diretório setado no .env
+                $diretorioImagem = getenv('DIRETORIO_IMAGENS_PERFIL_USUARIO');
+                if (is_null($diretorioImagem)) {
+                	$diretorioImagem = 'public/imagem/perfil_usuarios/';
+                }
 
 				$retornoImagem = uploadImageHelper(
 					new UploadFiles(), 
-					'public/imagem/perfil_usuarios/', 
+					$diretorioImagem, 
 					$_FILES["imagem"]
 				);
 

@@ -7,7 +7,7 @@ use System\Model\Model;
 
 class Dump extends Model
 {
-  protected $migrationPath = "/../../Database/dump/";
+  protected $dumpPath = "/../../Database/dump/";
 
   public function __construct()
   {
@@ -25,7 +25,7 @@ class Dump extends Model
 
   public function dump()
   {
-    $files = glob(__DIR__ . "{$this->migrationPath}*.sql");
+    $files = glob(__DIR__ . "{$this->dumpPath}*.sql");
     if (count($files)) {
       $this->dumpRun($files);
       echo "Tabelas populadas com sucesso! ;)\n";

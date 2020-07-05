@@ -35,6 +35,9 @@ A Lucia tem um pequeno comercio e luta bravamente para mantê-lo! Porém, a Luci
 - [x] Exportar relatórios para Excel
 - [ ] Definir tipos de perfis de Usuários
 
+# Tela de Login
+<img src="https://raw.githubusercontent.com/valdiney/zig/master/prints/login.jpg"/>
+
 # Ponto de vendas Padrão
 <img src="https://raw.githubusercontent.com/valdiney/zig/master/prints/tela_de_venda.png"/>
 

@@ -36,7 +36,7 @@ A Lucia tem um pequeno comercio e luta bravamente para mantê-lo! Porém, a Luci
 - [ ] Definir tipos de perfis de Usuários
 
 # Tela de Login
-<img src="https://raw.githubusercontent.com/valdiney/zig/master/prints/login.jpg"/>
+<img src="https://raw.githubusercontent.com/valdiney/zig/master/prints/fundo_login.jpg"/>
 
 # Ponto de vendas Padrão
 <img src="https://raw.githubusercontent.com/valdiney/zig/master/prints/tela_de_venda.png"/>

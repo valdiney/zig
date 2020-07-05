@@ -11,6 +11,7 @@ class Command
     'create'  => 'System\CommandLine\Create',
     'migrate' => 'System\CommandLine\Migrate',
     'dump'    => 'System\CommandLine\Dump',
+    'hash'    => 'System\CommandLine\Hash',
   ];
 
   public function run(array $args)

@@ -25,9 +25,13 @@ function dump($data) {
 }
 
 function createHash($password = null) {
-	$salt = "dfddfdfddfd;dfdfd45654;df45541254sdsdw";
-	$unic_salt = "awsqkx12454788956sddef$";
-	return sha1($password.$salt.$unic_salt);
+	$oldSalt = "dfddfdfddfd;dfdfd45654;df45541254sdsdw";
+	$oldUnicSalt = "awsqkx12454788956sddef$";
+  // adicionando verificação para os antigos sistemas que já tem senhas salvas no banco
+  $hash = getenv('HASH');
+  $salt = $hash ? $hash : $oldSalt;
+  $unicSalt = $hash ? strrev($hash): $oldUnicSalt;
+  return sha1("{$password}{$salt}{$unicSalt}");
 }
 
 function uploadImageHelper($uploadClass, $folder, $image) {

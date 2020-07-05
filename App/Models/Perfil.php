@@ -12,4 +12,15 @@ class Perfil extends Model
     {
     	parent::__construct();
     }
+    
+    public function perfis($idPerfilUsuarioLogado)
+    {
+    	# Se o usuário logado não for um super admin, não traz o registro super admin
+    	$condicao = false;
+    	if ($idPerfilUsuarioLogado != 1) {
+    		$condicao = "WHERE id != 1";
+    	}
+
+    	return $this->query("SELECT * FROM perfis {$condicao}");
+    }
 }

@@ -162,7 +162,7 @@ class UsuarioController extends Controller
 		$sexos = $sexo->all();
 
 		$perfil = new Perfil();
-		$perfis = $perfil->all();
+		$perfis = $perfil->perfis(Session::get('idPerfil'));
 
         $usuario = false;
 

@@ -28,7 +28,7 @@ class LoginController extends Controller
 		$this->get = new Get();
 
     $logged = new Logged();
-    if ($logged->isValid()) {
+    if ($logged->isValid(false)) {
       $this->get->redirectTo("home");
     }
 	}
@@ -41,6 +41,8 @@ class LoginController extends Controller
 	public function logar()
 	{
 		if ($this->post->hasPost()) {
+      Session::regenerate();
+      //
 			$email = $this->post->data()->email;
 			$password = $this->post->data()->password;
 

@@ -84,6 +84,7 @@ class Migrate extends Model
       $code = current($code);
       $description = trim(str_replace(['_',$code], [' ',''], $data));
       //
+      echo "- {$description} \n";
       $content = file_get_contents($file);
       $this->query($content, false);
       // se true adiciona a nova migração à tabela migrations

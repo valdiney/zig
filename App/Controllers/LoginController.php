@@ -1,4 +1,4 @@
-<?php 
+<?php
 namespace App\Controllers;
 
 use App\Models\LogAcesso;
@@ -11,6 +11,7 @@ use App\Models\Usuario;
 use App\Models\Modulo;
 use App\Models\UsuarioModulo;
 use App\Models\Perfil;
+use App\Rules\Logged;
 
 class LoginController extends Controller
 {
@@ -25,6 +26,11 @@ class LoginController extends Controller
 
 		$this->post = new Post();
 		$this->get = new Get();
+
+    $logged = new Logged();
+    if ($logged->isValid()) {
+      $this->get->redirectTo("home");
+    }
 	}
 
 	public function index()
@@ -40,7 +46,7 @@ class LoginController extends Controller
 
 			$usuario = new Usuario();
 			$dadosUsuario = $usuario->findBy('email', $email);
-           
+
 			if ($usuario->userExist(['email' => $email, 'password' => $password])) {
 
 				# Grava o Log de Acessos
@@ -52,7 +58,7 @@ class LoginController extends Controller
 
 		        $perfil = new Perfil();
 		        $perfil = $perfil->find($dadosUsuario->id_perfil);
-				
+
 				# Coloca dados necessarios na sessão
 				Session::set('idUsuario', $dadosUsuario->id);
 				Session::set('idPerfil', $dadosUsuario->id_perfil);
@@ -62,7 +68,7 @@ class LoginController extends Controller
 				Session::set('idSexoUsuario', $dadosUsuario->id_sexo);
 				Session::set('emailUsuario', $dadosUsuario->email);
 				Session::set('imagem', $dadosUsuario->imagem);
-                
+
                 # Gera as Permissões para os usuarios que ainda não tem permissões
 				$this->gerarPermissoes($dadosUsuario);
 
@@ -75,7 +81,7 @@ class LoginController extends Controller
 
 				return $this->get->redirectTo("home");
 			}
-            
+
             Session::flash('error', 'Usuário não encontrado!');
 			return $this->get->redirectTo("login");
 		}
@@ -86,16 +92,16 @@ class LoginController extends Controller
 		Session::logout();
 		return $this->get->redirectTo("login");
 	}
-    
+
     # Gera as Permissões para os usuarios que ainda não tem permissões
 	public function gerarPermissoes($usuario)
 	{
 		$modulo = new Modulo();
     	$modulos = $modulo->all();
-        
+
         # Criar as Permissões do Usuário
     	$usuarioModulo = new UsuarioModulo();
-        
+
         # Se o usuario ainda não tiver permissões cadastradas
     	if (count($usuarioModulo->usuariosModulosPorIdUsuario($usuario->id)) == 0) {
     		$usuarioModulo->criarPermissoesAoCadstrarUsuario(

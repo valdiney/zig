@@ -12,7 +12,6 @@ use App\Models\Usuario;
 use App\Models\Modulo;
 use App\Models\UsuarioModulo;
 use App\Models\Perfil;
-use App\Rules\Logged;
 
 class LoginController extends Controller
 {

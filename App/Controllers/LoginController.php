@@ -6,6 +6,7 @@ use System\Controller\Controller;
 use System\Post\Post;
 use System\Get\Get;
 use System\Session\Session;
+use App\Rules\Logged;
 
 use App\Models\Usuario;
 use App\Models\Modulo;
@@ -27,10 +28,8 @@ class LoginController extends Controller
 		$this->post = new Post();
 		$this->get = new Get();
 
-    $logged = new Logged();
-    if ($logged->isValid(false)) {
-      $this->get->redirectTo("home");
-    }
+		$logged = new Logged();
+		$logged->logged();
 	}
 
 	public function index()

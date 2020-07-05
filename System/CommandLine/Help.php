@@ -14,5 +14,6 @@ class Help
     echo "  • controller [ControllerName]: cria um controller \n";
     echo "  • migration  [migration_name]: cria uma migration \n\n";
     echo "• migrate: migra banco de dados \n";
+    echo "• dump   : popula banco de dados \n";
   }
 }

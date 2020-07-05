@@ -8,6 +8,7 @@ class Create
   protected $argumentsList = [
     'controller' => 'System\CommandLine\Create\Controller',
     'migration'  => 'System\CommandLine\Create\Migration',
+    'dump'       => 'System\CommandLine\Create\Dump',
   ];
 
   public function __construct(array $args)

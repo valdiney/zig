@@ -10,6 +10,7 @@ class Command
     'help'    => 'System\CommandLine\Help',
     'create'  => 'System\CommandLine\Create',
     'migrate' => 'System\CommandLine\Migrate',
+    'dump'    => 'System\CommandLine\Dump',
   ];
 
   public function run(array $args)

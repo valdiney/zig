@@ -7,7 +7,7 @@ use System\Model\Model;
 
 class Migrate extends Model
 {
-  protected $migrationPath = "/../../dump/migrations/";
+  protected $migrationPath = "/../../Database/migrations/";
   protected $migrationsCode = [1593604775,1593605007,1593605094,1593605143,1593605239,1593605328,1593605367,1593605428,1593605466,1593605510,1593605548,1593605570,1593605592,1593605596,1593605654,1593605683,1593608384];
 
   public function __construct()
@@ -22,6 +22,8 @@ class Migrate extends Model
     }
     //
     $this->verifyIfTableMigrationExists($tables);
+    //
+    $this->migrate();
   }
 
   public function verifyIfTableMigrationExists(array $tables)
@@ -38,8 +40,6 @@ class Migrate extends Model
     if ($tableExists == false) {
       $this->createTableMigrations();
     }
-    //
-    $this->migrate();
   }
 
   public function createTableMigrations()

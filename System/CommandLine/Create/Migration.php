@@ -4,7 +4,7 @@ namespace System\CommandLine\Create;
 
 class Migration
 {
-  protected $path = 'dump/migrations/';
+  protected $path = 'Database/migrations/';
   protected $fullPath = '/../../../';
 
   public function __construct(array $args) {

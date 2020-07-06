@@ -3,22 +3,19 @@
 
 # Descrição
 <p>
-O ZigMoney é um projeto que visa ajudar pequenos comércios que precisam registrar suas vendas diárias de forma simples e organizada. Trata-se de um sistema web escrito em PHP e Mysql. <br>
+O ZigMoney é um projeto que visa ajudar pequenos comércios e comerciantes que precisam registrar suas vendas diárias de forma simples e organizada. Trata-se de um sistema web escrito em PHP e Mysql. <br>
 O intuito é disponibilizar uma plataforma com módulos que facilite e potencialize o controle de informações de vendas totalmente online.
 </p>
 
 <p>
   Achou o projeto legal e gostaria de fazer uma doação? <a href="https://pag.ae/7W6_WBpg2" target="_blank">
-  <b>Clique aqui! A sua ajuda é bem vinda!</b></a>
-</p>
-
-<p>
-  Se quiser acompanhar no <a href="https://twitter.com/ZigMoneyProjeto">Twitter</a>
+  <b>Clique aqui! A sua ajuda é bem vinda!</b></a> <br>
+  Nos acompanhe no <a href="https://twitter.com/ZigMoneyProjeto">Twitter</a>
 </p>
 
 # Persona do Projeto
 <p>
-A Lucia tem um pequeno comercio e luta bravamente para mantê-lo! Porém, a Lucia tem problemas em registrar suas vendas! Já usou papel, planilhas e até mesmo outros sistemas complicados! Será que nós da ZigMoney conseguiremos ajudar as varias Lucias espalhadas pelo nosso Brasil?
+A Lucia tem um pequeno comercio e luta bravamente para mantê-lo! Porém, a Lucia tem problemas em registrar suas vendas! Já usou papel, planilhas e até mesmo outros sistemas complicados! Será que nós da ZigMoney conseguiremos ajudar as varias Lucias espalhadas pelo nosso Brasil? Este é o nosso real foco e faremos o possível para alcançá-lo! Que tal nos ajudar nesta empreitada? 
 </p>
 
 # Módulos

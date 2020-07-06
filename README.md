@@ -1,5 +1,5 @@
 # ZigMoney
-🚧 Projeto em desenvolvimento e recebendo commit todos os dias! ✊
+Relatório de vendas simples, rápido e acessível! 
 
 # Descrição
 <p>
@@ -10,7 +10,8 @@ O intuito é disponibilizar uma plataforma com módulos que facilite e potencial
 <p>
   Achou o projeto legal e gostaria de fazer uma doação? <a href="https://pag.ae/7W6_WBpg2" target="_blank">
   <b>Clique aqui! A sua ajuda é bem vinda!</b></a> <br>
-  Nos acompanhe no <a href="https://twitter.com/ZigMoneyProjeto">Twitter</a>
+  Nos acompanhe no <a href="https://twitter.com/ZigMoneyProjeto">Twitter</a> <br>
+  🚧 Projeto em desenvolvimento e recebendo commit todos os dias! ✊ 
 </p>
 
 # Persona do Projeto

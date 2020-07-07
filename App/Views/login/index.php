@@ -15,6 +15,10 @@
 </div>
 
  <form class="form-signin" method="post" action="<?php echo BASEURL;?>/login/logar">
+
+  <!-- token de segurança -->
+  <input type="hidden" name="_token" value="<?php echo TOKEN; ?>" />
+
   <div class="form-label-group">
     <input type="email" id="email" name="email" class="form-control" placeholder="Email address"
     required autofocus>

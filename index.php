@@ -17,6 +17,8 @@ if (getenv('APP_ENV', 'local') != 'production' && getenv('APP_DISPLAY_ERRORS', '
 
 System\Session\Session::start();
 
+System\Session\Token::verify();
+
 date_default_timezone_set(getenv('TIMEZONE', 'America/Bahia'));
 
 use System\Route\GetRoute;

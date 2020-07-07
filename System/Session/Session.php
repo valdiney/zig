@@ -41,7 +41,6 @@ class Session
     ini_set('session.cache_expire', 43200);
     ini_set('session.gc_maxlifetime', 43200);
     session_id($sessionId);
-    dd($_SESSION);
   }
 
 	public static function hasSession($name = null)

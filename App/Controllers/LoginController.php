@@ -39,8 +39,6 @@ class LoginController extends Controller
 	public function logar()
 	{
 		if ($this->post->hasPost()) {
-      Session::regenerate();
-      //
 			$email = $this->post->data()->email;
 			$password = $this->post->data()->password;
 

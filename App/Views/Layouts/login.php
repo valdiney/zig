@@ -11,12 +11,13 @@
     body {
       background-image: url('public/img/fundo_login.jpg');
       background-repeat: no-repeat;
-      background-size:100%;
+      background-size: cover;
+      background-position: top center;
     }
   </style>
 </head>
 <body>
-	
+
   <div class="container">
     <div class="row">
       <div class="col-sm-9 col-md-7 col-lg-5 mx-auto">

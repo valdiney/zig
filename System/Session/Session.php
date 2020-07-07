@@ -31,12 +31,7 @@ class Session
   public static function regenerate()
   {
     session_destroy();
-    session_start();
-    //
-    if (session_status() != PHP_SESSION_ACTIVE) {
-      session_start();
-    }
-    $sessionId = session_create_id('zig_');
+    $sessionId = session_create_id();
     $_SESSION['session_code'] = $sessionId;
     $_SESSION['session_time'] = time();
     session_commit();

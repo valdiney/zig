@@ -4,11 +4,10 @@ namespace System\Session;
 class Session
 {
 	public static function start()
-	{
+  {
 		if ( ! isset($_SESSION)) {
 			session_start();
-      ini_set('session.use_strict_mode', 1);
-		}
+    }
     if (empty($_SESSION['session_code']) || time() - $_SESSION['session_time'] > 3600) {
       self::regenerate();
     }
@@ -31,6 +30,7 @@ class Session
   public static function regenerate()
   {
     session_destroy();
+    session_start();
     $sessionId = session_create_id();
     $_SESSION['session_code'] = $sessionId;
     $_SESSION['session_time'] = time();
@@ -41,7 +41,7 @@ class Session
     ini_set('session.cache_expire', 43200);
     ini_set('session.gc_maxlifetime', 43200);
     session_id($sessionId);
-    session_start();
+    dd($_SESSION);
   }
 
 	public static function hasSession($name = null)

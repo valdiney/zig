@@ -15,15 +15,9 @@ if (getenv('APP_ENV', 'local') != 'production' && getenv('APP_DISPLAY_ERRORS', '
   error_reporting(E_ALL);
 }
 
-// 43200 sessão ativa por 12h
-ini_set('session.cookie_lifetime', 43200);
-ini_set('session.cache_expire', 43200);
-ini_set('session.gc_maxlifetime', 43200);
-
-session_start();
+System\Session\Session::start();
 
 date_default_timezone_set(getenv('TIMEZONE', 'America/Bahia'));
-require_once(__DIR__ . '/vendor/autoload.php');
 
 use System\Route\GetRoute;
 use System\Route\SelectController;

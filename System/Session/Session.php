@@ -36,6 +36,10 @@ class Session
     $_SESSION['session_time'] = time();
     session_commit();
     ini_set('session.use_strict_mode', 0);
+    // 43200 sessão ativa por 12h
+    ini_set('session.cookie_lifetime', 43200);
+    ini_set('session.cache_expire', 43200);
+    ini_set('session.gc_maxlifetime', 43200);
     session_id($sessionId);
     session_start();
   }

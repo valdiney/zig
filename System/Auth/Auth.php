@@ -30,7 +30,6 @@ trait Auth
 	public function userExist(Array $data)
 	{
 		if ($this->loginVerify($data)) {
-			Session::start();
 			Session::set('logged', true);
 			return true;
 		}

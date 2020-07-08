@@ -1,8 +1,8 @@
-<?php 
+<?php
 namespace System\HtmlComponents\FlashMessage;
 use System\Session\Session;
 
-class FlashMessage 
+class FlashMessage
 {
 	public static function show()
 	{

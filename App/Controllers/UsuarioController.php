@@ -1,4 +1,4 @@
-<?php 
+<?php
 namespace App\Controllers;
 use System\Controller\Controller;
 use System\Post\Post;
@@ -20,7 +20,7 @@ class UsuarioController extends Controller
 	protected $get;
 	protected $layout;
 	protected $idEmpresa;
-	
+
 	public function __construct()
 	{
 		parent::__construct();
@@ -48,7 +48,7 @@ class UsuarioController extends Controller
 			$usuario = new Usuario();
 			$dados = (array) $this->post->data();
 			$dados['password'] = createHash($dados['password']);
-			
+
 			# Valida imagem somente se existir no envio
 			if (isset($dados['imagem'])) {
 
@@ -59,31 +59,31 @@ class UsuarioController extends Controller
                 }
 
 				$retornoImagem = uploadImageHelper(
-					new UploadFiles(), 
-					$diretorioImagem, 
+					new UploadFiles(),
+					$diretorioImagem,
 					$_FILES["imagem"]
 				);
-	            
+
 	            # Verifica se houve erro durante o upload de imagem
 				if (is_array($retornoImagem)) {
 					Session::flash('error', $retornoImagem['error']);
 					return $this->get->redirectTo("usuario");
 				}
-	            
+
 			    $dados['imagem'] = $retornoImagem;
 		    }
 
 			try {
 				# Cadastra Usuário
 				$usuario->save($dados);
-			} catch(\Exception $e) { 
+			} catch(\Exception $e) {
     		    dd('Erro ao cadastrar Usuário ' . $e->getMessage());
     	    }
 
     	    try {
     	    	$modulo = new Modulo();
     	    	$modulos = $modulo->all();
-                
+
                 # Criar as Permissões do Usuário
     	    	$usuarioModulo = new UsuarioModulo();
     	    	$usuarioModulo->criarPermissoesAoCadstrarUsuario(
@@ -95,10 +95,10 @@ class UsuarioController extends Controller
 
 				return $this->get->redirectTo("usuario");
 
-			} catch(\Exception $e) { 
+			} catch(\Exception $e) {
     		    dd('Erro ao cadastrar Criar Permissões ' . $e->getMessage());
     	    }
-		} 
+		}
 	}
 
 	public function update()
@@ -108,7 +108,7 @@ class UsuarioController extends Controller
 			$dadosUsuario = $usuario->find($this->post->data()->id);
 
 			$dados = (array) $this->post->only([
-				'nome', 'email', 'password', 
+				'nome', 'email', 'password',
 				'id_sexo', 'id_perfil'
 			]);
 
@@ -118,7 +118,7 @@ class UsuarioController extends Controller
                 	# Deleta a imagem anterior
 				    unlink($dadosUsuario->imagem);
                 }
-                
+
                 # Pega o diretório setado no .env
                 $diretorioImagem = getenv('DIRETORIO_IMAGENS_PERFIL_USUARIO');
                 if (is_null($diretorioImagem)) {
@@ -126,8 +126,8 @@ class UsuarioController extends Controller
                 }
 
 				$retornoImagem = uploadImageHelper(
-					new UploadFiles(), 
-					$diretorioImagem, 
+					new UploadFiles(),
+					$diretorioImagem,
 					$_FILES["imagem"]
 				);
 
@@ -136,7 +136,7 @@ class UsuarioController extends Controller
 					Session::flash('error', $retornoImagem['error']);
 					return $this->get->redirectTo("usuario");
 				}
-                
+
 				$dados['imagem'] = $retornoImagem;
 			}
 
@@ -150,7 +150,7 @@ class UsuarioController extends Controller
 				$usuario->update($dados, $dadosUsuario->id);
 				return $this->get->redirectTo("usuario");
 
-			} catch(\Exception $e) { 
+			} catch(\Exception $e) {
     		    dd($e->getMessage());
     	    }
 		}
@@ -171,9 +171,9 @@ class UsuarioController extends Controller
 		    $usuario = $usuario->find($this->get->position(0));
         }
 
-		$this->view('usuario/formulario', null, 
+		$this->view('usuario/formulario', null,
 			compact(
-				'sexos', 
+				'sexos',
 				'usuario',
 				'perfis'
 			));

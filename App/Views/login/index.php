@@ -15,6 +15,10 @@
 </div>
 
  <form class="form-signin" method="post" action="<?php echo BASEURL;?>/login/logar">
+
+  <!-- token de segurança -->
+  <input type="hidden" name="_token" value="<?php echo TOKEN; ?>" />
+
   <div class="form-label-group">
     <input type="email" id="email" name="email" class="form-control" placeholder="Email address"
     required autofocus>
@@ -28,5 +32,8 @@
 
   <button class="btn btn-lg btn-primary btn-block text-uppercase" type="submit">Entrar</button>
   <hr class="my-4">
+
+
+  <center style="font-size:13px;opacity:0.70">ZigMoney <span style="font-size:17px">&hearts;</span></center>
 
 </form>

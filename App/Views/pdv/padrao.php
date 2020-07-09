@@ -42,6 +42,8 @@ use System\Session\Session;
             
             <form method="post" action="<?php echo BASEURL;?>/pdvPadrao/save">
 		        <div class="row">
+
+		        	<input type="hidden" name="_token" value="<?php echo TOKEN; ?>" />
 	                
 		        	<div class="col-md-2">
 					    <div class="form-group">

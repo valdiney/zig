@@ -48,7 +48,7 @@
 		modalValidacao('Salvando', 'Alterando PDV! <small>Aguarde...</small>');
 		$(".close").hide();
 		
-		$.post(rota, {'idConfigPdv': idConfigPdv, 'idTipoPdv': idTipoPdv}, function(result) {
+		$.post(rota, {'_token': '<?php echo TOKEN; ?>', 'idConfigPdv': idConfigPdv, 'idTipoPdv': idTipoPdv}, function(result) {
 			tipoPdv = JSON.parse(result);
 			if (tipoPdv.status == true) {
 				window.location.href = getDomain()+"/configuracao";

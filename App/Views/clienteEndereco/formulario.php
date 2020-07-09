@@ -11,6 +11,8 @@
 	enctype='multipart/form-data'>
 	<div class="row">
 
+		<input type="hidden" name="_token" value="<?php echo TOKEN; ?>" />
+
 		<?php if (isset($clienteEndereco->id)):?>
 			<input type="hidden" name="id" value="<?php echo $clienteEndereco->id;?>">
 		<?php endif;?>

@@ -31,12 +31,10 @@ class Session
   public static function regenerate()
   {
     session_destroy();
-    $sessionId = session_create_id();
+    $sessionId = md5(uniqid(true).time());
     $_SESSION['session_code'] = $sessionId;
     $_SESSION['session_time'] = time();
-    session_commit();
     ini_set('session.use_strict_mode', 0);
-    session_id($sessionId);
     session_start();
   }
 

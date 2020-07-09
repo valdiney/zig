@@ -24,7 +24,7 @@ class Token
      * O método pode ser POST, PUT, DELETE...
      * ele verifica se foi passado token
      */
-    if (!isset($_POST['_token'])) {
+    if (!isset($_POST['_token']) && !isset($_SESSION['_token'])) {
       dd("Falta parâmetro _token!");
       return;
     }

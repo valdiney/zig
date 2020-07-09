@@ -4,90 +4,90 @@
 */
 
 # ----- LoginController --------------------------------
-$route->create('/', 'LoginController@index');
-$route->create('login', 'LoginController@index');
-$route->create('login/logar', 'LoginController@logar');
-$route->create('login/logout', 'LoginController@logout');
+$route->get('/', 'LoginController@index');
+$route->get('login', 'LoginController@index');
+$route->post('login/logar', 'LoginController@logar');
+$route->get('login/logout', 'LoginController@logout');
 
-$route->create('home', 'HomeController@index');
+$route->get('home', 'HomeController@index');
 
 # ----- UsuarioController --------------------------------
-$route->create('usuario', 'UsuarioController@index');
-$route->create('usuario/save', 'UsuarioController@save');
-$route->create('usuario/modal', 'UsuarioController@modal');
-$route->create('usuario/update', 'UsuarioController@update');
+$route->get('usuario', 'UsuarioController@index');
+$route->post('usuario/save', 'UsuarioController@save');
+$route->get('usuario/modal', 'UsuarioController@modal');
+$route->post('usuario/update', 'UsuarioController@update');
 
 # ----- RelatorioController --------------------------------
-$route->create('relatorio', 'RelatorioController@index');
-$route->create('relatorio/vendasPorPeriodo', 'RelatorioController@vendasPorPeriodo');
-$route->create('relatorio/vendasChamadaAjax', 'RelatorioController@vendasChamadaAjax');
-$route->create('relatorio/gerarXls', 'RelatorioController@gerarXls');
-$route->create('relatorio/gerarPDF', 'RelatorioController@gerarPDF');
+$route->get('relatorio', 'RelatorioController@index');
+$route->get('relatorio/vendasPorPeriodo', 'RelatorioController@vendasPorPeriodo');
+$route->post('relatorio/vendasChamadaAjax', 'RelatorioController@vendasChamadaAjax');
+$route->get('relatorio/gerarXls', 'RelatorioController@gerarXls');
+$route->get('relatorio/gerarPDF', 'RelatorioController@gerarPDF');
 
 # ----- ProdutoController --------------------------------
-$route->create('produto', 'ProdutoController@index');
-$route->create('produto/modalFormulario', 'ProdutoController@modalFormulario');
-$route->create('produto/save', 'ProdutoController@save');
-$route->create('produto/update', 'ProdutoController@update');
+$route->get('produto', 'ProdutoController@index');
+$route->get('produto/modalFormulario', 'ProdutoController@modalFormulario');
+$route->post('produto/save', 'ProdutoController@save');
+$route->post('produto/update', 'ProdutoController@update');
 
 # ----- ConfiguracaoController --------------------------------
-$route->create('configuracao', 'ConfiguracaoController@index');
-$route->create('configuracao/alterarConfigPdv', 'ConfiguracaoController@alterarConfigPdv');
+$route->get('configuracao', 'ConfiguracaoController@index');
+$route->post('configuracao/alterarConfigPdv', 'ConfiguracaoController@alterarConfigPdv');
 
 # ----- PdvPadraoController  --------------------------------
-$route->create('pdvPadrao', 'PdvPadraoController@index');
-$route->create('pdvPadrao/save', 'PdvPadraoController@save');
+$route->get('pdvPadrao', 'PdvPadraoController@index');
+$route->get('pdvPadrao/save', 'PdvPadraoController@save');
 
 # ----- PdvDiferencialController  --------------------------------
-$route->create('pdvDiferencial', 'PdvDiferencialController@index');
-$route->create('pdvDiferencial/colocarProdutosNaMesa', 'PdvDiferencialController@colocarProdutosNaMesa');
-$route->create('pdvDiferencial/obterProdutosDaMesa', 'PdvDiferencialController@obterProdutosDaMesa');
+$route->get('pdvDiferencial', 'PdvDiferencialController@index');
+$route->get('pdvDiferencial/colocarProdutosNaMesa', 'PdvDiferencialController@colocarProdutosNaMesa');
+$route->get('pdvDiferencial/obterProdutosDaMesa', 'PdvDiferencialController@obterProdutosDaMesa');
 
-$route->create('pdvDiferencial/alterarAquantidadeDeUmProdutoNaMesa', 'PdvDiferencialController@alterarAquantidadeDeUmProdutoNaMesa');
+$route->get('pdvDiferencial/alterarAquantidadeDeUmProdutoNaMesa', 'PdvDiferencialController@alterarAquantidadeDeUmProdutoNaMesa');
 
-$route->create('pdvDiferencial/retirarProdutoDaMesa', 'PdvDiferencialController@retirarProdutoDaMesa');
-$route->create('pdvDiferencial/saveVendasViaSession', 'PdvDiferencialController@saveVendasViaSession');
+$route->get('pdvDiferencial/retirarProdutoDaMesa', 'PdvDiferencialController@retirarProdutoDaMesa');
+$route->get('pdvDiferencial/saveVendasViaSession', 'PdvDiferencialController@saveVendasViaSession');
 
-$route->create('pdvDiferencial/obterValorTotalDosProdutosNaMesa', 'PdvDiferencialController@obterValorTotalDosProdutosNaMesa');
+$route->get('pdvDiferencial/obterValorTotalDosProdutosNaMesa', 'PdvDiferencialController@obterValorTotalDosProdutosNaMesa');
 
 # ----- ClienteController --------------------------------
-$route->create('cliente', 'ClienteController@index');
-$route->create('cliente/modalFormulario', 'ClienteController@modalFormulario');
-$route->create('cliente/save', 'ClienteController@save');
-$route->create('cliente/update', 'ClienteController@update');
-$route->create('cliente/desativarCliente', 'ClienteController@desativarCliente');
-$route->create('cliente/ativarCliente', 'ClienteController@ativarCliente');
+$route->get('cliente', 'ClienteController@index');
+$route->get('cliente/modalFormulario', 'ClienteController@modalFormulario');
+$route->post('cliente/save', 'ClienteController@save');
+$route->post('cliente/update', 'ClienteController@update');
+$route->get('cliente/desativarCliente', 'ClienteController@desativarCliente');
+$route->get('cliente/ativarCliente', 'ClienteController@ativarCliente');
 
-$route->create('cliente/verificaSeEmailExiste', 'ClienteController@verificaSeEmailExiste');
-$route->create('cliente/verificaSeCnpjExiste', 'ClienteController@verificaSeCnpjExiste');
-$route->create('cliente/verificaSeCpfExiste', 'ClienteController@verificaSeCpfExiste');
+$route->get('cliente/verificaSeEmailExiste', 'ClienteController@verificaSeEmailExiste');
+$route->get('cliente/verificaSeCnpjExiste', 'ClienteController@verificaSeCnpjExiste');
+$route->get('cliente/verificaSeCpfExiste', 'ClienteController@verificaSeCpfExiste');
 
 # ----- EnderecoController --------------------------------
-$route->create('clienteEndereco/index', 'ClienteEnderecoController@index');
-$route->create('clienteEndereco/save', 'ClienteEnderecoController@save');
-$route->create('clienteEndereco/update', 'ClienteEnderecoController@update');
-$route->create('clienteEndereco/modalFormulario', 'ClienteEnderecoController@modalFormulario');
-$route->create('clienteEndereco/buscarEnderecoViaCep', 'ClienteEnderecoController@buscarEnderecoViaCep');
+$route->get('clienteEndereco/index', 'ClienteEnderecoController@index');
+$route->get('clienteEndereco/save', 'ClienteEnderecoController@save');
+$route->get('clienteEndereco/update', 'ClienteEnderecoController@update');
+$route->get('clienteEndereco/modalFormulario', 'ClienteEnderecoController@modalFormulario');
+$route->get('clienteEndereco/buscarEnderecoViaCep', 'ClienteEnderecoController@buscarEnderecoViaCep');
 
 # ----- PedidoController --------------------------------
-$route->create('pedido', 'PedidoController@index');
+$route->get('pedido', 'PedidoController@index');
 
-$route->create('pwa/login', 'Api\InicioPwaController@index');
-$route->create('pwa/logar', 'Api\LoginController@logar');
-$route->create('pwa/pdv', 'Api\InicioPwaController@pdv');
+$route->get('pwa/login', 'Api\InicioPwaController@index');
+$route->post('pwa/logar', 'Api\LoginController@logar');
+$route->get('pwa/pdv', 'Api\InicioPwaController@pdv');
 
 # ----- LogController --------------------------------
-$route->create('logs', 'LogAcessoController@index');
+$route->get('logs', 'LogAcessoController@index');
 
 # ----- PermissaoController --------------------------------
-$route->create('usuario/permissoes', 'UsuarioModuloController@index');
-$route->create('usuario/salvarPermissoes', 'UsuarioModuloController@salvarPermissoes');
+$route->get('usuario/permissoes', 'UsuarioModuloController@index');
+$route->get('usuario/salvarPermissoes', 'UsuarioModuloController@salvarPermissoes');
 
 # ----- EmpresaController --------------------------------
-$route->create('empresa', 'EmpresaController@index');
-$route->create('empresa/save', 'EmpresaController@save');
-$route->create('empresa/update', 'EmpresaController@update');
-$route->create('empresa/modalFormulario', 'EmpresaController@modalFormulario');
+$route->get('empresa', 'EmpresaController@index');
+$route->post('empresa/save', 'EmpresaController@save');
+$route->post('empresa/update', 'EmpresaController@update');
+$route->get('empresa/modalFormulario', 'EmpresaController@modalFormulario');
 
 # Router run
 $route->run();

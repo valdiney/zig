@@ -43,15 +43,36 @@ class SelectController
     }
 	}
 
-	public function create(string $aliases, string $controllerAndMethod)
+	public function create(string $aliases, string $controllerAndMethod, string $type = "GET")
 	{
 		$arrayExplode = explode('@', $controllerAndMethod);
 
 		$this->allRouters[$aliases] = [
 			'controller' => $arrayExplode[0],
-			'method' => $arrayExplode[1]
+			'method'     => $arrayExplode[1],
+			'type'       => $type,
 		];
 	}
+
+  public function get(string $aliases, string $controllerAndMethod)
+  {
+    $this->create($aliases, $controllerAndMethod, "GET");
+  }
+
+  public function post(string $aliases, string $controllerAndMethod)
+  {
+    $this->create($aliases, $controllerAndMethod, "POST");
+  }
+
+  public function put(string $aliases, string $controllerAndMethod)
+  {
+    $this->create($aliases, $controllerAndMethod, "PUT");
+  }
+
+  public function delete(string $aliases, string $controllerAndMethod)
+  {
+    $this->create($aliases, $controllerAndMethod, "DELETE");
+  }
 
     /**
     * The method is used to instantiate the controller
@@ -95,6 +116,10 @@ class SelectController
       $barsInActualRoute = substr_count($this->routerAliases, '/');
       // pega todas as rotas parecidas
       $similarRoutes = array_filter($this->allRouters, function ($data, $route) use($barsInActualRoute) {
+        // pra home
+        if ($route == '/') {
+          return $this->routerAliases == '/';
+        }
         return substr_count($route, '/') == $barsInActualRoute;
       }, ARRAY_FILTER_USE_BOTH);
       // busca por rotas com regex
@@ -105,7 +130,7 @@ class SelectController
         }
         $data['route'] = $route;
         return $data;
-      }, array_keys($this->allRouters), $this->allRouters);
+      }, array_keys($similarRoutes), $similarRoutes);
       // busca a rota atual por regex
       $similarRoutes = array_filter($similarRoutes, function ($data) {
         $route = str_replace('/', '\/', $data['route']);
@@ -133,6 +158,11 @@ class SelectController
         $route = $similarRoutes['realRoute'];
       }
       $route = $this->allRouters[$route];
+      // verifica tipo de rota
+      if ($route['type'] != $_SERVER['REQUEST_METHOD']) {
+        require_once(__DIR__ . '/../../App/Views/Layouts/405.php');
+        exit;
+      }
       $controller = $route['controller'];
       $method = $route['method'];
       //

@@ -112,13 +112,13 @@ function obterValorTotalDosProdutosNaMesa() {
 }
 
 /*Salva os produtos selecionados, ou seja, realiza a venda de fato!*/
-function saveVendasViaSession() {
+function saveVendasViaSession(token) {
     var rota = getDomain()+"/pdvDiferencial/saveVendasViaSession";
 
     modalValidacao('Salvando', 'Processando...');
     modalValidacaoClose();
 
-    $.post(rota, {'id_meio_pagamento': $('#id_meio_pagamento').val()}, function(result) {
+    $.post(rota, {'id_meio_pagamento': $('#id_meio_pagamento').val(), '_token': token}, function(result) {
       var status = JSON.parse(result);
       if (status.status == true) {
         $(".tabela-de-produto tbody").empty();

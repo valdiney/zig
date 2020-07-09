@@ -1,4 +1,4 @@
-<?php 
+<?php
 namespace System\Post;
 
 /*
@@ -18,9 +18,9 @@ class Post
         # Call setPostData method
         $this->setPostData();
     }
-    
+
     /*
-     * This method is used to obtain and transform data from post request 
+     * This method is used to obtain and transform data from post request
      * in an object
      * @return Void
     */
@@ -28,21 +28,25 @@ class Post
     {
         $data = [];
         foreach ($_POST as $key => $value) {
-            $data[$key] = (empty($value) ? null : $value);
+          // remove token do data
+          if ($key == '_token') {
+            continue;
+          }
+          $data[$key] = (empty($value) ? null : $value);
         }
-        
+
         $this->data = (Object) $data;
     }
-    
+
     /*
-     * This method is used to return all data from post request 
+     * This method is used to return all data from post request
      * @return Object
     */
     public function data()
     {
         return $this->data;
     }
-    
+
     /*
      * This method is used to return an object with data passed in array argument.
      * @return Object
@@ -51,18 +55,18 @@ class Post
     {
         $filteredData = [];
         $internalData = (Array) $this->data;
-        
+
         foreach ($data as $value) {
             if ( ! array_key_exists($value, $internalData)) {
                 echo "The ({$value}) value not exist in Post Request";
             }
-            
+
             $filteredData[$value] = $internalData[$value];
         }
-        
+
         return (Object) $filteredData;
     }
-    
+
     /*
      * This method is used to verify if has post request
      * @return Bool
@@ -72,7 +76,7 @@ class Post
         if ($_POST) {
             return true;
         }
-        
+
         return false;
     }
 }

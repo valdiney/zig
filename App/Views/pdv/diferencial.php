@@ -174,7 +174,7 @@ use System\Session\Session;
 		        </select>
 		    </div>
 			  
-            <button class="btn btn-sm btn-success btn-block" onclick="saveVendasViaSession()">
+            <button class="btn btn-sm btn-success btn-block" onclick="saveVendasViaSession('<?php echo TOKEN;?>')">
 	            <i class="fas fa-save"></i> Confirmar    	   
 	        </button>
 	    </div>

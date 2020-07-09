@@ -33,10 +33,10 @@ class ClienteEnderecoController extends Controller
 		$logged->isValid();
 	}
 
-	public function index($id)
+	public function index()
 	{
 		$cliente = new Cliente();
-		$cliente = $cliente->find(out64($id));
+		$cliente = $cliente->find(out64($this->get->position(0)));
 
 		$clienteEndereco = new ClienteEndereco();
 		$clienteEnderecos = $clienteEndereco->enderecos($cliente->id);
@@ -114,5 +114,10 @@ class ClienteEnderecoController extends Controller
 				'clienteEndereco',
 				'idCliente'
 			));
+	}
+
+	public function teste()
+	{
+		echo $this->get->position(0);
 	}
 }

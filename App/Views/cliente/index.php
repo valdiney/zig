@@ -75,7 +75,7 @@
 								    <?php endif;?>
 
 							        <a class="dropdown-item"
-							        href="<?php echo BASEURL;?>/clienteEndereco/<?php echo in64($cliente->id);?>">
+							        href="<?php echo BASEURL;?>/clienteEndereco/index/<?php echo in64($cliente->id);?>">
 							        	<i class="fas fa-map-marker-alt"></i> Endereços
 							        </a>
 

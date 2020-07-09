@@ -33,15 +33,15 @@ class ClienteEnderecoController extends Controller
 		$logged->isValid();
 	}
 
-	public function index()
+	public function index($id)
 	{
 		$cliente = new Cliente();
-		$cliente = $cliente->find(out64($this->get->position(0)));
+		$cliente = $cliente->find(out64($id));
 
 		$clienteEndereco = new ClienteEndereco();
 		$clienteEnderecos = $clienteEndereco->enderecos($cliente->id);
 
-		$this->view('clienteEndereco/index', $this->layout, 
+		$this->view('clienteEndereco/index', $this->layout,
 			compact(
 				'cliente',
 				'clienteEnderecos'
@@ -59,7 +59,7 @@ class ClienteEnderecoController extends Controller
 				$clienteEndereco->save($dados);
 				return $this->get->redirectTo("clienteEndereco/index", [in64($dados['id_cliente'])]);
 
-			} catch(\Exception $e) { 
+			} catch(\Exception $e) {
     		    dd($e->getMessage());
     	    }
 		}
@@ -70,7 +70,7 @@ class ClienteEnderecoController extends Controller
 		$clienteEndereco = new ClienteEndereco();
 		$dadosClienteEndereco = $clienteEndereco->find($this->post->data()->id);
 		$dados = (array) $this->post->only([
-		    'cep', 'endereco', 'bairro', 'cidade', 
+		    'cep', 'endereco', 'bairro', 'cidade',
 		    'estado', 'numero', 'complemento'
 		]);
 
@@ -78,7 +78,7 @@ class ClienteEnderecoController extends Controller
 			$clienteEndereco->update($dados, $dadosClienteEndereco->id);
 			return $this->get->redirectTo("clienteEndereco/index", [in64($dadosClienteEndereco->id_cliente)]);
 
-		} catch(\Exception $e) { 
+		} catch(\Exception $e) {
 		    dd($e->getMessage());
     	}
 	}
@@ -103,13 +103,13 @@ class ClienteEnderecoController extends Controller
 		$clienteEndereco = false;
 		$idCliente = $this->get->position(0);
 		$idEnderecoCliente = $this->get->position(1);
-		
+
 		if ($idEnderecoCliente) {
         	$clienteEndereco = new ClienteEndereco();
 		    $clienteEndereco = $clienteEndereco->find($idEnderecoCliente);
         }
 
-		$this->view('clienteEndereco/formulario', null, 
+		$this->view('clienteEndereco/formulario', null,
 			compact(
 				'clienteEndereco',
 				'idCliente'

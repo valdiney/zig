@@ -30,6 +30,7 @@ class Session
   public static function regenerate()
   {
     session_destroy();
+    session_start();
     $sessionId = md5(uniqid(true).time());
     $_SESSION['session_code'] = $sessionId;
     $_SESSION['session_time'] = time();
@@ -37,7 +38,6 @@ class Session
     ini_set('session.cookie_lifetime', 43200);
     ini_set('session.cache_expire', 43200);
     ini_set('session.gc_maxlifetime', 43200);
-    session_start();
   }
 
 	public static function hasSession($name = null)

@@ -24,7 +24,7 @@
 	                <th>Status</th>
 	                <th style="text-align:right;padding-right:0">
 	                	<?php $rota = BASEURL.'/cliente/modalFormulario';?>
-	                	<button onclick="modalFormularioClientes('<?php echo $rota;?>', null);" 
+	                	<button onclick="modalFormularioClientes('<?php echo $rota;?>', null);"
 	                		class="btn btn-sm btn-success">
 	                	    <i class="fas fa-plus"></i>
 	                        Novo
@@ -38,11 +38,11 @@
 		            	<td><?php echo $cliente->nome;?></td>
 		            	<td><?php echo $cliente->email;?></td>
 		            	<td><?php echo $cliente->descricaoClienteTipo;?></td>
-		             
+
 		            	<td>
 		            		<?php
-		            		echo ! is_null($cliente->descricaoSegmento) ? 
-		            		$cliente->descricaoSegmento : "<small>Não consta</small>"; 
+		            		echo ! is_null($cliente->descricaoSegmento) ?
+		            		$cliente->descricaoSegmento : "<small>Não consta</small>";
 		            		?>
 		            	</td>
 
@@ -57,25 +57,25 @@
 							    </button>
 							    <div class="dropdown-menu" aria-labelledby="btnGroupDrop1">
 
-							    	<button class="dropdown-item" href="#" 
+							    	<button class="dropdown-item" href="#"
 								      onclick="modalFormularioClientes('<?php echo $rota;?>', '<?php echo $cliente->id;?>')">
 								      	<i class="fas fa-edit"></i> Editar
 								    </button>
-                                    
+
                                     <?php if (is_null($cliente->deleted_at)):?>
-									    <button class="dropdown-item" href="#" 
+									    <button class="dropdown-item" href="#"
 									      onclick="modalAtivarEdesativarCliente('<?php echo $cliente->id;?>', '<?php echo $cliente->nome;?>', 'desativar')">
 									      	<i class="fas fa-window-close"></i> Desativar
 									    </button>
 								    <?php else:?>
-								    	<button class="dropdown-item" href="#" 
+								    	<button class="dropdown-item" href="#"
 									      onclick="modalAtivarEdesativarCliente('<?php echo $cliente->id;?>', '<?php echo $cliente->nome;?>', 'ativar')">
 									      	<i class="fas fa-square"></i> Ativar
 									    </button>
 								    <?php endif;?>
 
-							        <a class="dropdown-item"  
-							        href="<?php echo BASEURL;?>/clienteEndereco/index/<?php echo in64($cliente->id);?>">
+							        <a class="dropdown-item"
+							        href="<?php echo BASEURL;?>/clienteEndereco/<?php echo in64($cliente->id);?>">
 							        	<i class="fas fa-map-marker-alt"></i> Endereços
 							        </a>
 
@@ -88,12 +88,12 @@
 	    </table>
 
     <br>
-	
+
    </div>
 </div>
 
 <?php Modal::start([
-    'id' => 'modalClientes', 
+    'id' => 'modalClientes',
     'width' => 'modal-lg',
     'title' => 'Cadastrar Clientes'
 ]);?>
@@ -103,14 +103,14 @@
 <?php Modal::stop();?>
 
 <?php Modal::start([
-    'id' => 'modalDesativarCliente', 
+    'id' => 'modalDesativarCliente',
     'width' => 'modal-sm',
     'title' => '<i class="fas fa-user-tie" style="color:#ad54da"></i>'
 ]);?>
 
 <div id="modalConteudo">
 	<p id="nomeCliente"></p>
-	
+
 	<center>
 		<set-modal-button class="set-modal-button"></set-modal-button>
 	    <button class="btn btn-sm btn-default" data-dismiss="modal">
@@ -124,13 +124,13 @@
 <script>
 	function modalFormularioClientes(rota, id) {
         var url = "";
-      
+
         if (id) {
             url = rota + "/" + id;
         } else {
             url = rota;
         }
-        
+
         $("#formulario").html("<center><h3>Carregando...</h3></center>");
         $("#modalClientes").modal({backdrop: 'static'});
         $("#formulario").load(url);
@@ -145,7 +145,7 @@
     		$("set-modal-button").html('<button class="btn btn-sm btn-success" id="buttonDesativarCliente" data-id-cliente="" onclick="ativarCliente(this)"><i class="far fa-check-circle"></i> Sim</button>');
     		$("#nomeCliente").html('Você deseja ativar o cliente ' + nome +'?');
     	}
-    	
+
         $("#modalDesativarCliente").modal({backdrop: 'static'});
         document.querySelector("#buttonDesativarCliente").dataset.idCliente = id;
     }

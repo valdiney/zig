@@ -1,4 +1,4 @@
-<?php 
+<?php
 namespace System\View;
 
 use App\HtmlComponents\Modal;
@@ -33,9 +33,9 @@ class View
 
 		try {
 			if (file_exists($fullPathToView)) {
-                
+
                 $this->pathToView = $fullPathToView;
-                
+
 				if ($withLayout) {
 					$this->layout($withLayout);
 				} else {
@@ -63,10 +63,10 @@ class View
 
 		try {
 			if (file_exists($fullPathToLayout)) {
-                require_once($fullPathToLayout);	
+                require_once($fullPathToLayout);
 			} else {
 				throw new \Exception("O Layout (" . $this->layoutName . ") Não existe!");
-			} 
+			}
 		} catch(\Exception $e) {
 			createMessage($e);
         }
@@ -79,6 +79,6 @@ class View
             $$key = $itens;
         }
 
-        require_once($this->pathToView);	
+        require_once($this->pathToView);
 	}
 }

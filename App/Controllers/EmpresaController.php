@@ -11,8 +11,6 @@ use App\Models\Empresa;
 use App\Models\ClienteSegmento;
 use App\Models\ConfigPdv;
 use App\Models\Usuario;
-use App\Models\Modulo;
-use App\Models\UsuarioModulo;
 
 class EmpresaController extends Controller
 {
@@ -76,17 +74,6 @@ class EmpresaController extends Controller
 					'id_perfil' => 5
 				]);
                 
-                # Cadastra as permissões de cada modulo para o usuario
-				$modulo = new Modulo();
-
-				$usuarioModulo = new UsuarioModulo();
-				$usuarioModulo->criarPermissoesAoCadstrarUsuario(
-					$modulo->all(), 
-					$usuario->lastId(), 
-					$empresa->lastId(), 
-					2 #Administrador
-				);
-			
 				return $this->get->redirectTo("empresa");
 
 			} catch(\Exception $e) { 

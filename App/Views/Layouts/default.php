@@ -1,15 +1,9 @@
 <?php 
 use System\Session\Session;
 use App\Models\ConfigPdv;
-use App\Models\UsuarioModulo;
 
 $configPdv = new ConfigPdv();
 $configPdv = $configPdv->configPdv(Session::get('idEmpresa'));
-
-$usuarioModulo = new UsuarioModulo();
-$usuarioModuloPermissoes = unserialize(Session::get('objetoPermissao'));
-
-//dd($usuarioModuloPermissoes);
 ?>
 <!DOCTYPE html>
 <html lang="en">

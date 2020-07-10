@@ -9,8 +9,6 @@ use App\Rules\Logged;
 use App\Models\Usuario;
 use App\Models\Sexo;
 use App\Models\Perfil;
-use App\Models\Modulo;
-use App\Models\UsuarioModulo;
 
 use App\Services\UploadService\UploadFiles;
 
@@ -80,25 +78,6 @@ class UsuarioController extends Controller
 				$usuario->save($dados);
 			} catch(\Exception $e) {
     		    dd('Erro ao cadastrar Usuário ' . $e->getMessage());
-    	    }
-
-    	    try {
-    	    	$modulo = new Modulo();
-    	    	$modulos = $modulo->all();
-
-                # Criar as Permissões do Usuário
-    	    	$usuarioModulo = new UsuarioModulo();
-    	    	$usuarioModulo->criarPermissoesAoCadstrarUsuario(
-    	    		$modulos,
-    	    		$usuario->lastId(),
-    	    		$this->idEmpresa,
-    	    		$dados['id_perfil']
-    	    	);
-
-				return $this->get->redirectTo("usuario");
-
-			} catch(\Exception $e) {
-    		    dd('Erro ao cadastrar Criar Permissões ' . $e->getMessage());
     	    }
 		}
 	}

@@ -76,12 +76,11 @@ function in64($string) {
 }
 
 function out64($string) {
-    if ($string) {
-        $auxiliar = base64_decode($string);
-        return explode('_', $auxiliar)[1];
-    }
-
-    return false;
+  $auxiliar = base64_decode($string) ?? null;
+  if ($string) {
+    return explode('_', $auxiliar)[1];
+  }
+  return false;
 }
 
 /*

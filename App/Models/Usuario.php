@@ -3,10 +3,12 @@ namespace App\Models;
 
 use System\Model\Model;
 use System\Auth\Auth; 
+use App\Config\ConfigPerfil;
 
 class Usuario extends Model
 {
     use Auth; 
+    use ConfigPerfil;
     
     protected $table = 'usuarios';
     protected $timestamps = true;
@@ -20,7 +22,7 @@ class Usuario extends Model
     {   
         # Se o perfil do Usuário logado não for (1), não traz Usuários com este perfil
         $queryCondicional = false;
-        if ($idPerfilUsuarioLogado && $idPerfilUsuarioLogado == 1) {
+        if ($idPerfilUsuarioLogado && $idPerfilUsuarioLogado == ConfigPerfil::superAdmin) {
            $queryCondicional = "AND usuarios.id_perfil = 1";
         } else {
             $queryCondicional = "AND usuarios.id_perfil != 1";

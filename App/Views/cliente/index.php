@@ -13,7 +13,8 @@
 		<div class="card-body">
 	        <h5 class="card-title"><i class="fas fa-user-tie" style="color:#ad54da"></i> Clientes</h5>
 	    </div>
-
+        
+        <?php if (count($clientes) > 0):?>
 		<table id="example" class="table tabela-ajustada table-striped" style="width:100%">
 	        <thead>
 	            <tr>
@@ -86,6 +87,20 @@
 	            <?php endforeach;?>
 	        <tfoot></tfoot>
 	    </table>
+
+	    <?php else:?>
+	    	<center>
+	    		<i class="far fa-grin-beam" style="font-size:50px;opacity:0.60"></i> <br> <br>
+	    	    Poxa, ainda não há nenhum Cliente cadastrado! <br>
+	    	    <?php $rota = BASEURL.'/cliente/modalFormulario';?>
+            	<button 
+            	onclick="modalFormularioClientes('<?php echo $rota;?>', null);" 
+            		class="btn btn-sm btn-success">
+            	    <i class="fas fa-plus"></i>
+                    Cadastrar Cliente
+                </button>
+	       </center>       
+		<?php endif;?>
 
     <br>
 

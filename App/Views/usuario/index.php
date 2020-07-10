@@ -22,7 +22,8 @@ use System\HtmlComponents\FlashMessage\FlashMessage;
 	    </div>
         <!-- Mostra as mensagens de erro-->
 	    <?php FlashMessage::show();?>
-
+         
+        <?php if (count($usuarios) > 0):?>
 	    <table id="example" class="table tabela-ajustada table-striped" style="width:100%">
 	        <thead>
 	            <tr>
@@ -80,6 +81,19 @@ use System\HtmlComponents\FlashMessage\FlashMessage;
 	            <?php endforeach;?>
 	        <tfoot></tfoot>
 	    </table>
+	    <?php else:?>
+	    	<center>
+	    		<i class="far fa-grin-beam" style="font-size:50px;opacity:0.60"></i> <br> <br>
+	    	    Poxa, ainda não há nenhum Cliente cadastrado! <br>
+	    	    <?php $rota = BASEURL.'/usuario/modalFormulario';?>
+            	<button 
+            	onclick="modalUsuarios('<?php echo $rota;?>', null);" 
+            		class="btn btn-sm btn-success">
+            	    <i class="fas fa-plus"></i>
+                    Cadastrar Usuário
+                </button>
+	       </center>       
+		<?php endif;?>
 
     <br>
 	

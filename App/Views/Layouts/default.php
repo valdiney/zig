@@ -107,10 +107,16 @@ $configPdv = $configPdv->configPdv(Session::get('idEmpresa'));
                   <span class="navbar-toggler-bar bar3"></span>
                 </button>
               </div>
-              <a class="navbar-brand" href="#" style="text-transform:lowercase!important;" 
-              onclick="event.preventDefault();">
-                <img class="perfil" src="<?php echo BASEURL .'/'. Session::get('imagem')?>">
-                
+              <a class="navbar-brand" href="<?php echo BASEURL;?>/usuario" 
+                style="text-transform:lowercase!important;">
+              
+                <?php $imagemPerfil = Session::get('imagem');?>
+                <?php if ($imagemPerfil != false):?>
+                  <img class="perfil" src="<?php echo BASEURL .'/'. Session::get('imagem')?>">
+                <?php else:?>
+                  <i class="fas fa-user" style="font-size:30px;"></i>
+                <?php endif;?>
+
                 <i style="text-transform: capitalize;">
                   <?php echo Session::get('nomeUsuario');?>
                   <small style="font-size:11px;" class="legendaPerfil">

@@ -34,9 +34,6 @@ class EmpresaController extends Controller
 
 		$logged = new Logged();
 		$logged->isValid();
-
-		$usuarioPermissaoRule = new UsuarioPermissaoRule();
-		$usuarioPermissaoRule->isValid(3); # O Número (3) é o id do Modulo Empresa
 	}
 
 	public function index()

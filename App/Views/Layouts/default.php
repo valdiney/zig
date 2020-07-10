@@ -1,6 +1,7 @@
 <?php 
 use System\Session\Session;
 use App\Models\ConfigPdv;
+use App\Config\ConfigPerfil;
 
 $configPdv = new ConfigPdv();
 $configPdv = $configPdv->configPdv(Session::get('idEmpresa'));
@@ -140,14 +141,18 @@ $configPdv = $configPdv->configPdv(Session::get('idEmpresa'));
                         <i class="fas fa-store"></i> Empresas
                       </a>
                     <?php endif;?>
-
-                    <a class="dropdown-item" href="<?php echo BASEURL;?>/configuracao">
-                      <i class="fas fa-cogs"></i> Configurações
-                    </a>
-
-                    <a class="dropdown-item" href="<?php echo BASEURL; ?>/logs">
-                      <i class="fas fa-file-signature"></i> Logs de acessos
-                    </a>
+                    
+                    <?php if (Session::get('idPerfil') != ConfigPerfil::vendedor()):?>
+                      <a class="dropdown-item" href="<?php echo BASEURL;?>/configuracao">
+                        <i class="fas fa-cogs"></i> Configurações
+                      </a>
+                    <?php endif;?>
+                    
+                    <?php if (Session::get('idPerfil') != ConfigPerfil::vendedor()):?>
+                      <a class="dropdown-item" href="<?php echo BASEURL; ?>/logs">
+                        <i class="fas fa-file-signature"></i> Logs de acessos
+                      </a>
+                    <?php endif;?>
 
                     <a class="dropdown-item" href="login/logout">
                       <i class="fas fa-sign-out-alt"></i> Sair do Sistema

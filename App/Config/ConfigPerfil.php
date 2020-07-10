@@ -1,11 +1,26 @@
 <?php 
 namespace App\Config;
 
-trait ConfigPerfil
+class ConfigPerfil
 {
 	# Estes valores devem ser os mesmos do banco de dados
-	public static $superAdmin = 1;
-	public static $administrador = 2;
-	public static $gerente = 5;
-	public static $vendedor = 4;
+	public static function superAdmin()
+	{
+		return 1;
+	}
+
+	public static function adiministrador()
+	{
+		return 2;
+	}
+
+	public static function gerente()
+	{
+		return 5;
+	}
+
+	public static function vendedor()
+	{
+		return 4;
+	}
 }

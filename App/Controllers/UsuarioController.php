@@ -19,6 +19,7 @@ class UsuarioController extends Controller
 	protected $layout;
 	protected $idEmpresa;
 	protected $idUsuarioLogado;
+	protected $idPerfilUsuarioLogado;
 
 	public function __construct()
 	{
@@ -29,6 +30,7 @@ class UsuarioController extends Controller
 		$this->get = new Get();
 		$this->idEmpresa = Session::get('idEmpresa');
 		$this->idUsuarioLogado = Session::get('idUsuario');
+		$this->idPerfilUsuarioLogado = session::get('idPerfil');
 
 		$logged = new Logged();
 		$logged->isValid();
@@ -37,7 +39,11 @@ class UsuarioController extends Controller
 	public function index()
 	{
 		$usuario = new Usuario();
-		$usuarios = $usuario->usuarios($this->idEmpresa);
+		$usuarios = $usuario->usuarios(
+			$this->idEmpresa,
+			$this->idUsuarioLogado, 
+			$this->idPerfilUsuarioLogado
+		);
 
 		$this->view('usuario/index', $this->layout, compact('usuarios'));
 	}

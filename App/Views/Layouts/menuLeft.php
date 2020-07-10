@@ -1,3 +1,8 @@
+<?php 
+use System\Session\Session;
+use App\Config\ConfigPerfil;
+?>
+
 <div class="sidebar-wrapper">
   <ul class="nav">
 
@@ -27,14 +32,15 @@
          <?php endif;?>
       </li>
     
-  
-      <li class="">
-        <a href="<?php echo BASEURL;?>/produto" 
-          class="<?php currentRouteFromMenu('produto', 'produtoBorder');?>">
-          <i class="fab fa-product-hunt"></i>
-          <p>Produtos</p>
-        </a>
-      </li>
+      <?php if (Session::get('idPerfil') != ConfigPerfil::vendedor()):?>
+        <li class="">
+          <a href="<?php echo BASEURL;?>/produto" 
+            class="<?php currentRouteFromMenu('produto', 'produtoBorder');?>">
+            <i class="fab fa-product-hunt"></i>
+            <p>Produtos</p>
+          </a>
+        </li>
+      <?php endif;?>
 
   
       <li class="">
@@ -49,13 +55,13 @@
   
       <li class="">
         <a href="<?php echo BASEURL;?>/pedido" 
-          class="<?php currentRouteFromMenu('pedido', 'pedidoBorder');?>">
+          class="<?php currentRouteFromMenu('pedido', 'pedidoBorder');?> disabled">
           <i class="fas fa-shopping-basket"></i>
-          <p>Pedidos</p>
+          <p>Pedidos <small style="float:right;opacity:0.50">Em breve</small></p>
         </a>
       </li>
-
   
+    <?php if (Session::get('idPerfil') != ConfigPerfil::vendedor()):?>
       <li class="">
         <a href="<?php echo BASEURL;?>/relatorio/vendasPorPeriodo" 
           class="<?php currentRouteFromMenu('relatorio', 'relatorioBorder');?> 
@@ -64,6 +70,7 @@
           <p>Relatórios</p>
         </a>
       </li>
+    <?php endif;?>
 
 
     <!--<li class="active-pro">

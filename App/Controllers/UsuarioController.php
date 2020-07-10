@@ -20,6 +20,7 @@ class UsuarioController extends Controller
 	protected $get;
 	protected $layout;
 	protected $idEmpresa;
+	protected $idUsuarioLogado;
 
 	public function __construct()
 	{
@@ -29,6 +30,7 @@ class UsuarioController extends Controller
 		$this->post = new Post();
 		$this->get = new Get();
 		$this->idEmpresa = Session::get('idEmpresa');
+		$this->idUsuarioLogado = Session::get('idUsuario');
 
 		$logged = new Logged();
 		$logged->isValid();
@@ -162,13 +164,20 @@ class UsuarioController extends Controller
 		$sexos = $sexo->all();
 
 		$perfil = new Perfil();
-		$perfis = $perfil->perfis(Session::get('idPerfil'));
+		$perfis = $perfil->perfis(false, false, Session::get('idPerfil'));
 
         $usuario = false;
-
         if ($this->get->position(0)) {
+        	$idUsuario = $this->get->position(0);
+
         	$usuario = new Usuario();
-		    $usuario = $usuario->find($this->get->position(0));
+		    $usuario = $usuario->find($idUsuario);
+
+		    $perfis = $perfil->perfis(
+		    	$this->idUsuarioLogado,
+		    	$idUsuario, 
+		    	Session::get('idPerfil')
+		    );
         }
 
 		$this->view('usuario/formulario', null,

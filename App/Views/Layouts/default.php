@@ -141,7 +141,7 @@ $usuarioModuloPermissoes = unserialize(Session::get('objetoPermissao'));
                     </a>
                     
                     <!--Modulo Empresas-->
-                    <?php if ($usuarioModuloPermissoes[3][0]->consultar):?>
+                    <?php if (Session::get('idPerfil') == 1):?>
                       <a class="dropdown-item" href="<?php echo BASEURL;?>/empresa">
                         <i class="fas fa-store"></i> Empresas
                       </a>

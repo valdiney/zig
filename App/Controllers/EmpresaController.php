@@ -10,6 +10,9 @@ use App\Rules\UsuarioPermissaoRule;
 use App\Models\Empresa;
 use App\Models\ClienteSegmento;
 use App\Models\ConfigPdv;
+use App\Models\Usuario;
+use App\Models\Modulo;
+use App\Models\UsuarioModulo;
 
 class EmpresaController extends Controller
 {
@@ -55,13 +58,35 @@ class EmpresaController extends Controller
 			try {
 				$empresa->save($dados);
                 
-                # Seta um tipo de PDV para a Empresa
+                # Cadastra um tipo de PDV para a Empresa
 				$configPdv = new ConfigPdv();
 				$configPdv->save([
 					'id_empresa' => $empresa->lastId(),
 					'id_tipo_pdv' => 1
 				]);
+                
+                # Cadastra um Usuário para empresa
+				$usuario = new Usuario();
+				$usuario->save([
+					'id_empresa' => $empresa->lastId(),
+					'nome' => $dados['nome'],
+					'email' => $dados['email'],
+					'password' => createHash('33473347'),
+					'id_sexo' => 1,
+					'id_perfil' => 5
+				]);
+                
+                # Cadastra as permissões de cada modulo para o usuario
+				$modulo = new Modulo();
 
+				$usuarioModulo = new UsuarioModulo();
+				$usuarioModulo->criarPermissoesAoCadstrarUsuario(
+					$modulo->all(), 
+					$usuario->lastId(), 
+					$empresa->lastId(), 
+					2 #Administrador
+				);
+			
 				return $this->get->redirectTo("empresa");
 
 			} catch(\Exception $e) { 

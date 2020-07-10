@@ -78,7 +78,7 @@ class ProdutoController extends Controller
 	}
 
 	public function update()
-  {
+    {
 		if ($this->post->hasPost()) {
 			$produto = new Produto();
 			$dadosProduto = $produto->find($this->post->data()->id);

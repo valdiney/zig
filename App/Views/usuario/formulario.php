@@ -1,3 +1,4 @@
+<?php use System\Session\Session; ?>
 <form method="post" action="<?php echo isset($usuario->id) ? BASEURL . '/usuario/update' : BASEURL . '/usuario/save'; ?>" enctype='multipart/form-data'>
   <!-- token de segurança -->
   <input type="hidden" name="_token" value="<?php echo TOKEN; ?>" />
@@ -8,7 +9,7 @@
       <input type="hidden" name="id" value="<?php echo $usuario->id; ?>">
     <?php endif; ?>
 
-    <input type="hidden" name="id_empresa" value="1">
+    <input type="hidden" name="id_empresa" value="<?php echo Session::get('idEmpresa');?>">
 
     <div class="col-md-4">
       <div class="form-group">
@@ -47,23 +48,29 @@
         </select>
       </div>
     </div>
-
-    <div class="col-md-4">
-      <div class="form-group">
-        <label for="password">Perfis *</label>
-        <select class="form-control" name="id_perfil" id="id_perfil">
-          <option>Selecione...</option>
-          <?php foreach ($perfis as $perfil) : ?>
-            <?php if (isset($usuario->id) && $usuario->id_perfil == $perfil->id) : ?>
-              <option value="<?php echo $usuario->id_perfil; ?>" selected="selected"><?php echo $perfil->descricao; ?>
-              </option>
-            <?php else : ?>
-              <option value="<?php echo $perfil->id; ?>"><?php echo $perfil->descricao; ?></option>
-            <?php endif; ?>
-          <?php endforeach; ?>
-        </select>
+    
+    <!--
+      Se o usuario logado for o mesmo que será editado, não mostra o campo de perfis porque
+      um usuario não deve mudar o seu proprio perfil de usuario.
+    -->
+  
+      <div class="col-md-4">
+        <div class="form-group">
+          <label for="password">Perfis *</label>
+          <select class="form-control" name="id_perfil" id="id_perfil">
+            <option>Selecione...</option>
+            <?php foreach ($perfis as $perfil) : ?>
+              <?php if (isset($usuario->id) && $usuario->id_perfil == $perfil->id) : ?>
+                <option value="<?php echo $usuario->id_perfil; ?>" selected="selected"><?php echo $perfil->descricao; ?>
+                </option>
+              <?php else : ?>
+                <option value="<?php echo $perfil->id; ?>"><?php echo $perfil->descricao; ?></option>
+              <?php endif; ?>
+            <?php endforeach; ?>
+          </select>
+        </div>
       </div>
-    </div>
+ 
 
     <div class="col-md-4">
       <div class="form-group">

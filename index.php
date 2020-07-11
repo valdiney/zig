@@ -1,5 +1,7 @@
 <?php
 
+use System\Database\Database;
+
 require_once(__DIR__ . '/vendor/autoload.php');
 
 # Load env configuration

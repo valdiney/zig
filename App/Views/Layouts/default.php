@@ -1,15 +1,10 @@
 <?php 
 use System\Session\Session;
 use App\Models\ConfigPdv;
-use App\Models\UsuarioModulo;
+use App\Config\ConfigPerfil;
 
 $configPdv = new ConfigPdv();
 $configPdv = $configPdv->configPdv(Session::get('idEmpresa'));
-
-$usuarioModulo = new UsuarioModulo();
-$usuarioModuloPermissoes = unserialize(Session::get('objetoPermissao'));
-
-//dd($usuarioModuloPermissoes);
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -112,10 +107,16 @@ $usuarioModuloPermissoes = unserialize(Session::get('objetoPermissao'));
                   <span class="navbar-toggler-bar bar3"></span>
                 </button>
               </div>
-              <a class="navbar-brand" href="#" style="text-transform:lowercase!important;" 
-              onclick="event.preventDefault();">
-                <img class="perfil" src="<?php echo BASEURL .'/'. Session::get('imagem')?>">
-                
+              <a class="navbar-brand" href="<?php echo BASEURL;?>/usuario" 
+                style="text-transform:lowercase!important;">
+              
+                <?php $imagemPerfil = Session::get('imagem');?>
+                <?php if ($imagemPerfil != false):?>
+                  <img class="perfil" src="<?php echo BASEURL .'/'. Session::get('imagem')?>">
+                <?php else:?>
+                  <i class="fas fa-user" style="font-size:30px;"></i>
+                <?php endif;?>
+
                 <i style="text-transform: capitalize;">
                   <?php echo Session::get('nomeUsuario');?>
                   <small style="font-size:11px;" class="legendaPerfil">
@@ -146,14 +147,18 @@ $usuarioModuloPermissoes = unserialize(Session::get('objetoPermissao'));
                         <i class="fas fa-store"></i> Empresas
                       </a>
                     <?php endif;?>
-
-                    <a class="dropdown-item" href="<?php echo BASEURL;?>/configuracao">
-                      <i class="fas fa-cogs"></i> Configurações
-                    </a>
-
-                    <a class="dropdown-item" href="<?php echo BASEURL; ?>/logs">
-                      <i class="fas fa-file-signature"></i> Logs de acessos
-                    </a>
+                    
+                    <?php if (Session::get('idPerfil') != ConfigPerfil::vendedor()):?>
+                      <a class="dropdown-item" href="<?php echo BASEURL;?>/configuracao">
+                        <i class="fas fa-cogs"></i> Configurações
+                      </a>
+                    <?php endif;?>
+                    
+                    <?php if (Session::get('idPerfil') != ConfigPerfil::vendedor()):?>
+                      <a class="dropdown-item" href="<?php echo BASEURL; ?>/logs">
+                        <i class="fas fa-file-signature"></i> Logs de acessos
+                      </a>
+                    <?php endif;?>
 
                     <a class="dropdown-item" href="login/logout">
                       <i class="fas fa-sign-out-alt"></i> Sair do Sistema

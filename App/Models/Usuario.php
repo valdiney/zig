@@ -3,6 +3,7 @@ namespace App\Models;
 
 use System\Model\Model;
 use System\Auth\Auth; 
+use App\Config\ConfigPerfil;
 
 class Usuario extends Model
 {
@@ -16,14 +17,22 @@ class Usuario extends Model
     	parent::__construct();
     }
 
-    public function usuarios($idEmpresa, $idPerfilUsuarioLogado = false)
+    public function usuarios($idEmpresa, $idUsuarioLogado = false, $idPerfilUsuarioLogado = false)
     {   
-        # Se o perfil do Usuário logado não for (1), não traz Usuários com este perfil
+        $superAdmin = ConfigPerfil::superAdmin();
+        $administrador = ConfigPerfil::adiministrador();
+        $gerente = ConfigPerfil::gerente();
+        $vendedor = ConfigPerfil::vendedor();
+
+        # Se o perfil do Usuário logado não for (superAdmin), não traz Usuários com perfil (superAdmin)
         $queryCondicional = false;
-        if ($idPerfilUsuarioLogado && $idPerfilUsuarioLogado == 1) {
-           $queryCondicional = "AND usuarios.id_perfil = 1";
-        } else {
-            $queryCondicional = "AND usuarios.id_perfil != 1";
+        if ($idPerfilUsuarioLogado && $idPerfilUsuarioLogado != $superAdmin) {
+            $queryCondicional = " AND usuarios.id_perfil NOT IN({$superAdmin})";
+        }
+        
+        # Se o perfil do Usuário logado for de vendedor, mostra apenas os dados do proprio Usuário
+        if ($idPerfilUsuarioLogado && $idPerfilUsuarioLogado == $vendedor) {
+            $queryCondicional = " AND usuarios.id = {$idUsuarioLogado}";
         }
 
     	return $this->query(

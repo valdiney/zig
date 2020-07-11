@@ -79,10 +79,6 @@ $route->get('pwa/pdv', 'Api\InicioPwaController@pdv');
 # ----- LogController --------------------------------
 $route->get('logs', 'LogAcessoController@index');
 
-# ----- PermissaoController --------------------------------
-$route->get('usuario/permissoes', 'UsuarioModuloController@index');
-$route->get('usuario/salvarPermissoes', 'UsuarioModuloController@salvarPermissoes');
-
 # ----- EmpresaController --------------------------------
 $route->get('empresa', 'EmpresaController@index');
 $route->post('empresa/save', 'EmpresaController@save');

@@ -2,6 +2,8 @@
 <?php 
 use System\HtmlComponents\Modal\Modal;
 use System\HtmlComponents\FlashMessage\FlashMessage;
+use System\Session\Session;
+use App\Config\ConfigPerfil;
 ?>
 
 <style type="text/css">
@@ -22,7 +24,8 @@ use System\HtmlComponents\FlashMessage\FlashMessage;
 	    </div>
         <!-- Mostra as mensagens de erro-->
 	    <?php FlashMessage::show();?>
-
+         
+        <?php if (count($usuarios) > 0):?>
 	    <table id="example" class="table tabela-ajustada table-striped" style="width:100%">
 	        <thead>
 	            <tr>
@@ -32,11 +35,13 @@ use System\HtmlComponents\FlashMessage\FlashMessage;
 	                <th>Perfil</th>
 	                <th style="text-align:right;padding-right:0">
 	                	<?php $rota = BASEURL.'/usuario/modal';?>
-	                	<button onclick="modalUsuarios('<?php echo $rota;?>', null);" 
-	                		class="btn btn-sm btn-success">
-	                	    <i class="fas fa-plus"></i>
-	                        Novo
-	                    </button>
+	                	<?php if (Session::get('idPerfil') != ConfigPerfil::vendedor()):?>
+		                	<button onclick="modalUsuarios('<?php echo $rota;?>', null);" 
+		                		class="btn btn-sm btn-success">
+		                	    <i class="fas fa-plus"></i>
+		                        Novo
+		                    </button>
+	                    <?php endif;?>
 	                </th>
 	            </tr>
 	        </thead>
@@ -64,11 +69,6 @@ use System\HtmlComponents\FlashMessage\FlashMessage;
 						    </button>
 						    <div class="dropdown-menu" aria-labelledby="btnGroupDrop1">
 
-						      <a class="dropdown-item" 
-						      href="<?php echo BASEURL;?>/usuario/permissoes/<?php echo in64($usuario->id);?>"> 
-						      	<i class="fas fa-user-lock"></i> Permissões
-						      </a>
-
 						      <button class="dropdown-item" href="#" 
 						      onclick="modalUsuarios('<?php echo $rota;?>', <?php echo $usuario->id;?>);">
 						      	<i class="fas fa-edit"></i> Editar
@@ -85,6 +85,19 @@ use System\HtmlComponents\FlashMessage\FlashMessage;
 	            <?php endforeach;?>
 	        <tfoot></tfoot>
 	    </table>
+	    <?php else:?>
+	    	<center>
+	    		<i class="far fa-grin-beam" style="font-size:50px;opacity:0.60"></i> <br> <br>
+	    	    Poxa, ainda não há nenhum Cliente cadastrado! <br>
+	    	    <?php $rota = BASEURL.'/usuario/modalFormulario';?>
+            	<button 
+            	onclick="modalUsuarios('<?php echo $rota;?>', null);" 
+            		class="btn btn-sm btn-success">
+            	    <i class="fas fa-plus"></i>
+                    Cadastrar Usuário
+                </button>
+	       </center>       
+		<?php endif;?>
 
     <br>
 	

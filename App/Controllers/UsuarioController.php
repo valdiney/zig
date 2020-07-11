@@ -9,8 +9,6 @@ use App\Rules\Logged;
 use App\Models\Usuario;
 use App\Models\Sexo;
 use App\Models\Perfil;
-use App\Models\Modulo;
-use App\Models\UsuarioModulo;
 
 use App\Services\UploadService\UploadFiles;
 
@@ -21,6 +19,7 @@ class UsuarioController extends Controller
 	protected $layout;
 	protected $idEmpresa;
 	protected $idUsuarioLogado;
+	protected $idPerfilUsuarioLogado;
 
 	public function __construct()
 	{
@@ -31,6 +30,7 @@ class UsuarioController extends Controller
 		$this->get = new Get();
 		$this->idEmpresa = Session::get('idEmpresa');
 		$this->idUsuarioLogado = Session::get('idUsuario');
+		$this->idPerfilUsuarioLogado = session::get('idPerfil');
 
 		$logged = new Logged();
 		$logged->isValid();
@@ -39,7 +39,11 @@ class UsuarioController extends Controller
 	public function index()
 	{
 		$usuario = new Usuario();
-		$usuarios = $usuario->usuarios($this->idEmpresa);
+		$usuarios = $usuario->usuarios(
+			$this->idEmpresa,
+			$this->idUsuarioLogado, 
+			$this->idPerfilUsuarioLogado
+		);
 
 		$this->view('usuario/index', $this->layout, compact('usuarios'));
 	}
@@ -80,25 +84,6 @@ class UsuarioController extends Controller
 				$usuario->save($dados);
 			} catch(\Exception $e) {
     		    dd('Erro ao cadastrar Usuário ' . $e->getMessage());
-    	    }
-
-    	    try {
-    	    	$modulo = new Modulo();
-    	    	$modulos = $modulo->all();
-
-                # Criar as Permissões do Usuário
-    	    	$usuarioModulo = new UsuarioModulo();
-    	    	$usuarioModulo->criarPermissoesAoCadstrarUsuario(
-    	    		$modulos,
-    	    		$usuario->lastId(),
-    	    		$this->idEmpresa,
-    	    		$dados['id_perfil']
-    	    	);
-
-				return $this->get->redirectTo("usuario");
-
-			} catch(\Exception $e) {
-    		    dd('Erro ao cadastrar Criar Permissões ' . $e->getMessage());
     	    }
 		}
 	}

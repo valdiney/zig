@@ -2,6 +2,7 @@
 namespace App\Models;
 
 use System\Model\Model;
+use App\Config\ConfigPerfil;
 
 class Perfil extends Model
 {
@@ -13,20 +14,30 @@ class Perfil extends Model
     	parent::__construct();
     }
     
-    public function perfis($idUsuarioLogado = false, $idUsuarioEditado = false, $idPerfilUsuarioLogado)
+    public function perfis($idUsuarioLogado = false, $idUsuarioEditado = false, $idPerfilUsuarioLogado = false)
     {
-    	# Se o usuário logado não for um super admin, não traz o registro super admin
-    	$condicao = false;
-    	if ($idPerfilUsuarioLogado != 1) {
-    		$condicao = "WHERE id != 1";
-    	}
+        $superAdmin = ConfigPerfil::superAdmin();
+        $administrador = ConfigPerfil::adiministrador();
+        $gerente = ConfigPerfil::gerente();
 
+        /**
+        * Se o usuario logado for o mesmo que está sendo editado, traz apenas o perfil vinculado a ele anteriormente
+        * pois um usuario não pode mudar o seu proprio perfil.
+        */
         if ($idUsuarioLogado && $idUsuarioEditado) {
             if ($idUsuarioLogado == $idUsuarioEditado) {
                 return $this->query("SELECT * FROM perfis WHERE id = {$idPerfilUsuarioLogado}");
             }
         }
+        
+        /**
+        * Se o usuário for um gerente, traz apenas o perfil de vendedor.
+        * Pois somente o administrador pode cadastrar usuarios com outros perfis.
+        */
+        if ($idPerfilUsuarioLogado && $idPerfilUsuarioLogado == $gerente) {
+            return $this->query("SELECT * FROM perfis WHERE id NOT IN({$superAdmin},{$administrador},{$gerente})");
+        }
 
-    	return $this->query("SELECT * FROM perfis {$condicao}");
+    	return $this->query("SELECT * FROM perfis");
     }
 }

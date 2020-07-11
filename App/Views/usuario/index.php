@@ -2,6 +2,8 @@
 <?php 
 use System\HtmlComponents\Modal\Modal;
 use System\HtmlComponents\FlashMessage\FlashMessage;
+use System\Session\Session;
+use App\Config\ConfigPerfil;
 ?>
 
 <style type="text/css">
@@ -33,11 +35,13 @@ use System\HtmlComponents\FlashMessage\FlashMessage;
 	                <th>Perfil</th>
 	                <th style="text-align:right;padding-right:0">
 	                	<?php $rota = BASEURL.'/usuario/modal';?>
-	                	<button onclick="modalUsuarios('<?php echo $rota;?>', null);" 
-	                		class="btn btn-sm btn-success">
-	                	    <i class="fas fa-plus"></i>
-	                        Novo
-	                    </button>
+	                	<?php if (Session::get('idPerfil') != ConfigPerfil::vendedor()):?>
+		                	<button onclick="modalUsuarios('<?php echo $rota;?>', null);" 
+		                		class="btn btn-sm btn-success">
+		                	    <i class="fas fa-plus"></i>
+		                        Novo
+		                    </button>
+	                    <?php endif;?>
 	                </th>
 	            </tr>
 	        </thead>

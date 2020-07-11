@@ -19,16 +19,19 @@ class Usuario extends Model
 
     public function usuarios($idEmpresa, $idUsuarioLogado = false, $idPerfilUsuarioLogado = false)
     {   
-        # Se o perfil do Usuário logado não for (1), não traz Usuários com este perfil
+        $superAdmin = ConfigPerfil::superAdmin();
+        $administrador = ConfigPerfil::adiministrador();
+        $gerente = ConfigPerfil::gerente();
+        $vendedor = ConfigPerfil::vendedor();
+
+        # Se o perfil do Usuário logado não for (superAdmin), não traz Usuários com perfil (superAdmin)
         $queryCondicional = false;
-        if ($idPerfilUsuarioLogado && $idPerfilUsuarioLogado == ConfigPerfil::superAdmin()) {
-           $queryCondicional = " AND usuarios.id_perfil = 1";
-        } else {
-            $queryCondicional = " AND usuarios.id_perfil != 1";
+        if ($idPerfilUsuarioLogado && $idPerfilUsuarioLogado != $superAdmin) {
+            $queryCondicional = " AND usuarios.id_perfil NOT IN({$superAdmin})";
         }
         
         # Se o perfil do Usuário logado for de vendedor, mostra apenas os dados do proprio Usuário
-        if ($idPerfilUsuarioLogado && $idPerfilUsuarioLogado == ConfigPerfil::vendedor()) {
+        if ($idPerfilUsuarioLogado && $idPerfilUsuarioLogado == $vendedor) {
             $queryCondicional = " AND usuarios.id = {$idUsuarioLogado}";
         }
 

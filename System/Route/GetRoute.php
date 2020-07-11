@@ -1,4 +1,4 @@
-<?php 
+<?php
 namespace System\Route;
 
 /*
@@ -48,9 +48,9 @@ class GetRoute
 	{
 		return $this->methodNameAliases;
 	}
-    
+
     /**
-    * This method is used to obtain and separate the 
+    * This method is used to obtain and separate the
     * name of controller and the called method on url.
     */
 	private function getControllerAndMethod()
@@ -63,7 +63,7 @@ class GetRoute
 	        $this->urlParamethers = explode('/', $redirectUrl);
 	    }
 	}
-    
+
     /**
     * This method is used to verify if exist controller name passed on url of the browser.
     */
@@ -77,7 +77,7 @@ class GetRoute
 			$this->controllerNameAliases = $this->urlParamethers[0];
 		}
 	}
-    
+
     /**
     * This method is used to verify if exist method name passed on url of the browser.
     */
@@ -85,7 +85,10 @@ class GetRoute
 	{
     if ($this->urlParamethers && array_key_exists(1, $this->urlParamethers)) {
 			$this->method = $this->urlParamethers[1];
-			$this->methodNameAliases = $this->urlParamethers[1];
+      $nameAndAliases = $this->urlParamethers;
+      array_shift($nameAndAliases);
+      $nameAndAliases = implode('/', $nameAndAliases);
+			$this->methodNameAliases = $nameAndAliases;
 		}
 	}
 
@@ -101,10 +104,10 @@ class GetRoute
 				array_push($data, $value);
 			}
 		}
-	
+
 		return $data;
 	}
-    
+
     /**
     * This method is return the controller name.
     * @return String
@@ -113,7 +116,7 @@ class GetRoute
 	{
 		return $this->controller;
 	}
-    
+
     /**
     * This method return the method name.
     * @return String
@@ -122,7 +125,7 @@ class GetRoute
 	{
 		return $this->method;
 	}
-    
+
     /**
     * This method return the url passed on browser.
     * Example http://localhost:8000

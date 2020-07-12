@@ -62,10 +62,10 @@ class UsuarioController extends Controller
 			if (isset($dados['imagem'])) {
 
 				# Pega o diretório setado no .env
-                $diretorioImagem = getenv('DIRETORIO_IMAGENS_PERFIL_USUARIO');
-                if (is_null($diretorioImagem)) {
-                	$diretorioImagem = 'public/imagem/perfil_usuarios/';
-                }
+        $diretorioImagem = getenv('DIRETORIO_IMAGENS_PERFIL_USUARIO');
+        if (is_null($diretorioImagem)) {
+          $diretorioImagem = 'public/imagem/perfil_usuarios/';
+        }
 
 				$retornoImagem = uploadImageHelper(
 					new UploadFiles(),
@@ -73,21 +73,22 @@ class UsuarioController extends Controller
 					$_FILES["imagem"]
 				);
 
-	            # Verifica se houve erro durante o upload de imagem
+	      # Verifica se houve erro durante o upload de imagem
 				if (is_array($retornoImagem)) {
 					Session::flash('error', $retornoImagem['error']);
 					return $this->get->redirectTo("usuario");
 				}
 
-			    $dados['imagem'] = $retornoImagem;
-		    }
+			  $dados['imagem'] = $retornoImagem;
+		  }
 
 			try {
 				# Cadastra Usuário
 				$usuario->save($dados);
+
 			} catch(\Exception $e) {
-    		    dd('Erro ao cadastrar Usuário ' . $e->getMessage());
-    	    }
+    		dd('Erro ao cadastrar Usuário ' . $e->getMessage());
+    	}
 		}
 	}
 
@@ -104,16 +105,16 @@ class UsuarioController extends Controller
 
 			if ( ! empty($_FILES["imagem"]['name'])) {
 
-                if (file_exists($dadosUsuario->imagem)) {
-                	# Deleta a imagem anterior
-				    unlink($dadosUsuario->imagem);
-                }
+        if (file_exists($dadosUsuario->imagem)) {
+          # Deleta a imagem anterior
+				  unlink($dadosUsuario->imagem);
+        }
 
-                # Pega o diretório setado no .env
-                $diretorioImagem = getenv('DIRETORIO_IMAGENS_PERFIL_USUARIO');
-                if (is_null($diretorioImagem)) {
-                	$diretorioImagem = 'public/imagem/perfil_usuarios/';
-                }
+        # Pega o diretório setado no .env
+        $diretorioImagem = getenv('DIRETORIO_IMAGENS_PERFIL_USUARIO');
+        if (is_null($diretorioImagem)) {
+        	$diretorioImagem = 'public/imagem/perfil_usuarios/';
+        }
 
 				$retornoImagem = uploadImageHelper(
 					new UploadFiles(),
@@ -141,12 +142,12 @@ class UsuarioController extends Controller
 				return $this->get->redirectTo("usuario");
 
 			} catch(\Exception $e) {
-    		    dd($e->getMessage());
-    	    }
+    		dd($e->getMessage());
+    	}
 		}
 	}
 
-	public function modal($idUsuario)
+	public function modalFormulario($idUsuario)
 	{
 		$sexo = new Sexo();
 		$sexos = $sexo->all();
@@ -155,7 +156,7 @@ class UsuarioController extends Controller
 		$perfis = $perfil->perfis(false, false, Session::get('idPerfil'));
 
     $usuario = false;
-    if ($idUsuario != 'false') {
+    if ($idUsuario) {
     	$usuario = new Usuario();
       $usuario = $usuario->find($idUsuario);
 

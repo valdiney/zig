@@ -33,10 +33,10 @@ class ClienteEnderecoController extends Controller
 		$logged->isValid();
 	}
 
-	public function index()
+	public function index($idCliente)
 	{
 		$cliente = new Cliente();
-		$cliente = $cliente->find(out64($this->get->position(0)));
+		$cliente = $cliente->find(out64($idCliente));
 
 		$clienteEndereco = new ClienteEndereco();
 		$clienteEnderecos = $clienteEndereco->enderecos($cliente->id);
@@ -60,8 +60,8 @@ class ClienteEnderecoController extends Controller
 				return $this->get->redirectTo("clienteEndereco/index", [in64($dados['id_cliente'])]);
 
 			} catch(\Exception $e) {
-    		    dd($e->getMessage());
-    	    }
+    		dd($e->getMessage());
+    	}
 		}
 	}
 
@@ -70,8 +70,8 @@ class ClienteEnderecoController extends Controller
 		$clienteEndereco = new ClienteEndereco();
 		$dadosClienteEndereco = $clienteEndereco->find($this->post->data()->id);
 		$dados = (array) $this->post->only([
-		    'cep', 'endereco', 'bairro', 'cidade',
-		    'estado', 'numero', 'complemento'
+		  'cep', 'endereco', 'bairro', 'cidade',
+		  'estado', 'numero', 'complemento'
 		]);
 
 		try {
@@ -79,13 +79,13 @@ class ClienteEnderecoController extends Controller
 			return $this->get->redirectTo("clienteEndereco/index", [in64($dadosClienteEndereco->id_cliente)]);
 
 		} catch(\Exception $e) {
-		    dd($e->getMessage());
-    	}
+		  dd($e->getMessage());
+    }
 	}
 
-	public function buscarEnderecoViaCep()
+	public function buscarEnderecoViaCep($cep)
 	{
-		$cep = out64($this->get->position(0));
+		$cep = out64($cep);
 		$cep = str_replace('.', '', $cep);
 		$cep = str_replace('-', '', $cep);
 
@@ -98,26 +98,19 @@ class ClienteEnderecoController extends Controller
 		}
 	}
 
-	public function modalFormulario()
+	public function modalFormulario($idCliente, $idEnderecoCliente)
 	{
 		$clienteEndereco = false;
-		$idCliente = $this->get->position(0);
-		$idEnderecoCliente = $this->get->position(1);
 
 		if ($idEnderecoCliente) {
-        	$clienteEndereco = new ClienteEndereco();
-		    $clienteEndereco = $clienteEndereco->find($idEnderecoCliente);
-        }
+      $clienteEndereco = new ClienteEndereco();
+		  $clienteEndereco = $clienteEndereco->find($idEnderecoCliente);
+    }
 
 		$this->view('clienteEndereco/formulario', null,
 			compact(
 				'clienteEndereco',
 				'idCliente'
 			));
-	}
-
-	public function teste()
-	{
-		echo $this->get->position(0);
 	}
 }

@@ -49,7 +49,7 @@ class PdvDiferencialController extends Controller
 		$produto = new Produto();
 		$produtos = $produto->produtos($this->idEmpresa);
 
-		$this->view('pdv/diferencial', $this->layout, 
+		$this->view('pdv/diferencial', $this->layout,
 			compact(
 				'meiosPagamentos',
 				'produtos'
@@ -72,52 +72,50 @@ class PdvDiferencialController extends Controller
 
 			$venda = new Venda();
 			try {
-		        $venda->save($dados);
-		        $status = true;
+		    $venda->save($dados);
+		    $status = true;
 
-		        unset($_SESSION['venda']);
+		    unset($_SESSION['venda']);
 
-		    } catch(\Exception $e) { 
-			    dd($e->getMessage());
-		    }
+		  } catch(\Exception $e) {
+			  dd($e->getMessage());
+		  }
 		}
-        
+
 		echo json_encode(['status' => $status]);
 	}
 
-	public function colocarProdutosNaMesa()
+	public function colocarProdutosNaMesa($idProduto)
 	{
-		if ($this->get->position(0)) {
-			$id = $this->get->position(0);
+		if ($idProduto) {
 
 			if ( ! isset($_SESSION['venda'])) {
 				$_SESSION['venda'] = [];
-			} 
+			}
 
-			if ( ! isset($_SESSION['venda'][$id])) {
+			if ( ! isset($_SESSION['venda'][$idProduto])) {
 
 				$produto = new Produto();
-				$produto = $produto->find($id);
+				$produto = $produto->find($idProduto);
 
-				$_SESSION['venda'][$id] = [
-					'id' => $id, 
+				$_SESSION['venda'][$idProduto] = [
+					'id' => $idProduto,
 					'produto' => $produto->nome,
 					'preco' => $produto->preco,
 					'imagem' => $produto->imagem,
 					'quantidade' => 1,
 					'total' => $produto->preco
 				];
-			}	
+			}
 		}
 
 		echo json_encode($_SESSION['venda']);
 	}
 
-	public function obterProdutosDaMesa()
+	public function obterProdutosDaMesa($posicaoProduto)
 	{
-		$posicaoProduto = $this->get->position(0);
 		if (isset($_SESSION['venda'])) {
-			if ($posicaoProduto == 'ultimo') {
+			if ($posicaoProduto && $posicaoProduto == 'ultimo') {
 				echo json_encode(end($_SESSION['venda']));
 			} else {
 				echo json_encode($_SESSION['venda']);
@@ -127,23 +125,19 @@ class PdvDiferencialController extends Controller
 		}
 	}
 
-	public function alterarAquantidadeDeUmProdutoNaMesa()
+	public function alterarAquantidadeDeUmProdutoNaMesa($idProduto, $quantidade)
 	{
-		$id = $this->get->position(0);
-		$quantidade = $this->get->position(1);
-
+    dump($quantidade);
 		if (isset($_SESSION['venda'])) {
-			$_SESSION['venda'][$id]['quantidade'] = $quantidade;
-			$_SESSION['venda'][$id]['total'] = $quantidade * $_SESSION['venda'][$id]['preco'];
-		} 
+			$_SESSION['venda'][$idProduto]['quantidade'] = $quantidade;
+			$_SESSION['venda'][$idProduto]['total'] = $quantidade * $_SESSION['venda'][$idProduto]['preco'];
+		}
 	}
 
-	public function retirarProdutoDaMesa()
+	public function retirarProdutoDaMesa($idProduto)
 	{
-		$id = $this->get->position(0);
-
 		if (isset($_SESSION['venda'])) {
-			unset($_SESSION['venda'][$id]);
+			unset($_SESSION['venda'][$idProduto]);
 		}
 	}
 
@@ -151,11 +145,11 @@ class PdvDiferencialController extends Controller
 	{
 		$total = 0;
 		if (isset($_SESSION['venda'])) {
-		    foreach($_SESSION['venda'] as $produto) {
-		        $total += $produto['total'];
-		    }
+		  foreach($_SESSION['venda'] as $produto) {
+		    $total += $produto['total'];
+		  }
 		}
-	    
-        echo json_encode(['total' => $total]);
+
+    echo json_encode(['total' => $total]);
 	}
 }

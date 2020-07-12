@@ -13,7 +13,7 @@
 		<div class="card-body">
 	        <h5 class="card-title"><i class="fas fa-user-tie" style="color:#ad54da"></i> Clientes</h5>
 	    </div>
-        
+
         <?php if (count($clientes) > 0):?>
 		<table id="example" class="table tabela-ajustada table-striped" style="width:100%">
 	        <thead>
@@ -25,7 +25,7 @@
 	                <th>Status</th>
 	                <th style="text-align:right;padding-right:0">
 	                	<?php $rota = BASEURL.'/cliente/modalFormulario';?>
-	                	<button onclick="modalFormularioClientes('<?php echo $rota;?>', 'false');"
+	                	<button onclick="modalFormularioClientes('<?php echo $rota;?>', false);"
 	                		class="btn btn-sm btn-success">
 	                	    <i class="fas fa-plus"></i>
 	                        Novo
@@ -93,13 +93,13 @@
 	    		<i class="far fa-grin-beam" style="font-size:50px;opacity:0.60"></i> <br> <br>
 	    	    Poxa, ainda não há nenhum Cliente cadastrado! <br>
 	    	    <?php $rota = BASEURL.'/cliente/modalFormulario';?>
-            	<button 
-            	onclick="modalFormularioClientes('<?php echo $rota;?>', null);" 
+            	<button
+            	onclick="modalFormularioClientes('<?php echo $rota;?>', null);"
             		class="btn btn-sm btn-success">
             	    <i class="fas fa-plus"></i>
                     Cadastrar Cliente
                 </button>
-	       </center>       
+	       </center>
 		<?php endif;?>
 
     <br>
@@ -180,10 +180,10 @@
     }
 
     function ativarCliente(elemento) {
-        modalValidacao('Validação', 'Ativando Cliente...');
-        id = elemento.dataset.idCliente;
+      modalValidacao('Validação', 'Ativando Cliente...');
+      id = elemento.dataset.idCliente;
 
-        var rota = getDomain()+"/cliente/ativarCliente/"+id;
+      var rota = getDomain()+"/cliente/ativarCliente/"+id;
 	    $.get(rota, function(data, status) {
 	    	var dados = JSON.parse(data);
 	    	if (dados.status == true) {

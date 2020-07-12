@@ -1,5 +1,5 @@
 <!--Usando o Html Components-->
-<?php 
+<?php
 use System\HtmlComponents\Modal\Modal;
 use System\HtmlComponents\FlashMessage\FlashMessage;
 ?>
@@ -33,7 +33,7 @@ use System\HtmlComponents\FlashMessage\FlashMessage;
 	                <th>Data</th>
 	                <th style="text-align:right;padding-right:0">
 	                	<?php $rota = BASEURL.'/produto/modalFormulario';?>
-	                	<button onclick="modalFormularioProdutos('<?php echo $rota;?>', 'false');" 
+	                	<button onclick="modalFormularioProdutos('<?php echo $rota;?>', false);"
 	                		class="btn btn-sm btn-success">
 	                	    <i class="fas fa-plus"></i>
 	                        Novo
@@ -42,7 +42,7 @@ use System\HtmlComponents\FlashMessage\FlashMessage;
 	            </tr>
 	        </thead>
 	        <tbody>
-	        	
+
 	        	<?php foreach ($produtos as $produto):?>
 		            <tr>
                         <td>
@@ -57,17 +57,17 @@ use System\HtmlComponents\FlashMessage\FlashMessage;
 		            	<td><?php echo $produto->nome;?></td>
 		            	<td><?php echo real($produto->preco);?></td>
 		            	<td><?php echo date('d/m/Y', strtotime($produto->created_at));?></td>
-		            	
+
 		                <td style="text-align:right">
 
-		                	
+
 						<div class="btn-group" role="group">
 						    <button id="btnGroupDrop1" type="button" class="btn btn-sm btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 						      <i class="fas fa-cogs"></i>
 						    </button>
 						    <div class="dropdown-menu" aria-labelledby="btnGroupDrop1">
 
-						      <button class="dropdown-item" href="#" 
+						      <button class="dropdown-item" href="#"
 						      onclick="modalFormularioProdutos('<?php echo $rota;?>', '<?php echo $produto->id;?>')">
 						      	<i class="fas fa-edit"></i> Editar
 						      </button>
@@ -81,17 +81,17 @@ use System\HtmlComponents\FlashMessage\FlashMessage;
 		                </td>
 		            </tr>
 		        <?php endforeach;?>
-	           
+
 	        <tfoot></tfoot>
 	    </table>
 
     <br>
-	
+
    </div>
 </div>
 
 <?php Modal::start([
-    'id' => 'modalFormulario', 
+    'id' => 'modalFormulario',
     'width' => 'modal-lg',
     'title' => 'Cadastrar Produtos'
 ]);?>
@@ -103,16 +103,16 @@ use System\HtmlComponents\FlashMessage\FlashMessage;
 <script>
 	function modalFormularioProdutos(rota, id) {
         var url = "";
-      
+
         if (id) {
             url = rota + "/" + id;
         } else {
             url = rota;
         }
-         
+
         $("#formulario").html("<center><h3>Carregando...</h3></center>");
         $("#modalFormulario").modal({backdrop: 'static'});
-        
+
         $("#formulario").load(url);
     }
 

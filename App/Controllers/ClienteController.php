@@ -54,8 +54,8 @@ class ClienteController extends Controller
 				return $this->get->redirectTo("cliente");
 
 			} catch(\Exception $e) {
-    		    dd($e->getMessage());
-    	    }
+    		dd($e->getMessage());
+    	}
 		}
 	}
 
@@ -64,7 +64,7 @@ class ClienteController extends Controller
 		$cliente = new Cliente();
 		$dadosCliente = $cliente->find($this->post->data()->id);
 		$dados = (array) $this->post->only([
-		    'id_cliente_tipo', 'id_cliente_segmento',
+		  'id_cliente_tipo', 'id_cliente_segmento',
 			'nome', 'email', 'cnpj', 'cpf', 'telefone', 'celular'
 		]);
 
@@ -75,15 +75,15 @@ class ClienteController extends Controller
 			return $this->get->redirectTo("cliente");
 
 		} catch(\Exception $e) {
-		    dd($e->getMessage());
-    	}
+		  dd($e->getMessage());
+    }
 	}
 
 	public function modalFormulario($idCliente)
 	{
 		$cliente = false;
 
-		if ($idCliente != 'false') {
+		if ($idCliente) {
       $cliente = new Cliente();
 		  $cliente = $cliente->find($idCliente);
     }
@@ -102,10 +102,9 @@ class ClienteController extends Controller
 			));
 	}
 
-	public function verificaSeEmailExiste()
+	public function verificaSeEmailExiste($email, $idCliente)
 	{
-		$email = out64($this->get->position(0));
-		$idCliente = $this->get->position(1);
+		$email = out64($email);
 		$cliente = new Cliente();
 
 		/*
@@ -128,8 +127,7 @@ class ClienteController extends Controller
 
 	public function verificaSeCnpjExiste($cnpj, $idCliente)
 	{
-		$cnpj = out64($this->get->position(0));
-		$idCliente = $this->get->position(1);
+		$cnpj = out64($cnpj);
 		$cliente = new Cliente();
 
     /*
@@ -150,10 +148,9 @@ class ClienteController extends Controller
 		}
 	}
 
-	public function verificaSeCpfExiste()
+	public function verificaSeCpfExiste($cpf, $idCliente)
 	{
-		$cpf = out64($this->get->position(0));
-		$idCliente = $this->get->position(1);
+		$cpf = out64($cpf);
 		$cliente = new Cliente();
 
 		/*
@@ -167,21 +164,20 @@ class ClienteController extends Controller
 			}
 		}
 
-		if ($cliente->verificaSeCpfExiste(out64($this->get->position(0)))) {
+		if ($cliente->verificaSeCpfExiste(out64($cpf))) {
 			echo json_encode(['status' => true]);
 		} else {
 			echo json_encode(['status' => false]);
 		}
 	}
 
-	function desativarCliente()
+	function desativarCliente($idCliente)
 	{
-		$id = $this->get->position(0);
 		$cliente = new Cliente();
 		$dados['deleted_at'] = date('Y-m-d H:i:s');
 
 		try {
-			$cliente->update($dados, $id);
+			$cliente->update($dados, $idCliente);
 		  echo json_encode(['status' => true]);
 
 		} catch(\Exception $e) {
@@ -189,14 +185,13 @@ class ClienteController extends Controller
     }
 	}
 
-	function ativarCliente()
+	function ativarCliente($idCliente)
 	{
-		$id = $this->get->position(0);
 		$cliente = new Cliente();
 		$dados['deleted_at'] = null;
 
 		try {
-			$cliente->update($dados, $id);
+			$cliente->update($dados, $idCliente);
 		  echo json_encode(['status' => true]);
 
 		} catch(\Exception $e) {

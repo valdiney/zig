@@ -29,36 +29,36 @@ function obterProdutosDaMesa() {
   	        t += "<td>"+'<img class="img-produto-seleionado" src="'+getDomain()+'/'+value.imagem+'">'+"</td>";
   	        t += "<td>"+value.produto+"</td>";
   	        t += "<td>R$ "+real(value.preco)+"</td>";
-  	        t += "<td>"+'<input type="number" class="campo-quantidade" value="'+value.quantidade+'" onchange="alterarAquantidadeDeUmProdutoNaMesa('+value.id+', this.value)">'+"</td>";  
+  	        t += "<td>"+'<input type="number" class="campo-quantidade" value="'+value.quantidade+'" onchange="alterarAquantidadeDeUmProdutoNaMesa('+value.id+', this.value)">'+"</td>";
   	        t += "<td class='pegarTotal'>R$ "+real(value.total)+"</td>";
   	        t += "<td>"+'<button class="btn-sm btn-link" onclick="retirarProdutoDaMesa('+value.id+', this)"><i class="fas fa-times" style="color:#cc0000;font-size:18px"></i></button>'+"</td>";
   	        t += "</tr>";
      	    });
         }
-       
+
        verificaSeTemProdutosNaMesa(t);
    	   $(".tabela-de-produto tbody").append(t);
    });
 }
 
 /*Obtem o ultimo produto selecionado para a venda.*/
-function obterOultimoProdutoColocadoNaMesa(posicao) {
+function obterOultimoProdutoColocadoNaMesa() {
    var rota = getDomain()+"/pdvDiferencial/obterProdutosDaMesa/ultimo";
 
    $.get(rota, function(data, status) {
    	    var t = "";
    	    var value = JSON.parse(data);
-   	  
+
         if ($("#id-tr-"+value.id).length == 0) {
           t += "<tr id='id-tr-"+value.id+"'>";
   		    t += "<td>"+'<img class="img-produto-seleionado" src="'+getDomain()+'/'+value.imagem+'">'+"</td>";
   		    t += "<td>"+value.produto+"</td>";
   		    t += "<td>R$ "+real(value.preco)+"</td>";
-  		    t += "<td>"+'<input type="number" class="campo-quantidade" value="'+value.quantidade+'" onchange="alterarAquantidadeDeUmProdutoNaMesa('+value.id+', this.value)">'+"</td>";  
+  		    t += "<td>"+'<input type="number" class="campo-quantidade" value="'+value.quantidade+'" onchange="alterarAquantidadeDeUmProdutoNaMesa('+value.id+', this.value)">'+"</td>";
   		    t += "<td>R$ "+real(value.total)+"</td>";
   		    t += "<td>"+'<button class="btn-sm btn-link" onclick="retirarProdutoDaMesa('+value.id+', this)"><i class="fas fa-times" style="color:#cc0000;font-size:18px"></i></button>'+"</td>";
   		    t += "</tr>";
-          
+
           verificaSeTemProdutosNaMesa(t);
         	$(".tabela-de-produto tbody").append(t);
         }
@@ -70,7 +70,7 @@ function obterOultimoProdutoColocadoNaMesa(posicao) {
 /*Acrescenta ou decrementa a quantidade de um produto*/
 function alterarAquantidadeDeUmProdutoNaMesa(id, quantidade) {
   quantidade = Number(quantidade);
- 
+
 	if (quantidade > 0 && quantidade != '') {
 		var rota = getDomain()+"/pdvDiferencial/alterarAquantidadeDeUmProdutoNaMesa/"+id+"/"+quantidade;
 	    $.get(rota, function(data, status) {
@@ -85,11 +85,11 @@ function alterarAquantidadeDeUmProdutoNaMesa(id, quantidade) {
 function retirarProdutoDaMesa(id, item) {
 	var rota = getDomain()+"/pdvDiferencial/retirarProdutoDaMesa/"+id;
 	$.get(rota, function(data, status) {
-	   	var tr = $(item).closest('tr');     
-        tr.fadeOut(400, function() {              
-            tr.remove();              
-        });  
-     
+	   	var tr = $(item).closest('tr');
+        tr.fadeOut(400, function() {
+            tr.remove();
+        });
+
       obterValorTotalDosProdutosNaMesa();
       verificaSeTemProdutosNaMesa($(".tabela-de-produto tbody tr").length);
 

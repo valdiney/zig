@@ -48,10 +48,10 @@ class ProdutoController extends Controller
 			$dados['preco'] = formataValorMoedaParaGravacao($dados['preco']);
 
 			# Pega o diretório setado no .env
-            $diretorioImagem = getenv('DIRETORIO_IMAGENS_PRODUTO');
-            if (is_null($diretorioImagem)) {
-            	$diretorioImagem = 'public/imagem/produtos/';
-            }
+      $diretorioImagem = getenv('DIRETORIO_IMAGENS_PRODUTO');
+      if (is_null($diretorioImagem)) {
+        $diretorioImagem = 'public/imagem/produtos/';
+      }
 
 			$retornoImagem = uploadImageHelper(
 				new UploadFiles(),
@@ -65,20 +65,20 @@ class ProdutoController extends Controller
 				return $this->get->redirectTo("produto");
 			}
 
-		    $dados['imagem'] = $retornoImagem;
+		  $dados['imagem'] = $retornoImagem;
 
 			try {
 				$produto->save($dados);
 				return $this->get->redirectTo("produto");
 
 			} catch(\Exception $e) {
-    		    dd($e->getMessage());
-    	    }
+    		dd($e->getMessage());
+    	}
 		}
 	}
 
 	public function update()
-    {
+  {
 		if ($this->post->hasPost()) {
 			$produto = new Produto();
 			$dadosProduto = $produto->find($this->post->data()->id);
@@ -91,16 +91,16 @@ class ProdutoController extends Controller
 
 			if ( ! empty($_FILES["imagem"]['name'])) {
 
-                if (file_exists($dadosProduto->imagem)) {
-                	# Deleta a imagem anterior
-				    unlink($dadosProduto->imagem);
-                }
+        if (file_exists($dadosProduto->imagem)) {
+          # Deleta a imagem anterior
+	        unlink($dadosProduto->imagem);
+        }
 
-                # Pega o diretório setado no .env
-	            $diretorioImagem = getenv('DIRETORIO_IMAGENS_PRODUTO');
-	            if (is_null($diretorioImagem)) {
-	            	$diretorioImagem = 'public/imagem/produtos/';
-	            }
+        # Pega o diretório setado no .env
+        $diretorioImagem = getenv('DIRETORIO_IMAGENS_PRODUTO');
+        if (is_null($diretorioImagem)) {
+        	$diretorioImagem = 'public/imagem/produtos/';
+        }
 
 				$retornoImagem = uploadImageHelper(
 					new UploadFiles(),
@@ -122,8 +122,8 @@ class ProdutoController extends Controller
 				return $this->get->redirectTo("produto");
 
 			} catch(\Exception $e) {
-    		    dd($e->getMessage());
-    	    }
+    		dd($e->getMessage());
+    	}
 		}
 	}
 
@@ -131,10 +131,10 @@ class ProdutoController extends Controller
 	{
 		$produto = false;
 
-		if ($idProduto != 'false') {
-        	$produto = new Produto();
-		    $produto = $produto->find($idProduto);
-        }
+		if ($idProduto) {
+      $produto = new Produto();
+		  $produto = $produto->find($idProduto);
+    }
 
 		$this->view('produto/formulario', null, compact('produto'));
 	}

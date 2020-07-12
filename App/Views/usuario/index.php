@@ -1,5 +1,5 @@
 <!--Usando o Html Components-->
-<?php 
+<?php
 use System\HtmlComponents\Modal\Modal;
 use System\HtmlComponents\FlashMessage\FlashMessage;
 use System\Session\Session;
@@ -24,7 +24,7 @@ use App\Config\ConfigPerfil;
 	    </div>
         <!-- Mostra as mensagens de erro-->
 	    <?php FlashMessage::show();?>
-         
+
         <?php if (count($usuarios) > 0):?>
 	    <table id="example" class="table tabela-ajustada table-striped" style="width:100%">
 	        <thead>
@@ -34,9 +34,9 @@ use App\Config\ConfigPerfil;
 	                <th>E-mail</th>
 	                <th>Perfil</th>
 	                <th style="text-align:right;padding-right:0">
-	                	<?php $rota = BASEURL.'/usuario/modal';?>
+	                	<?php $rota = BASEURL.'/usuario/modalFormulario';?>
 	                	<?php if (Session::get('idPerfil') != ConfigPerfil::vendedor()):?>
-		                	<button onclick="modalUsuarios('<?php echo $rota;?>', 'false');" 
+		                	<button onclick="modalUsuarios('<?php echo $rota;?>', false);"
 		                		class="btn btn-sm btn-success">
 		                	    <i class="fas fa-plus"></i>
 		                        Novo
@@ -46,7 +46,7 @@ use App\Config\ConfigPerfil;
 	            </tr>
 	        </thead>
 	        <tbody>
-	        	
+
 	        	<?php foreach ($usuarios as $usuario):?>
 		            <tr>
 		            	<td>
@@ -62,14 +62,14 @@ use App\Config\ConfigPerfil;
 		                <td><?php echo $usuario->email;?></td>
 		                <td><?php echo $usuario->perfil;?></td>
 		                <td style="text-align:right">
-		                	
+
 						<div class="btn-group" role="group">
 						    <button id="btnGroupDrop1" type="button" class="btn btn-sm btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 						      <i class="fas fa-cogs"></i>
 						    </button>
 						    <div class="dropdown-menu" aria-labelledby="btnGroupDrop1">
 
-						      <button class="dropdown-item" href="#" 
+						      <button class="dropdown-item" href="#"
 						      onclick="modalUsuarios('<?php echo $rota;?>', <?php echo $usuario->id;?>);">
 						      	<i class="fas fa-edit"></i> Editar
 						      </button>
@@ -90,22 +90,22 @@ use App\Config\ConfigPerfil;
 	    		<i class="far fa-grin-beam" style="font-size:50px;opacity:0.60"></i> <br> <br>
 	    	    Poxa, ainda não há nenhum Cliente cadastrado! <br>
 	    	    <?php $rota = BASEURL.'/usuario/modalFormulario';?>
-            	<button 
-            	onclick="modalUsuarios('<?php echo $rota;?>', null);" 
+            	<button
+            	onclick="modalUsuarios('<?php echo $rota;?>', null);"
             		class="btn btn-sm btn-success">
             	    <i class="fas fa-plus"></i>
                     Cadastrar Usuário
                 </button>
-	       </center>       
+	       </center>
 		<?php endif;?>
 
     <br>
-	
+
    </div>
 </div>
 
 <?php Modal::start([
-    'id' => 'modalUsuarios', 
+    'id' => 'modalUsuarios',
     'width' => 'modal-lg',
     'title' => 'Cadastrar Usuários'
 ]);?>
@@ -117,13 +117,13 @@ use App\Config\ConfigPerfil;
 <script>
 	function modalUsuarios(rota, usuarioId) {
         var url = "";
-      
+
         if (usuarioId) {
             url = rota + "/" + usuarioId;
         } else {
             url = rota;
         }
-        
+
         $("#modalUsuarios").modal({backdrop: 'static'});
         load(url, 'formulario');
     }

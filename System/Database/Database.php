@@ -13,8 +13,10 @@ class Database
 
   protected static $conn = null;
   protected static $stmt = null;
+  protected static $join = [];
+  protected static $primaryKey = "id";
   protected static $sql = "";
-  protected static $table = "";
+  protected static $tableName = "";
   protected static $columns = "*";
   protected static $command = "";
   protected static $limit = "";
@@ -23,7 +25,6 @@ class Database
   protected static $where = [];
   protected static $update = [];
   protected static $data = [];
-  protected static $primaryKey = "id";
 
   public static function conn(string $name = null)
   {
@@ -36,7 +37,7 @@ class Database
     if (self::$conn == null) {
       self::$conn = self::getConnection();
     }
-    self::$table = $table;
+    self::$tableName = $table;
     return new self;
   }
 
@@ -112,6 +113,33 @@ class Database
     return new self;
   }
 
+  public static function outerJoin(string $table, $localKey, $foreign)
+  {
+    return self::join($table, $localKey, $foreign, "OUTER JOIN");
+  }
+
+  public static function innerJoin(string $table, $localKey, $foreign)
+  {
+    return self::join($table, $localKey, $foreign, "INNER JOIN");
+  }
+
+  public static function leftJoin(string $table, $localKey, $foreign)
+  {
+    return self::join($table, $localKey, $foreign, "LEFT JOIN");
+  }
+
+  public static function rightJoin(string $table, $localKey, $foreign)
+  {
+    return self::join($table, $localKey, $foreign, "RIGHT JOIN");
+  }
+
+  public static function join(string $table, $localKey, $foreign, string $type = "JOIN")
+  {
+    self::$from = "FROM";
+    self::$join[] = "{$type} {$table} ON ".self::$tableName.".{$localKey} = {$foreign}";
+    return new self;
+  }
+
   public static function find(string $key)
   {
     self::select();
@@ -162,7 +190,10 @@ class Database
     $update = implode(', ', self::$update);
     $update = $update ? "SET {$update}" : '';
     //
-    self::$sql = sprintf("%s %s %s `%s` %s %s %s;", self::$command, self::$columns, self::$from, self::$table, $update, $where, self::$order, self::$limit);
+    $join = implode(' ', self::$join) ?? '';
+    //
+    self::$sql = sprintf("%s %s %s `%s` %s %s %s %s;", self::$command, self::$columns, self::$from, self::$tableName, $update, $where, $join, self::$order, self::$limit);
+    dd(self::$sql);
   }
 
   protected static function fetch()

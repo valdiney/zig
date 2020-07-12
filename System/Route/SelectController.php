@@ -23,7 +23,7 @@ class SelectController
     '{id}' => '([0-9]{1,})', // rotas passando id: user/1
     '{slug}' => '([a-zA-z0-9_-]+)', // rotas passando slug: usuario/meu-nome-de-usuario
     '{id}-{slug}' => '([0-9]{1,})\-([a-zA-z0-9_-]+)', // rotas passando id e slug: produto/00001-meu-produto
-    '{any}' => '(.*)', // aceita qualquer parâmetro
+    '{any}' => '([a-zA-Z0-9-_\.]+)', // aceita qualquer parâmetro
   ];
 
 	private $atual;
@@ -120,11 +120,15 @@ class SelectController
         if ($route == '/') {
           return $this->routerAliases == '/';
         }
+        // rotas opcionais
+        if (preg_match('/\{(.*)\?\}/', $route)) {
+          return true;
+        }
         return substr_count($route, '/') == $barsInActualRoute;
       }, ARRAY_FILTER_USE_BOTH);
       // busca por rotas com regex
       $similarRoutes = array_map(function ($route, $data) {
-        if (preg_match_all("/\{(.*)\}/", $route, $matches)) {
+        if (preg_match_all("/\{([a-zA-Z0-9\?]+)\}/", $route, $matches)) {
           $data['realRoute'] = $route;
           $route = $this->manipulateRouteRegex($route, $matches);
         }
@@ -171,9 +175,16 @@ class SelectController
 
   protected function manipulateRouteRegex($route, $matches): string
   {
-    foreach ($matches[0] as $regexIndex => $regexKey) {
-      $regexValue = isset($this->routeRegex[$regexKey])? $this->routeRegex[$regexKey]: '(.*)';
-      $route = str_replace($regexKey, $regexValue, $route);
+    foreach ($matches[0] as $regex) {
+      $optional = false;
+      if (preg_match('/\{(.*)\?\}/', $regex)) {
+        $optional = true;
+        $regex = str_replace('?}', '}', $regex);
+      }
+      $regexValue = isset($this->routeRegex[$regex])? $this->routeRegex[$regex]: '(.*)';
+      $regexValue = $optional? "{$regexValue}?": $regexValue;
+      $regex = $optional? str_replace('}', '?}', $regex): $regex;
+      $route = str_replace($regex, "?{$regexValue}", $route);
     }
     return $route;
   }

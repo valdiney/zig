@@ -23,14 +23,15 @@ A Lucia tem um pequeno comercio e luta bravamente para mantê-lo! Porém, a Luci
 - [x] Login no Sistema
 - [x] Cadastro de Usuários
 - [x] Cadastro de Produtos
+- [x] Cadastro de Clientes
 - [x] PDV Padrão
 - [x] PDV Diferencial (PDV com mais recursos)
 - [x] Relatórios de vendas
 - [ ] Dashboard
-- [x] Cadastro de Clientes
 - [ ] Pedidos
 - [x] Exportar relatórios para PDF
 - [x] Exportar relatórios para Excel
+- [x] Logs de Acessos
 
 # Tela de Login
 <img src="https://raw.githubusercontent.com/valdiney/zig/master/prints/login.png"/>

@@ -33,7 +33,7 @@ use System\HtmlComponents\FlashMessage\FlashMessage;
 	                <th>Data</th>
 	                <th style="text-align:right;padding-right:0">
 	                	<?php $rota = BASEURL.'/produto/modalFormulario';?>
-	                	<button onclick="modalFormularioProdutos('<?php echo $rota;?>', null);" 
+	                	<button onclick="modalFormularioProdutos('<?php echo $rota;?>', 'false');" 
 	                		class="btn btn-sm btn-success">
 	                	    <i class="fas fa-plus"></i>
 	                        Novo

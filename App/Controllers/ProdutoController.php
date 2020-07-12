@@ -127,13 +127,13 @@ class ProdutoController extends Controller
 		}
 	}
 
-	public function modalFormulario()
+	public function modalFormulario($idProduto)
 	{
 		$produto = false;
 
-		if ($this->get->position(0)) {
+		if ($idProduto != 'false') {
         	$produto = new Produto();
-		    $produto = $produto->find($this->get->position(0));
+		    $produto = $produto->find($idProduto);
         }
 
 		$this->view('produto/formulario', null, compact('produto'));

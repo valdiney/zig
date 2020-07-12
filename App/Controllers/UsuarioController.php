@@ -11,6 +11,9 @@ use App\Models\Sexo;
 use App\Models\Perfil;
 
 use App\Services\UploadService\UploadFiles;
+use App\Services\SendEmail\SendEmail;
+
+use System\HtmlComponents\SendEmailTemplate\SimpleTemplate;
 
 class UsuarioController extends Controller
 {
@@ -41,7 +44,7 @@ class UsuarioController extends Controller
 		$usuario = new Usuario();
 		$usuarios = $usuario->usuarios(
 			$this->idEmpresa,
-			$this->idUsuarioLogado, 
+			$this->idUsuarioLogado,
 			$this->idPerfilUsuarioLogado
 		);
 
@@ -143,7 +146,7 @@ class UsuarioController extends Controller
 		}
 	}
 
-	public function modal()
+	public function modal($idUsuario)
 	{
 		$sexo = new Sexo();
 		$sexos = $sexo->all();
@@ -151,19 +154,17 @@ class UsuarioController extends Controller
 		$perfil = new Perfil();
 		$perfis = $perfil->perfis(false, false, Session::get('idPerfil'));
 
-        $usuario = false;
-        if ($this->get->position(0)) {
-        	$idUsuario = $this->get->position(0);
+    $usuario = false;
+    if ($idUsuario != 'false') {
+    	$usuario = new Usuario();
+      $usuario = $usuario->find($idUsuario);
 
-        	$usuario = new Usuario();
-		    $usuario = $usuario->find($idUsuario);
-
-		    $perfis = $perfil->perfis(
-		    	$this->idUsuarioLogado,
-		    	$idUsuario, 
-		    	Session::get('idPerfil')
-		    );
-        }
+      $perfis = $perfil->perfis(
+      	$this->idUsuarioLogado,
+      	$idUsuario,
+      	Session::get('idPerfil')
+      );
+    }
 
 		$this->view('usuario/formulario', null,
 			compact(
@@ -172,4 +173,20 @@ class UsuarioController extends Controller
 				'perfis'
 			));
 	}
+
+  public function testeEmail()
+  {
+    $sendEmail = new SendEmail();
+    $sendEmail->setFrom("contato@tonie.com.br");
+    $sendEmail->setTo("valdiney.2@hotmail.com");
+    $sendEmail->setSubject("Bem vindo - Confirmação de cadastro");
+
+    $mensagem = "<b>Valdiney</b>,
+    sejá bem vindo ao sistema <b>Tonie.</b>
+    Você foi cadastrado por <b>João Batista</b>";
+
+    $sendEmail->setBody(SimpleTemplate::template($mensagem));
+
+    dd($sendEmail->send());
+  }
 }

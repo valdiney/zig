@@ -14,8 +14,10 @@ $route->get('home', 'HomeController@index');
 # ----- UsuarioController --------------------------------
 $route->get('usuario', 'UsuarioController@index');
 $route->post('usuario/save', 'UsuarioController@save');
-$route->get('usuario/modal', 'UsuarioController@modal');
+$route->get('usuario/modal/{idUsuario}', 'UsuarioController@modal');
 $route->post('usuario/update', 'UsuarioController@update');
+
+$route->get('usuario/teste', 'UsuarioController@testeEmail');
 
 # ----- RelatorioController --------------------------------
 $route->get('relatorio', 'RelatorioController@index');
@@ -26,7 +28,7 @@ $route->get('relatorio/gerarPDF', 'RelatorioController@gerarPDF');
 
 # ----- ProdutoController --------------------------------
 $route->get('produto', 'ProdutoController@index');
-$route->get('produto/modalFormulario', 'ProdutoController@modalFormulario');
+$route->get('produto/modalFormulario/{idProduto}', 'ProdutoController@modalFormulario');
 $route->post('produto/save', 'ProdutoController@save');
 $route->post('produto/update', 'ProdutoController@update');
 
@@ -52,14 +54,14 @@ $route->get('pdvDiferencial/obterValorTotalDosProdutosNaMesa', 'PdvDiferencialCo
 
 # ----- ClienteController --------------------------------
 $route->get('cliente', 'ClienteController@index');
-$route->get('cliente/modalFormulario', 'ClienteController@modalFormulario');
+$route->get('cliente/modalFormulario/{idCliente}', 'ClienteController@modalFormulario');
 $route->post('cliente/save', 'ClienteController@save');
 $route->post('cliente/update', 'ClienteController@update');
 $route->get('cliente/desativarCliente', 'ClienteController@desativarCliente');
 $route->get('cliente/ativarCliente', 'ClienteController@ativarCliente');
 
 $route->get('cliente/verificaSeEmailExiste', 'ClienteController@verificaSeEmailExiste');
-$route->get('cliente/verificaSeCnpjExiste', 'ClienteController@verificaSeCnpjExiste');
+$route->get('cliente/verificaSeCnpjExiste/{cnpj}/{idCliente}', 'ClienteController@verificaSeCnpjExiste');
 $route->get('cliente/verificaSeCpfExiste', 'ClienteController@verificaSeCpfExiste');
 
 # ----- EnderecoController --------------------------------

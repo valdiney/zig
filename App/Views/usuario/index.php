@@ -36,7 +36,7 @@ use App\Config\ConfigPerfil;
 	                <th style="text-align:right;padding-right:0">
 	                	<?php $rota = BASEURL.'/usuario/modal';?>
 	                	<?php if (Session::get('idPerfil') != ConfigPerfil::vendedor()):?>
-		                	<button onclick="modalUsuarios('<?php echo $rota;?>', null);" 
+		                	<button onclick="modalUsuarios('<?php echo $rota;?>', 'false');" 
 		                		class="btn btn-sm btn-success">
 		                	    <i class="fas fa-plus"></i>
 		                        Novo

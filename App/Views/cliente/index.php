@@ -25,7 +25,7 @@
 	                <th>Status</th>
 	                <th style="text-align:right;padding-right:0">
 	                	<?php $rota = BASEURL.'/cliente/modalFormulario';?>
-	                	<button onclick="modalFormularioClientes('<?php echo $rota;?>', null);"
+	                	<button onclick="modalFormularioClientes('<?php echo $rota;?>', 'false');"
 	                		class="btn btn-sm btn-success">
 	                	    <i class="fas fa-plus"></i>
 	                        Novo

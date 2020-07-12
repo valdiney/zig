@@ -53,7 +53,7 @@ class ClienteController extends Controller
 				$cliente->save($dados);
 				return $this->get->redirectTo("cliente");
 
-			} catch(\Exception $e) { 
+			} catch(\Exception $e) {
     		    dd($e->getMessage());
     	    }
 		}
@@ -64,7 +64,7 @@ class ClienteController extends Controller
 		$cliente = new Cliente();
 		$dadosCliente = $cliente->find($this->post->data()->id);
 		$dados = (array) $this->post->only([
-		    'id_cliente_tipo', 'id_cliente_segmento', 
+		    'id_cliente_tipo', 'id_cliente_segmento',
 			'nome', 'email', 'cnpj', 'cpf', 'telefone', 'celular'
 		]);
 
@@ -74,27 +74,27 @@ class ClienteController extends Controller
 			$cliente->update($dados, $dadosCliente->id);
 			return $this->get->redirectTo("cliente");
 
-		} catch(\Exception $e) { 
+		} catch(\Exception $e) {
 		    dd($e->getMessage());
     	}
 	}
 
-	public function modalFormulario()
+	public function modalFormulario($idCliente)
 	{
 		$cliente = false;
-		
-		if ($this->get->position(0)) {
-        	$cliente = new Cliente();
-		    $cliente = $cliente->find($this->get->position(0));
-        }
 
-        $clienteTipo = new ClienteTipo();
-        $clientesTipos = $clienteTipo->all();
+		if ($idCliente != 'false') {
+      $cliente = new Cliente();
+		  $cliente = $cliente->find($idCliente);
+    }
 
-        $clienteSegmento = new ClienteSegmento();
-        $clientesSegmentos = $clienteSegmento->all();
+    $clienteTipo = new ClienteTipo();
+    $clientesTipos = $clienteTipo->all();
 
-		$this->view('cliente/formulario', null, 
+    $clienteSegmento = new ClienteSegmento();
+    $clientesSegmentos = $clienteSegmento->all();
+
+		$this->view('cliente/formulario', null,
 			compact(
 				'cliente',
 				'clientesTipos',
@@ -108,10 +108,10 @@ class ClienteController extends Controller
 		$idCliente = $this->get->position(1);
 		$cliente = new Cliente();
 
-		 /*
-        * Se for uma edição, 
-        * verifica se o EMAIL não pertence ao cliente que está sendo editado no momento
-        */
+		/*
+    * Se for uma edição,
+    * verifica se o EMAIL não pertence ao cliente que está sendo editado no momento
+    */
 		if ($idCliente && $email) {
 			if ($cliente->seDadoNaoPertenceAoClienteEditado('email', $email, $idCliente)) {
 				echo json_encode(['status' => true]);
@@ -126,16 +126,16 @@ class ClienteController extends Controller
 		}
 	}
 
-	public function verificaSeCnpjExiste()
+	public function verificaSeCnpjExiste($cnpj, $idCliente)
 	{
 		$cnpj = out64($this->get->position(0));
 		$idCliente = $this->get->position(1);
 		$cliente = new Cliente();
 
-        /*
-        * Se for uma edição, 
-        * verifica se o CNPJ não pertence ao cliente que está sendo editado no momento
-        */
+    /*
+    * Se for uma edição,
+    * verifica se o CNPJ não pertence ao cliente que está sendo editado no momento
+    */
 		if ($idCliente && $cnpj) {
 			if ($cliente->seDadoNaoPertenceAoClienteEditado('cnpj', $cnpj, $idCliente)) {
 				echo json_encode(['status' => true]);
@@ -150,16 +150,16 @@ class ClienteController extends Controller
 		}
 	}
 
-	public function verificaSeCpfExiste() 
+	public function verificaSeCpfExiste()
 	{
 		$cpf = out64($this->get->position(0));
 		$idCliente = $this->get->position(1);
 		$cliente = new Cliente();
 
 		/*
-        * Se for uma edição, 
-        * verifica se o CPF não pertence ao cliente que está sendo editado no momento
-        */
+    * Se for uma edição,
+    * verifica se o CPF não pertence ao cliente que está sendo editado no momento
+    */
 		if ($idCliente && $cpf) {
 			if ($cliente->seDadoNaoPertenceAoClienteEditado('cpf', $cpf, $idCliente)) {
 				echo json_encode(['status' => true]);
@@ -182,11 +182,11 @@ class ClienteController extends Controller
 
 		try {
 			$cliente->update($dados, $id);
-		    echo json_encode(['status' => true]);
+		  echo json_encode(['status' => true]);
 
-		} catch(\Exception $e) { 
-		    dd($e->getMessage());
-    	}
+		} catch(\Exception $e) {
+		  dd($e->getMessage());
+    }
 	}
 
 	function ativarCliente()
@@ -197,10 +197,10 @@ class ClienteController extends Controller
 
 		try {
 			$cliente->update($dados, $id);
-		    echo json_encode(['status' => true]);
+		  echo json_encode(['status' => true]);
 
-		} catch(\Exception $e) { 
-		    dd($e->getMessage());
-    	}
+		} catch(\Exception $e) {
+		  dd($e->getMessage());
+    }
 	}
 }

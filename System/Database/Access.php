@@ -16,7 +16,7 @@ class Access
       // exibe erro somente em diplay_errors=true
       $this->connection->setAttribute(
         PDO::ATTR_ERRMODE,
-        getenv('APP_DISPLAY_ERRORS') == false ? PDO::ERRMODE_SILENT : PDO::ERRMODE_EXCEPTION
+        getenv('APP_DISPLAY_ERRORS') == false ? PDO::ERRMODE_SILENT : PDO::ERRMODE_WARNING
       );
       $this->connection->setAttribute(
         PDO::ATTR_DEFAULT_FETCH_MODE,

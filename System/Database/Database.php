@@ -118,25 +118,10 @@ class Database
     return self::join($table, $localKey, $foreign, "OUTER JOIN");
   }
 
-  public static function innerJoin(string $table, $localKey, $foreign)
-  {
-    return self::join($table, $localKey, $foreign, "INNER JOIN");
-  }
-
-  public static function leftJoin(string $table, $localKey, $foreign)
-  {
-    return self::join($table, $localKey, $foreign, "LEFT JOIN");
-  }
-
-  public static function rightJoin(string $table, $localKey, $foreign)
-  {
-    return self::join($table, $localKey, $foreign, "RIGHT JOIN");
-  }
-
-  public static function join(string $table, $localKey, $foreign, string $type = "JOIN")
+  public static function join(string $join)
   {
     self::$from = "FROM";
-    self::$join[] = "{$type} {$table} ON ".self::$tableName.".{$localKey} = {$foreign}";
+    self::$join[] = $join;
     return new self;
   }
 

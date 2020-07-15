@@ -127,7 +127,6 @@ class PdvDiferencialController extends Controller
 
 	public function alterarAquantidadeDeUmProdutoNaMesa($idProduto, $quantidade)
 	{
-    dump($quantidade);
 		if (isset($_SESSION['venda'])) {
 			$_SESSION['venda'][$idProduto]['quantidade'] = $quantidade;
 			$_SESSION['venda'][$idProduto]['total'] = $quantidade * $_SESSION['venda'][$idProduto]['preco'];

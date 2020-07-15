@@ -14,11 +14,11 @@ use System\Request\Request;
 
 class SelectController
 {
-	private $controller;
-	private $method;
-	private $getRoute;
-	private $allRouters = [];
-	private $routerAliases;
+  private $controller;
+  private $method;
+  private $getRoute;
+  private $allRouters = [];
+  private $routerAliases;
   private $routeRegex = [
     '{id}' => '([0-9]{1,})', // rotas passando id: user/1
     '{slug}' => '([a-zA-z0-9_-]+)', // rotas passando slug: usuario/meu-nome-de-usuario
@@ -26,33 +26,33 @@ class SelectController
     '{any}' => '([a-zA-Z0-9-_\.]+)', // aceita qualquer parâmetro
   ];
 
-	private $atual;
+  private $atual;
 
     /**
     * The construc method receive the getRoute instance.
     * @param getRoute Object
     */
-	public function __construct(GetRoute $getRoute)
-	{
-		$this->getRoute = $getRoute;
-		$this->controller = $getRoute->getControllerName();
-		$this->method = $getRoute->getMethodName();
-		$this->routerAliases = $this->getRoute->getControllerNameAliases();
+  public function __construct(GetRoute $getRoute)
+  {
+    $this->getRoute = $getRoute;
+    $this->controller = $getRoute->getControllerName();
+    $this->method = $getRoute->getMethodName();
+    $this->routerAliases = $this->getRoute->getControllerNameAliases();
     if ($this->getRoute->getMethodNameAliases()) {
       $this->routerAliases = "{$this->routerAliases}/{$this->getRoute->getMethodNameAliases()}";
     }
-	}
+  }
 
-	public function create(string $aliases, string $controllerAndMethod, string $type = "GET")
-	{
-		$arrayExplode = explode('@', $controllerAndMethod);
+  public function create(string $aliases, string $controllerAndMethod, string $type = "GET")
+  {
+    $arrayExplode = explode('@', $controllerAndMethod);
 
-		$this->allRouters[$aliases] = [
-			'controller' => $arrayExplode[0],
-			'method'     => $arrayExplode[1],
-			'type'       => $type,
-		];
-	}
+    $this->allRouters[$aliases] = [
+      'controller' => $arrayExplode[0],
+      'method'     => $arrayExplode[1],
+      'type'       => $type,
+    ];
+  }
 
   public function get(string $aliases, string $controllerAndMethod)
   {
@@ -80,8 +80,8 @@ class SelectController
     * @param method String the method name
     * @return method
     */
-	public function instantiateController(string $controller, string $method, array $data = [])
-	{
+  public function instantiateController(string $controller, string $method, array $data = [])
+  {
       # Verifying if exist the character \\ in Controller name
       if (strstr($controller,'\\')) {
         $stringToArray = explode('\\', $controller);
@@ -102,12 +102,15 @@ class SelectController
       if (!count($data)) {
         return call_user_func([$controller, $method]);
       }
+
+      $data = explode('/', $data[0]);
+
       # data is not empty
       return call_user_func_array([$controller, $method], $data);
-	}
+  }
 
-	public function run()
-	{
+  public function run()
+  {
       // se rota for vazia, verifica se existe rot para vazio e adiciona uma barra
       if ($this->routerAliases == '' && !isset($this->allRouters['']) && isset($this->allRouters['/'])) {
         $this->routerAliases = '/';
@@ -171,7 +174,7 @@ class SelectController
       $method = $route['method'];
       //
       $this->instantiateController($controller, $method, $data);
-	}
+  }
 
   protected function manipulateRouteRegex($route, $matches): string
   {

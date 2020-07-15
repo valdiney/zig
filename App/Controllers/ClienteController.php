@@ -102,7 +102,7 @@ class ClienteController extends Controller
 			));
 	}
 
-	public function verificaSeEmailExiste($email, $idCliente)
+	public function verificaSeEmailExiste($email, $idCliente = false)
 	{
 		$email = out64($email);
 		$cliente = new Cliente();
@@ -125,7 +125,7 @@ class ClienteController extends Controller
 		}
 	}
 
-	public function verificaSeCnpjExiste($cnpj, $idCliente)
+	public function verificaSeCnpjExiste($cnpj, $idCliente = false)
 	{
 		$cnpj = out64($cnpj);
 		$cliente = new Cliente();
@@ -148,7 +148,7 @@ class ClienteController extends Controller
 		}
 	}
 
-	public function verificaSeCpfExiste($cpf, $idCliente)
+	public function verificaSeCpfExiste($cpf, $idCliente = false)
 	{
 		$cpf = out64($cpf);
 		$cliente = new Cliente();

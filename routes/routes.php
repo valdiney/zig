@@ -62,15 +62,15 @@ $route->post('cliente/update', 'ClienteController@update');
 $route->get('cliente/desativarCliente/{idCliente}', 'ClienteController@desativarCliente');
 $route->get('cliente/ativarCliente/{idCliente}', 'ClienteController@ativarCliente');
 
-$route->get('cliente/verificaSeEmailExiste/{email?}/{idCliente?}', 'ClienteController@verificaSeEmailExiste');
-$route->get('cliente/verificaSeCnpjExiste/{cnpj?}/{idCliente?}', 'ClienteController@verificaSeCnpjExiste');
-$route->get('cliente/verificaSeCpfExiste/{cpf?}/{idCliente?}', 'ClienteController@verificaSeCpfExiste');
+$route->get('cliente/verificaSeEmailExiste/{email}/{idCliente?}', 'ClienteController@verificaSeEmailExiste');
+$route->get('cliente/verificaSeCnpjExiste/{cnpj}/{idCliente?}', 'ClienteController@verificaSeCnpjExiste');
+$route->get('cliente/verificaSeCpfExiste/{cpf}/{idCliente?}', 'ClienteController@verificaSeCpfExiste');
 
 # ----- EnderecoController --------------------------------
 $route->get('clienteEndereco/index/{idCliente}', 'ClienteEnderecoController@index');
 $route->post('clienteEndereco/save', 'ClienteEnderecoController@save');
 $route->post('clienteEndereco/update', 'ClienteEnderecoController@update');
-$route->get('clienteEndereco/modalFormulario/{idCliente?}/{idEnderecoCliente?}',
+$route->get('clienteEndereco/modalFormulario/{idCliente}/{idEnderecoCliente?}',
   'ClienteEnderecoController@modalFormulario');
 $route->get('clienteEndereco/buscarEnderecoViaCep/{cep?}', 'ClienteEnderecoController@buscarEnderecoViaCep');
 
@@ -88,7 +88,7 @@ $route->get('logs', 'LogAcessoController@index');
 $route->get('empresa', 'EmpresaController@index');
 $route->post('empresa/save', 'EmpresaController@save');
 $route->post('empresa/update', 'EmpresaController@update');
-$route->get('empresa/modalFormulario', 'EmpresaController@modalFormulario');
+$route->get('empresa/modalFormulario/{idEmpresa?}', 'EmpresaController@modalFormulario');
 
 # Router run
 $route->run();

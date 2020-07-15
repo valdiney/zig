@@ -52,15 +52,15 @@ class EmpresaController extends Controller
 
 			try {
 				$empresa->save($dados);
-                
-                # Cadastra um tipo de PDV para a Empresa
+
+        # Cadastra um tipo de PDV para a Empresa
 				$configPdv = new ConfigPdv();
 				$configPdv->save([
 					'id_empresa' => $empresa->lastId(),
 					'id_tipo_pdv' => 1
 				]);
-                
-                # Cadastra um Usuário para empresa
+
+        # Cadastra um Usuário para empresa
 				$usuario = new Usuario();
 				$usuario->save([
 					'id_empresa' => $empresa->lastId(),
@@ -70,35 +70,50 @@ class EmpresaController extends Controller
 					'id_sexo' => 1,
 					'id_perfil' => 5
 				]);
-                
+
 				return $this->get->redirectTo("empresa");
 
-			} catch(\Exception $e) { 
-    		    dd($e->getMessage());
-    	    }
+			} catch(\Exception $e) {
+    		  dd($e->getMessage());
+    	  }
     	}
 	}
 
 	public function update()
 	{
-		# Escreva aqui...
+		if ($this->post->hasPost()) {
+
+      $empresa = new Empresa();
+      $dados = (array) $this->post->only([
+        'nome', 'email', 'telefone', 'celular',
+        'id_segmento'
+      ]);
+
+      try {
+        $empresa->update($dados, $this->post->data()->id);
+        return $this->get->redirectTo("empresa");
+
+      } catch(\Exception $e) {
+        dd($e->getMessage());
+      }
+    }
 	}
 
-	public function modalFormulario()
+	public function modalFormulario($idEmpresa)
 	{
 		$empresa = false;
-		
-		if ($this->get->position(0)) {
-        	$empresa = new Produto();
-		    $empresa = $empresa->find($this->get->position(0));
-        }
 
-        $segmento = new ClienteSegmento();
-        $segmentos = $segmento->all();
+		if ($idEmpresa) {
+      $empresa = new Empresa();
+		  $empresa = $empresa->find($idEmpresa);
+    }
 
-		$this->view('empresa/formulario', null, 
+    $segmento = new ClienteSegmento();
+    $segmentos = $segmento->all();
+
+		$this->view('empresa/formulario', null,
 			compact(
-				'empresa', 
+				'empresa',
 				'segmentos'
 			));
 	}

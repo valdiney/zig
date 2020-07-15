@@ -98,7 +98,7 @@ class ClienteEnderecoController extends Controller
 		}
 	}
 
-	public function modalFormulario($idCliente, $idEnderecoCliente)
+	public function modalFormulario($idCliente, $idEnderecoCliente = false)
 	{
 		$clienteEndereco = false;
 

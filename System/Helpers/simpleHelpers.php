@@ -71,14 +71,15 @@ function uploadImageHelper($uploadClass, $folder, $image) {
 }
 
 function in64($string) {
-    $string = "atzxyzendMosterw_".$string;
+    $string = "atzxyzendMosterw||zig".$string;
     return base64_encode($string);
 }
 
 function out64($string) {
   $auxiliar = base64_decode($string) ?? null;
+
   if ($string) {
-    return explode('_', $auxiliar)[1];
+    return explode('||zig', $auxiliar)[1];
   }
   return false;
 }

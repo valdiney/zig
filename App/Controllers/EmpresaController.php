@@ -99,6 +99,29 @@ class EmpresaController extends Controller
     }
 	}
 
+  public function verificaSeEmailExiste($email, $idEmpresa = false)
+  {
+    $email = out64($email);
+    $empresa = new Empresa();
+
+    /*
+    * Se for uma edição,
+    * verifica se o EMAIL não pertence a empresa que está sendo editado no momento
+    */
+    if ($email && $idEmpresa) {
+      if ($empresa->seDadoNaoPertenceAEmpresaEditado('email', $email, $idEmpresa)) {
+        echo json_encode(['status' => true]);
+        return false;
+      }
+    }
+
+    if ($empresa->verificaSeEmailExiste($email)) {
+      echo json_encode(['status' => true]);
+    } else {
+      echo json_encode(['status' => false]);
+    }
+  }
+
 	public function modalFormulario($idEmpresa)
 	{
 		$empresa = false;

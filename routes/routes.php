@@ -89,6 +89,7 @@ $route->get('empresa', 'EmpresaController@index');
 $route->post('empresa/save', 'EmpresaController@save');
 $route->post('empresa/update', 'EmpresaController@update');
 $route->get('empresa/modalFormulario/{idEmpresa?}', 'EmpresaController@modalFormulario');
+$route->get('empresa/verificaSeEmailExiste/{email}/{idEmpresa?}', 'EmpresaController@verificaSeEmailExiste');
 
 # Router run
 $route->run();

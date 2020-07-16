@@ -15,7 +15,7 @@ function load(url, idElement) {
       document.getElementById(idElement).innerHTML = this.responseText;
     }
   };
-  
+
   xhttp.open("GET", url, true);
   xhttp.send();
 }
@@ -83,7 +83,7 @@ function real(valor) {
 
 //////////////////////////////////////////////////////////////////////////////
 function in64(data) {
-  return btoa('atzxyzendMosterw_'+data);
+  return btoa('atzxyzendMosterw||zig'+data);
 }
 
 function out64(data) {
@@ -92,19 +92,19 @@ function out64(data) {
 //////////////////////////////////////////////////////////////////////////////
 
 //////////////////////////////////////////////////////////////////////////////
-function emailValido(mail) {   
-    var er = new RegExp(/^[A-Za-z0-9_\-\.]+@[A-Za-z0-9_\-\.]{2,}\.[A-Za-z0-9]{2,}(\.[A-Za-z0-9])?/);   
-     if (typeof(mail) == "string") {       
-        if (er.test(mail)) { 
-            return true; 
-        }  
-    } else if(typeof(mail) == "object") {     
-        if (er.test(mail.value)) {                   
-            return true;                
-        }   
+function emailValido(mail) {
+    var er = new RegExp(/^[A-Za-z0-9_\-\.]+@[A-Za-z0-9_\-\.]{2,}\.[A-Za-z0-9]{2,}(\.[A-Za-z0-9])?/);
+     if (typeof(mail) == "string") {
+        if (er.test(mail)) {
+            return true;
+        }
+    } else if(typeof(mail) == "object") {
+        if (er.test(mail.value)) {
+            return true;
+        }
     }
-    else {      
-        return false;       
+    else {
+        return false;
     }
 }
 //////////////////////////////////////////////////////////////////////////////
@@ -115,22 +115,22 @@ function cpfValido(strCPF) {
     if (strCPF == '') {
       return false;
     }
-    
+
     var Soma;
     var Resto;
     Soma = 0;
   if (strCPF == "00000000000") return false;
-     
+
   for (i=1; i<=9; i++) Soma = Soma + parseInt(strCPF.substring(i-1, i)) * (11 - i);
   Resto = (Soma * 10) % 11;
-   
+
     if ((Resto == 10) || (Resto == 11))  Resto = 0;
     if (Resto != parseInt(strCPF.substring(9, 10)) ) return false;
-   
+
   Soma = 0;
     for (i = 1; i <= 10; i++) Soma = Soma + parseInt(strCPF.substring(i-1, i)) * (12 - i);
     Resto = (Soma * 10) % 11;
-   
+
     if ((Resto == 10) || (Resto == 11))  Resto = 0;
     if (Resto != parseInt(strCPF.substring(10, 11) ) ) return false;
     return true;
@@ -140,25 +140,25 @@ function cpfValido(strCPF) {
 //////////////////////////////////////////////////////////////////////////////
 function CNPJvalido(cnpj) {
     cnpj = cnpj.replace(/[^\d]+/g,'');
-    if(cnpj == '') 
+    if(cnpj == '')
         return false;
 
     if (cnpj.length != 14)
         return false;
- 
+
     // Elimina CNPJs invalidos conhecidos
-    if (cnpj == "00000000000000" || 
-        cnpj == "11111111111111" || 
-        cnpj == "22222222222222" || 
-        cnpj == "33333333333333" || 
-        cnpj == "44444444444444" || 
-        cnpj == "55555555555555" || 
-        cnpj == "66666666666666" || 
-        cnpj == "77777777777777" || 
-        cnpj == "88888888888888" || 
+    if (cnpj == "00000000000000" ||
+        cnpj == "11111111111111" ||
+        cnpj == "22222222222222" ||
+        cnpj == "33333333333333" ||
+        cnpj == "44444444444444" ||
+        cnpj == "55555555555555" ||
+        cnpj == "66666666666666" ||
+        cnpj == "77777777777777" ||
+        cnpj == "88888888888888" ||
         cnpj == "99999999999999")
         return false;
-         
+
     tamanho = cnpj.length - 2
     numeros = cnpj.substring(0,tamanho);
     digitos = cnpj.substring(tamanho);
@@ -172,7 +172,7 @@ function CNPJvalido(cnpj) {
     resultado = soma % 11 < 2 ? 0 : 11 - soma % 11;
     if (resultado != digitos.charAt(0))
         return false;
-         
+
     tamanho = tamanho + 1;
     numeros = cnpj.substring(0,tamanho);
     soma = 0;
@@ -185,7 +185,7 @@ function CNPJvalido(cnpj) {
     resultado = soma % 11 < 2 ? 0 : 11 - soma % 11;
     if (resultado != digitos.charAt(1))
           return false;
-           
+
     return true;
 }
 //////////////////////////////////////////////////////////////////////////////

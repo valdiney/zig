@@ -23,8 +23,8 @@ $route->get('usuario/teste', 'UsuarioController@testeEmail');
 $route->get('relatorio', 'RelatorioController@index');
 $route->get('relatorio/vendasPorPeriodo', 'RelatorioController@vendasPorPeriodo');
 $route->post('relatorio/vendasChamadaAjax', 'RelatorioController@vendasChamadaAjax');
-$route->get('relatorio/gerarXls', 'RelatorioController@gerarXls');
-$route->get('relatorio/gerarPDF', 'RelatorioController@gerarPDF');
+$route->get('relatorio/gerarXls/{de}/{ate}/{opcao?}', 'RelatorioController@gerarXls');
+$route->get('relatorio/gerarPDF/{de}/{ate}/{opcao?}', 'RelatorioController@gerarPDF');
 
 # ----- ProdutoController --------------------------------
 $route->get('produto', 'ProdutoController@index');

@@ -1,4 +1,4 @@
-<?php 
+<?php
 namespace App\Controllers;
 use System\Controller\Controller;
 use System\Post\Post;
@@ -17,7 +17,7 @@ class HomeController extends Controller
 	protected $idEmpresa;
 	protected $idUsuario;
 	protected $idPerfilUsuarioLogado;
-	
+
 	public function __construct()
 	{
 		parent::__construct();
@@ -38,33 +38,35 @@ class HomeController extends Controller
 	{
 		$vendasRepository = new VendasRepository();
 
-        $faturamentoDeVandasNoMes = $vendasRepository->faturamentoDeVendasNoMes(
-            date('m'), date('Y'), $this->idEmpresa
-        );
+    $faturamentoDeVandasNoMes = $vendasRepository->faturamentoDeVendasNoMes(
+      date('m'), date('Y'), $this->idEmpresa
+    );
 
-        $faturamentoDeVandasNoDia = $vendasRepository->faturamentoDeVendasNoDia(
-        	date('d'), date('m'), $this->idEmpresa
-        );
+    $faturamentoDeVandasNoDia = $vendasRepository->faturamentoDeVendasNoDia(
+    	date('d'), date('m'), $this->idEmpresa
+    );
 
-        $faturamentoDeVandasMesAnterior = $vendasRepository->faturamentoDeVendasNoMes(
-        	decrementMonthtFromDate(1), date('Y'), $this->idEmpresa
-        );
+    $faturamentoDeVandasMesAnterior = $vendasRepository->faturamentoDeVendasNoMes(
+    	decrementMonthtFromDate(1), date('Y'), $this->idEmpresa
+    );
 
-        $faturamentoDeVandasNoDiaAnterior = $vendasRepository->faturamentoDeVendasNoDia(
-            date('d', strtotime(decrementDaysFromDate(1))), date('m'), $this->idEmpresa
-        );
+    $faturamentoDeVandasNoDiaAnterior = $vendasRepository->faturamentoDeVendasNoDia(
+      date('d', strtotime(decrementDaysFromDate(1))), date('m'), $this->idEmpresa
+    );
 
-        $percentualMeiosDePagamento = $vendasRepository->percentualMeiosDePagamento($this->idEmpresa);
+    $percentualMeiosDePagamento = $vendasRepository->percentualMeiosDePagamento($this->idEmpresa);
 
-        $quantidadeDeVendasRealizadasPorDia = $vendasRepository->quantidadeDeVendasRealizadasPorDia(
-        	[], $this->idEmpresa
-        );
+    $quantidadeDeVendasRealizadasPorDia = $vendasRepository->quantidadeDeVendasRealizadasPorDia(
+    	[], $this->idEmpresa
+    );
 
-        $valorDeVendasRealizadasPorDia = $vendasRepository->valorDeVendasRealizadasPorDia(
-            [], $this->idEmpresa
-        );
-        
-		$this->view('home/index', $this->layout, 
+    $valorDeVendasRealizadasPorDia = $vendasRepository->valorDeVendasRealizadasPorDia(
+      [], $this->idEmpresa
+    );
+
+    $totalVendasPorUsuariosNoMes = $vendasRepository->totalVendasPorUsuariosNoMes($this->idEmpresa, date('m'));
+
+		$this->view('home/index', $this->layout,
 			compact(
 				'faturamentoDeVandasNoMes',
 				'faturamentoDeVandasNoDia',
@@ -72,7 +74,8 @@ class HomeController extends Controller
 				'faturamentoDeVandasNoDiaAnterior',
 				'percentualMeiosDePagamento',
 				'quantidadeDeVendasRealizadasPorDia',
-				'valorDeVendasRealizadasPorDia'
+				'valorDeVendasRealizadasPorDia',
+        'totalVendasPorUsuariosNoMes'
 			));
 	}
 }

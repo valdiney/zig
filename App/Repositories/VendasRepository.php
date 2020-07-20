@@ -1,11 +1,11 @@
-<?php 
+<?php
 namespace App\Repositories;
 use App\Models\Venda;
 
 class VendasRepository
 {
 	protected $venda;
-	
+
 	public function __construct()
 	{
 		$this->venda = new Venda();
@@ -34,14 +34,14 @@ class VendasRepository
 	public function percentualMeiosDePagamento($idEmpresa)
 	{
 		$query = $this->venda->query("
-			SELECT mpg.legenda, SUM(vendas.valor) AS total, 
+			SELECT mpg.legenda, SUM(vendas.valor) AS total,
 			ROUND((COUNT(*) / (SELECT COUNT(*) FROM vendas)),2) * 100 AS media
 			FROM vendas
 			INNER JOIN meios_pagamentos AS mpg ON vendas.id_meio_pagamento = mpg.id
 			WHERE vendas.id_empresa = {$idEmpresa}
 			GROUP BY vendas.id_meio_pagamento
 		");
-        
+
         $legendas = [];
         $medias = [];
 		foreach ($query as $valor) {
@@ -73,6 +73,27 @@ class VendasRepository
 
 		return $query;
 	}
+
+  public function totalVendasPorUsuariosNoMes($idEmpresa, $mes)
+  {
+    $query = $this->venda->query("
+      SELECT usuarios.id, usuarios.nome, usuarios.imagem,
+      SUM(vendas.valor) AS valor, DATE_FORMAT(vendas.created_at, '%m')
+      FROM vendas INNER JOIN usuarios ON vendas.id_usuario = usuarios.id
+      WHERE vendas.id_empresa = {$idEmpresa} AND
+      DATE_FORMAT(vendas.created_at, '%m') = {$mes}
+      GROUP BY usuarios.nome, usuarios.id
+    ");
+
+    return $query;
+  }
+
+  public function totalVendasUsuariosPorMeioDePagamento($idEmpresa, $mes)
+  {
+    $query = $this->venda->query(
+
+    );
+  }
 }
 
 

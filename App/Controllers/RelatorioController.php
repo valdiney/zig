@@ -1,4 +1,4 @@
-<?php 
+<?php
 namespace App\Controllers;
 use System\Controller\Controller;
 use System\Post\Post;
@@ -15,101 +15,96 @@ use App\Repositories\RelatorioVendasPorPeriodoRepository;
 
 class RelatorioController extends Controller
 {
-	protected $post;
-	protected $get;
-	protected $layout;
-	protected $idEmpresa;
-	protected $idPerfilUsuarioLogado;
-	
-	public function __construct()
-	{
-		parent::__construct();
-		$this->layout = 'default';
+  protected $post;
+  protected $get;
+  protected $layout;
+  protected $idEmpresa;
+  protected $idPerfilUsuarioLogado;
 
-		$this->post = new Post();
-		$this->get = new Get();
-		$this->idEmpresa = Session::get('idEmpresa');
-		$this->idPerfilUsuarioLogado = Session::get('idPerfil');
+  public function __construct()
+  {
+    parent::__construct();
+    $this->layout = 'default';
 
-		$logged = new Logged();
-		$logged->isValid();
-	}
+    $this->post = new Post();
+    $this->get = new Get();
+    $this->idEmpresa = Session::get('idEmpresa');
+    $this->idPerfilUsuarioLogado = Session::get('idPerfil');
 
-	public function index()
-	{
-		$this->view('relatorio/index', $this->layout); 	
-	}
+    $logged = new Logged();
+    $logged->isValid();
+  }
 
-	public function vendasPorPeriodo()
-	{
-		$usuario = new Usuario();
-		$usuarios = $usuario->usuarios($this->idEmpresa, $this->idPerfilUsuarioLogado);
+  public function index()
+  {
+    $this->view('relatorio/index', $this->layout);
+  }
 
-		$this->view('relatorio/vendasPorPeriodo/index', $this->layout, compact('usuarios'));
-	}
+  public function vendasPorPeriodo()
+  {
+    $usuario = new Usuario();
+    $usuarios = $usuario->usuarios($this->idEmpresa, $this->idPerfilUsuarioLogado);
 
-	public function vendasChamadaAjax()
-	{
-		$relatorioVendas = new RelatorioVendasPorPeriodoRepository();
-		$vendas = [];
+    $this->view('relatorio/vendasPorPeriodo/index', $this->layout, compact('usuarios'));
+  }
 
-		if ($this->post->hasPost()) {
-
-			$de = $this->post->data()->de;
-			$ate = $this->post->data()->ate;
-
-			$idUsuario = false;
-			if ($this->post->data()->id_usuario != 'todos') {
-				$idUsuario = $this->post->data()->id_usuario;
-			}
-
-			$vendas = $relatorioVendas->vendasPorPeriodo(
-				['de' => $de, 'ate' => $ate], 
-				$idUsuario,
-				$this->idEmpresa
-		    );
-
-			$meiosDePagamento = $relatorioVendas->totalVendidoPorMeioDePagamento(
-				['de' => $de, 'ate' => $ate], 
-				$idUsuario,
-				$this->idEmpresa
-			);
-
-			$totalDasVendas = $relatorioVendas->totalDasVendas(
-				['de' => $de, 'ate' => $ate], 
-				$idUsuario,
-				$this->idEmpresa
-			);
-		}
-
-		$this->view('relatorio/vendasPorPeriodo/tabelaVendasPorPeriodo', false, 
-			compact(
-				'vendas',
-				'meiosDePagamento',
-				'totalDasVendas'
-			));
-	}
-
-	public function gerarXls()
-	{
+  public function vendasChamadaAjax()
+  {
     $relatorioVendas = new RelatorioVendasPorPeriodoRepository();
-    $periodo = [
-      'de'  => $this->get->position(0), 
-      'ate' => $this->get->position(1)
-    ];
-    $idUsuario = ($this->get->position(2) == 'todos') ? false : $this->get->position(2);
-		$relatorioVendas->gerarRelatioDeVendasPorPeriodoXls($periodo, $idUsuario, $this->idEmpresa);
-	}
+    $vendas = [];
 
-	public function gerarPDF()
-	{
+    if ($this->post->hasPost()) {
+
+      $de = $this->post->data()->de;
+      $ate = $this->post->data()->ate;
+
+      $idUsuario = false;
+      if ($this->post->data()->id_usuario != 'todos') {
+        $idUsuario = $this->post->data()->id_usuario;
+      }
+
+      $vendas = $relatorioVendas->vendasPorPeriodo(
+        ['de' => $de, 'ate' => $ate],
+        $idUsuario,
+        $this->idEmpresa
+      );
+
+      $meiosDePagamento = $relatorioVendas->totalVendidoPorMeioDePagamento(
+        ['de' => $de, 'ate' => $ate],
+        $idUsuario,
+        $this->idEmpresa
+      );
+
+      $totalDasVendas = $relatorioVendas->totalDasVendas(
+        ['de' => $de, 'ate' => $ate],
+        $idUsuario,
+        $this->idEmpresa
+      );
+    }
+
+    $this->view('relatorio/vendasPorPeriodo/tabelaVendasPorPeriodo', false,
+      compact(
+        'vendas',
+        'meiosDePagamento',
+        'totalDasVendas'
+      ));
+  }
+
+  public function gerarXls($de, $ate, $opcao = false)
+  {
     $relatorioVendas = new RelatorioVendasPorPeriodoRepository();
-    $periodo = [
-      'de'  => $this->get->position(0), 
-      'ate' => $this->get->position(1)
-    ];
-    
-    $idUsuario = ($this->get->position(2) == 'todos') ? false : $this->get->position(2);
-		$relatorioVendas->gerarRelatioDeVendasPorPeriodoPDF($periodo, $idUsuario, $this->idEmpresa);
-	}
+    $periodo = ['de'  => $de,'ate' => $ate];
+
+    $idUsuario = ($opcao == 'todos') ? false : $opcao;
+    $relatorioVendas->gerarRelatioDeVendasPorPeriodoXls($periodo, $idUsuario, $this->idEmpresa);
+  }
+
+  public function gerarPDF($de, $ate, $opcao = false)
+  {
+    $relatorioVendas = new RelatorioVendasPorPeriodoRepository();
+    $periodo = ['de'  => $de,'ate' => $ate];
+
+    $idUsuario = ($opcao == 'todos') ? false : $opcao;
+    $relatorioVendas->gerarRelatioDeVendasPorPeriodoPDF($periodo, $idUsuario, $this->idEmpresa);
+  }
 }

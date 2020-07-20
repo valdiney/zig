@@ -1,5 +1,5 @@
 <!--Usando o Html Components-->
-<?php 
+<?php
 use App\Views\Layouts\HtmlComponents\Modal;
 use System\Session\Session;
 ?>
@@ -113,10 +113,10 @@ use System\Session\Session;
 	<div class="card col-lg-12 content-div">
 		<div class="card-body">
 	        <h5 class="card-title"><i class="fab fa-product-hunt" style="color:#99ccff"></i> Produtos</h5>
-            
+
             <div class="row div-inter-produtos">
                 <?php foreach ($produtos as $key => $produto):?>
-	            	<div class="col-lg-2 card-produtos" 
+	            	<div class="col-lg-2 card-produtos"
 	            	onclick="colocarProdutosNaMesa('<?php echo $produto->id;?>', this)">
 	            		<img src="<?php echo BASEURL .'/'. $produto->imagem;?>" title="Adicionar!">
 	            		<center><span class="produto-titulo"><?php echo mb_strtoupper($produto->nome);?></span></center>
@@ -124,7 +124,7 @@ use System\Session\Session;
 	            	</div>
                 <?php endforeach;?>
             </div><!--div-inter-produtos-->
-		   
+
 	    </div>
    </div>
 
@@ -133,13 +133,13 @@ use System\Session\Session;
 <div class="row">
 
 	<div class="card col-lg-9 content-div">
-		<div class="card-body">
+		<div class="card-body" style="overflow-x:auto!important;">
 	        <h5 class="card-title">
-	        	<i class="fas fa-coins" style="color:#00cc99"></i> 
+	        	<i class="fas fa-coins" style="color:#00cc99"></i>
 	        	Produtos selecionados
 	        </h5>
-            
-		    <table class="table tabela-ajustada tabela-de-produto" style="width:100%">
+
+		    <table class="table tabela-ajustada tabela-de-produto" style="width:100%;">
 		        <thead>
 		            <tr>
 		            	<th>#</th>
@@ -173,9 +173,9 @@ use System\Session\Session;
 		        	<?php endforeach;?>
 		        </select>
 		    </div>
-			  
+
             <button class="btn btn-sm btn-success btn-block" onclick="saveVendasViaSession('<?php echo TOKEN;?>')">
-	            <i class="fas fa-save"></i> Confirmar    	   
+	            <i class="fas fa-save"></i> Confirmar
 	        </button>
 	    </div>
    </div>

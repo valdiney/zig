@@ -1,5 +1,14 @@
 <?php use System\HtmlComponents\Charts\Doughnut;?>
 
+<style>
+  .imagem-perfil {
+    width:30px;
+      height:30px;
+      object-fit:cover;
+      object-position:center;
+      border-radius:50%;
+  }
+</style>
 <div class="row">
 
     <div class="col-lg-3 col-md-6 col-sm-6">
@@ -115,14 +124,14 @@
             <div class="stats">
               <i class="fas fa-user-tie" style="color:#ad54da"></i>
               <small>Clientes inativos <b>3</b></small>
-              
+
 
             </div>
           </div>
         </div>
       </div>
 
-   
+
 
 </div>
 
@@ -165,7 +174,45 @@
           </div>
         </div>
       </div>
-    
+
+      <div class="col-lg-6 col-md-6 col-sm-6">
+        <div class="card card-stats">
+          <div class="card-body">
+            <center>
+              Vendas por vendedores
+              <small style="opacity:0.70">
+                Mês de <?php echo mesesPorExtensoEnumeroDoMes(date('m'));?>
+              </small>
+            </center>
+
+            <table class="table tabela-ajustada">
+                <thead>
+                  <tr>
+                    <th>#</th>
+                    <th>Valor</th>
+                  </tr>
+                </thead>
+                <tbody>
+                    <?php foreach($totalVendasPorUsuariosNoMes as $venda):?>
+                      <tr>
+                        <td><img class="imagem-perfil" src="<?php echo BASEURL.'/'.$venda->imagem;?>"></td>
+                        <td>R$ <?php echo number_format($venda->valor, 2,',','.');?></td>
+                      </tr>
+                    <?php endforeach;?>
+                </tbody>
+              </table>
+
+          </div>
+          <div class="card-footer ">
+            <hr>
+            <!--<div class="stats">
+              <i class="fa fa-refresh"></i>
+              Update Now
+            </div>-->
+          </div>
+        </div>
+      </div>
+
 </div>
 
 <script src="<?php echo BASEURL;?>/public/assets/chartjs/dist/Chart.min.js"></script>
@@ -173,7 +220,7 @@
 <?php Doughnut::start(
   'grafico-tipo-pagamento',
   $percentualMeiosDePagamento->medias,
-  $percentualMeiosDePagamento->legendas, 
+  $percentualMeiosDePagamento->legendas,
   ["#83e6cd","#9be6e6","#ffe6b5"]
 );?>
 

@@ -1,5 +1,5 @@
 <!--Usando o Html Components-->
-<?php 
+<?php
 use App\Views\Layouts\HtmlComponents\Modal;
 use System\Session\Session;
 ?>
@@ -39,16 +39,16 @@ use System\Session\Session;
 	<div class="card col-lg-12 content-div">
 		<div class="card-body">
 	        <h5 class="card-title"><i class="fas fa-coins" style="color:#00cc99"></i> Registrar Venda</h5>
-            
+
             <form method="post" action="<?php echo BASEURL;?>/pdvPadrao/save">
 		        <div class="row">
 
 		        	<input type="hidden" name="_token" value="<?php echo TOKEN; ?>" />
-	                
+
 		        	<div class="col-md-2">
 					    <div class="form-group">
 					        <label for="valor">R$ Valor *</label>
-					        <input type="text" class="form-control campo-moeda valor" name="valor" id="valor" 
+					        <input type="text" class="form-control campo-moeda valor" name="valor" id="valor"
 					        placeholder="00,00">
 					    </div>
 				    </div>
@@ -71,7 +71,7 @@ use System\Session\Session;
 					        <label for="id_usuario">Vendedor *</label>
 					        <select class="form-control" name="id_usuario" id="id_usuario">
 					        	<?php foreach ($usuarios as $usuario):?>
-					        		<?php if ($usuario->id == Session::get('idUsuario')):?>	
+					        		<?php if ($usuario->id == Session::get('idUsuario')):?>
 					        			<option value="<?php echo $usuario->id;?>" selected>
 					        			    <?php echo $usuario->nome;?>
 					        		    </option>
@@ -104,14 +104,14 @@ use System\Session\Session;
 		<div class="card card-two col-lg-6 content-div">
 			<div class="card-body">
 		        <h5 class="card-title" style="text-align:center">
-		        	<i class="fas fa-cart-arrow-down" style="color:#00cc99"></i> 
+		        	<i class="fas fa-cart-arrow-down" style="color:#00cc99"></i>
 		            Ultimas 10 vendas no dia!
 		        </h5>
 
 		        <center><small>Hoje: <?php echo date('d/m');?></small></center>
-                
+
                 <?php if (count($vendasGeralDoDia) > 0):?>
-			        <table class="table tabela-ajustada">
+			        <table class="table tabela-ajustada table-striped">
 			        	<thead>
 			        		<tr>
 			        			<th>#</th>
@@ -120,7 +120,7 @@ use System\Session\Session;
 				        		<th>Hora</th>
 			        		</tr>
 			        	</thead>
-			        	<tbody>	        		
+			        	<tbody>
 				        		<?php foreach($vendasGeralDoDia as $venda):?>
 				        			<tr>
 				        				<td><img class="imagem-perfil" src="<?php echo BASEURL.'/'.$venda->imagem;?>"></td>
@@ -145,7 +145,7 @@ use System\Session\Session;
 	   <div class="card card-two col-lg-6 content-div">
 			<div class="card-body">
 		        <h5 class="card-title" style="text-align:center">
-		        	<i class="fas fa-cart-arrow-down" style="color:#00cc99;"></i> 
+		        	<i class="fas fa-cart-arrow-down" style="color:#00cc99;"></i>
 		            Vendido até o momento
 		        </h5>
 
@@ -173,7 +173,7 @@ use System\Session\Session;
 
 		        	<br>
 		        	<br>
-		        	
+
 		        	<?php if (is_null($totalVendaNoDiaAnterior)):?>
 		        		<small>Nenhuma venda foi realizada ontem!</small>
 		        	<?php else:?>

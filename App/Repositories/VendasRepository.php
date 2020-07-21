@@ -77,7 +77,7 @@ class VendasRepository
   public function totalVendasPorUsuariosNoMes($idEmpresa, $mes)
   {
     $query = $this->venda->query("
-      SELECT usuarios.id, usuarios.nome, usuarios.imagem,
+      SELECT usuarios.id AS idUsuario, usuarios.nome, usuarios.imagem,
       SUM(vendas.valor) AS valor, DATE_FORMAT(vendas.created_at, '%m')
       FROM vendas INNER JOIN usuarios ON vendas.id_usuario = usuarios.id
       WHERE vendas.id_empresa = {$idEmpresa} AND
@@ -85,14 +85,40 @@ class VendasRepository
       GROUP BY usuarios.nome, usuarios.id
     ");
 
-    return $query;
+    $dados = [];
+    foreach ($query as $venda) {
+
+      $dados[$venda->idUsuario]['nome'] = $venda->nome;
+      $dados[$venda->idUsuario]['total'] = $venda->valor;
+      $dados[$venda->idUsuario]['imagem'] = $venda->imagem;
+
+      $meioPagamentos = $this->totalVendasUsuariosPorMeioDePagamento(
+        $idEmpresa,
+        $venda->idUsuario,
+        date('m')
+      );
+
+      if (count($meioPagamentos) > 0) {
+        foreach ($meioPagamentos as $meioPagamento) {
+          $dados[$venda->idUsuario]['meios_pagamento'][] = (array) $meioPagamento;
+        }
+      }
+    }
+
+    return $dados;
   }
 
-  public function totalVendasUsuariosPorMeioDePagamento($idEmpresa, $mes)
+  public function totalVendasUsuariosPorMeioDePagamento($idEmpresa, $idUsuario, $mes)
   {
-    $query = $this->venda->query(
+    $query = $this->venda->query("
+      SELECT meios_pagamentos.id, meios_pagamentos.legenda, SUM(vendas.valor) AS total
+      FROM vendas INNER JOIN meios_pagamentos ON vendas.id_meio_pagamento = meios_pagamentos.id
+      WHERE vendas.id_usuario = {$idUsuario} AND vendas.id_empresa = {$idEmpresa}
+      AND DATE_FORMAT(vendas.created_at, '%m') = {$mes}
+      GROUP BY vendas.id_meio_pagamento
+    ");
 
-    );
+    return $query;
   }
 }
 

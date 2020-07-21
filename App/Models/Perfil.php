@@ -13,7 +13,7 @@ class Perfil extends Model
     {
     	parent::__construct();
     }
-    
+
     public function perfis($idUsuarioLogado = false, $idUsuarioEditado = false, $idPerfilUsuarioLogado = false)
     {
         $superAdmin = ConfigPerfil::superAdmin();
@@ -29,7 +29,7 @@ class Perfil extends Model
                 return $this->query("SELECT * FROM perfis WHERE id = {$idPerfilUsuarioLogado}");
             }
         }
-        
+
         /**
         * Se o usuário for um gerente, traz apenas o perfil de vendedor.
         * Pois somente o administrador pode cadastrar usuarios com outros perfis.
@@ -38,6 +38,6 @@ class Perfil extends Model
             return $this->query("SELECT * FROM perfis WHERE id NOT IN({$superAdmin},{$administrador},{$gerente})");
         }
 
-    	return $this->query("SELECT * FROM perfis");
+    	return $this->query("SELECT * FROM perfis WHERE id != 1");
     }
 }

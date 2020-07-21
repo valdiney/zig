@@ -21,7 +21,8 @@
     <div class="col-md-4">
       <div class="form-group">
         <label for="email">E-mail *</label>
-        <input type="text" class="form-control" name="email" id="email" placeholder="Digite o e-mail de acesso!" value="<?php echo isset($usuario->id) ? $usuario->email : '' ?>">
+        <input type="text" class="form-control" name="email" id="email" placeholder="Digite o e-mail de acesso!" value="<?php echo isset($usuario->id) ? $usuario->email : '' ?>"
+        onchange="verificaSeEmailExiste(this, <?php echo isset($usuario->id) ? $usuario->id : false;?>)">
       </div>
     </div>
 
@@ -48,12 +49,12 @@
         </select>
       </div>
     </div>
-    
+
     <!--
       Se o usuario logado for o mesmo que será editado, não mostra o campo de perfis porque
       um usuario não deve mudar o seu proprio perfil de usuario.
     -->
-  
+
       <div class="col-md-4">
         <div class="form-group">
           <label for="password">Perfis *</label>
@@ -70,7 +71,7 @@
           </select>
         </div>
       </div>
- 
+
 
     <div class="col-md-4">
       <div class="form-group">
@@ -87,7 +88,32 @@
   </div>
   <!--end row-->
 
-  <button type="submit" class="btn btn-success btn-sm" style="float:right">
+  <button type="submit" class="btn btn-success btn-sm button-salvar-usuario" style="float:right">
     <i class="fas fa-save"></i> Salvar
   </button>
 </form>
+
+
+<script>
+  function verificaSeEmailExiste(email, id) {
+      var rota = getDomain()+"/usuario/verificaSeEmailExiste";
+      if (id) {
+        rota += '/'+in64(email.value)+'/'+id;
+      } else {
+        rota += '/'+in64(email.value);
+      }
+
+      $.get(rota, function(data, status) {
+        var retorno = JSON.parse(data);
+
+        if (retorno.status == true) {
+          modalValidacao('Validação', 'Este Email já existe! Por favor, informe outro!');
+          $('.button-salvar-usuario').attr('disabled', 'disabled');
+          $('.label-email').html('<small style="color:#cc0000!important">Este Email já existe!</small>');
+        } else {
+          $('.button-salvar-usuario').attr('disabled', false);
+          $('.label-email').html('');
+        }
+      });
+    }
+</script>

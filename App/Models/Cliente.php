@@ -17,12 +17,12 @@ class Cliente extends Model
     {
     	return $this->query("
     		SELECT cl.id, cl.nome, cl.email, cl.cnpj, cl.cpf, cl.telefone, cl.celular, cl.deleted_at,
-			cs.id AS idSegmento, cs.descricao AS descricaoSegmento, 
-			ct.id AS idClienteTipo, ct.descricao AS descricaoClienteTipo
-			FROM clientes AS cl
-			LEFT JOIN clientes_segmentos AS cs ON cl.id_cliente_segmento = cs.id
-			LEFT JOIN clientes_tipos AS ct ON cl.id_cliente_tipo = ct.id
-			WHERE cl.id_empresa = {$idEmpresa}");
+  			cs.id AS idSegmento, cs.descricao AS descricaoSegmento,
+  			ct.id AS idClienteTipo, ct.descricao AS descricaoClienteTipo
+  			FROM clientes AS cl
+  			LEFT JOIN clientes_segmentos AS cs ON cl.id_cliente_segmento = cs.id
+  			LEFT JOIN clientes_tipos AS ct ON cl.id_cliente_tipo = ct.id
+  			WHERE cl.id_empresa = {$idEmpresa}");
     }
 
     public function verificaSeEmailExiste($email)
@@ -68,12 +68,28 @@ class Cliente extends Model
     }
 
     public function seDadoNaoPertenceAoClienteEditado($nomeDoCampo, $valor, $idCliente)
-    { 
+    {
         $dadosCliente = $this->findBy("{$nomeDoCampo}", $valor);
         if ($dadosCliente && $idCliente != $dadosCliente->id) {
             return true;
         }
 
         return false;
+    }
+
+    public function quantidadeDeClientesCadastrados($idEmpresa)
+    {
+      $ativos = $this->queryGetOne("
+        SELECT COUNT(*) quantidade FROM clientes WHERE id_empresa = {$idEmpresa} AND created_at IS NOT NULL"
+      );
+
+      $inativos = $this->queryGetOne("
+        SELECT COUNT(*) quantidade FROM clientes WHERE id_empresa = {$idEmpresa} AND created_at IS  NULL"
+      );
+
+      return (object) [
+        'ativos' => $ativos->quantidade,
+        'inativos' => $inativos->quantidade
+      ];
     }
 }

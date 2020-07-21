@@ -85,6 +85,7 @@ class UsuarioController extends Controller
 			try {
 				# Cadastra Usuário
 				$usuario->save($dados);
+        return $this->get->redirectTo("usuario");
 
 			} catch(\Exception $e) {
     		dd('Erro ao cadastrar Usuário ' . $e->getMessage());
@@ -174,6 +175,29 @@ class UsuarioController extends Controller
 				'perfis'
 			));
 	}
+
+  public function verificaSeEmailExiste($email, $idUsuario = false)
+  {
+    $email = out64($email);
+    $usuario = new Usuario();
+
+    /*
+    * Se for uma edição,
+    * verifica se o EMAIL não pertence ao usuario que está sendo editado no momento
+    */
+    if ($idUsuario && $email) {
+      if ($usuario->seDadoNaoPertenceAoUsuarioEditado('email', $email, $idUsuario)) {
+        echo json_encode(['status' => true]);
+        return false;
+      }
+    }
+
+    if ($usuario->verificaSeEmailExiste($email)) {
+      echo json_encode(['status' => true]);
+    } else {
+      echo json_encode(['status' => false]);
+    }
+  }
 
   public function testeEmail()
   {

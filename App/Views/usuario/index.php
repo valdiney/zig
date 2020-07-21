@@ -125,6 +125,6 @@ use App\Config\ConfigPerfil;
         }
 
         $("#modalUsuarios").modal({backdrop: 'static'});
-        load(url, 'formulario');
+        $("#formulario").load(url);
     }
 </script>

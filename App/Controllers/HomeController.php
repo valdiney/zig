@@ -6,6 +6,9 @@ use System\Get\Get;
 use System\Session\Session;
 use App\Rules\Logged;
 
+use App\Models\Cliente;
+use App\Models\Produto;
+
 use App\Repositories\VendasRepository;
 
 class HomeController extends Controller
@@ -66,6 +69,12 @@ class HomeController extends Controller
 
     $totalVendasPorUsuariosNoMes = $vendasRepository->totalVendasPorUsuariosNoMes($this->idEmpresa, date('m'));
 
+    $cliente = new Cliente();
+    $clientesCadastrados = $cliente->quantidadeDeClientesCadastrados($this->idEmpresa);
+
+    $produto = new Produto();
+    $produtosCadastrados = $produto->quantidadeDeProdutosCadastrados($this->idEmpresa);
+
 		$this->view('home/index', $this->layout,
 			compact(
 				'faturamentoDeVandasNoMes',
@@ -75,7 +84,9 @@ class HomeController extends Controller
 				'percentualMeiosDePagamento',
 				'quantidadeDeVendasRealizadasPorDia',
 				'valorDeVendasRealizadasPorDia',
-        'totalVendasPorUsuariosNoMes'
+        'totalVendasPorUsuariosNoMes',
+        'clientesCadastrados',
+        'produtosCadastrados'
 			));
 	}
 }

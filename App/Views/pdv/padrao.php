@@ -110,7 +110,7 @@ use System\Session\Session;
 
 		        <center><small>Hoje: <?php echo date('d/m');?></small></center>
 
-                <?php if (count($vendasGeralDoDia) > 0):?>
+              <?php if (count($vendasGeralDoDia) > 0):?>
 			        <table class="table tabela-ajustada table-striped">
 			        	<thead>
 			        		<tr>

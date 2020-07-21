@@ -87,7 +87,7 @@
               <div class="col-7 col-md-8">
                 <div class="numbers">
                   <p class="card-category" style="font-size:12px">Produtos a venda</p>
-                  <p class="card-title" style="font-size:15px">Ativos 10<p>
+                  <p class="card-title" style="font-size:15px">Ativos <?php echo $produtosCadastrados->ativos;?><p>
                 </div>
               </div>
             </div>
@@ -96,7 +96,7 @@
             <hr>
             <div class="stats">
               <i class="fab fa-product-hunt" style="color:#99ccff"></i>
-              <small>Produtos inativos <b>5</b></small>
+              <small>Produtos inativos <b><?php echo $produtosCadastrados->inativos;?></b></small>
             </div>
           </div>
         </div>
@@ -114,7 +114,7 @@
               <div class="col-7 col-md-8">
                 <div class="numbers">
                   <p class="card-category" style="font-size:12px">Clientes</p>
-                  <p class="card-title" style="font-size:15px">Ativos 7<p>
+                  <p class="card-title" style="font-size:15px">Ativos <?php echo $clientesCadastrados->ativos;?><p>
                 </div>
               </div>
             </div>
@@ -123,7 +123,7 @@
             <hr>
             <div class="stats">
               <i class="fas fa-user-tie" style="color:#ad54da"></i>
-              <small>Clientes inativos <b>3</b></small>
+              <small>Clientes inativos <b><?php echo $clientesCadastrados->inativos;?></b></small>
 
 
             </div>
@@ -185,23 +185,53 @@
               </small>
             </center>
 
-            <table class="table tabela-ajustada">
-                <thead>
-                  <tr>
-                    <th>#</th>
-                    <th>Valor</th>
-                  </tr>
-                </thead>
-                <tbody>
-                    <?php foreach($totalVendasPorUsuariosNoMes as $venda):?>
-                      <tr>
-                        <td><img class="imagem-perfil" src="<?php echo BASEURL.'/'.$venda->imagem;?>"></td>
-                        <td>R$ <?php echo number_format($venda->valor, 2,',','.');?></td>
-                      </tr>
-                    <?php endforeach;?>
-                </tbody>
-              </table>
+            <?php if (count($totalVendasPorUsuariosNoMes) > 0):?>
+              <table class="table tabela-ajustada vendas_por_vendedores table-striped">
+                  <thead>
+                    <tr>
+                      <th>#</th>
+                      <th>Total</th>
+                      <th>Dinheiro</th>
+                      <th>Crédito</th>
+                      <th>Débito</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                      <?php foreach($totalVendasPorUsuariosNoMes as $venda):?>
+                        <tr>
+                          <td><img class="imagem-perfil" src="<?php echo BASEURL.'/'.$venda['imagem'];?>"></td>
+                          <td>R$ <?php echo real($venda['total']);?></td>
 
+                          <?php if (isset($venda['meios_pagamento'][0])):?>
+                            <td>R$ <?php echo real($venda['meios_pagamento'][0]['total']);?></td>
+                          <?php else:?>
+                            <td><small>Não consta</small></td>
+                          <?php endif;?>
+
+                          <?php if (isset($venda['meios_pagamento'][1])):?>
+                            <td>R$ <?php echo real($venda['meios_pagamento'][1]['total']);?></td>
+                          <?php else:?>
+                            <td><small>Não consta</small></td>
+                          <?php endif;?>
+
+                          <?php if (isset($venda['meios_pagamento'][2])):?>
+                            <td>R$ <?php echo real($venda['meios_pagamento'][2]['total']);?></td>
+                          <?php else:?>
+                            <td><small>Não consta</small></td>
+                          <?php endif;?>
+                        </tr>
+                      <?php endforeach;?>
+                  </tbody>
+                </table>
+
+                <?php else:?>
+                  <br><br><br>
+                  <center>
+                      <i class="fas fa-sad-tear" style="font-size:40px;opacity:0.70"></i>
+                      <br><br>
+                    <h6 style="opacity:0.70">Não houve vendas hoje!</h6>
+                  </center>
+                <?php endif;?>
           </div>
           <div class="card-footer ">
             <hr>
@@ -215,6 +245,8 @@
 
 </div>
 
+
+  <script src="<?php echo BASEURL;?>/public/assets/js/core/jquery.min.js"></script>
 <script src="<?php echo BASEURL;?>/public/assets/chartjs/dist/Chart.min.js"></script>
 
 <?php Doughnut::start(
@@ -226,7 +258,15 @@
 
 
 <script>
-  var ctx = document.getElementById("grafi-vendas-por-dia");
+
+  $(".vendas_por_vendedores tbody td").each(function() {
+    console.log($(this).text());
+
+
+  });
+
+
+var ctx = document.getElementById("grafi-vendas-por-dia");
 var myChart = new Chart(ctx, {
   type: 'bar',
   data: {

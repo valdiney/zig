@@ -27,7 +27,7 @@ A Lucia tem um pequeno comercio e luta bravamente para mantê-lo! Porém, a Luci
 - [x] PDV Padrão
 - [x] PDV Diferencial (PDV com mais recursos)
 - [x] Relatórios de vendas
-- [ ] Dashboard
+- [x] Dashboard
 - [ ] Pedidos
 - [x] Exportar relatórios para PDF
 - [x] Exportar relatórios para Excel

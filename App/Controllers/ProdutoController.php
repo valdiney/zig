@@ -43,29 +43,32 @@ class ProdutoController extends Controller
 		if ($this->post->hasPost()) {
 			$produto = new Produto();
 			$dados = (array) $this->post->data();
-			$dados['id_empresa'] = $this->idEmpresa;
 
+			$dados['id_empresa'] = $this->idEmpresa;
 			$dados['preco'] = formataValorMoedaParaGravacao($dados['preco']);
 
-			# Pega o diretório setado no .env
-      $diretorioImagem = getenv('DIRETORIO_IMAGENS_PRODUTO');
-      if (is_null($diretorioImagem)) {
-        $diretorioImagem = 'public/imagem/produtos/';
+      # Valida imagem somente se existir no envio
+      if (isset($dados['imagem'])) {
+  			# Pega o diretório setado no .env
+        $diretorioImagem = getenv('DIRETORIO_IMAGENS_PRODUTO');
+        if (is_null($diretorioImagem)) {
+          $diretorioImagem = 'public/imagem/produtos/';
+        }
+
+  			$retornoImagem = uploadImageHelper(
+  				new UploadFiles(),
+  				$diretorioImagem,
+  				$_FILES["imagem"]
+  			);
+
+  			# Verifica de houve erro durante o upload de imagem
+  			if (is_array($retornoImagem)) {
+  				Session::flash('error', $retornoImagem['error']);
+  				return $this->get->redirectTo("produto");
+  			}
+
+  		  $dados['imagem'] = $retornoImagem;
       }
-
-			$retornoImagem = uploadImageHelper(
-				new UploadFiles(),
-				$diretorioImagem,
-				$_FILES["imagem"]
-			);
-
-			# Verifica de houve erro durante o upload de imagem
-			if (is_array($retornoImagem)) {
-				Session::flash('error', $retornoImagem['error']);
-				return $this->get->redirectTo("produto");
-			}
-
-		  $dados['imagem'] = $retornoImagem;
 
 			try {
 				$produto->save($dados);

@@ -19,6 +19,8 @@ e popula a tabela HTMl com esses produtos
 function obterProdutosDaMesa() {
    var rota = getDomain()+"/pdvDiferencial/obterProdutosDaMesa";
 
+   $('<center><span class="tabela-load">Carregando...</span></center>').insertAfter('.tabela-de-produto');
+
    $.get(rota, function(data, status) {
    	    var t = "";
    	    var produtos = JSON.parse(data);
@@ -35,6 +37,8 @@ function obterProdutosDaMesa() {
   	        t += "</tr>";
      	    });
         }
+
+        $('.tabela-load').hide();
 
        verificaSeTemProdutosNaMesa(t);
    	   $(".tabela-de-produto tbody").append(t);
@@ -71,12 +75,19 @@ function obterOultimoProdutoColocadoNaMesa() {
 function alterarAquantidadeDeUmProdutoNaMesa(id, quantidade) {
   quantidade = Number(quantidade);
 
+  if (quantidade <= 0) {
+    $(".campo-quantidade").val(1);
+  }
+
 	if (quantidade > 0 && quantidade != '') {
+    modalValidacao('Aplicando', 'Aguarde');
+
 		var rota = getDomain()+"/pdvDiferencial/alterarAquantidadeDeUmProdutoNaMesa/"+id+"/"+quantidade;
 	    $.get(rota, function(data, status) {
 	   	    $(".tabela-de-produto tbody").empty();
 	   	    obterProdutosDaMesa();
           obterValorTotalDosProdutosNaMesa();
+          modalValidacaoClose();
 	    });
 	}
 }

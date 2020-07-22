@@ -12,6 +12,8 @@ use App\Models\ClienteSegmento;
 use App\Models\ConfigPdv;
 use App\Models\Usuario;
 
+use App\Config\ConfigPerfil;
+
 class EmpresaController extends Controller
 {
 	protected $post;
@@ -68,7 +70,7 @@ class EmpresaController extends Controller
 					'email' => $dados['email'],
 					'password' => createHash('33473347'),
 					'id_sexo' => 1,
-					'id_perfil' => 5
+					'id_perfil' => ConfigPerfil::adiministrador();
 				]);
 
 				return $this->get->redirectTo("empresa");

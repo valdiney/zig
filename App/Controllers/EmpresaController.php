@@ -70,7 +70,7 @@ class EmpresaController extends Controller
 					'email' => $dados['email'],
 					'password' => createHash('33473347'),
 					'id_sexo' => 1,
-					'id_perfil' => ConfigPerfil::adiministrador();
+					'id_perfil' => ConfigPerfil::adiministrador()
 				]);
 
 				return $this->get->redirectTo("empresa");

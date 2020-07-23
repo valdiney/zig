@@ -1,7 +1,19 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>Zig</title>
+
+  <?php if (getenv('APPLICATION_NAME')):?>
+    <link rel="shortcut icon" href="public/img/favicon_tonie.png" />
+  <?php else:?>
+    <link rel="shortcut icon" href="public/img/favicon.png" />
+  <?php endif;?>
+
+  <?php if (getenv('APPLICATION_NAME')):?>
+    <title><?php echo getenv('APPLICATION_NAME');?></title>
+  <?php else:?>
+    <title>ZigMoney</title>
+  <?php endif;?>
+
 	<meta charset="utf-8">
   <base href="<?php echo BASEURL;?>">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">

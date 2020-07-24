@@ -11,80 +11,92 @@
 
 	<div class="card col-lg-12 content-div">
 		<div class="card-body">
-	        <h5 class="card-title"><i class="fas fa-user-tie" style="color:#ad54da"></i> Clientes</h5>
-	    </div>
+	   <h5 class="card-title"><i class="fas fa-user-tie" style="color:#ad54da"></i> Clientes</h5>
+	  </div>
 
-        <?php if (count($clientes) > 0):?>
-		<table id="example" class="table tabela-ajustada table-striped" style="width:100%">
+      <?php if (count($clientes) > 0):?>
+    		<table id="example" class="table tabela-ajustada table-striped" style="width:100%">
 	        <thead>
-	            <tr>
-	                <th>Nome</th>
-	                <th>Email</th>
-	                <th>Designação</th>
-	                <th>Segmento</th>
-	                <th>Status</th>
-	                <th style="text-align:right;padding-right:0">
-	                	<?php $rota = BASEURL.'/cliente/modalFormulario';?>
-	                	<button onclick="modalFormularioClientes('<?php echo $rota;?>', false);"
-	                		class="btn btn-sm btn-success">
-	                	    <i class="fas fa-plus"></i>
-	                        Novo
-	                    </button>
-	                </th>
-	            </tr>
+            <tr>
+                <th>Nome</th>
+                <th>Designação</th>
+                <th>Segmento</th>
+                <th>Status</th>
+                <th>Endereços</th>
+                <th style="text-align:right;padding-right:0">
+                	<?php $rota = BASEURL.'/cliente/modalFormulario';?>
+                	<button onclick="modalFormularioClientes('<?php echo $rota;?>', false);"
+                		class="btn btn-sm btn-success">
+                	    <i class="fas fa-plus"></i>
+                        Novo
+                    </button>
+                </th>
+            </tr>
 	        </thead>
 	        <tbody>
 	        	<?php foreach ($clientes as $cliente):?>
-		            <tr>
-		            	<td><?php echo $cliente->nome;?></td>
-		            	<td><?php echo $cliente->email;?></td>
-		            	<td><?php echo $cliente->descricaoClienteTipo;?></td>
+	            <tr>
+	            	<td><?php echo $cliente->nome;?></td>
 
-		            	<td>
-		            		<?php
-		            		echo ! is_null($cliente->descricaoSegmento) ?
-		            		$cliente->descricaoSegmento : "<small>Não consta</small>";
-		            		?>
-		            	</td>
+	            	<td><?php echo $cliente->descricaoClienteTipo;?></td>
 
-		            	<td class="<?php echo (is_null($cliente->deleted_at)) ? 'ativo' : 'desativado';?>">
-		            		<?php echo (is_null($cliente->deleted_at)) ? 'Ativo' : 'Desativado';?>
-		            	</td>
+	            	<td>
+	            		<?php
+	            		echo ! is_null($cliente->descricaoSegmento) ?
+	            		$cliente->descricaoSegmento : "<small>Não consta</small>";
+	            		?>
+	            	</td>
 
-		                <td style="text-align:right">
-		                	<div class="btn-group" role="group">
-							    <button id="btnGroupDrop1" type="button" class="btn btn-sm btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-							      <i class="fas fa-cogs"></i>
-							    </button>
-							    <div class="dropdown-menu" aria-labelledby="btnGroupDrop1">
+	            	<td class="<?php echo (is_null($cliente->deleted_at)) ? 'ativo' : 'desativado';?>">
+	            		<?php echo (is_null($cliente->deleted_at)) ? 'Ativo' : 'Desativado';?>
+	            	</td>
 
-							    	<button class="dropdown-item" href="#"
-								      onclick="modalFormularioClientes('<?php echo $rota;?>', '<?php echo $cliente->id;?>')">
-								      	<i class="fas fa-edit"></i> Editar
-								    </button>
+                <td>
+                  <?php $rota = BASEURL."/clienteEndereco/modalVisualizarEnderecos";?>
+                  <button onclick="modalVisualizarEnderecos(
+                    '<?php echo $rota;?>',
+                    '<?php echo in64($cliente->id);?>',
+                    '<?php echo $cliente->nome;?>'
+                    )" class="btn btn-sm">
+                    <i class="fas fa-map-marker-alt"></i>
+                  </button>
+                </td>
 
-                                    <?php if (is_null($cliente->deleted_at)):?>
-									    <button class="dropdown-item" href="#"
-									      onclick="modalAtivarEdesativarCliente('<?php echo $cliente->id;?>', '<?php echo $cliente->nome;?>', 'desativar')">
-									      	<i class="fas fa-window-close"></i> Desativar
-									    </button>
-								    <?php else:?>
-								    	<button class="dropdown-item" href="#"
-									      onclick="modalAtivarEdesativarCliente('<?php echo $cliente->id;?>', '<?php echo $cliente->nome;?>', 'ativar')">
-									      	<i class="fas fa-square"></i> Ativar
-									    </button>
-								    <?php endif;?>
+		            <td style="text-align:right">
+		              <div class="btn-group" role="group">
 
-							        <a class="dropdown-item"
-							        href="<?php echo BASEURL;?>/clienteEndereco/index/<?php echo in64($cliente->id);?>">
-							        	<i class="fas fa-map-marker-alt"></i> Endereços
-							        </a>
+  							    <button id="btnGroupDrop1" type="button" class="btn btn-sm btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+  							      <i class="fas fa-cogs"></i>
+  							    </button>
 
+  							    <div class="dropdown-menu" aria-labelledby="btnGroupDrop1">
+
+    						    	<button class="dropdown-item" href="#"
+    							      onclick="modalFormularioClientes('<?php echo $rota;?>', '<?php echo $cliente->id;?>')">
+    							      	<i class="fas fa-edit"></i> Editar
+    							    </button>
+
+                      <?php if (is_null($cliente->deleted_at)):?>
+
+    								    <button class="dropdown-item" href="#"
+    								      onclick="modalAtivarEdesativarCliente('<?php echo $cliente->id;?>', '<?php echo $cliente->nome;?>', 'desativar')">
+    								      	<i class="fas fa-window-close"></i> Desativar
+    								    </button>
+
+    								    <?php else:?>
+
+    								    	<button class="dropdown-item" href="#"
+    									      onclick="modalAtivarEdesativarCliente('<?php echo $cliente->id;?>', '<?php echo $cliente->nome;?>', 'ativar')">
+    									      	<i class="fas fa-square"></i> Ativar
+    									    </button>
+
+    								    <?php endif;?>
+  							    </div>
 							    </div>
-							  </div>
-		                </td>
-		            </tr>
-	            <?php endforeach;?>
+
+                </td>
+		          </tr>
+	          <?php endforeach;?>
 	        <tfoot></tfoot>
 	    </table>
 
@@ -99,7 +111,7 @@
             	    <i class="fas fa-plus"></i>
                     Cadastrar Cliente
                 </button>
-	       </center>
+	     </center>
 		<?php endif;?>
 
     <br>
@@ -107,22 +119,21 @@
    </div>
 </div>
 
+<!--Modal Clientes-->
 <?php Modal::start([
     'id' => 'modalClientes',
     'width' => 'modal-lg',
     'title' => 'Cadastrar Clientes'
 ]);?>
-
 <div id="formulario"></div>
-
 <?php Modal::stop();?>
 
+<!--Modal Desativar e ativar Clientes-->
 <?php Modal::start([
     'id' => 'modalDesativarCliente',
     'width' => 'modal-sm',
     'title' => '<i class="fas fa-user-tie" style="color:#ad54da"></i>'
 ]);?>
-
 <div id="modalConteudo">
 	<p id="nomeCliente"></p>
 
@@ -133,7 +144,24 @@
 	    </button>
 	</center>
 </div>
+<?php Modal::stop();?>
 
+<!--Modal Visualizar endereços dos Clientes-->
+<?php Modal::start([
+    'id' => 'modalVisualizarEnderecos',
+    'width' => 'modal-lg',
+    'title' => 'Endereços'
+]);?>
+<div id="containerModalVisualizarEnderecos"></div>
+<?php Modal::stop();?>
+
+<!--Modal Formulário de cadastro de endereços dos Clientes-->
+<?php Modal::start([
+    'id' => 'modalFormulario',
+    'width' => 'modal-lg',
+    'title' => 'Cadastrar Endereços'
+]);?>
+<div id="modalEnderecoFormulario"></div>
 <?php Modal::stop();?>
 
 <script>
@@ -149,6 +177,36 @@
         $("#formulario").html("<center><h3>Carregando...</h3></center>");
         $("#modalClientes").modal({backdrop: 'static'});
         $("#formulario").load(url);
+    }
+
+    function modalVisualizarEnderecos(rota, idCliente, nomeCliente) {
+        var url = "";
+
+        if (idCliente) {
+            url = rota + "/" + idCliente;
+        } else {
+            url = rota;
+        }
+
+        $("#containerModalVisualizarEnderecos").html("<center><h3>Carregando...</h3></center>");
+        $("#modalVisualizarEnderecos").modal({backdrop: 'static'});
+        $("#modalVisualizarEnderecos .modal-title").html("Cliente <b>"+nomeCliente+"</b>");
+        $("#containerModalVisualizarEnderecos").load(url);
+    }
+
+    function modalFormularioEndereco(rota, idCliente, id) {
+        var url = "";
+
+        if (id) {
+            url = rota + "/" + idCliente + "/" + id;
+        } else {
+            url = rota + "/" + idCliente;
+        }
+
+        $("#modalEnderecoFormulario").html("<center><h3>Carregando...</h3></center>");
+        $("#modalFormulario").modal({backdrop: 'static'});
+
+        $("#modalEnderecoFormulario").load(url);
     }
 
     function modalAtivarEdesativarCliente(id, nome, operacao) {

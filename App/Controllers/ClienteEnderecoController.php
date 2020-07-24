@@ -33,21 +33,6 @@ class ClienteEnderecoController extends Controller
 		$logged->isValid();
 	}
 
-	public function index($idCliente)
-	{
-		$cliente = new Cliente();
-		$cliente = $cliente->find(out64($idCliente));
-
-		$clienteEndereco = new ClienteEndereco();
-		$clienteEnderecos = $clienteEndereco->enderecos($cliente->id);
-
-		$this->view('clienteEndereco/index', $this->layout,
-			compact(
-				'cliente',
-				'clienteEnderecos'
-			));
-	}
-
 	public function save()
 	{
 		if ($this->post->hasPost()) {
@@ -57,7 +42,7 @@ class ClienteEnderecoController extends Controller
 
 			try {
 				$clienteEndereco->save($dados);
-				return $this->get->redirectTo("clienteEndereco/index", [in64($dados['id_cliente'])]);
+				return $this->get->redirectTo("cliente/index", [in64($dados['id_cliente'])]);
 
 			} catch(\Exception $e) {
     		dd($e->getMessage());
@@ -76,7 +61,7 @@ class ClienteEnderecoController extends Controller
 
 		try {
 			$clienteEndereco->update($dados, $dadosClienteEndereco->id);
-			return $this->get->redirectTo("clienteEndereco/index", [in64($dadosClienteEndereco->id_cliente)]);
+			return $this->get->redirectTo("cliente/index", [in64($dadosClienteEndereco->id_cliente)]);
 
 		} catch(\Exception $e) {
 		  dd($e->getMessage());
@@ -113,4 +98,19 @@ class ClienteEnderecoController extends Controller
 				'idCliente'
 			));
 	}
+
+  public function modalVisualizarEnderecos($idCliente)
+  {
+    $cliente = new Cliente();
+    $cliente = $cliente->find(out64($idCliente));
+
+    $clienteEndereco = new ClienteEndereco();
+    $clienteEnderecos = $clienteEndereco->enderecos($cliente->id);
+
+    $this->view('clienteEndereco/lista_de_enderecos', null,
+      compact(
+        'clienteEnderecos',
+        'cliente'
+      ));
+  }
 }

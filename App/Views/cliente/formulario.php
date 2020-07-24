@@ -11,7 +11,7 @@
 		<div class="col-md-4">
 		    <div class="form-group">
 		        <label for="nome">Nome *</label>
-		        <input type="text" class="form-control" name="nome" id="nome" placeholder="Digite aqui..." 
+		        <input type="text" class="form-control" name="nome" id="nome" placeholder="Digite aqui..."
 		        value="<?php echo isset($cliente->id) ? $cliente->nome : ''?>">
 		    </div>
 		</div>
@@ -19,7 +19,7 @@
 		<div class="col-md-4">
 		    <div class="form-group">
 		        <label for="email">E-mail * <span class="label-email"></span></label>
-		        <input type="text" class="form-control" name="email" id="email" placeholder="Digite o e-mail!" 
+		        <input type="text" class="form-control" name="email" id="email" placeholder="Digite o e-mail!"
 		        value="<?php echo isset($cliente->id) ? $cliente->email : ''?>"
 		        onchange="verificaSeEmailExiste(this, <?php echo isset($cliente->id) ? $cliente->id : false;?>)">
 		    </div>
@@ -29,12 +29,12 @@
 		    <div class="form-group">
 		        <label for="id_cliente_tipo">Pessoa Física ou Jurídica *</label>
 		        <select class="form-control" name="id_cliente_tipo" id="id_cliente_tipo"
-		        onchange="selecionarTipoDeCliente(this)"> 
+		        onchange="selecionarTipoDeCliente(this)">
 		        	<option value="selecione">Selecione</option>
 		        	<?php foreach ($clientesTipos as $clienteTipo):?>
 		        		<?php if (isset($cliente->id) && $cliente->id_cliente_tipo == $clienteTipo->id):?>
-		        		    <option value="<?php echo $cliente->id_cliente_tipo;?>" 
-		        		    	selected="selected"><?php echo $clienteTipo->descricao;?>	
+		        		    <option value="<?php echo $cliente->id_cliente_tipo;?>"
+		        		    	selected="selected"><?php echo $clienteTipo->descricao;?>
 		        		    </option>
 		        		<?php else:?>
 		        		    <option value="<?php echo $clienteTipo->id;?>"><?php echo $clienteTipo->descricao;?></option>
@@ -43,20 +43,20 @@
 		        </select>
 		    </div>
 		</div>
-        
+
 		<div class="col-md-4">
 		    <div class="form-group">
 		        <label for="id_cliente_segmento">Segmento *</label>
-		        <select class="form-control" name="id_cliente_segmento" id="id_cliente_segmento"> 
+		        <select class="form-control" name="id_cliente_segmento" id="id_cliente_segmento">
 		        	<option value="selecione">Selecione</option>
 		        	<?php foreach ($clientesSegmentos as $clienteSegmento):?>
 		        		<?php if (isset($cliente->id) && $cliente->id_cliente_segmento == $clienteSegmento->id):?>
-		        		    <option value="<?php echo $cliente->id_cliente_segmento;?>" 
-		        		    	selected="selected"><?php echo $clienteSegmento->descricao;?>	
+		        		    <option value="<?php echo $cliente->id_cliente_segmento;?>"
+		        		    	selected="selected"><?php echo $clienteSegmento->descricao;?>
 		        		    </option>
 		        		<?php else:?>
 		        		    <option value="<?php echo $clienteSegmento->id;?>">
-		        		    	<?php echo $clienteSegmento->descricao;?>	
+		        		    	<?php echo $clienteSegmento->descricao;?>
 		        		    </option>
 		        	    <?php endif;?>
 		        	<?php endforeach;?>
@@ -67,7 +67,7 @@
 		<div class="col-md-4 elemento-quando-for-pessoa-juridica">
 		    <div class="form-group">
 		        <label for="cnpj">CNPJ * <span class="label-cnpj"></span></label>
-		        <input type="text" class="form-control" name="cnpj" id="cnpj" placeholder="Digite o CNPJ" 
+		        <input type="text" class="form-control" name="cnpj" id="cnpj" placeholder="Digite o CNPJ"
 		        value="<?php echo isset($cliente->id) ? $cliente->cnpj : ''?>"
 		        onchange="verificaSeCnpjExiste(this, <?php echo isset($cliente->id) ? $cliente->id : false;?>)">
 		    </div>
@@ -76,7 +76,7 @@
 		<div class="col-md-4 elemento-quando-for-pessoa-fisica">
 		    <div class="form-group">
 		        <label for="cpf">CPF * <span class="label-cpf"></span></label>
-		        <input type="text" class="form-control" name="cpf" id="cpf" placeholder="Digite o CPF" 
+		        <input type="text" class="form-control" name="cpf" id="cpf" placeholder="Digite o CPF"
 		        value="<?php echo isset($cliente->id) ? $cliente->cpf : ''?>"
 		        onchange="verificaSeCpfExiste(this, <?php echo isset($cliente->id) ? $cliente->id : false;?>)">
 		    </div>
@@ -85,8 +85,8 @@
 		<div class="col-md-4">
 		    <div class="form-group">
 		        <label for="telefone">Telefone</label>
-		        <input type="text" class="form-control" name="telefone" id="telefone" 
-		        placeholder="Digite o número de Telefone" 
+		        <input type="text" class="form-control" name="telefone" id="telefone"
+		        placeholder="Digite o número de Telefone"
 		        value="<?php echo isset($cliente->id) ? $cliente->telefone : ''?>">
 		    </div>
 		</div>
@@ -94,8 +94,8 @@
 		<div class="col-md-4">
 		    <div class="form-group">
 		        <label for="celular">Celular</label>
-		        <input type="text" class="form-control" name="celular" id="celular" 
-		        placeholder="Digite o número de Celular" 
+		        <input type="text" class="form-control" name="celular" id="celular"
+		        placeholder="Digite o número de Celular"
 		        value="<?php echo isset($cliente->id) ? $cliente->celular : ''?>">
 		    </div>
 		</div>
@@ -128,14 +128,14 @@
 		if (item.value == 1) {
 			$(".elemento-quando-for-pessoa-juridica").hide();
 			$(".elemento-quando-for-pessoa-fisica").show();
-		
+
 		// Quando for pessoa juridica
 		} else if (item.value == 2) {
 		    $(".elemento-quando-for-pessoa-fisica").hide();
 		    $(".elemento-quando-for-pessoa-juridica").show();
 		}
 	}
-    
+
     // Aplica as mascas nos elementos
     jQuery(function($){
 	    jQuery("#cnpj").mask("99.999.999/9999-99");
@@ -156,7 +156,7 @@
 			return false;
 
 		} else if ( ! emailValido($('#email').val())) {
-			modalValidacao('Validação', 'Digite um Email valido!'); 
+			modalValidacao('Validação', 'Digite um Email valido!');
 			return false;
 
 		} else if ($('#id_cliente_tipo').val() == 'selecione') {
@@ -183,13 +183,13 @@
 			modalValidacao('Validação', 'Digite um (CNPJ) valido!');
 			return false;
 
-		} 
+		}
 
 	    return true;
     }
 
     function verificaSeEmailExiste(email, id) {
-    	var rota = getDomain()+"/cliente/verificaSeEmailExiste";    
+    	var rota = getDomain()+"/cliente/verificaSeEmailExiste";
     	if (id) {
     		rota += '/'+in64(email.value)+'/'+id;
     	} else {

@@ -69,12 +69,13 @@ $route->get('cliente/verificaSeCnpjExiste/{cnpj}/{idCliente?}', 'ClienteControll
 $route->get('cliente/verificaSeCpfExiste/{cpf}/{idCliente?}', 'ClienteController@verificaSeCpfExiste');
 
 # ----- EnderecoController --------------------------------
-$route->get('clienteEndereco/index/{idCliente}', 'ClienteEnderecoController@index');
 $route->post('clienteEndereco/save', 'ClienteEnderecoController@save');
 $route->post('clienteEndereco/update', 'ClienteEnderecoController@update');
 $route->get('clienteEndereco/modalFormulario/{idCliente}/{idEnderecoCliente?}',
   'ClienteEnderecoController@modalFormulario');
 $route->get('clienteEndereco/buscarEnderecoViaCep/{cep?}', 'ClienteEnderecoController@buscarEnderecoViaCep');
+$route->get('clienteEndereco/modalVisualizarEnderecos/{idCliente}',
+  'ClienteEnderecoController@modalVisualizarEnderecos');
 
 # ----- PedidoController --------------------------------
 $route->get('pedido', 'PedidoController@index');

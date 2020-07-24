@@ -42,7 +42,7 @@ class ClienteEnderecoController extends Controller
 
 			try {
 				$clienteEndereco->save($dados);
-				return $this->get->redirectTo("cliente/index", [in64($dados['id_cliente'])]);
+				return $this->get->redirectTo("cliente");
 
 			} catch(\Exception $e) {
     		dd($e->getMessage());
@@ -61,7 +61,7 @@ class ClienteEnderecoController extends Controller
 
 		try {
 			$clienteEndereco->update($dados, $dadosClienteEndereco->id);
-			return $this->get->redirectTo("cliente/index", [in64($dadosClienteEndereco->id_cliente)]);
+			return $this->get->redirectTo("cliente");
 
 		} catch(\Exception $e) {
 		  dd($e->getMessage());

@@ -52,9 +52,8 @@
 	            	</td>
 
                 <td>
-                  <?php $rota = BASEURL."/clienteEndereco/modalVisualizarEnderecos";?>
                   <button onclick="modalVisualizarEnderecos(
-                    '<?php echo $rota;?>',
+                    '<?php echo BASEURL."/clienteEndereco/modalVisualizarEnderecos";?>',
                     '<?php echo in64($cliente->id);?>',
                     '<?php echo $cliente->nome;?>'
                     )" class="btn btn-sm">

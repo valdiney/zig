@@ -79,7 +79,7 @@ class ClienteController extends Controller
     }
 	}
 
-	public function modalFormulario($idCliente)
+	public function modalFormulario($idCliente = false)
 	{
 		$cliente = false;
 

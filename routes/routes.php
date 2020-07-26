@@ -9,6 +9,12 @@ $route->get('login', 'LoginController@index');
 $route->post('login/logar', 'LoginController@logar');
 $route->get('login/logout', 'LoginController@logout');
 
+# recuperação de senha do usuário
+$route->get('login/senha', 'Login\SenhaController@index');
+$route->post('login/senha', 'Login\SenhaController@recuperar');
+$route->get('login/senha/recuperacao/{any}', 'Login\SenhaController@recuperacao');
+$route->post('login/senha/recuperacao/{any}', 'Login\SenhaController@update');
+
 $route->get('home', 'HomeController@index');
 
 # ----- UsuarioController --------------------------------

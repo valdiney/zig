@@ -3,11 +3,13 @@
 
 use System\HtmlComponents\FlashMessage\FlashMessage; ?>
 
-<div class="col-md-12">
-  <?php FlashMessage::show(); ?>
-</div>
+<form class="form-signin" method="post" action="<?php echo BASEURL; ?>/login/senha">
 
-<form class="form-signin" method="post" action="<?php echo BASEURL; ?>/login/logar">
+  <h3 class="form-subtitle">Por favor, digite o email para o qual deseja recuperar a senha.</h3>
+
+  <div class="">
+    <?php FlashMessage::show(); ?>
+  </div>
 
   <!-- token de segurança -->
   <input type="hidden" name="_token" value="<?php echo TOKEN; ?>" />
@@ -17,19 +19,13 @@ use System\HtmlComponents\FlashMessage\FlashMessage; ?>
     <label for="email">Email</label>
   </div>
 
-  <div class="form-label-group">
-    <input type="password" id="password" name="password" class="form-control" placeholder="password" required>
-    <label for="password">Senha</label>
-  </div>
-
-  <button class="btn btn-lg btn-primary btn-block text-uppercase" type="submit">Entrar</button>
+  <button class="btn btn-lg btn-primary btn-block text-uppercase" type="submit">Enviar link</button>
 
   <div class="form-links">
-    <a href="<?php echo BASEURL; ?>/login/senha">Esqueceu a sua senha?</a>
+    <a href="<?php echo BASEURL; ?>/login">Fazer login ao invés disso?</a>
   </div>
 
   <hr class="my-4">
-
 
   <center style="font-size:13px;opacity:0.70">ZigMoney <span style="font-size:17px">&hearts;</span></center>
 

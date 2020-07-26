@@ -36,41 +36,39 @@ class LoginController extends Controller
 
 	public function logar()
 	{
-		if ($this->post->hasPost()) {
-			$email = $this->post->data()->email;
-			$password = $this->post->data()->password;
+    $email = $this->post->data()->email;
+    $password = $this->post->data()->password;
 
-			$usuario = new Usuario();
-			$dadosUsuario = $usuario->findBy('email', $email);
+    $usuario = new Usuario();
+    $dadosUsuario = $usuario->findBy('email', $email);
 
-			if ($usuario->userExist(['email' => $email, 'password' => $password])) {
+    if ($usuario->userExist(['email' => $email, 'password' => $password])) {
 
-				# Grava o Log de Acessos
-		        $log = new LogAcesso();
-		        $dados = [];
-		        $dados['id_usuario'] = $dadosUsuario->id;
-		        $dados['id_empresa'] = $dadosUsuario->id_empresa;
-		        $log->save($dados);
+      # Grava o Log de Acessos
+      $log = new LogAcesso();
+      $dados = [];
+      $dados['id_usuario'] = $dadosUsuario->id;
+      $dados['id_empresa'] = $dadosUsuario->id_empresa;
+      $log->save($dados);
 
-		        $perfil = new Perfil();
-		        $perfil = $perfil->find($dadosUsuario->id_perfil);
+      $perfil = new Perfil();
+      $perfil = $perfil->find($dadosUsuario->id_perfil);
 
-				# Coloca dados necessarios na sessão
-				Session::set('idUsuario', $dadosUsuario->id);
-				Session::set('idPerfil', $dadosUsuario->id_perfil);
-				Session::set('legendaPerfil', $perfil->descricao);
-				Session::set('idEmpresa', $dadosUsuario->id_empresa);
-				Session::set('nomeUsuario', $dadosUsuario->nome);
-				Session::set('idSexoUsuario', $dadosUsuario->id_sexo);
-				Session::set('emailUsuario', $dadosUsuario->email);
-				Session::set('imagem', $dadosUsuario->imagem);
+      # Coloca dados necessarios na sessão
+      Session::set('idUsuario', $dadosUsuario->id);
+      Session::set('idPerfil', $dadosUsuario->id_perfil);
+      Session::set('legendaPerfil', $perfil->descricao);
+      Session::set('idEmpresa', $dadosUsuario->id_empresa);
+      Session::set('nomeUsuario', $dadosUsuario->nome);
+      Session::set('idSexoUsuario', $dadosUsuario->id_sexo);
+      Session::set('emailUsuario', $dadosUsuario->email);
+      Session::set('imagem', $dadosUsuario->imagem);
 
-				return $this->get->redirectTo("home");
-			}
+      return $this->get->redirectTo("home");
+    }
 
-            Session::flash('error', 'Usuário não encontrado!');
-			return $this->get->redirectTo("login");
-		}
+    Session::flash('error', 'Usuário não encontrado!');
+    return $this->get->redirectTo("login");
 	}
 
 	public function logout()

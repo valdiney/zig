@@ -123,7 +123,7 @@ class NativeQuery
     * Find an archive in database by field id
     *
     * @param id : int : Id of the archive in the database
-    * @return boolean or an array
+    * @return mixed or an boolean
     */
 
 	public function find($id = 0)

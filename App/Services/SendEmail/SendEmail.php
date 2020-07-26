@@ -80,6 +80,7 @@ class SendEmail
 
     } catch (Exception $e) {
       echo "Message could not be sent. Mailer Error: {$this->phpMailer->ErrorInfo}";
+      exit;
     }
   }
 }

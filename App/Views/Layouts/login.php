@@ -45,5 +45,9 @@
     </div>
   </div>
 
+  <script src="<?php echo BASEURL;?>/public/assets/js/core/jquery.min.js"></script>
+  <script src="<?php echo BASEURL;?>/public/assets/js/core/popper.min.js"></script>
+  <script src="<?php echo BASEURL;?>/public/assets/js/core/bootstrap.min.js"></script>
+
 </body>
 </html>

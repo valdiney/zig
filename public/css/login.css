@@ -8,6 +8,13 @@ body {
   background: linear-gradient(to right, #0062E6, #33AEFF);
 }
 
+body, .container, .row {
+  min-height: 100vh;
+}
+.container .row > div {
+  margin: auto !important;
+}
+
 .card-signin {
   border: 0;
   border-radius: 1rem;
@@ -37,6 +44,14 @@ body {
   transition: all 0.2s;
 }
 
+.form-subtitle {
+  padding: 0 40px;
+  margin-bottom: 40px;
+  font-size: 18px;
+  color: #555;
+  text-align: center;
+}
+
 .form-label-group {
   position: relative;
   margin-bottom: 1rem;
@@ -50,6 +65,7 @@ body {
 .form-label-group>input,
 .form-label-group>label {
   padding: var(--input-padding-y) var(--input-padding-x);
+  cursor: text;
 }
 
 .form-label-group>label {
@@ -97,6 +113,17 @@ body {
   padding-bottom: calc(var(--input-padding-y) / 3);
   font-size: 12px;
   color: #777;
+}
+
+.form-links {
+  margin-top: 25px;
+  text-align: center;
+}
+
+.form-links a {
+  text-decoration: none;
+  color: #007bff;
+  font-size: 14px;
 }
 
 .btn-google {

@@ -22,6 +22,17 @@ class NativeQuery
     }
 	}
 
+	public function prepare($query, $data = [], $return = true)
+	{
+    $sql = $this->db->prepare($query);
+    $sql->execute($data);
+
+    if ($return) {
+      $sql->execute();
+      return $sql->fetchAll(\PDO::FETCH_OBJ);
+    }
+	}
+
 	public function insert($query, $data = [])
 	{
     $sql = $this->db->prepare($query);
@@ -128,7 +139,7 @@ class NativeQuery
     *
     * @param field : mixed : Field of the archive in the database
     * @param value : mixed : Value that i want compare with value in the database
-    * @return boolean or an array
+    * @return stdClass or an boolean
     */
 
 	public function findBy($field = null, $value = null)

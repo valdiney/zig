@@ -61,6 +61,14 @@ A Lucia tem um pequeno comercio e luta bravamente para mantê-lo! Porém, a Luci
   HOST_USERNAME=
   HOST_PASSWORD=
   HOST_DBNAME=syst
+  
+  MAIL_DRIVER=smtp
+  MAIL_HOST=
+  MAIL_PORT=587
+  MAIL_USERNAME=
+  MAIL_PASSWORD=
+  MAIL_ENCRYPTION=tls
+
 ```
 
 Tenha o composer instalado em sua máquina! Entre na pasta do projeto via linha de comando e execute

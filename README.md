@@ -20,7 +20,7 @@ A Lucia tem um pequeno comercio e luta bravamente para mantê-lo! Porém, a Luci
 </p>
 
 # Módulos
-- [x] Login no Sistema
+- [x] Login no Sistema e Recuperação de Senha
 - [x] Cadastro de Usuários
 - [x] Cadastro de Produtos
 - [x] Cadastro de Clientes

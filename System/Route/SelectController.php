@@ -136,8 +136,16 @@ class SelectController
   protected function takesSimilarRoutes(): array
   {
     // se rota for vazia, verifica se existe rot para vazio e adiciona uma barra
-    if ($this->routerAliases == '' && !isset($this->allRouters['']) && isset($this->allRouters['/'])) {
-      $this->routerAliases = '/';
+    if ($this->routerAliases == '') {
+      $blankRoute = array_filter($this->allRouters, function($route) {
+        return $route['alias'] == '';
+      });
+      $uniqueBarRoute = array_filter($this->allRouters, function($route) {
+        return $route['alias'] == '/';
+      });
+      if (!count($blankRoute) && count($uniqueBarRoute)) {
+        $this->routerAliases = '/';
+      }
     }
     $barsInActualRoute = substr_count($this->routerAliases, '/');
     // pega todas as rotas parecidas

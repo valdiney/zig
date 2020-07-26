@@ -46,14 +46,14 @@ class LoginController extends Controller
 			if ($usuario->userExist(['email' => $email, 'password' => $password])) {
 
 				# Grava o Log de Acessos
-		        $log = new LogAcesso();
-		        $dados = [];
-		        $dados['id_usuario'] = $dadosUsuario->id;
-		        $dados['id_empresa'] = $dadosUsuario->id_empresa;
-		        $log->save($dados);
+        $log = new LogAcesso();
+        $dados = [];
+        $dados['id_usuario'] = $dadosUsuario->id;
+        $dados['id_empresa'] = $dadosUsuario->id_empresa;
+        $log->save($dados);
 
-		        $perfil = new Perfil();
-		        $perfil = $perfil->find($dadosUsuario->id_perfil);
+        $perfil = new Perfil();
+        $perfil = $perfil->find($dadosUsuario->id_perfil);
 
 				# Coloca dados necessarios na sessão
 				Session::set('idUsuario', $dadosUsuario->id);
@@ -68,7 +68,7 @@ class LoginController extends Controller
 				return $this->get->redirectTo("home");
 			}
 
-            Session::flash('error', 'Usuário não encontrado!');
+      Session::flash('error', 'Usuário não encontrado!');
 			return $this->get->redirectTo("login");
 		}
 	}

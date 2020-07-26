@@ -47,9 +47,10 @@ class SelectController
   {
     $arrayExplode = explode('@', $controllerAndMethod);
 
-    $this->allRouters[$aliases] = [
+    $this->allRouters[] = [
       'controller' => $arrayExplode[0],
       'method'     => $arrayExplode[1],
+      'alias'      => $aliases,
       'type'       => $type,
     ];
   }
@@ -111,72 +112,126 @@ class SelectController
 
   public function run()
   {
-      // se rota for vazia, verifica se existe rot para vazio e adiciona uma barra
-      if ($this->routerAliases == '' && !isset($this->allRouters['']) && isset($this->allRouters['/'])) {
-        $this->routerAliases = '/';
-      }
-      // quanta a quantidade de barras na rota atual
-      $barsInActualRoute = substr_count($this->routerAliases, '/');
-      // pega todas as rotas parecidas
-      $similarRoutes = array_filter($this->allRouters, function ($data, $route) use($barsInActualRoute) {
-        // pra home
-        if ($route == '/') {
-          return $this->routerAliases == '/';
-        }
-        // rotas opcionais
-        if (preg_match('/\{(.*)\?\}/', $route)) {
-          return true;
-        }
-        return substr_count($route, '/') == $barsInActualRoute;
-      }, ARRAY_FILTER_USE_BOTH);
-      // busca por rotas com regex
-      $similarRoutes = array_map(function ($route, $data) {
-        if (preg_match_all("/\{([a-zA-Z0-9\?]+)\}/", $route, $matches)) {
-          $data['realRoute'] = $route;
-          $route = $this->manipulateRouteRegex($route, $matches);
-        }
-        $data['route'] = $route;
-        return $data;
-      }, array_keys($similarRoutes), $similarRoutes);
-      // busca a rota atual por regex
-      $similarRoutes = array_filter($similarRoutes, function ($data) {
-        $route = str_replace('/', '\/', $data['route']);
-        return preg_match("/^{$route}/", $this->routerAliases, $matches);
-      });
-      // pega os parametros da url se houverem
-      $similarRoutes = array_map(function ($data) {
-        $route = str_replace('/', '\/', $data['route']);
-        preg_match("/^{$route}/", $this->routerAliases, $match);
-        array_shift($match);
-        $data['data'] = $match;
-        return $data;
-      }, $similarRoutes);
-      // rota não encontrada
-      if (!count($similarRoutes)) {
-        require_once(__DIR__ . '/../../App/Views/Layouts/404.php');
-        exit;
-      }
-      // pega a primeira
-      $similarRoutes = current($similarRoutes);
-      $route = $similarRoutes['route'];
-      $data  = isset($similarRoutes['data'])? $similarRoutes['data']: [];
-      // a rota atual é um regex
-      if (isset($similarRoutes['realRoute'])) {
-        $route = $similarRoutes['realRoute'];
-      }
-      $route = $this->allRouters[$route];
-      // verifica tipo de rota
-      if ($route['type'] != $_SERVER['REQUEST_METHOD']) {
-        require_once(__DIR__ . '/../../App/Views/Layouts/405.php');
-        exit;
-      }
-      $controller = $route['controller'];
-      $method = $route['method'];
-      //
-      $this->instantiateController($controller, $method, $data);
+    $similarRoutes = $this->takesSimilarRoutes();
+    $similarRoutes = $this->takesRegexRoutes($similarRoutes);
+    $similarRoutes = $this->takesActualRouteByRegex($similarRoutes);
+    $similarRoutes = $this->takesRouteData($similarRoutes);
+    $similarRoutes = $this->takesRoutesSimilarToMethod($similarRoutes);
+
+    // pega a primeira rota
+    $actualRoute = current($similarRoutes);
+    $controller  = $actualRoute['controller'];
+    $method      = $actualRoute['method'];
+    $data        = isset($actualRoute['data'])? $actualRoute['data']: [];
+
+    $this->instantiateController($controller, $method, $data);
   }
 
-  protected function manipulateRouteRegex($route, $matches): string
+  /**
+   * Pega todas as rotas parecidas, ou seja,
+   * que possuem a mesma quantidade de barras.
+   *
+   * @return array
+   */
+  protected function takesSimilarRoutes(): array
+  {
+    // se rota for vazia, verifica se existe rot para vazio e adiciona uma barra
+    if ($this->routerAliases == '' && !isset($this->allRouters['']) && isset($this->allRouters['/'])) {
+      $this->routerAliases = '/';
+    }
+    $barsInActualRoute = substr_count($this->routerAliases, '/');
+    // pega todas as rotas parecidas
+    return array_filter($this->allRouters, function ($route) use ($barsInActualRoute) {
+      // pra home
+      if ($route['alias'] == '/') {
+        return $this->routerAliases == '/';
+      }
+      // rotas opcionais
+      if (preg_match('/\{(.*)\?\}/', $route['alias'])) {
+        return true;
+      }
+      return substr_count($route['alias'], '/') == $barsInActualRoute;
+    }, ARRAY_FILTER_USE_BOTH);
+  }
+
+  /**
+   * Pega por rotas com regex
+   *
+   * @param array $similarRoutes
+   * @return array
+   */
+  protected function takesRegexRoutes(array $similarRoutes): array
+  {
+    return array_map(function ($route) {
+      if (preg_match_all("/\{([a-zA-Z0-9\?]+)\}/", $route['alias'], $matches)) {
+        $route['realRoute'] = $route['alias'];
+        $route['alias'] = $this->manipulateRouteRegex($route['alias'], $matches);
+      }
+      $route['route'] = $route['alias'];
+      return $route;
+    }, $similarRoutes);
+  }
+
+  /**
+   * Pega a rota atual por regex
+   *
+   * @param array $similarRoutes
+   * @return array
+   */
+  protected function takesActualRouteByRegex(array $similarRoutes): array
+  {
+    $similarRoutes = array_filter($similarRoutes, function ($data) {
+      $route = str_replace('/', '\/', $data['route']);
+      return preg_match("/^{$route}/", $this->routerAliases, $matches);
+    });
+    // rota não encontrada
+    if (!count($similarRoutes)) {
+      require_once(__DIR__ . '/../../App/Views/Layouts/404.php');
+      exit;
+    }
+    return $similarRoutes;
+  }
+
+  /**
+   * Pega os parametros da url se houverem
+   *
+   * @param array $similarRoutes
+   * @return array
+   */
+  protected function takesRouteData(array $similarRoutes): array
+  {
+    return array_map(function ($data) {
+      $route = str_replace('/', '\/', $data['route']);
+      preg_match("/^{$route}/", $this->routerAliases, $match);
+      array_shift($match);
+      $data['data'] = $match;
+      return $data;
+    }, $similarRoutes);
+  }
+
+  /**
+   * Pega as rotas iguais ao HTTP_METHOD
+   *
+   * @param array $similarRoutes
+   * @return array
+   */
+  protected function takesRoutesSimilarToMethod(array $similarRoutes): array
+  {
+    $similarRoutes = array_filter($similarRoutes, function ($route) {
+      return $route['type'] == $_SERVER['REQUEST_METHOD'];
+    });
+    // verifica tipo de rota
+    if (!count($similarRoutes)) {
+      require_once(__DIR__ . '/../../App/Views/Layouts/405.php');
+      exit;
+    }
+    return $similarRoutes;
+  }
+
+  /**
+   * Manipula o regex das rotas
+   */
+  protected function manipulateRouteRegex(string $route, array $matches): string
   {
     foreach ($matches[0] as $regex) {
       $optional = false;

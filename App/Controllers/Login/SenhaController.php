@@ -103,7 +103,7 @@ class SenhaController extends Controller
       return $this->get->redirectTo("login/senha");
     }
 
-    Session::flash('sucess', 'Email enviado com sucesso!');
+    Session::flash('success', 'Verifique o seu Email!');
     return $this->get->redirectTo("login/senha");
   }
 

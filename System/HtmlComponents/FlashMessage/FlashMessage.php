@@ -21,7 +21,7 @@ class FlashMessage
 		    $html .= Session::getFlash('success');
 		    $html .= '</p>';
 		    echo $html;
-		    unset($_SESSION['flash_sucess']);
+		    unset($_SESSION['flash_success']);
 		}
 	}
 }

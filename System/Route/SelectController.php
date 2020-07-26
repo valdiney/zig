@@ -23,7 +23,7 @@ class SelectController
     '{id}' => '([0-9]{1,})', // rotas passando id: user/1
     '{slug}' => '([a-zA-z0-9_-]+)', // rotas passando slug: usuario/meu-nome-de-usuario
     '{id}-{slug}' => '([0-9]{1,})\-([a-zA-z0-9_-]+)', // rotas passando id e slug: produto/00001-meu-produto
-    '{any}' => '([a-zA-Z0-9-_\.]+)', // aceita qualquer parâmetro
+    '{any}' => '([a-zA-Z0-9-_\.\=\&\%\@\!\'\"\(\)\+\*\;\,]+)', // aceita qualquer parâmetro
   ];
 
   private $atual;

@@ -19,7 +19,8 @@
     <div class="col-md-4">
       <div class="form-group">
         <label for="id_cliente">Clientes *</label>
-        <select class="form-control" name="id_cliente" id="id_cliente">
+        <select class="form-control" name="id_cliente" id="id_cliente"
+        onchange="enderecoPorIdCliente(this.value);">
           <option value="selecione">Selecione</option>
           <?php foreach ($clientes as $cliente) : ?>
             <option value="<?php echo $cliente->id; ?>">
@@ -32,14 +33,9 @@
 
      <div class="col-md-4">
       <div class="form-group">
-        <label for="id_cliente">Endereços *</label>
-        <select class="form-control" name="id_cliente" id="id_cliente">
+        <label for="id_endereco">Endereços *</label>
+        <select class="form-control" name="id_endereco" id="id_endereco">
           <option value="selecione">Selecione</option>
-          <?php foreach ($clientes as $cliente) : ?>
-            <option value="<?php echo $cliente->id; ?>">
-              <?php echo $cliente->nome; ?>
-            </option>
-          <?php endforeach; ?>
         </select>
       </div>
     </div>
@@ -53,3 +49,27 @@
   </button>
 
 </form>
+
+<script>
+  function enderecoPorIdCliente(idCliente) {
+    var rota = getDomain()+"/pedido/enderecoPorIdCliente/"+idCliente;
+    $('#id_endereco').html("<option>Carregando...</option>");
+
+    $.get(rota, function(data, status) {
+      var enderecos = JSON.parse(data);
+      var options = false;
+
+      if (enderecos.length != 0) {
+        $('#id_endereco').empty();
+
+        $.each(enderecos, function(index, value) {
+          options += "<option value='"+value.id+"'>"+value.endereco+"</option>";
+        });
+
+        $('#id_endereco').append(options);
+      } else {
+        $('#id_endereco').html("<option value='selecione'>Não encontrado</option>");
+      }
+    });
+  }
+</script>

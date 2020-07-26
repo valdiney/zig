@@ -9,6 +9,7 @@ use App\Rules\Logged;
 use App\Models\Pedido;
 use App\Models\Usuario;
 use App\Models\Cliente;
+use App\Models\ClienteEndereco;
 
 class PedidoController extends Controller
 {
@@ -65,8 +66,6 @@ class PedidoController extends Controller
     $cliente = new Cliente();
     $clientes = $cliente->clientes($this->idEmpresa);
 
-
-
     $this->view('pedido/formulario', null,
       compact(
         'pedido',
@@ -74,4 +73,11 @@ class PedidoController extends Controller
         'clientes'
       ));
   }
+
+  public function enderecoPorIdCliente($idCliente)
+  {
+    $clienteEndereco = new ClienteEndereco();
+    echo json_encode($clienteEndereco->enderecos($idCliente));
+  }
 }
+

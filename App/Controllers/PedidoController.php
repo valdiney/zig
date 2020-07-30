@@ -10,6 +10,7 @@ use App\Models\Pedido;
 use App\Models\Usuario;
 use App\Models\Cliente;
 use App\Models\ClienteEndereco;
+use App\Models\Produto;
 
 class PedidoController extends Controller
 {
@@ -66,11 +67,15 @@ class PedidoController extends Controller
     $cliente = new Cliente();
     $clientes = $cliente->clientes($this->idEmpresa);
 
+    $produto = new Produto();
+    $produtos = $produto->produtos($this->idEmpresa);
+
     $this->view('pedido/formulario', null,
       compact(
         'pedido',
         'usuario',
-        'clientes'
+        'clientes',
+        'produtos'
       ));
   }
 
@@ -78,6 +83,12 @@ class PedidoController extends Controller
   {
     $clienteEndereco = new ClienteEndereco();
     echo json_encode($clienteEndereco->enderecos($idCliente));
+  }
+
+  public function produtoPorId($idProduto)
+  {
+    $produto = new Produto();
+    echo json_encode($produto->find($idProduto));
   }
 }
 

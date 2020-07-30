@@ -14,6 +14,8 @@ use App\Rules\Logged;
 
 use App\Rules\AcessoAoTipoDePdv;
 
+use App\Repositories\VendasEmSessaoRepository;
+
 class PdvDiferencialController extends Controller
 {
 	protected $post;
@@ -21,7 +23,8 @@ class PdvDiferencialController extends Controller
 	protected $layout;
 	protected $idEmpresa;
 	protected $idUsuario;
-	protected $idPerfilUsuarioLogado;
+  protected $idPerfilUsuarioLogado;
+  protected $vendasEmSessaoRepository;
 
 	public function __construct()
 	{
@@ -32,7 +35,9 @@ class PdvDiferencialController extends Controller
 		$this->get = new Get();
 		$this->idEmpresa = Session::get('idEmpresa');
 		$this->idUsuario = Session::get('idUsuario');
-		$this->idPerfilUsuarioLogado = Session::get('idPerfil');
+    $this->idPerfilUsuarioLogado = Session::get('idPerfil');
+
+    $this->vendasEmSessaoRepository = new VendasEmSessaoRepository();
 
 		$logged = new Logged();
 		$logged->isValid();
@@ -87,68 +92,26 @@ class PdvDiferencialController extends Controller
 
 	public function colocarProdutosNaMesa($idProduto)
 	{
-		if ($idProduto) {
-
-			if ( ! isset($_SESSION['venda'])) {
-				$_SESSION['venda'] = [];
-			}
-
-			if ( ! isset($_SESSION['venda'][$idProduto])) {
-
-				$produto = new Produto();
-				$produto = $produto->find($idProduto);
-
-				$_SESSION['venda'][$idProduto] = [
-					'id' => $idProduto,
-					'produto' => $produto->nome,
-					'preco' => $produto->preco,
-					'imagem' => $produto->imagem,
-					'quantidade' => 1,
-					'total' => $produto->preco
-				];
-			}
-		}
-
-		echo json_encode($_SESSION['venda']);
+		return $this->vendasEmSessaoRepository->colocarProdutosNaMesa($idProduto);
 	}
 
 	public function obterProdutosDaMesa($posicaoProduto)
 	{
-		if (isset($_SESSION['venda'])) {
-			if ($posicaoProduto && $posicaoProduto == 'ultimo') {
-				echo json_encode(end($_SESSION['venda']));
-			} else {
-				echo json_encode($_SESSION['venda']);
-			}
-		} else {
-			echo json_encode([]);
-		}
+		echo $this->vendasEmSessaoRepository->obterProdutosDaMesa($posicaoProduto);
 	}
 
 	public function alterarAquantidadeDeUmProdutoNaMesa($idProduto, $quantidade)
 	{
-		if (isset($_SESSION['venda'])) {
-			$_SESSION['venda'][$idProduto]['quantidade'] = $quantidade;
-			$_SESSION['venda'][$idProduto]['total'] = $quantidade * $_SESSION['venda'][$idProduto]['preco'];
-		}
+		$this->vendasEmSessaoRepository->alterarAquantidadeDeUmProdutoNaMesa($idProduto, $quantidade);
 	}
 
 	public function retirarProdutoDaMesa($idProduto)
 	{
-		if (isset($_SESSION['venda'])) {
-			unset($_SESSION['venda'][$idProduto]);
-		}
+		$this->vendasEmSessaoRepository->retirarProdutoDaMesa($idProduto);
 	}
 
 	public function obterValorTotalDosProdutosNaMesa()
 	{
-		$total = 0;
-		if (isset($_SESSION['venda'])) {
-		  foreach($_SESSION['venda'] as $produto) {
-		    $total += $produto['total'];
-		  }
-		}
-
-    echo json_encode(['total' => $total]);
+		echo $this->vendasEmSessaoRepository->obterValorTotalDosProdutosNaMesa();
 	}
 }

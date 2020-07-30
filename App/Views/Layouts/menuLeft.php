@@ -1,4 +1,4 @@
-<?php 
+<?php
 use System\Session\Session;
 use App\Config\ConfigPerfil;
 ?>
@@ -13,28 +13,28 @@ use App\Config\ConfigPerfil;
         <p>Inicio</p>
       </a>
     </li>
-    
+
     <!--Modulo PDV Padrão e Diferencial-->
       <li class="">
         <!--Modulo Relatórios-->
         <?php if ($configPdv->id_tipo_pdv == 1):?>
-            <a href="<?php echo BASEURL;?>/pdvPadrao" 
+            <a href="<?php echo BASEURL;?>/pdvPadrao"
               class="<?php currentRouteFromMenu('pdvPadrao', 'pdvBorder');?>">
               <i class="fas fa-coins"></i>
               <p>PDV <small style="float:right;opacity:0.50">Padrão</small></p>
             </a>
          <?php elseif($configPdv->id_tipo_pdv == 2):?>
-            <a href="<?php echo BASEURL;?>/pdvDiferencial" 
+            <a href="<?php echo BASEURL;?>/pdvDiferencial"
               class="<?php currentRouteFromMenu('pdvDiferencial', 'pdvBorder');?>">
               <i class="fas fa-coins"></i>
               <p>PDV <small style="float:right;opacity:0.50">Diferencial</small></p>
             </a>
          <?php endif;?>
       </li>
-    
+
       <?php if (Session::get('idPerfil') != ConfigPerfil::vendedor()):?>
         <li class="">
-          <a href="<?php echo BASEURL;?>/produto" 
+          <a href="<?php echo BASEURL;?>/produto"
             class="<?php currentRouteFromMenu('produto', 'produtoBorder');?>">
             <i class="fab fa-product-hunt"></i>
             <p>Produtos</p>
@@ -42,29 +42,29 @@ use App\Config\ConfigPerfil;
         </li>
       <?php endif;?>
 
-  
+
       <li class="">
-        <a href="<?php echo BASEURL;?>/cliente" 
+        <a href="<?php echo BASEURL;?>/cliente"
           class="<?php currentRouteFromMenu('cliente', 'clienteBorder');?>
           <?php currentRouteFromMenu('clienteEndereco', 'clienteBorder');?>">
           <i class="fas fa-user-tie"></i>
           <p>Clientes</p>
         </a>
       </li>
-    
-  
+
+
       <li class="">
-        <a href="<?php echo BASEURL;?>/pedido" 
-          class="<?php currentRouteFromMenu('pedido', 'pedidoBorder');?> disabled">
+        <a href="<?php echo BASEURL;?>/pedido"
+          class="<?php currentRouteFromMenu('pedido', 'pedidoBorder');?>">
           <i class="fas fa-shopping-basket"></i>
-          <p>Pedidos <small style="float:right;opacity:0.50">Em breve</small></p>
+          <p>Pedidos</p>
         </a>
       </li>
-  
+
     <?php if (Session::get('idPerfil') != ConfigPerfil::vendedor()):?>
       <li class="">
-        <a href="<?php echo BASEURL;?>/relatorio/vendasPorPeriodo" 
-          class="<?php currentRouteFromMenu('relatorio', 'relatorioBorder');?> 
+        <a href="<?php echo BASEURL;?>/relatorio/vendasPorPeriodo"
+          class="<?php currentRouteFromMenu('relatorio', 'relatorioBorder');?>
           <?php currentRouteFromMenu('relatorio/vendasPorPeriodo', 'relatorioBorder');?>">
           <i class="fas fa-file-invoice-dollar"></i>
           <p>Relatórios</p>

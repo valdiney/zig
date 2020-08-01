@@ -85,10 +85,20 @@ class PedidoController extends Controller
     echo json_encode($clienteEndereco->enderecos($idCliente));
   }
 
-  public function produtoPorId($idProduto)
+  public function produtoPorId($idProduto, $quantidade)
   {
     $produto = new Produto();
-    echo json_encode($produto->find($idProduto));
+    $produto = $produto->find($idProduto);
+
+    //dd($quantidade);
+
+    echo json_encode([
+      'id' => $produto->id,
+      'nome' => $produto->nome,
+      'imagem' => $produto->imagem,
+      'quantidade' => $quantidade,
+      'total' => (float) $produto->preco * (float) $quantidade
+    ]);
   }
 }
 

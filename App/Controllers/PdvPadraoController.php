@@ -37,8 +37,8 @@ class PdvPadraoController extends Controller
 
 		$logged = new Logged();
 		$logged->isValid();
-        
-        $acessoAoTipoDePdv = new AcessoAoTipoDePdv();
+
+    $acessoAoTipoDePdv = new AcessoAoTipoDePdv();
 		$acessoAoTipoDePdv->validate();
 	}
 
@@ -63,9 +63,9 @@ class PdvPadraoController extends Controller
 		$usuario = new Usuario();
 		$usuarios = $usuario->usuarios($this->idEmpresa, $this->idPerfilUsuarioLogado);
 
-		$this->view('pdv/padrao', $this->layout, 
+		$this->view('pdv/padrao', $this->layout,
 			compact(
-				'vendasGeralDoDia', 
+				'vendasGeralDoDia',
 				'meiosPagamentos',
 				'usuarios',
 				'totalVendasNoDia',
@@ -79,18 +79,18 @@ class PdvPadraoController extends Controller
 		if ($this->post->hasPost()) {
 			$dados = (array) $this->post->data();
 			$dados['id_empresa'] = $this->idEmpresa;
-            
-            # Preparar o valor da moeda para ser armazenado
-		    $dados['valor'] = formataValorMoedaParaGravacao($dados['valor']);
-		    
-		    try {
-		    	$venda = new Venda();
+
+      # Preparar o valor da moeda para ser armazenado
+		  $dados['valor'] = formataValorMoedaParaGravacao($dados['valor']);
+
+		  try {
+		    $venda = new Venda();
 				$venda->save($dados);
 				return $this->get->redirectTo("pdvPadrao");
 
-			} catch(\Exception $e) { 
-			    dd($e->getMessage());
-		    }
-	    }
+			} catch(\Exception $e) {
+			  dd($e->getMessage());
+		  }
+	  }
 	}
 }

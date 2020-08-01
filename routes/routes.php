@@ -87,7 +87,7 @@ $route->get('clienteEndereco/modalVisualizarEnderecos/{idCliente}',
 $route->get('pedido', 'PedidoController@index');
 $route->get('pedido/modalFormulario/{idPedido?}', 'PedidoController@modalFormulario');
 $route->get('pedido/enderecoPorIdCliente/{idCliente?}', 'PedidoController@enderecoPorIdCliente');
-$route->get('pedido/produto/{idProduto}', 'PedidoController@produtoPorId');
+$route->get('pedido/produto/{idProduto}/{quantidade}', 'PedidoController@produtoPorId');
 
 $route->get('pwa/login', 'Api\InicioPwaController@index');
 $route->post('pwa/logar', 'Api\LoginController@logar');

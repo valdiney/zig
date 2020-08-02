@@ -44,7 +44,7 @@ class PedidoController extends Controller
 
 	public function save()
 	{
-		# Escreva aqui...
+		echo json_encode(['teste' => $this->post->data()]);
 	}
 
 	public function update()
@@ -89,8 +89,6 @@ class PedidoController extends Controller
   {
     $produto = new Produto();
     $produto = $produto->find($idProduto);
-
-    //dd($quantidade);
 
     echo json_encode([
       'id' => $produto->id,

@@ -209,14 +209,16 @@
   <!--end row-->
 
   <button type="submit" class="btn btn-success btn-sm button-salvar-empresa"
-  style="float:right">
+  style="float:right" onclick="return savePedidos()">
     <i class="fas fa-save"></i> Salvar
   </button>
 
 </form>
 
 <script>
-  var arrayPedidosValor = [];
+  var arrayValorTotalDosProdutosSelecionados = [];
+  var arrayIdDosProdutosSelecionados = [];
+
   function enderecoPorIdCliente(idCliente) {
     var rota = getDomain()+"/pedido/enderecoPorIdCliente/"+idCliente;
     $('#id_endereco').html("<option>Carregando...</option>");
@@ -247,11 +249,11 @@
       var t = "";
 
       if (produto.length != 0) {
-        t += "<tr id='id-tr-"+produto.id+"'>";
+        t += "<tr id='id-tr-"+produto.id+"' data-produto-id="+produto.id+">";
         t += "<td>"+'<img class="img-produto-seleionado" src="'+getDomain()+'/'+produto.imagem+'">'+"</td>";
         t += "<td>"+produto.nome+"</td>";
         t += "<td>"+'<input type="number" class="campo-quantidade" value="'+produto.quantidade+'" onchange="alterarAquantidadeDeUmProdutoNaMesa('+produto.id+', this.value)">'+"</td>";
-        t += "<td class='total-cada-produto' data-valor-produto="+produto.total+">"+real(produto.total)+"</td>";
+        t += "<td class='total-cada-produto' data-valor-produto="+produto.total+" data-produto-id="+produto.id+">"+real(produto.total)+"</td>";
         t += "<td>"+'<button class="btn-sm btn-link" onclick="retirarProdutoDaMesa('+produto.id+', this)"><i class="fas fa-times" style="color:#cc0000;font-size:18px"></i></button>'+"</td>";
         t += "</tr>";
       }
@@ -264,14 +266,35 @@
 
   function totalCadaProduto() {
     $(".total-cada-produto").each(function(item, elemento) {
-      arrayPedidosValor.push(Number(elemento.dataset.valorProduto));
+      arrayValorTotalDosProdutosSelecionados.push(Number(elemento.dataset.valorProduto));
+
+      if ( ! arrayIdDosProdutosSelecionados.includes(elemento.dataset.produtoId)) {
+        arrayIdDosProdutosSelecionados.push(elemento.dataset.produtoId);
+        console.log(elemento.dataset.produtoId);
+      }
+
     });
 
     var total = 0;
-    for (var i in arrayPedidosValor) {
-      total += arrayPedidosValor[i];
+    for (var i in arrayValorTotalDosProdutosSelecionados) {
+      total += arrayValorTotalDosProdutosSelecionados[i];
     }
 
     $("#total-geral").html(real(total));
+  }
+
+  function savePedidos() {
+    //console.log(arrayIdDosProdutosSelecionados);
+    //return false;
+    var rota = getDomain()+"/pedido/save";
+    $.post(rota, {
+      'idDosProdutos': arrayIdDosProdutosSelecionados,
+      '_token': '<?php echo TOKEN; ?>'
+      }, function(resultado) {
+      console.log(resultado);
+
+    })
+
+    return false;
   }
 </script>

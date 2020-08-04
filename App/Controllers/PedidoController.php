@@ -11,6 +11,7 @@ use App\Models\Usuario;
 use App\Models\Cliente;
 use App\Models\ClienteEndereco;
 use App\Models\Produto;
+use App\Models\MeioPagamento;
 
 class PedidoController extends Controller
 {
@@ -70,12 +71,16 @@ class PedidoController extends Controller
     $produto = new Produto();
     $produtos = $produto->produtos($this->idEmpresa);
 
+    $meioPagamento = new MeioPagamento();
+    $meiosPagamentos = $meioPagamento->all();
+
     $this->view('pedido/formulario', null,
       compact(
         'pedido',
         'usuario',
         'clientes',
-        'produtos'
+        'produtos',
+        'meiosPagamentos'
       ));
   }
 

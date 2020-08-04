@@ -123,9 +123,10 @@
 
     <div class="col-md-4">
       <div class="form-group">
-        <label for="nome">Vendedor *</label>
-        <input type="text" class="form-control" name="nome" id="nome" placeholder="Digite aqui..."
-        value="<?php echo $usuario->nome;?>" disabled>
+        <label for=id_vendedor">Vendedor *</label>
+        <select class="form-control" name="id_vendedor" id="id_vendedor" disabled>
+          <option value="<?php echo $usuario->id;?>"><?php echo $usuario->nome;?></option>
+        </select>
       </div>
     </div>
 
@@ -146,8 +147,8 @@
 
      <div class="col-md-4">
       <div class="form-group">
-        <label for="id_endereco">Endereços *</label>
-        <select class="form-control" name="id_endereco" id="id_endereco">
+        <label for="id_cliente_endereco">Endereços *</label>
+        <select class="form-control" name="id_cliente_endereco" id="id_cliente_endereco">
           <option value="selecione">Selecione</option>
         </select>
       </div>
@@ -201,16 +202,63 @@
           <tbody>
           </tbody>
        </table>
-       <div class="col-md-12">
-          <span id="total-geral" style="float:right"><b>Total:</b> R$ 00,00</span>
-       </div>
     </div>
   </div>
   <!--end row-->
 
+  <div class="row">
+  <div class="col-md-3">
+      <div class="form-group">
+        <label for="id_meio_pagamento">Forma Pagamento *</label>
+        <select class="form-control" name="id_meio_pagamento" id="id_meio_pagamento">
+          <option value="selecione">Selecione</option>
+          <?php foreach ($meiosPagamentos as $meiosPagamento) : ?>
+            <option value="<?php echo $meiosPagamento->id; ?>">
+              <?php echo $meiosPagamento->legenda; ?>
+            </option>
+          <?php endforeach; ?>
+        </select>
+      </div>
+    </div>
+
+    <div class="col-md-3">
+      <div class="form-group">
+        <label for="valor_desconto">Valor Desconto</label>
+        <input type="text" class="form-control" name="valor_desconto" id="valor_desconto" placeholder="Desconto...">
+      </div>
+    </div>
+
+    <div class="col-md-3">
+      <div class="form-group">
+        <label for="valor_frete">Valor Frete</label>
+        <input type="text" class="form-control" name="valor_frete" id="valor_frete" placeholder="Frete...">
+      </div>
+    </div>
+
+    <div class="col-md-3">
+      <div class="form-group">
+        <label for="previsao_entrega">Previsão de entrega</label>
+        <input type="text" class="form-control" name="previsao_entrega" id="previsao_entrega">
+      </div>
+    </div>
+  </div>
+  <!--end row-->
+  <br>
+  <br>
+  <div class="row">
+    <div class="col-md-12">
+      <span id="total-geral" style="float:right"><b>Total:</b> R$ 00,00</span>
+    </div>
+  </div>
+
   <button type="submit" class="btn btn-success btn-sm button-salvar-empresa"
   style="float:right" onclick="return savePedidos()">
     <i class="fas fa-save"></i> Salvar
+  </button>
+
+  <button type="submit" class="btn btn-warning btn-sm"
+  style="float:right">
+    <i class="fas fa-undo-alt"></i> Cancelar
   </button>
 
 </form>
@@ -221,22 +269,22 @@
 
   function enderecoPorIdCliente(idCliente) {
     var rota = getDomain()+"/pedido/enderecoPorIdCliente/"+idCliente;
-    $('#id_endereco').html("<option>Carregando...</option>");
+    $('#id_cliente_endereco').html("<option>Carregando...</option>");
 
     $.get(rota, function(data, status) {
       var enderecos = JSON.parse(data);
       var options = false;
 
       if (enderecos.length != 0) {
-        $('#id_endereco').empty();
+        $('#id_cliente_endereco').empty();
 
         $.each(enderecos, function(index, value) {
           options += "<option value='"+value.id+"'>"+value.endereco+"</option>";
         });
 
-        $('#id_endereco').append(options);
+        $('#id_cliente_endereco').append(options);
       } else {
-        $('#id_endereco').html("<option value='selecione'>Não encontrado</option>");
+        $('#id_cliente_endereco').html("<option value='selecione'>Não encontrado</option>");
       }
     });
   }
@@ -289,7 +337,15 @@
     var rota = getDomain()+"/pedido/save";
     $.post(rota, {
       'idDosProdutos': arrayIdDosProdutosSelecionados,
-      '_token': '<?php echo TOKEN; ?>'
+      '_token': '<?php echo TOKEN; ?>',
+      'id_vendedor': $("#id_vendedor").val(),
+      'id_cliente': $("#id_cliente").val(),
+      'id_cliente_endereco': $("#id_cliente_endereco").val(),
+      'id_meio_pagamento': $("#id_meio_pagamento").val(),
+      'valor_desconto': $("#valor_desconto").val(),
+      'valor_frete': $("#valor_frete").val(),
+      'valor_desconto': $("#valor_desconto").val(),
+      'previsao_entrega': $("#previsao_entrega").val()
       }, function(resultado) {
       console.log(resultado);
 

@@ -3,7 +3,7 @@ namespace App\Models;
 
 use System\Model\Model;
 
-class Perdido extends Model
+class Pedido extends Model
 {
     protected $table = 'pedidos';
     protected $timestamps = true;

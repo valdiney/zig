@@ -110,6 +110,9 @@
     .div-inter-produtos::-webkit-input-placeholder {
         color: #8198ac;
     }
+    .table-produtos {
+      border:1px solid red!important;
+    }
 </style>
 <form method="post" action="<?php echo isset($pedido->id) ? BASEURL . '/pedido/update' : BASEURL . '/pedido/save'; ?>" enctype='multipart/form-data'>
   <!-- token de segurança -->
@@ -188,7 +191,7 @@
   <!--end row-->
 
   <div class="row">
-    <div class="col-md-12">
+    <div class="col-md-12 table-produtos">
        <table class="table table tabela-ajustada tabela-de-produto table-striped">
           <thead>
             <tr>
@@ -266,6 +269,7 @@
 <script>
   var arrayValorTotalDosProdutosSelecionados = [];
   var arrayIdDosProdutosSelecionados = [];
+  var valorTotalDoPedido = 0;
 
   function enderecoPorIdCliente(idCliente) {
     var rota = getDomain()+"/pedido/enderecoPorIdCliente/"+idCliente;
@@ -318,7 +322,7 @@
 
       if ( ! arrayIdDosProdutosSelecionados.includes(elemento.dataset.produtoId)) {
         arrayIdDosProdutosSelecionados.push(elemento.dataset.produtoId);
-        console.log(elemento.dataset.produtoId);
+        //console.log(elemento.dataset.produtoId);
       }
 
     });
@@ -328,6 +332,7 @@
       total += arrayValorTotalDosProdutosSelecionados[i];
     }
 
+    valorTotalDoPedido = total;
     $("#total-geral").html(real(total));
   }
 
@@ -342,12 +347,12 @@
       'id_cliente': $("#id_cliente").val(),
       'id_cliente_endereco': $("#id_cliente_endereco").val(),
       'id_meio_pagamento': $("#id_meio_pagamento").val(),
-      'valor_desconto': $("#valor_desconto").val(),
       'valor_frete': $("#valor_frete").val(),
       'valor_desconto': $("#valor_desconto").val(),
-      'previsao_entrega': $("#previsao_entrega").val()
+      'previsao_entrega': $("#previsao_entrega").val(),
+      'total': valorTotalDoPedido
       }, function(resultado) {
-      console.log(resultado);
+      //console.log(resultado);
 
     })
 

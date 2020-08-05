@@ -12,6 +12,7 @@ use App\Models\Cliente;
 use App\Models\ClienteEndereco;
 use App\Models\Produto;
 use App\Models\MeioPagamento;
+use App\Models\ProdutoPedido;
 
 class PedidoController extends Controller
 {
@@ -45,8 +46,42 @@ class PedidoController extends Controller
 
 	public function save()
 	{
-		echo json_encode(['teste' => $this->post->data()]);
-	}
+    if ($this->post->hasPost()) {
+      $pedido = new Pedido();
+
+      $dadosPedido = (array) $this->post->only([
+        'id_vendedor', 'id_cliente', 'id_meio_pagamento',
+        'id_cliente_endereco', 'valor_desconto', 'valor_frete',
+        'previsao_entrega', 'total'
+      ]);
+
+      $dadosPedido['id_empresa'] = $this->idEmpresa;
+      $dadosPedido['id_situacao_pedido'] = 1;
+
+      try {
+				$pedido->save($dadosPedido);
+
+			} catch(\Exception $e) {
+    		dd($e->getMessage());
+      }
+
+      try {
+        foreach ($_POST['idDosProdutos'] as $id) {
+          $produtoPedido = new ProdutoPedido();
+          $dados['id_pedido'] = $pedido->lastId();
+          $dados['id_produto'] = $id;
+
+          $produtoPedido->save($dados);
+        }
+
+        echo json_encode(['status' => true]);
+
+      } catch(\Exception $e) {
+        echo json_encode(['status' => false]);
+    		dd($e->getMessage());
+      }
+    }
+  }
 
 	public function update()
 	{

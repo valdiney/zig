@@ -1,3 +1,4 @@
+
 <style>
 .destaque1 {
   border:1px solid #e9ecef!important;
@@ -305,7 +306,7 @@
         t += "<td>"+'<img class="img-produto-seleionado" src="'+getDomain()+'/'+produto.imagem+'">'+"</td>";
         t += "<td>"+produto.nome+"</td>";
         t += "<td>"+'<input type="number" class="campo-quantidade" value="'+produto.quantidade+'" onchange="alterarAquantidadeDeUmProdutoNaMesa('+produto.id+', this.value)">'+"</td>";
-        t += "<td class='total-cada-produto' data-valor-produto="+produto.total+" data-produto-id="+produto.id+">"+real(produto.total)+"</td>";
+        t += "<td class='total-cada-produto' data-valor-produto="+produto.subTotal+" data-produto-id="+produto.id+">"+real(produto.total)+"</td>";
         t += "<td>"+'<button class="btn-sm btn-link" onclick="retirarProdutoDaMesa('+produto.id+', this)"><i class="fas fa-times" style="color:#cc0000;font-size:18px"></i></button>'+"</td>";
         t += "</tr>";
       }

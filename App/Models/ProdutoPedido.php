@@ -19,4 +19,34 @@ class ProdutoPedido extends Model
       "SELECT * FROM produtos WHERE id_empresa = {$idEmpresa}"
     );
   }
+
+  public function adicionarProdutoNoPedido($produto, $quantidade, $idVendedor)
+  {
+    if ( ! isset($_SESSION['itensPedido'])) {
+      $_SESSION['itensPedido'][$idVendedor] = [];
+    }
+
+    if ( ! isset($_SESSION['itensPedido'][$idVendedor][$produto->id])) {
+      $_SESSION['itensPedido'][$idVendedor][$produto->id] = [
+        'id' => $produto->id,
+        'nome' => $produto->nome,
+        'imagem' => $produto->imagem,
+        'quantidade' => $quantidade,
+        'preco' => $produto->preco,
+        'subTotal' => (float) $produto->preco * (float) $quantidade
+      ];
+    }
+
+    return $_SESSION['itensPedido'];
+  }
+
+  public function produtosAdicionadosPorIdProdutoEIdVendedor($idProduto, $idVendedor)
+  {
+    return $_SESSION['itensPedido'][$idVendedor][$idProduto];
+  }
+
+  public function retornaProdutoAdicionado($idVendedor)
+  {
+    return end($_SESSION['itensPedido'][$idVendedor]);
+  }
 }

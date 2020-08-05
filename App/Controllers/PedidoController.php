@@ -48,6 +48,7 @@ class PedidoController extends Controller
 	{
     if ($this->post->hasPost()) {
       $pedido = new Pedido();
+      $produtoPedido = new ProdutoPedido();
 
       $dadosPedido = (array) $this->post->only([
         'id_vendedor', 'id_cliente', 'id_meio_pagamento',
@@ -68,8 +69,13 @@ class PedidoController extends Controller
       try {
         foreach ($_POST['idDosProdutos'] as $id) {
           $produtoPedido = new ProdutoPedido();
+          $produto = $produtoPedido->produtosAdicionadosPorIdProdutoEIdVendedor($id, $this->idPerfilUsuarioLogado);
+
           $dados['id_pedido'] = $pedido->lastId();
-          $dados['id_produto'] = $id;
+          $dados['id_produto'] = $produto['id'];
+          $dados['preco'] = $produto['preco'];
+          $dados['quantidade'] = $produto['quantidade'];
+          $dados['subtotal'] = $produto['subTotal'];
 
           $produtoPedido->save($dados);
         }
@@ -130,13 +136,22 @@ class PedidoController extends Controller
     $produto = new Produto();
     $produto = $produto->find($idProduto);
 
-    echo json_encode([
-      'id' => $produto->id,
-      'nome' => $produto->nome,
-      'imagem' => $produto->imagem,
-      'quantidade' => $quantidade,
-      'total' => (float) $produto->preco * (float) $quantidade
-    ]);
+    # Adiciona Produto na sessao
+    $produtoPedido = new ProdutoPedido();
+    $produtoPedido->adicionarProdutoNoPedido(
+      $produto,
+      $quantidade,
+      $this->idPerfilUsuarioLogado
+    );
+
+    # Retorna o Produto Adicionado
+    echo json_encode($produtoPedido->retornaProdutoAdicionado($this->idPerfilUsuarioLogado));
+  }
+
+  public function teste()
+  {
+    unset($_SESSION['itensPedido']);
+    dd($_SESSION['itensPedido']);
   }
 }
 

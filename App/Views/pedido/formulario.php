@@ -306,7 +306,7 @@
         t += "<td>"+'<img class="img-produto-seleionado" src="'+getDomain()+'/'+produto.imagem+'">'+"</td>";
         t += "<td>"+produto.nome+"</td>";
         t += "<td>"+'<input type="number" class="campo-quantidade" value="'+produto.quantidade+'" onchange="alterarAquantidadeDeUmProdutoNaMesa('+produto.id+', this.value)">'+"</td>";
-        t += "<td class='total-cada-produto' data-valor-produto="+produto.subTotal+" data-produto-id="+produto.id+">"+real(produto.total)+"</td>";
+        t += "<td class='total-cada-produto' data-valor-produto="+produto.subTotal+" data-produto-id="+produto.id+">"+real(produto.subTotal)+"</td>";
         t += "<td>"+'<button class="btn-sm btn-link" onclick="retirarProdutoDaMesa('+produto.id+', this)"><i class="fas fa-times" style="color:#cc0000;font-size:18px"></i></button>'+"</td>";
         t += "</tr>";
       }
@@ -323,7 +323,6 @@
 
       if ( ! arrayIdDosProdutosSelecionados.includes(elemento.dataset.produtoId)) {
         arrayIdDosProdutosSelecionados.push(elemento.dataset.produtoId);
-        //console.log(elemento.dataset.produtoId);
       }
 
     });
@@ -338,8 +337,6 @@
   }
 
   function savePedidos() {
-    //console.log(arrayIdDosProdutosSelecionados);
-    //return false;
     var rota = getDomain()+"/pedido/save";
     $.post(rota, {
       'idDosProdutos': arrayIdDosProdutosSelecionados,
@@ -353,8 +350,12 @@
       'previsao_entrega': $("#previsao_entrega").val(),
       'total': valorTotalDoPedido
       }, function(resultado) {
-      //console.log(resultado);
+        var retorno = JSON.parse(resultado);
+        if (retorno.status == true) {
+          location.reload();
+        }
 
+        console.log(resultado);
     })
 
     return false;

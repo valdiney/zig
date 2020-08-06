@@ -41,7 +41,10 @@ class PedidoController extends Controller
 
 	public function index()
 	{
-		$this->view('pedido/index', $this->layout);
+    $pedido = new Pedido();
+    $pedidos = $pedido->pedidos($this->idUsuarioLogado);
+
+		$this->view('pedido/index', $this->layout, compact('pedidos'));
 	}
 
 	public function save()
@@ -56,6 +59,7 @@ class PedidoController extends Controller
         'previsao_entrega', 'total'
       ]);
 
+      $dadosPedido['previsao_entrega'] = date('Y-m-d', strtotime($dadosPedido['previsao_entrega']));
       $dadosPedido['id_empresa'] = $this->idEmpresa;
       $dadosPedido['id_situacao_pedido'] = 1;
 
@@ -81,9 +85,11 @@ class PedidoController extends Controller
         }
 
         echo json_encode(['status' => true]);
+        unset($_SESSION['itensPedido']);
 
       } catch(\Exception $e) {
         echo json_encode(['status' => false]);
+        unset($_SESSION['itensPedido']);
     		dd($e->getMessage());
       }
     }

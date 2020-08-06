@@ -112,7 +112,9 @@
         color: #8198ac;
     }
     .table-produtos {
-      border:1px solid red!important;
+      border:1px solid #6bd098!important;
+      border-left:0!important;
+      border-right:0!important
     }
 </style>
 <form method="post" action="<?php echo isset($pedido->id) ? BASEURL . '/pedido/update' : BASEURL . '/pedido/save'; ?>" enctype='multipart/form-data'>
@@ -210,6 +212,8 @@
   </div>
   <!--end row-->
 
+  <br>
+
   <div class="row">
   <div class="col-md-3">
       <div class="form-group">
@@ -227,22 +231,22 @@
 
     <div class="col-md-3">
       <div class="form-group">
-        <label for="valor_desconto">Valor Desconto</label>
-        <input type="text" class="form-control" name="valor_desconto" id="valor_desconto" placeholder="Desconto...">
+        <label for="valor_desconto">R$ Desconto</label>
+        <input type="text" class="form-control campo-moeda" name="valor_desconto" id="valor_desconto" placeholder="Desconto...">
       </div>
     </div>
 
     <div class="col-md-3">
       <div class="form-group">
-        <label for="valor_frete">Valor Frete</label>
-        <input type="text" class="form-control" name="valor_frete" id="valor_frete" placeholder="Frete...">
+        <label for="valor_frete">R$ Frete</label>
+        <input type="text" class="form-control campo-moeda" name="valor_frete" id="valor_frete" placeholder="Frete...">
       </div>
     </div>
 
     <div class="col-md-3">
       <div class="form-group">
         <label for="previsao_entrega">Previsão de entrega</label>
-        <input type="text" class="form-control" name="previsao_entrega" id="previsao_entrega">
+        <input type="date" class="form-control" name="previsao_entrega" id="previsao_entrega">
       </div>
     </div>
   </div>
@@ -268,6 +272,16 @@
 </form>
 
 <script>
+  $(function() {
+    jQuery('.campo-moeda')
+    .maskMoney({
+      prefix:'R$ ',
+      allowNegative: false,
+      thousands:'.', decimal:',',
+      affixesStay: false
+    });
+  });
+
   var arrayValorTotalDosProdutosSelecionados = [];
   var arrayIdDosProdutosSelecionados = [];
   var valorTotalDoPedido = 0;

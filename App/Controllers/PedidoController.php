@@ -59,9 +59,17 @@ class PedidoController extends Controller
         'previsao_entrega', 'total'
       ]);
 
+      $dadosPedido['valor_desconto'] = formataValorMoedaParaGravacao($dadosPedido['valor_desconto']);
+      $dadosPedido['valor_frete'] = formataValorMoedaParaGravacao($dadosPedido['valor_frete']);
       $dadosPedido['previsao_entrega'] = date('Y-m-d', strtotime($dadosPedido['previsao_entrega']));
       $dadosPedido['id_empresa'] = $this->idEmpresa;
       $dadosPedido['id_situacao_pedido'] = 1;
+
+      /**
+      * Calcula o valor total do pedido levendo-se em concideração
+      * o valor do desconto e valor do frete
+      */
+      $dadosPedido['total'] = $pedido->valorTotalDoPedido($dadosPedido);
 
       try {
 				$pedido->save($dadosPedido);

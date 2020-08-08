@@ -162,6 +162,21 @@ class PedidoController extends Controller
     echo json_encode($produtoPedido->retornaProdutoAdicionado($this->idPerfilUsuarioLogado));
   }
 
+  public function retirarProdutoDoPedido($idProduto)
+  {
+    $produto = new Produto();
+    $produto = $produto->find($idProduto);
+
+    $produtoPedido = new ProdutoPedido();
+    $retirado = $produtoPedido->retirarProdutoDoPedido($produto, $this->idPerfilUsuarioLogado);
+
+    if ($retirado) {
+      echo json_decode("status", true);
+    } else {
+      echo json_decode("status", false);
+    }
+  }
+
   public function teste()
   {
     unset($_SESSION['itensPedido']);

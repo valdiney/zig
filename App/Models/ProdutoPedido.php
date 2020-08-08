@@ -40,6 +40,16 @@ class ProdutoPedido extends Model
     return $_SESSION['itensPedido'];
   }
 
+  public function retirarProdutoDoPedido($produto, $idVendedor)
+  {
+    if (isset($_SESSION['itensPedido'][$idVendedor][$produto->id])) {
+      unset($_SESSION['itensPedido'][$idVendedor][$produto->id]);
+      return true;
+    }
+
+    return false;
+  }
+
   public function produtosAdicionadosPorIdProdutoEIdVendedor($idProduto, $idVendedor)
   {
     return $_SESSION['itensPedido'][$idVendedor][$idProduto];

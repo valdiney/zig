@@ -117,7 +117,7 @@
       border-right:0!important
     }
 </style>
-<form method="post" action="<?php echo isset($pedido->id) ? BASEURL . '/pedido/update' : BASEURL . '/pedido/save'; ?>" enctype='multipart/form-data'>
+<form>
   <!-- token de segurança -->
   <input type="hidden" name="_token" value="<?php echo TOKEN; ?>" />
 
@@ -321,7 +321,7 @@
         t += "<td>"+produto.nome+"</td>";
         t += "<td>"+'<input type="number" class="campo-quantidade" value="'+produto.quantidade+'" onchange="alterarAquantidadeDeUmProdutoNaMesa('+produto.id+', this.value)">'+"</td>";
         t += "<td class='total-cada-produto' data-valor-produto="+produto.subTotal+" data-produto-id="+produto.id+">"+real(produto.subTotal)+"</td>";
-        t += "<td>"+'<button class="btn-sm btn-link" onclick="retirarProdutoDaMesa('+produto.id+', this)"><i class="fas fa-times" style="color:#cc0000;font-size:18px"></i></button>'+"</td>";
+        t += "<td>"+'<button class="btn-sm btn-link" onclick="return retirarProdutoDoPedido('+produto.id+', this)"><i class="fas fa-times" style="color:#cc0000;font-size:18px"></i></button>'+"</td>";
         t += "</tr>";
       }
 
@@ -373,5 +373,11 @@
     })
 
     return false;
+  }
+
+  function retirarProdutoDoPedido(idProduto, elemento) {
+    console.log(elemento);
+    return false;
+
   }
 </script>

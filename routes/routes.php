@@ -95,6 +95,7 @@ $route->get('pedido/teste', 'PedidoController@teste');
 $route->get('pwa/login', 'Api\InicioPwaController@index');
 $route->post('pwa/logar', 'Api\LoginController@logar');
 $route->get('pwa/pdv', 'Api\InicioPwaController@pdv');
+$route->get('test/vendedores', 'Api\TesteController@vendedores');
 
 # ----- LogController --------------------------------
 $route->get('logs', 'LogAcessoController@index');

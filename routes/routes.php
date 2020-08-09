@@ -88,7 +88,8 @@ $route->get('pedido', 'PedidoController@index');
 $route->get('pedido/modalFormulario/{idPedido?}', 'PedidoController@modalFormulario');
 $route->get('pedido/enderecoPorIdCliente/{idCliente?}', 'PedidoController@enderecoPorIdCliente');
 $route->get('pedido/produto/{idProduto}/{quantidade}', 'PedidoController@produtoPorId');
-$route->post('pedido/save', 'PedidoController@save');
+$route->get('pedido/retirarProdutoDoPedido/{idProduto}', 'PedidoController@retirarProdutoDoPedido');
+$route->get('pedido/save', 'PedidoController@save');
 
 $route->get('pedido/teste', 'PedidoController@teste');
 

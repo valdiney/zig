@@ -171,15 +171,15 @@ class PedidoController extends Controller
     $retirado = $produtoPedido->retirarProdutoDoPedido($produto, $this->idPerfilUsuarioLogado);
 
     if ($retirado) {
-      echo json_decode("status", true);
+      echo json_encode(["status" => true]);
     } else {
-      echo json_decode("status", false);
+      echo json_encode(["status" => false]);
     }
   }
 
   public function teste()
   {
-    unset($_SESSION['itensPedido']);
+    #unset($_SESSION['itensPedido']);
     dd($_SESSION['itensPedido']);
   }
 }

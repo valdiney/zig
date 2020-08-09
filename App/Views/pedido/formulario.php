@@ -321,7 +321,7 @@
         t += "<td>"+produto.nome+"</td>";
         t += "<td>"+'<input type="number" class="campo-quantidade" value="'+produto.quantidade+'" onchange="alterarAquantidadeDeUmProdutoNaMesa('+produto.id+', this.value)">'+"</td>";
         t += "<td class='total-cada-produto' data-valor-produto="+produto.subTotal+" data-produto-id="+produto.id+">"+real(produto.subTotal)+"</td>";
-        t += "<td>"+'<button class="btn-sm btn-link" onclick="return retirarProdutoDoPedido('+produto.id+', this)"><i class="fas fa-times" style="color:#cc0000;font-size:18px"></i></button>'+"</td>";
+        t += "<td>"+'<a class="btn-sm btn-link" onclick="retirarProdutoDoPedido('+produto.id+', $(this))"><i class="fas fa-times" style="color:#cc0000;font-size:18px"></i></a>'+"</td>";
         t += "</tr>";
       }
 
@@ -376,8 +376,18 @@
   }
 
   function retirarProdutoDoPedido(idProduto, elemento) {
-    console.log(elemento);
-    return false;
+    var rota = getDomain()+"/pedido/retirarProdutoDoPedido/"+idProduto;
 
+    $.get(rota, function(data, status) {
+      var produto = JSON.parse(data);
+
+      if (produto.status == true) {
+        elemento.parent().parent().fadeOut(400, function() {
+          $(this).remove();
+        })
+      }
+    });
+
+    return false;
   }
 </script>

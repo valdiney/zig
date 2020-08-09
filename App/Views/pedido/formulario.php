@@ -90,9 +90,20 @@
 	}
 	.campo-quantidade {
 		border:1px solid #dee2e6;
-		width:100px;
+		width:50px;
 		text-align:center;
+    margin-left:3px;
+    margin-right:3px;
 	}
+  .controle-quantidade {
+    padding:3px;
+    background:#dddddd;
+    width:20px;
+    height:20px;
+    cursor:pointer;
+    text-align:center;
+    border:1px solid #cfcece!important;
+  }
 	.div-inter-produtos {
 		overflow-y: scroll;
 		height:160px;
@@ -319,7 +330,7 @@
         t += "<tr id='id-tr-"+produto.id+"' data-produto-id="+produto.id+">";
         t += "<td>"+'<img class="img-produto-seleionado" src="'+getDomain()+'/'+produto.imagem+'">'+"</td>";
         t += "<td>"+produto.nome+"</td>";
-        t += "<td>"+'<input type="number" class="campo-quantidade" value="'+produto.quantidade+'" onchange="mudarAquantidadeDoproduto('+produto.id+', this.value)">'+"</td>";
+        t += "<td>"+'<a class="controle-quantidade">-</a><input type="number" class="campo-quantidade" value="'+produto.quantidade+'" onchange="mudarAquantidadeDoproduto('+produto.id+', this.value)"><a class="controle-quantidade">+</a>'+"</td>";
         t += "<td class='total-cada-produto' data-valor-produto="+produto.subTotal+" data-produto-id="+produto.id+">"+real(produto.subTotal)+"</td>";
         t += "<td>"+'<a class="btn-sm btn-link" onclick="retirarProdutoDoPedido('+produto.id+', $(this))"><i class="fas fa-times" style="color:#cc0000;font-size:18px"></i></a>'+"</td>";
         t += "</tr>";
@@ -328,6 +339,7 @@
       $(".tabela-de-produto tbody").append(t);
       totalCadaProduto();
     });
+
     return false;
   }
 
@@ -352,8 +364,8 @@
 
   function mudarAquantidadeDoproduto(idProduto, quantidade) {
     totalCadaProduto(); // Esta apenas somando! Tem que fazer uma função para decrementar
-
   }
+
 
   function savePedidos() {
     var rota = getDomain()+"/pedido/save";

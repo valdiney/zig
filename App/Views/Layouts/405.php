@@ -3,7 +3,7 @@
 
 <head>
   <meta charset="utf-8">
-  <title>Método não existe!</title>
+  <title>Classe ou método não existe</title>
   <style type="text/css">
     * {
       box-sizing: border-box;
@@ -49,7 +49,7 @@
   <main role="main" id="main">
     <div>
       <h1 id="main-title">405</h1>
-      <h3 id="main-subtitle">Poxa! Este método não existe para esta classe!</h3>
+      <h3 id="main-subtitle">Poxa! Classe ou método não encontrado!</h3>
       <i style="opacity:0.80;color:#cc0033">
         <?php echo "http://" . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI']; ?>
       </i>

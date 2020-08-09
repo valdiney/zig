@@ -112,6 +112,8 @@ class SelectController
         $controller = "App\Controllers\\".$controller;
       }
 
+      $this->verifyIfControllerExists($controller);
+
       /** @var Controller */
       # Instanciate the Controller
       $controller = new $controller;
@@ -259,6 +261,20 @@ class SelectController
       $route = str_replace($regex, "?{$regexValue}", $route);
     }
     return $route;
+  }
+
+  /**
+   * Verifica se o controller passado existe
+   *
+   * @param string $controller
+   * @return void
+   */
+  protected function verifyIfControllerExists(string $controller): void
+  {
+    if (!class_exists($controller)) {
+      require_once(__DIR__ . '/../../App/Views/Layouts/405.php');
+      exit;
+    }
   }
 
   /**

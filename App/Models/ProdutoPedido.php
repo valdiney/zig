@@ -50,6 +50,19 @@ class ProdutoPedido extends Model
     return false;
   }
 
+  public function mudarAquantidadeDoProduto($produto, $quantidade)
+  {
+    if (isset($_SESSION['itensPedido'][$idVendedor][$produto->id])) {
+      $dados = $_SESSION['itensPedido'][$idVendedor][$produto->id];
+      $dados['quantidade'] += $quantidade;
+      $dados['subTotal'] = (float) $produto->preco * (float) $dados['quantidade'];
+
+      return true;
+    }
+
+    return false;
+  }
+
   public function produtosAdicionadosPorIdProdutoEIdVendedor($idProduto, $idVendedor)
   {
     return $_SESSION['itensPedido'][$idVendedor][$idProduto];

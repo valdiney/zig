@@ -309,7 +309,7 @@
   }
 
   function adicionarProduto(idProduto, quantidade) {
-    var rota = getDomain()+"/pedido/produto/"+idProduto+"/"+quantidade;
+    var rota = getDomain()+"/pedido/adicionarProduto/"+idProduto+"/"+quantidade;
 
     $.get(rota, function(data, status) {
       var produto = JSON.parse(data);
@@ -319,7 +319,7 @@
         t += "<tr id='id-tr-"+produto.id+"' data-produto-id="+produto.id+">";
         t += "<td>"+'<img class="img-produto-seleionado" src="'+getDomain()+'/'+produto.imagem+'">'+"</td>";
         t += "<td>"+produto.nome+"</td>";
-        t += "<td>"+'<input type="number" class="campo-quantidade" value="'+produto.quantidade+'" onchange="alterarAquantidadeDeUmProdutoNaMesa('+produto.id+', this.value)">'+"</td>";
+        t += "<td>"+'<input type="number" class="campo-quantidade" value="'+produto.quantidade+'" onchange="mudarAquantidadeDoproduto('+produto.id+', this.value)">'+"</td>";
         t += "<td class='total-cada-produto' data-valor-produto="+produto.subTotal+" data-produto-id="+produto.id+">"+real(produto.subTotal)+"</td>";
         t += "<td>"+'<a class="btn-sm btn-link" onclick="retirarProdutoDoPedido('+produto.id+', $(this))"><i class="fas fa-times" style="color:#cc0000;font-size:18px"></i></a>'+"</td>";
         t += "</tr>";
@@ -348,6 +348,11 @@
 
     valorTotalDoPedido = total;
     $("#total-geral").html(real(total));
+  }
+
+  function mudarAquantidadeDoproduto(idProduto, quantidade) {
+    totalCadaProduto(); // Esta apenas somando! Tem que fazer uma função para decrementar
+
   }
 
   function savePedidos() {

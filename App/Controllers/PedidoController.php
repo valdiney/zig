@@ -145,7 +145,7 @@ class PedidoController extends Controller
     echo json_encode($clienteEndereco->enderecos($idCliente));
   }
 
-  public function produtoPorId($idProduto, $quantidade)
+  public function adicionarProduto($idProduto, $quantidade)
   {
     $produto = new Produto();
     $produto = $produto->find($idProduto);
@@ -162,15 +162,30 @@ class PedidoController extends Controller
     echo json_encode($produtoPedido->retornaProdutoAdicionado($this->idPerfilUsuarioLogado));
   }
 
+  public function mudarAquantidadeDoProduto($idProduto, $quantidade)
+  {
+    $produto = new Produto();
+    $produto = $produto->find($idProduto);
+
+    $produtoPedido = new ProdutoPedido();
+    $operacao = $produtoPedido->mudarAquantidadeDoProduto($produto, $quantidade);
+
+    if ($operacao) {
+      echo json_encode(["status" => true]);
+    } else {
+      echo json_encode(["status" => false]);
+    }
+  }
+
   public function retirarProdutoDoPedido($idProduto)
   {
     $produto = new Produto();
     $produto = $produto->find($idProduto);
 
     $produtoPedido = new ProdutoPedido();
-    $retirado = $produtoPedido->retirarProdutoDoPedido($produto, $this->idPerfilUsuarioLogado);
+    $operacao = $produtoPedido->retirarProdutoDoPedido($produto, $this->idPerfilUsuarioLogado);
 
-    if ($retirado) {
+    if ($operacao) {
       echo json_encode(["status" => true]);
     } else {
       echo json_encode(["status" => false]);

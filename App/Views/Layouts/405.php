@@ -49,7 +49,7 @@
   <main role="main" id="main">
     <div>
       <h1 id="main-title">405</h1>
-      <h3 id="main-subtitle">Poxa! Esse método não existe para esse método!</h3>
+      <h3 id="main-subtitle">Poxa! Este método não existe para esta classe!</h3>
       <i style="opacity:0.80;color:#cc0033">
         <?php echo "http://" . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI']; ?>
       </i>

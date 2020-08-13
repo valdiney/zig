@@ -72,4 +72,13 @@ class ProdutoPedido extends Model
   {
     return end($_SESSION['itensPedido'][$idVendedor]);
   }
+
+  public function obterAQuantidadeDoProdutoNoPedido($produto, $idVendedor)
+  {
+    if (isset($_SESSION['itensPedido'][$idVendedor][$produto->id])) {
+      return $_SESSION['itensPedido'][$idVendedor][$produto->id]['quantidade'];
+    }
+
+    return false;
+  }
 }

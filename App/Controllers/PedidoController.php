@@ -162,6 +162,17 @@ class PedidoController extends Controller
     echo json_encode($produtoPedido->retornaProdutoAdicionado($this->idPerfilUsuarioLogado));
   }
 
+  public function obterAQuantidadeDoProdutoNoPedido($idProduto)
+  {
+    $produto = new Produto();
+    $produto = $produto->find($idProduto);
+
+    $produtoPedido = new ProdutoPedido();
+    $quantidade = $produtoPedido->obterAQuantidadeDoProdutoNoPedido($produto, $this->idPerfilUsuarioLogado);
+
+    echo json_encode(['quantidade' => $quantidade]);
+  }
+
   public function mudarAquantidadeDoProduto($idProduto, $quantidade)
   {
     $produto = new Produto();
@@ -194,7 +205,7 @@ class PedidoController extends Controller
 
   public function teste()
   {
-    #unset($_SESSION['itensPedido']);
+    unset($_SESSION['itensPedido']);
     dd($_SESSION['itensPedido']);
   }
 }

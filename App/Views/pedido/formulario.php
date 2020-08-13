@@ -330,14 +330,14 @@
         t += "<tr id='id-tr-"+produto.id+"' data-produto-id="+produto.id+">";
         t += "<td>"+'<img class="img-produto-seleionado" src="'+getDomain()+'/'+produto.imagem+'">'+"</td>";
         t += "<td>"+produto.nome+"</td>";
-        t += "<td>"+'<a class="controle-quantidade">-</a><input type="number" class="campo-quantidade" value="'+produto.quantidade+'" onchange="mudarAquantidadeDoproduto('+produto.id+', this.value)"><a class="controle-quantidade">+</a>'+"</td>";
+        t += "<td>"+'<a class="controle-quantidade">-</a><input type="number" class="campo-quantidade" value="'+produto.quantidade+'" id="campo-quantidade'+produto.id+'"><a class="controle-quantidade" onclick="incrementarQuantidadeDoProduto('+produto.id+')">+</a>'+"</td>";
         t += "<td class='total-cada-produto' data-valor-produto="+produto.subTotal+" data-produto-id="+produto.id+">"+real(produto.subTotal)+"</td>";
         t += "<td>"+'<a class="btn-sm btn-link" onclick="retirarProdutoDoPedido('+produto.id+', $(this))"><i class="fas fa-times" style="color:#cc0000;font-size:18px"></i></a>'+"</td>";
         t += "</tr>";
       }
 
       $(".tabela-de-produto tbody").append(t);
-      totalCadaProduto();
+      //totalCadaProduto();
     });
 
     return false;
@@ -362,8 +362,20 @@
     $("#total-geral").html(real(total));
   }
 
-  function mudarAquantidadeDoproduto(idProduto, quantidade) {
-    totalCadaProduto(); // Esta apenas somando! Tem que fazer uma função para decrementar
+  function incrementarQuantidadeDoProduto(idProduto) {
+    var campoQuantidade = $("#campo-quantidade"+idProduto);
+    // Incrementa o campo quantidade
+    campoQuantidade.val(Number(campoQuantidade.val())+1);
+
+    var rota = getDomain()+"/pedido/obterAQuantidadeDoProdutoNoPedido/"+idProduto;
+
+    $.get(rota, function(data, status) {
+      var quantidade = JSON.parse(data);
+
+    });
+
+
+    alert(campoQuantidade.val());
   }
 
 

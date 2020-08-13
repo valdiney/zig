@@ -91,6 +91,7 @@ $route->get('pedido/adicionarProduto/{idProduto}/{quantidade}', 'PedidoControlle
 $route->get('pedido/retirarProdutoDoPedido/{idProduto}', 'PedidoController@retirarProdutoDoPedido');
 $route->get('pedido/mudarAquantidadeDoProduto/{idProduto}/{quantidade}', 'PedidoController@mudarAquantidadeDoProduto');
 $route->get('pedido/save', 'PedidoController@save');
+$route->get('pedido/obterAQuantidadeDoProdutoNoPedido/{idProduto}', 'PedidoController@obterAQuantidadeDoProdutoNoPedido');
 
 $route->get('pedido/teste', 'PedidoController@teste');
 

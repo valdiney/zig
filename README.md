@@ -45,6 +45,12 @@ A Lucia tem um pequeno comercio e luta bravamente para mantê-lo! Porém, a Luci
 # Tela de Relatório de vendas por período
 <img src="https://raw.githubusercontent.com/valdiney/zig/master/prints/tela_de_relatorio_por_periodo.png"/>
 
+# Dashboard ainda em construção
+<img src="https://raw.githubusercontent.com/valdiney/zig/master/prints/dashboard.png"/>
+
+# Tela de pedidos ainda em construção
+<img src="https://raw.githubusercontent.com/valdiney/zig/master/prints/pedido.png"/>
+
 # Instalação
 <p>
   Você deve criar um arquivo chamado .env na raiz da aplicação! Coloque esses valores dentro do arquivo e salve!

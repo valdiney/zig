@@ -8,7 +8,7 @@ use App\Models\Produto;
  */
 class VendasEmSessaoRepository
 {
-  public function colocarProdutosNaMesa($idProduto)
+  public function colocarProdutosNaMesa($idProduto, $quantidade = false)
 	{
 		if ($idProduto) {
 
@@ -19,14 +19,18 @@ class VendasEmSessaoRepository
 			if ( ! isset($_SESSION['venda'][$idProduto])) {
 
 				$produto = new Produto();
-				$produto = $produto->find($idProduto);
+        $produto = $produto->find($idProduto);
+
+        if ( ! $quantidade) {
+          $quantidade = 1;
+        }
 
 				$_SESSION['venda'][$idProduto] = [
 					'id' => $idProduto,
 					'produto' => $produto->nome,
 					'preco' => $produto->preco,
 					'imagem' => $produto->imagem,
-					'quantidade' => 1,
+					'quantidade' => $quantidade,
 					'total' => $produto->preco
 				];
 			}

@@ -14,6 +14,8 @@ use App\Models\Produto;
 use App\Models\MeioPagamento;
 use App\Models\ProdutoPedido;
 
+use App\Repositories\VendasEmSessaoRepository;
+
 class PedidoController extends Controller
 {
 	protected $post;
@@ -145,63 +147,11 @@ class PedidoController extends Controller
     echo json_encode($clienteEndereco->enderecos($idCliente));
   }
 
-  public function adicionarProduto($idProduto, $quantidade)
-  {
-    $produto = new Produto();
-    $produto = $produto->find($idProduto);
+  public function colocarProdutosNaMesa($idProduto, $quantidade)
+	{
+		return $this->vendasEmSessaoRepository->colocarProdutosNaMesa($idProduto, $quantidade);
+	}
 
-    # Adiciona Produto na sessao
-    $produtoPedido = new ProdutoPedido();
-    $produtoPedido->adicionarProdutoNoPedido(
-      $produto,
-      $quantidade,
-      $this->idPerfilUsuarioLogado
-    );
-
-    # Retorna o Produto Adicionado
-    echo json_encode($produtoPedido->retornaProdutoAdicionado($this->idPerfilUsuarioLogado));
-  }
-
-  public function obterAQuantidadeDoProdutoNoPedido($idProduto)
-  {
-    $produto = new Produto();
-    $produto = $produto->find($idProduto);
-
-    $produtoPedido = new ProdutoPedido();
-    $quantidade = $produtoPedido->obterAQuantidadeDoProdutoNoPedido($produto, $this->idPerfilUsuarioLogado);
-
-    echo json_encode(['quantidade' => $quantidade]);
-  }
-
-  public function mudarAquantidadeDoProduto($idProduto, $quantidade)
-  {
-    $produto = new Produto();
-    $produto = $produto->find($idProduto);
-
-    $produtoPedido = new ProdutoPedido();
-    $operacao = $produtoPedido->mudarAquantidadeDoProduto($produto, $quantidade);
-
-    if ($operacao) {
-      echo json_encode(["status" => true]);
-    } else {
-      echo json_encode(["status" => false]);
-    }
-  }
-
-  public function retirarProdutoDoPedido($idProduto)
-  {
-    $produto = new Produto();
-    $produto = $produto->find($idProduto);
-
-    $produtoPedido = new ProdutoPedido();
-    $operacao = $produtoPedido->retirarProdutoDoPedido($produto, $this->idPerfilUsuarioLogado);
-
-    if ($operacao) {
-      echo json_encode(["status" => true]);
-    } else {
-      echo json_encode(["status" => false]);
-    }
-  }
 
   public function teste()
   {

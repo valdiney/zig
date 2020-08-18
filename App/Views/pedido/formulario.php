@@ -337,47 +337,26 @@
       }
 
       $(".tabela-de-produto tbody").append(t);
-      //totalCadaProduto();
+
     });
 
     return false;
   }
 
-  function totalCadaProduto() {
-    $(".total-cada-produto").each(function(item, elemento) {
-      arrayValorTotalDosProdutosSelecionados.push(Number(elemento.dataset.valorProduto));
-
-      if ( ! arrayIdDosProdutosSelecionados.includes(elemento.dataset.produtoId)) {
-        arrayIdDosProdutosSelecionados.push(elemento.dataset.produtoId);
-      }
-
-    });
-
-    var total = 0;
-    for (var i in arrayValorTotalDosProdutosSelecionados) {
-      total += arrayValorTotalDosProdutosSelecionados[i];
-    }
-
-    valorTotalDoPedido = total;
-    $("#total-geral").html(real(total));
-  }
 
   function incrementarQuantidadeDoProduto(idProduto) {
     var campoQuantidade = $("#campo-quantidade"+idProduto);
+
     // Incrementa o campo quantidade
     campoQuantidade.val(Number(campoQuantidade.val())+1);
 
     var rota = getDomain()+"/pedido/obterAQuantidadeDoProdutoNoPedido/"+idProduto;
-
     $.get(rota, function(data, status) {
-      var quantidade = JSON.parse(data);
-
+      var produto = JSON.parse(data);
+      var valorIncrementado = valorTotalDoPedido += Number(produto.preco);
+      $("#total-geral").html(real(valorIncrementado));
     });
-
-
-    alert(campoQuantidade.val());
   }
-
 
   function savePedidos() {
     var rota = getDomain()+"/pedido/save";
@@ -409,6 +388,8 @@
 
     $.get(rota, function(data, status) {
       var produto = JSON.parse(data);
+
+      console.log(produto);
 
       if (produto.status == true) {
         elemento.parent().parent().fadeOut(400, function() {

@@ -39,7 +39,7 @@ class VendasEmSessaoRepository
 		return json_encode($_SESSION['venda']);
   }
 
-  public function obterProdutosDaMesa($posicaoProduto)
+  public function obterProdutosDaMesa($posicaoProduto = false)
 	{
 		if (isset($_SESSION['venda'])) {
 			if ($posicaoProduto && $posicaoProduto == 'ultimo') {
@@ -77,5 +77,10 @@ class VendasEmSessaoRepository
 		}
 
     return json_encode(['total' => $total]);
-	}
+  }
+
+  public function limparSessao()
+  {
+    unset($_SESSION['venda']);
+  }
 }

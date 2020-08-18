@@ -25,6 +25,7 @@ class PedidoController extends Controller
   protected $idEmpresa;
   protected $idUsuarioLogado;
   protected $idPerfilUsuarioLogado;
+  protected $vendasEmSessaoRepository;
 
 	public function __construct()
 	{
@@ -36,6 +37,8 @@ class PedidoController extends Controller
     $this->idEmpresa = Session::get('idEmpresa');
     $this->idUsuarioLogado = Session::get('idUsuario');
     $this->idPerfilUsuarioLogado = session::get('idPerfil');
+
+    $this->vendasEmSessaoRepository = new VendasEmSessaoRepository();
 
 		$logged = new Logged();
 		$logged->isValid();
@@ -147,16 +150,31 @@ class PedidoController extends Controller
     echo json_encode($clienteEndereco->enderecos($idCliente));
   }
 
-  public function colocarProdutosNaMesa($idProduto, $quantidade)
+  public function adicionarProduto($idProduto, $quantidade)
 	{
-		return $this->vendasEmSessaoRepository->colocarProdutosNaMesa($idProduto, $quantidade);
-	}
+    $operacao = $this->vendasEmSessaoRepository->colocarProdutosNaMesa($idProduto, $quantidade);
+    echo json_encode($operacao);
+  }
 
+  public function produtosAdicionados()
+  {
+    echo $this->vendasEmSessaoRepository->obterProdutosDaMesa();
+  }
+
+  public function retirarProduto($idProduto)
+  {
+    $this->vendasEmSessaoRepository->retirarProdutoDaMesa($idProduto);
+  }
+
+  public function obterOultimoProdutoAdicionado()
+  {
+    echo $this->vendasEmSessaoRepository->obterProdutosDaMesa('ultimo');
+  }
 
   public function teste()
   {
-    unset($_SESSION['itensPedido']);
-    dd($_SESSION['itensPedido']);
+    //$this->vendasEmSessaoRepository->limparSessao();
+    dd(json_decode($this->vendasEmSessaoRepository->obterProdutosDaMesa()));
   }
 }
 

@@ -293,9 +293,7 @@
     });
   });
 
-  var arrayValorTotalDosProdutosSelecionados = [];
-  var arrayIdDosProdutosSelecionados = [];
-  var valorTotalDoPedido = 0;
+  produtosAdicionados();
 
   function enderecoPorIdCliente(idCliente) {
     var rota = getDomain()+"/pedido/enderecoPorIdCliente/"+idCliente;
@@ -321,6 +319,16 @@
 
   function adicionarProduto(idProduto, quantidade) {
     var rota = getDomain()+"/pedido/adicionarProduto/"+idProduto+"/"+quantidade;
+    $.get(rota, function(data, status) {
+      obterOultimoProdutoAdicionado();
+
+    });
+
+    return false;
+  }
+
+  function obterOultimoProdutoAdicionado() {
+    var rota = getDomain()+"/pedido/obterOultimoProdutoAdicionado";
 
     $.get(rota, function(data, status) {
       var produto = JSON.parse(data);
@@ -329,10 +337,10 @@
       if (produto.length != 0) {
         t += "<tr id='id-tr-"+produto.id+"' data-produto-id="+produto.id+">";
         t += "<td>"+'<img class="img-produto-seleionado" src="'+getDomain()+'/'+produto.imagem+'">'+"</td>";
-        t += "<td>"+produto.nome+"</td>";
+        t += "<td>"+produto.produto+"</td>";
         t += "<td>"+'<a class="controle-quantidade">-</a><input type="number" class="campo-quantidade" value="'+produto.quantidade+'" id="campo-quantidade'+produto.id+'"><a class="controle-quantidade" onclick="incrementarQuantidadeDoProduto('+produto.id+')">+</a>'+"</td>";
-        t += "<td class='total-cada-produto' data-valor-produto="+produto.subTotal+" data-produto-id="+produto.id+">"+real(produto.subTotal)+"</td>";
-        t += "<td>"+'<a class="btn-sm btn-link" onclick="retirarProdutoDoPedido('+produto.id+', $(this))"><i class="fas fa-times" style="color:#cc0000;font-size:18px"></i></a>'+"</td>";
+        t += "<td class='total-cada-produto' data-valor-produto="+produto.total+" data-produto-id="+produto.id+">"+real(produto.total)+"</td>";
+        t += "<td>"+'<a class="btn-sm btn-link" onclick="retirarProduto('+produto.id+', $(this))"><i class="fas fa-times" style="color:#cc0000;font-size:18px"></i></a>'+"</td>";
         t += "</tr>";
       }
 
@@ -342,6 +350,33 @@
 
     return false;
   }
+
+  function produtosAdicionados() {
+    var rota = getDomain()+"/pedido/produtosAdicionados";
+
+    $.get(rota, function(data, status) {
+      var produtos = JSON.parse(data);
+      var t = "";
+
+      if (produtos.length != 0) {
+        $.each(produtos, function(index, produto) {
+          t += "<tr id='id-tr-"+produto.id+"' data-produto-id="+produto.id+">";
+          t += "<td>"+'<img class="img-produto-seleionado" src="'+getDomain()+'/'+produto.imagem+'">'+"</td>";
+          t += "<td>"+produto.produto+"</td>";
+          t += "<td>"+'<a class="controle-quantidade">-</a><input type="number" class="campo-quantidade" value="'+produto.quantidade+'" id="campo-quantidade'+produto.id+'"><a class="controle-quantidade" onclick="incrementarQuantidadeDoProduto('+produto.id+')">+</a>'+"</td>";
+          t += "<td class='total-cada-produto' data-valor-produto="+produto.total+" data-produto-id="+produto.id+">"+real(produto.total)+"</td>";
+          t += "<td>"+'<a class="btn-sm btn-link" onclick="retirarProduto('+produto.id+', $(this))"><i class="fas fa-times" style="color:#cc0000;font-size:18px"></i></a>'+"</td>";
+          t += "</tr>";
+        });
+      }
+
+      $(".tabela-de-produto tbody").append(t);
+
+    });
+
+    return false;
+  }
+
 
 
   function incrementarQuantidadeDoProduto(idProduto) {
@@ -383,19 +418,12 @@
     return false;
   }
 
-  function retirarProdutoDoPedido(idProduto, elemento) {
-    var rota = getDomain()+"/pedido/retirarProdutoDoPedido/"+idProduto;
-
+  function retirarProduto(idProduto, elemento) {
+    var rota = getDomain()+"/pedido/retirarProduto/"+idProduto;
     $.get(rota, function(data, status) {
-      var produto = JSON.parse(data);
-
-      console.log(produto);
-
-      if (produto.status == true) {
-        elemento.parent().parent().fadeOut(400, function() {
-          $(this).remove();
-        })
-      }
+      elemento.parent().parent().fadeOut(400, function() {
+        $(this).remove();
+      })
     });
 
     return false;

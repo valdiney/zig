@@ -126,6 +126,8 @@ class SelectController
         return call_user_func([$controller, $method]);
       }
 
+      $data = explode('/', $data[0]);
+
       # data is not empty
       return call_user_func_array([$controller, $method], $data);
   }

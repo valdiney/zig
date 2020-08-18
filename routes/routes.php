@@ -87,7 +87,12 @@ $route->get('clienteEndereco/modalVisualizarEnderecos/{idCliente}',
 $route->get('pedido', 'PedidoController@index');
 $route->get('pedido/modalFormulario/{idPedido?}', 'PedidoController@modalFormulario');
 $route->get('pedido/enderecoPorIdCliente/{idCliente?}', 'PedidoController@enderecoPorIdCliente');
+
 $route->get('pedido/adicionarProduto/{idProduto}/{quantidade}', 'PedidoController@adicionarProduto');
+$route->get('pedido/produtosAdicionados', 'PedidoController@produtosAdicionados');
+$route->get('pedido/retirarProduto/{idProduto}', 'PedidoController@retirarProduto');
+$route->get('pedido/obterOultimoProdutoAdicionado', 'PedidoController@obterOultimoProdutoAdicionado');
+
 $route->get('pedido/retirarProdutoDoPedido/{idProduto}', 'PedidoController@retirarProdutoDoPedido');
 $route->get('pedido/mudarAquantidadeDoProduto/{idProduto}/{quantidade}', 'PedidoController@mudarAquantidadeDoProduto');
 $route->get('pedido/save', 'PedidoController@save');

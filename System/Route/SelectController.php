@@ -11,6 +11,8 @@ namespace System\Route;
 */
 
 use System\Request\Request;
+use System\Controller\Controller;
+
 
 class SelectController
 {
@@ -41,6 +43,23 @@ class SelectController
     if ($this->getRoute->getMethodNameAliases()) {
       $this->routerAliases = "{$this->routerAliases}/{$this->getRoute->getMethodNameAliases()}";
     }
+  }
+
+  public function run()
+  {
+    $similarRoutes = $this->takesSimilarRoutes();
+    $similarRoutes = $this->takesRegexRoutes($similarRoutes);
+    $similarRoutes = $this->takesActualRouteByRegex($similarRoutes);
+    $similarRoutes = $this->takesRouteData($similarRoutes);
+    $similarRoutes = $this->takesRoutesSimilarToMethod($similarRoutes);
+
+    // pega a primeira rota
+    $actualRoute = current($similarRoutes);
+    $controller  = $actualRoute['controller'];
+    $method      = $actualRoute['method'];
+    $data        = isset($actualRoute['data']) ? $actualRoute['data'] : [];
+
+    $this->instantiateController($controller, $method, $data);
   }
 
   public function create(string $aliases, string $controllerAndMethod, string $type = "GET")
@@ -81,22 +100,25 @@ class SelectController
     * @param method String the method name
     * @return method
     */
-  public function instantiateController(string $controller, string $method, array $data = [])
+  protected function instantiateController(string $controller, string $method, array $data = [])
   {
       # Verifying if exist the character \\ in Controller name
       if (strstr($controller,'\\')) {
         $stringToArray = explode('\\', $controller);
-        $controllerName = end($stringToArray);
         $controllerNameWithfullNamespace = implode("\\", array_values($stringToArray));
         $controller = "App\Controllers\\".$controllerNameWithfullNamespace;
 
       } else {
-        $controllerName = $controller;
         $controller = "App\Controllers\\".$controller;
       }
 
+      $this->verifyIfControllerExists($controller);
+
+      /** @var Controller */
       # Instanciate the Controller
       $controller = new $controller;
+
+      $this->verifyIfMethodExists($controller, $method);
 
       # Call the Controller Method
       # data is empty
@@ -104,27 +126,8 @@ class SelectController
         return call_user_func([$controller, $method]);
       }
 
-      $data = explode('/', $data[0]);
-
       # data is not empty
       return call_user_func_array([$controller, $method], $data);
-  }
-
-  public function run()
-  {
-    $similarRoutes = $this->takesSimilarRoutes();
-    $similarRoutes = $this->takesRegexRoutes($similarRoutes);
-    $similarRoutes = $this->takesActualRouteByRegex($similarRoutes);
-    $similarRoutes = $this->takesRouteData($similarRoutes);
-    $similarRoutes = $this->takesRoutesSimilarToMethod($similarRoutes);
-
-    // pega a primeira rota
-    $actualRoute = current($similarRoutes);
-    $controller  = $actualRoute['controller'];
-    $method      = $actualRoute['method'];
-    $data        = isset($actualRoute['data'])? $actualRoute['data']: [];
-
-    $this->instantiateController($controller, $method, $data);
   }
 
   /**
@@ -213,6 +216,11 @@ class SelectController
       preg_match("/^{$route}/", $this->routerAliases, $match);
       array_shift($match);
       $data['data'] = $match;
+
+      // verifica se existe somente uma rota e ela possui barras
+      if (count($data['data']) === 1 && preg_match('/\//', $data['data'][0])) {
+        $data['data'] = explode('/', $data['data'][0]);
+      }
       return $data;
     }, $similarRoutes);
   }
@@ -253,5 +261,34 @@ class SelectController
       $route = str_replace($regex, "?{$regexValue}", $route);
     }
     return $route;
+  }
+
+  /**
+   * Verifica se o controller passado existe
+   *
+   * @param string $controller
+   * @return void
+   */
+  protected function verifyIfControllerExists(string $controller): void
+  {
+    if (!class_exists($controller)) {
+      require_once(__DIR__ . '/../../App/Views/Layouts/405.php');
+      exit;
+    }
+  }
+
+  /**
+   * Verifica se o método atual existe naquele controller
+   *
+   * @param Controller $controller
+   * @param string $method
+   * @return void
+   */
+  protected function verifyIfMethodExists(Controller $controller, $method): void
+  {
+    if (!method_exists($controller, $method)) {
+      require_once(__DIR__ . '/../../App/Views/Layouts/405.php');
+      exit;
+    }
   }
 }

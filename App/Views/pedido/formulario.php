@@ -438,15 +438,20 @@ function alterarAquantidadeDeUmProduto(idProduto, quantidade) {
   }
 
 	if (quantidade > 0 && quantidade != '') {
-    modalValidacao('Aplicando', 'Aguarde');
+    modalValidacao('Aplicando', "<button class='btn btn-sm' data-dismiss='modal'>Fechar</button>");
 
 		var rota = getDomain()+"/pedido/alterarAquantidadeDeUmProduto/"+idProduto+"/"+quantidade;
-	    $.get(rota, function(data, status) {
-	   	    $(".tabela-de-produto tbody").empty();
-	   	    produtosAdicionados();
-          //obterValorTotalDosProdutosNaMesa();
-          modalValidacaoClose();
-	    });
+    $.get(rota, function(data, status) {
+
+      if (status == 'success') {
+        $(".tabela-de-produto tbody").empty();
+        produtosAdicionados();
+        //modalValidacaoClose(12122);
+
+      }
+
+      //obterValorTotalDosProdutosNaMesa();
+    });
 	}
 }
 </script>

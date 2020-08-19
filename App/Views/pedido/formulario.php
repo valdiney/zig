@@ -338,7 +338,7 @@
         t += "<tr id='id-tr-"+produto.id+"' data-produto-id="+produto.id+">";
         t += "<td>"+'<img class="img-produto-seleionado" src="'+getDomain()+'/'+produto.imagem+'">'+"</td>";
         t += "<td>"+produto.produto+"</td>";
-        t += "<td>"+'<a class="controle-quantidade">-</a><input type="number" class="campo-quantidade" value="'+produto.quantidade+'" id="campo-quantidade'+produto.id+'"><a class="controle-quantidade" onclick="incrementarQuantidadeDoProduto('+produto.id+')">+</a>'+"</td>";
+        t += "<td>"+'<a class="controle-quantidade">-</a><input type="number" class="campo-quantidade" value="'+produto.quantidade+'" id="campo-quantidade'+produto.id+'" onchange="alterarAquantidadeDeUmProduto('+produto.id+', $(this).val())"><a class="controle-quantidade" onclick="incrementarQuantidadeDoProduto('+produto.id+')">+</a>'+"</td>";
         t += "<td class='total-cada-produto' data-valor-produto="+produto.total+" data-produto-id="+produto.id+">"+real(produto.total)+"</td>";
         t += "<td>"+'<a class="btn-sm btn-link" onclick="retirarProduto('+produto.id+', $(this))"><i class="fas fa-times" style="color:#cc0000;font-size:18px"></i></a>'+"</td>";
         t += "</tr>";
@@ -363,7 +363,7 @@
           t += "<tr id='id-tr-"+produto.id+"' data-produto-id="+produto.id+">";
           t += "<td>"+'<img class="img-produto-seleionado" src="'+getDomain()+'/'+produto.imagem+'">'+"</td>";
           t += "<td>"+produto.produto+"</td>";
-          t += "<td>"+'<a class="controle-quantidade">-</a><input type="number" class="campo-quantidade" value="'+produto.quantidade+'" id="campo-quantidade'+produto.id+'"><a class="controle-quantidade" onclick="incrementarQuantidadeDoProduto('+produto.id+')">+</a>'+"</td>";
+          t += "<td>"+'<a class="controle-quantidade">-</a><input type="number" class="campo-quantidade" value="'+produto.quantidade+'" id="campo-quantidade'+produto.id+'" onchange="alterarAquantidadeDeUmProduto('+produto.id+', $(this).val())"><a class="controle-quantidade" onclick="incrementarQuantidadeDoProduto('+produto.id+')">+</a>'+"</td>";
           t += "<td class='total-cada-produto' data-valor-produto="+produto.total+" data-produto-id="+produto.id+">"+real(produto.total)+"</td>";
           t += "<td>"+'<a class="btn-sm btn-link" onclick="retirarProduto('+produto.id+', $(this))"><i class="fas fa-times" style="color:#cc0000;font-size:18px"></i></a>'+"</td>";
           t += "</tr>";
@@ -379,7 +379,7 @@
 
 
 
-  function incrementarQuantidadeDoProduto(idProduto) {
+  /*function incrementarQuantidadeDoProduto(idProduto) {
     var campoQuantidade = $("#campo-quantidade"+idProduto);
 
     // Incrementa o campo quantidade
@@ -391,13 +391,13 @@
       var valorIncrementado = valorTotalDoPedido += Number(produto.preco);
       $("#total-geral").html(real(valorIncrementado));
     });
-  }
+  }*/
 
-  function savePedidos() {
+  /*function savePedidos() {
     var rota = getDomain()+"/pedido/save";
     $.post(rota, {
       'idDosProdutos': arrayIdDosProdutosSelecionados,
-      '_token': '<?php echo TOKEN; ?>',
+      '_token': '<?php// echo TOKEN; ?>',
       'id_vendedor': $("#id_vendedor").val(),
       'id_cliente': $("#id_cliente").val(),
       'id_cliente_endereco': $("#id_cliente_endereco").val(),
@@ -416,7 +416,7 @@
     })
 
     return false;
-  }
+  }*/
 
   function retirarProduto(idProduto, elemento) {
     var rota = getDomain()+"/pedido/retirarProduto/"+idProduto;
@@ -428,4 +428,25 @@
 
     return false;
   }
+
+  /*Acrescenta ou decrementa a quantidade de um produto*/
+function alterarAquantidadeDeUmProduto(idProduto, quantidade) {
+  quantidade = Number(quantidade);
+
+  if (quantidade <= 0) {
+    $(".campo-quantidade").val(1);
+  }
+
+	if (quantidade > 0 && quantidade != '') {
+    modalValidacao('Aplicando', 'Aguarde');
+
+		var rota = getDomain()+"/pedido/alterarAquantidadeDeUmProduto/"+idProduto+"/"+quantidade;
+	    $.get(rota, function(data, status) {
+	   	    $(".tabela-de-produto tbody").empty();
+	   	    produtosAdicionados();
+          //obterValorTotalDosProdutosNaMesa();
+          modalValidacaoClose();
+	    });
+	}
+}
 </script>

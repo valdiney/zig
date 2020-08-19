@@ -31,7 +31,7 @@ class VendasEmSessaoRepository
 					'preco' => $produto->preco,
 					'imagem' => $produto->imagem,
 					'quantidade' => $quantidade,
-					'total' => $produto->preco
+					'total' => (float) $produto->preco * (float) $quantidade
 				];
 			}
 		}

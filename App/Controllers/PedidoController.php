@@ -171,6 +171,11 @@ class PedidoController extends Controller
     echo $this->vendasEmSessaoRepository->obterProdutosDaMesa('ultimo');
   }
 
+  public function alterarAquantidadeDeUmProduto($idProduto, $quantidade)
+	{
+		$this->vendasEmSessaoRepository->alterarAquantidadeDeUmProdutoNaMesa($idProduto, $quantidade);
+	}
+
   public function teste()
   {
     //$this->vendasEmSessaoRepository->limparSessao();

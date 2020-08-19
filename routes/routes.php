@@ -92,6 +92,7 @@ $route->get('pedido/adicionarProduto/{idProduto}/{quantidade}', 'PedidoControlle
 $route->get('pedido/produtosAdicionados', 'PedidoController@produtosAdicionados');
 $route->get('pedido/retirarProduto/{idProduto}', 'PedidoController@retirarProduto');
 $route->get('pedido/obterOultimoProdutoAdicionado', 'PedidoController@obterOultimoProdutoAdicionado');
+$route->get('pedido/alterarAquantidadeDeUmProduto/{idProduto}/{quantidade}', 'PedidoController@alterarAquantidadeDeUmProduto');
 
 $route->get('pedido/retirarProdutoDoPedido/{idProduto}', 'PedidoController@retirarProdutoDoPedido');
 $route->get('pedido/mudarAquantidadeDoProduto/{idProduto}/{quantidade}', 'PedidoController@mudarAquantidadeDoProduto');

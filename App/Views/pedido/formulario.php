@@ -399,8 +399,7 @@
   function savePedidos() {
     var rota = getDomain()+"/pedido/save";
     $.post(rota, {
-      'idDosProdutos': arrayIdDosProdutosSelecionados,
-      '_token': '<?php// echo TOKEN; ?>',
+      '_token': '<?php echo TOKEN; ?>',
       'id_vendedor': $("#id_vendedor").val(),
       'id_cliente': $("#id_cliente").val(),
       'id_cliente_endereco': $("#id_cliente_endereco").val(),

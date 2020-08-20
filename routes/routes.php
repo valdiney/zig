@@ -96,7 +96,7 @@ $route->get('pedido/alterarAquantidadeDeUmProduto/{idProduto}/{quantidade}', 'Pe
 
 $route->get('pedido/retirarProdutoDoPedido/{idProduto}', 'PedidoController@retirarProdutoDoPedido');
 $route->get('pedido/mudarAquantidadeDoProduto/{idProduto}/{quantidade}', 'PedidoController@mudarAquantidadeDoProduto');
-$route->get('pedido/save', 'PedidoController@save');
+$route->post('pedido/save', 'PedidoController@save');
 $route->get('pedido/obterAQuantidadeDoProdutoNoPedido/{idProduto}', 'PedidoController@obterAQuantidadeDoProdutoNoPedido');
 $route->get('pedido/obterValorTotalDoPedido', 'PedidoController@obterValorTotalDoPedido');
 

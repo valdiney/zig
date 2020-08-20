@@ -74,7 +74,7 @@ class PedidoController extends Controller
       * Calcula o valor total do pedido levendo-se em concideração
       * o valor do desconto e valor do frete
       */
-      $dadosPedido['total'] = $this->vendasEmSessaoRepository->obterValorTotalDosProdutosNaMesa();
+      $dadosPedido['total'] = json_decode($this->vendasEmSessaoRepository->obterValorTotalDosProdutosNaMesa())->total;
       $dadosPedido['total'] = $pedido->valorTotalDoPedido($dadosPedido);
 
       try {
@@ -85,15 +85,15 @@ class PedidoController extends Controller
       }
 
       try {
-        foreach ($_POST['idDosProdutos'] as $id) {
-          $produtoPedido = new ProdutoPedido();
-          $produto = $produtoPedido->produtosAdicionadosPorIdProdutoEIdVendedor($id, $this->idPerfilUsuarioLogado);
+        foreach ($this->vendasEmSessaoRepository->obterProdutosDaMesa() as $produto) {
+          $produto = json_decode($produto);
 
+          $produtoPedido = new ProdutoPedido();
           $dados['id_pedido'] = $pedido->lastId();
           $dados['id_produto'] = $produto['id'];
           $dados['preco'] = $produto['preco'];
           $dados['quantidade'] = $produto['quantidade'];
-          $dados['subtotal'] = $produto['subTotal'];
+          $dados['total'] = $produto['total'];
 
           $produtoPedido->save($dados);
         }

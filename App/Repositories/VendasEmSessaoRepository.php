@@ -52,6 +52,18 @@ class VendasEmSessaoRepository
 		}
   }
 
+  public function idDosProdutosNaMesa()
+  {
+    $ids = [];
+    if (isset($_SESSION['venda'])) {
+      foreach($_SESSION['venda'] as $produto) {
+		    array_push($ids, $produto['id']);
+		  }
+    }
+
+    return $ids;
+  }
+
   public function alterarAquantidadeDeUmProdutoNaMesa($idProduto, $quantidade)
 	{
 		if (isset($_SESSION['venda'])) {

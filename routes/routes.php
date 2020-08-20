@@ -91,23 +91,13 @@ $route->get('pedido/enderecoPorIdCliente/{idCliente?}', 'PedidoController@endere
 $route->get('pedido/adicionarProduto/{idProduto}/{quantidade}', 'PedidoController@adicionarProduto');
 $route->get('pedido/produtosAdicionados', 'PedidoController@produtosAdicionados');
 $route->get('pedido/retirarProduto/{idProduto}', 'PedidoController@retirarProduto');
-$route->get('pedido/obterOultimoProdutoAdicionado', 'PedidoController@obterOultimoProdutoAdicionado');
 $route->get('pedido/alterarAquantidadeDeUmProduto/{idProduto}/{quantidade}', 'PedidoController@alterarAquantidadeDeUmProduto');
-
-$route->get('pedido/retirarProdutoDoPedido/{idProduto}', 'PedidoController@retirarProdutoDoPedido');
-$route->get('pedido/mudarAquantidadeDoProduto/{idProduto}/{quantidade}', 'PedidoController@mudarAquantidadeDoProduto');
-$route->post('pedido/save', 'PedidoController@save');
+$route->get('pedido/obterOultimoProdutoAdicionado', 'PedidoController@obterOultimoProdutoAdicionado');
 $route->get('pedido/obterAQuantidadeDoProdutoNoPedido/{idProduto}', 'PedidoController@obterAQuantidadeDoProdutoNoPedido');
 $route->get('pedido/obterValorTotalDoPedido', 'PedidoController@obterValorTotalDoPedido');
-
-
+$route->post('pedido/save', 'PedidoController@save');
 
 $route->get('pedido/teste', 'PedidoController@teste');
-
-$route->get('pwa/login', 'Api\InicioPwaController@index');
-$route->post('pwa/logar', 'Api\LoginController@logar');
-$route->get('pwa/pdv', 'Api\InicioPwaController@pdv');
-$route->get('test/vendedores', 'Api\TesteController@vendedores');
 
 # ----- LogController --------------------------------
 $route->get('logs', 'LogAcessoController@index');
@@ -118,6 +108,12 @@ $route->post('empresa/save', 'EmpresaController@save');
 $route->post('empresa/update', 'EmpresaController@update');
 $route->get('empresa/modalFormulario/{idEmpresa?}', 'EmpresaController@modalFormulario');
 $route->get('empresa/verificaSeEmailExiste/{email}/{idEmpresa?}', 'EmpresaController@verificaSeEmailExiste');
+
+# TESTE
+$route->get('pwa/login', 'Api\InicioPwaController@index');
+$route->post('pwa/logar', 'Api\LoginController@logar');
+$route->get('pwa/pdv', 'Api\InicioPwaController@pdv');
+$route->get('test/vendedores', 'Api\TesteController@vendedores');
 
 # Router run
 $route->run();

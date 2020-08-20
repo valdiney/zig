@@ -34,6 +34,25 @@
                 <td>R$ <?php echo real($pedido->total);?></td>
                 <td><?php echo $pedido->situacao;?></td>
                 <td><?php echo date('d/m/Y', strtotime($pedido->previsaoEntrega));?></td>
+
+                <td style="text-align:right">
+                  <div class="btn-group" role="group">
+                      <button id="btnGroupDrop1" type="button" class="btn btn-sm btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <i class="fas fa-cogs"></i>
+                      </button>
+                      <div class="dropdown-menu" aria-labelledby="btnGroupDrop1" x-placement="bottom-start" style="position: absolute; transform: translate3d(0px, 23px, 0px); top: 0px; left: 0px; will-change: transform;">
+
+                        <button class="dropdown-item" href="#" onclick="">
+                          <i class="fas fa-edit"></i> Editar
+                        </button>
+
+                        <!--<a class="dropdown-item" href="#">
+                          <i class="fas fa-trash-alt" style="color:#cc6666"></i> Excluir
+                        </a>-->
+
+                      </div>
+                    </div>
+		              </td>
 	            </tr>
             <?php endforeach;?>
 	        <tfoot></tfoot>

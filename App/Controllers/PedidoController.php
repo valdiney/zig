@@ -61,7 +61,7 @@ class PedidoController extends Controller
       $dadosPedido = (array) $this->post->only([
         'id_vendedor', 'id_cliente', 'id_meio_pagamento',
         'id_cliente_endereco', 'valor_desconto', 'valor_frete',
-        'previsao_entrega', 'total'
+        'previsao_entrega'
       ]);
 
       $dadosPedido['valor_desconto'] = formataValorMoedaParaGravacao($dadosPedido['valor_desconto']);
@@ -74,6 +74,7 @@ class PedidoController extends Controller
       * Calcula o valor total do pedido levendo-se em concideração
       * o valor do desconto e valor do frete
       */
+      $dadosPedido['total'] = $this->vendasEmSessaoRepository->obterValorTotalDosProdutosNaMesa();
       $dadosPedido['total'] = $pedido->valorTotalDoPedido($dadosPedido);
 
       try {
@@ -174,7 +175,12 @@ class PedidoController extends Controller
   public function alterarAquantidadeDeUmProduto($idProduto, $quantidade)
 	{
 		$this->vendasEmSessaoRepository->alterarAquantidadeDeUmProdutoNaMesa($idProduto, $quantidade);
-	}
+  }
+
+  public function obterValorTotalDoPedido()
+  {
+    echo $this->vendasEmSessaoRepository->obterValorTotalDosProdutosNaMesa();
+  }
 
   public function teste()
   {

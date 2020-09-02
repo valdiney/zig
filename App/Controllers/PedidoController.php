@@ -99,7 +99,7 @@ class PedidoController extends Controller
         }
 
         echo json_encode(['status' => true]);
-        unset($_SESSION['itensPedido']);
+        $this->vendasEmSessaoRepository->limparSessao();
 
       } catch(\Exception $e) {
         echo json_encode(['status' => false]);

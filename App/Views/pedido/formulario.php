@@ -273,7 +273,7 @@
       <div class="form-group">
         <label for="previsao_entrega">Previsão de entrega</label>
         <input type="date" class="form-control" name="previsao_entrega" id="previsao_entrega"
-        value="<?php if (isset($pedido->id) && $pedido->previsao_entrega != null):?><?php echo date('d/m/Y', strtotime($pedido->previsao_entrega));?><?php endif;?>">
+        value="<?php if (isset($pedido->id) && $pedido->previsao_entrega != null):?><?php echo $pedido->previsao_entrega;?><?php endif;?>">
       </div>
     </div>
   </div>
@@ -282,7 +282,10 @@
   <br>
   <div class="row">
     <div class="col-md-12">
-      <span id="total-geral" style="float:right"><b>Total:</b> R$ 00,00</span>
+
+      <span id="total-geral" style="float:right">
+         <b>Total:</b> R$ 00,00
+      </span>
     </div>
   </div>
 
@@ -479,8 +482,11 @@
     var rota = getDomain()+"/pedido/obterValorTotalDoPedido";
     $.get(rota, function(data, status) {
       var total = JSON.parse(data);
-      console.log(total);
-      $("#total-geral").html(real(total.total));
+      <?php if (isset($pedido->id)):?>
+        $("#total-geral").html("<b>Total:</b> " + real("<?php echo $pedido->total;?>"));
+      <?php else:?>
+        $("#total-geral").html("<b>Total:</b> " + real(total.total));
+      <?php endif;?>
     });
   }
 

@@ -117,10 +117,14 @@ class PedidoController extends Controller
   public function modalFormulario($idPedido = false)
   {
     $pedido = false;
+    $idClienteEnderecoPedido = false;
 
     if ($idPedido) {
-      $produto = new Pedido();
+      $pedido = new Pedido();
       $pedido = $pedido->find($idPedido);
+
+      $clienteEndereco =  new ClienteEndereco();
+      $idClienteEnderecoPedido = $clienteEndereco->find($pedido->id_cliente_endereco);
     }
 
     $usuario = new Usuario();
@@ -141,7 +145,8 @@ class PedidoController extends Controller
         'usuario',
         'clientes',
         'produtos',
-        'meiosPagamentos'
+        'meiosPagamentos',
+        'idClienteEnderecoPedido'
       ));
   }
 

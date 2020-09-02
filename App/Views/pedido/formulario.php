@@ -153,10 +153,16 @@
         <select class="form-control" name="id_cliente" id="id_cliente"
         onchange="enderecoPorIdCliente(this.value);">
           <option value="selecione">Selecione</option>
-          <?php foreach ($clientes as $cliente) : ?>
-            <option value="<?php echo $cliente->id; ?>">
-              <?php echo $cliente->nome; ?>
-            </option>
+          <?php foreach ($clientes as $cliente):?>
+            <?php if ($cliente->id == $pedido->id_cliente):?>
+              <option value="<?php echo $cliente->id; ?>" selected="selected">
+                <?php echo $cliente->nome; ?>
+              </option>
+            <?php else:?>
+              <option value="<?php echo $cliente->id; ?>">
+                <?php echo $cliente->nome; ?>
+              </option>
+            <?php endif;?>
           <?php endforeach; ?>
         </select>
       </div>
@@ -167,6 +173,7 @@
         <label for="id_cliente_endereco">Endereços *</label>
         <select class="form-control" name="id_cliente_endereco" id="id_cliente_endereco">
           <option value="selecione">Selecione</option>
+
         </select>
       </div>
     </div>
@@ -176,7 +183,7 @@
         <label for="id_produto">Produtos *</label>
         <select class="form-control" name="id_produto" id="id_produto">
           <option value="selecione">Selecione</option>
-          <?php foreach ($produtos as $produto) : ?>
+          <?php foreach ($produtos as $produto):?>
             <option value="<?php echo $produto->id; ?>">
               <?php echo $produto->nome; ?>
             </option>
@@ -231,10 +238,16 @@
         <label for="id_meio_pagamento">Forma Pagamento *</label>
         <select class="form-control" name="id_meio_pagamento" id="id_meio_pagamento">
           <option value="selecione">Selecione</option>
-          <?php foreach ($meiosPagamentos as $meiosPagamento) : ?>
-            <option value="<?php echo $meiosPagamento->id; ?>">
-              <?php echo $meiosPagamento->legenda; ?>
-            </option>
+          <?php foreach ($meiosPagamentos as $meiosPagamento):?>
+            <?php if ($pedido->id_meio_pagamento == $meiosPagamento->id):?>
+              <option value="<?php echo $meiosPagamento->id; ?>" selected="selected">
+                <?php echo $meiosPagamento->legenda; ?>
+              </option>
+            <?php else:?>
+              <option value="<?php echo $meiosPagamento->id; ?>">
+                <?php echo $meiosPagamento->legenda; ?>
+              </option>
+            <?php endif;?>
           <?php endforeach; ?>
         </select>
       </div>
@@ -243,21 +256,24 @@
     <div class="col-md-3">
       <div class="form-group">
         <label for="valor_desconto">R$ Desconto</label>
-        <input type="text" class="form-control campo-moeda" name="valor_desconto" id="valor_desconto" placeholder="Desconto...">
+        <input type="text" class="form-control campo-moeda" name="valor_desconto" id="valor_desconto" placeholder="Desconto..."
+        value="<?php if (isset($pedido->id) && $pedido->valor_desconto != null):?><?php echo real($pedido->valor_desconto);?><?php endif;?>">
       </div>
     </div>
 
     <div class="col-md-3">
       <div class="form-group">
         <label for="valor_frete">R$ Frete</label>
-        <input type="text" class="form-control campo-moeda" name="valor_frete" id="valor_frete" placeholder="Frete...">
+        <input type="text" class="form-control campo-moeda" name="valor_frete" id="valor_frete" placeholder="Frete..."
+        value="<?php if (isset($pedido->id) && $pedido->valor_frete != null):?><?php echo real($pedido->valor_frete);?><?php endif;?>">
       </div>
     </div>
 
     <div class="col-md-3">
       <div class="form-group">
         <label for="previsao_entrega">Previsão de entrega</label>
-        <input type="date" class="form-control" name="previsao_entrega" id="previsao_entrega">
+        <input type="date" class="form-control" name="previsao_entrega" id="previsao_entrega"
+        value="<?php if (isset($pedido->id) && $pedido->previsao_entrega != null):?><?php echo date('d/m/Y', strtotime($pedido->previsao_entrega));?><?php endif;?>">
       </div>
     </div>
   </div>
@@ -296,7 +312,7 @@
   produtosAdicionados();
   obterValorTotalDoPedido();
 
-  function enderecoPorIdCliente(idCliente) {
+  function enderecoPorIdCliente(idCliente, idClienteEnderecoPedido = false) {
     var rota = getDomain()+"/pedido/enderecoPorIdCliente/"+idCliente;
     $('#id_cliente_endereco').html("<option>Carregando...</option>");
 
@@ -308,7 +324,11 @@
         $('#id_cliente_endereco').empty();
 
         $.each(enderecos, function(index, value) {
-          options += "<option value='"+value.id+"'>"+value.endereco+"</option>";
+          if (idClienteEnderecoPedido && idClienteEnderecoPedido == value.id) {
+            options += "<option value='"+value.id+"' selected='selected'>"+value.endereco+"</option>";
+          } else {
+            options += "<option value='"+value.id+"'>"+value.endereco+"</option>";
+          }
         });
 
         $('#id_cliente_endereco').append(options);
@@ -464,4 +484,10 @@
     });
   }
 
+  /*Quando existe id_cliente_endereco, significa que é o usuário está na modal para editar os dados dos pedidos
+  Então, chama os endereços do cliente do pedido com o intuito de colocar no campo select o endereço escolhido anteriormenter
+  */
+  <?php if (isset($pedido->id_cliente_endereco)):?>
+    enderecoPorIdCliente($("#id_cliente").val(), "<?php echo $idClienteEnderecoPedido->id;?>");
+  <?php endif;?>
 </script>

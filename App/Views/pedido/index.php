@@ -42,7 +42,8 @@
                       </button>
                       <div class="dropdown-menu" aria-labelledby="btnGroupDrop1" x-placement="bottom-start" style="position: absolute; transform: translate3d(0px, 23px, 0px); top: 0px; left: 0px; will-change: transform;">
 
-                        <button class="dropdown-item" href="#" onclick="">
+                        <button class="dropdown-item" href="#"
+                        onclick="modalFormularioPedido('<?php echo $rota;?>', <?php echo $pedido->idPedido;?>)">
                           <i class="fas fa-edit"></i> Editar
                         </button>
 

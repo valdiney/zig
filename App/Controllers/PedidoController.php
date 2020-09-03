@@ -16,6 +16,10 @@ use App\Models\ProdutoPedido;
 
 use App\Repositories\VendasEmSessaoRepository;
 
+ini_set('display_errors', 1);
+ini_set('display_startup_erros', 1);
+error_reporting(E_ALL);
+
 class PedidoController extends Controller
 {
 	protected $post;
@@ -85,27 +89,23 @@ class PedidoController extends Controller
       }
 
       try {
-        foreach ($this->vendasEmSessaoRepository->obterProdutosDaMesa() as $produto) {
-          $produto = json_decode($produto);
-
+        foreach (json_decode($this->vendasEmSessaoRepository->obterProdutosDaMesa()) as $produto) {
           $produtoPedido = new ProdutoPedido();
           $dados['id_pedido'] = $pedido->lastId();
-          $dados['id_produto'] = $produto['id'];
-          $dados['preco'] = $produto['preco'];
-          $dados['quantidade'] = $produto['quantidade'];
-          $dados['total'] = $produto['total'];
+          $dados['id_produto'] = $produto->id;
+          $dados['preco'] = $produto->preco;
+          $dados['quantidade'] = $produto->quantidade;
+          $dados['subtotal'] = $produto->total;
 
           $produtoPedido->save($dados);
         }
-
-        echo json_encode(['status' => true]);
-        $this->vendasEmSessaoRepository->limparSessao();
-
       } catch(\Exception $e) {
         echo json_encode(['status' => false]);
-        unset($_SESSION['itensPedido']);
     		dd($e->getMessage());
       }
+
+      echo json_encode(['status' => true]);
+      $this->vendasEmSessaoRepository->limparSessao();
     }
   }
 
@@ -118,6 +118,7 @@ class PedidoController extends Controller
   {
     $pedido = false;
     $idClienteEnderecoPedido = false;
+    $produtosSelecionadosNaEdicao = false;
 
     if ($idPedido) {
       $pedido = new Pedido();
@@ -125,6 +126,11 @@ class PedidoController extends Controller
 
       $clienteEndereco =  new ClienteEndereco();
       $idClienteEnderecoPedido = $clienteEndereco->find($pedido->id_cliente_endereco);
+
+      $produtoPedido = new ProdutoPedido();
+      $produtosSelecionadosNaEdicao = $produtoPedido->produtosPorIdPedido($pedido->id);
+
+      dd($produtosSelecionadosNaEdicao);
     }
 
     $usuario = new Usuario();

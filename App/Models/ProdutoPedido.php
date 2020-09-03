@@ -13,10 +13,17 @@ class ProdutoPedido extends Model
     parent::__construct();
   }
 
-  public function produtos($idPedido, $idEmpresa = false)
+  public function produtos($idEmpresa = false)
   {
     return $this->query(
       "SELECT * FROM produtos WHERE id_empresa = {$idEmpresa}"
+    );
+  }
+
+  public function produtosPorIdPedido($idPedido = false)
+  {
+    return $this->query(
+      "SELECT * FROM produtos_pedidos WHERE id_pedido = {$idPedido}"
     );
   }
 }

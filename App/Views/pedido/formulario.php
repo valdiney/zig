@@ -451,7 +451,11 @@
   }
 
   function retirarProduto(idProduto, elemento) {
-    var rota = getDomain()+"/pedido/retirarProduto/"+idProduto;
+    <?php if (isset($pedido->id)):?>
+      var rota = getDomain()+"/pedido/retirarProduto/"+idProduto+"/<?php echo $pedido->id;?>";
+    <?php else:?>
+      var rota = getDomain()+"/pedido/retirarProduto/"+idProduto;
+    <?php endif;?>
     $.get(rota, function(data, status) {
       elemento.parent().parent().fadeOut(400, function() {
         $(this).remove();

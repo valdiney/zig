@@ -43,6 +43,17 @@ class ProdutoPedido extends Model
 
   public function deletarProdutosDescartados($idProduto, $idPedido)
   {
+    return $this->query("DELETE FROM produtos_pedidos WHERE id_pedido = {$idPedido} AND id_produto = {$idProduto}");
+  }
 
+  public function updateProdutos(array $dados)
+  {
+    $this->query("UPDATE produtos_pedidos SET
+      preco = {$dados['preco']},
+      quantidade = {$dados['quantidade']},
+      subtotal = {$dados['subtotal']}
+      WHERE id_pedido = {$dados['id_pedido']} AND id_produto = {$dados['id_produto']}"
+    );
   }
 }
+

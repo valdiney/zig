@@ -90,7 +90,7 @@ $route->get('pedido/enderecoPorIdCliente/{idCliente?}', 'PedidoController@endere
 
 $route->get('pedido/adicionarProduto/{idProduto}/{quantidade}', 'PedidoController@adicionarProduto');
 $route->get('pedido/produtosAdicionados', 'PedidoController@produtosAdicionados');
-$route->get('pedido/retirarProduto/{idProduto}', 'PedidoController@retirarProduto');
+$route->get('pedido/retirarProduto/{idProduto}/{idPedido?}', 'PedidoController@retirarProduto');
 $route->get('pedido/alterarAquantidadeDeUmProduto/{idProduto}/{quantidade}', 'PedidoController@alterarAquantidadeDeUmProduto');
 $route->get('pedido/obterOultimoProdutoAdicionado', 'PedidoController@obterOultimoProdutoAdicionado');
 $route->get('pedido/obterAQuantidadeDoProdutoNoPedido/{idProduto}', 'PedidoController@obterAQuantidadeDoProdutoNoPedido');

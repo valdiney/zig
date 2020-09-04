@@ -143,25 +143,20 @@ class PedidoController extends Controller
 
       try {
         foreach (json_decode($this->vendasEmSessaoRepository->obterProdutosDaMesa()) as $produto) {
-          # Se não tiver o id do pedido na sessão, coloca
-          if ( ! isset($produto->id_pedido)) {
-            $dados['id_pedido'] = $this->post->data()->id_pedido;
-          }
-
           $produtoPedido = new ProdutoPedido();
+          # Se não tiver o id do pedido na sessão, coloca
+          $dados['id_pedido'] = $this->post->data()->id_pedido;
           $dados['id_produto'] = $produto->id;
           $dados['preco'] = $produto->preco;
           $dados['quantidade'] = $produto->quantidade;
           $dados['subtotal'] = $produto->total;
 
-          # Vincula oo pedido o produto selecionado
+          # Vincula o pedido o produto selecionado
           if ($produtoPedido->seNaoExisteProdutoNoPedido($produto->id, $this->post->data()->id_pedido)) {
             $produtoPedido->save($dados);
           } else {
-
+            $produtoPedido->updateProdutos($dados);
           }
-
-          //$produtoPedido->save($dados);
         }
       } catch(\Exception $e) {
         echo json_encode(['status' => false]);
@@ -181,6 +176,8 @@ class PedidoController extends Controller
     $produtosSelecionadosNaEdicao = false;
 
     if ($idPedido) {
+      $this->vendasEmSessaoRepository->limparSessao();
+
       $pedido = new Pedido();
       $pedido = $pedido->find($idPedido);
 
@@ -235,9 +232,13 @@ class PedidoController extends Controller
     echo $this->vendasEmSessaoRepository->obterProdutosDaMesa();
   }
 
-  public function retirarProduto($idProduto)
+  public function retirarProduto($idProduto, $idPedido = false)
   {
     $this->vendasEmSessaoRepository->retirarProdutoDaMesa($idProduto);
+    if ($idPedido) {
+      $produtoPedido = new ProdutoPedido();
+      $produtoPedido->deletarProdutosDescartados($idProduto, $idPedido);
+    }
   }
 
   public function obterOultimoProdutoAdicionado()
@@ -257,8 +258,14 @@ class PedidoController extends Controller
 
   public function teste()
   {
+    $produtoPedido = new ProdutoPedido();
+
     #$this->vendasEmSessaoRepository->limparSessao();
-    dd(json_decode($this->vendasEmSessaoRepository->obterProdutosDaMesa()));
+    //dd(json_decode($this->vendasEmSessaoRepository->obterProdutosDaMesa()));
+
+    dd((array) $produtoPedido->produtosPorIdPedido(56));
+
+
   }
 }
 

@@ -141,8 +141,38 @@ class PedidoController extends Controller
     		dd($e->getMessage());
       }
 
+      try {
+        foreach (json_decode($this->vendasEmSessaoRepository->obterProdutosDaMesa()) as $produto) {
+          # Se não tiver o id do pedido na sessão, coloca
+          if ( ! isset($produto->id_pedido)) {
+            $dados['id_pedido'] = $this->post->data()->id_pedido;
+          }
+
+          $produtoPedido = new ProdutoPedido();
+          $dados['id_produto'] = $produto->id;
+          $dados['preco'] = $produto->preco;
+          $dados['quantidade'] = $produto->quantidade;
+          $dados['subtotal'] = $produto->total;
+
+          # Vincula oo pedido o produto selecionado
+          if ($produtoPedido->seNaoExisteProdutoNoPedido($produto->id, $this->post->data()->id_pedido)) {
+            $produtoPedido->save($dados);
+          } else {
+
+          }
+
+          //$produtoPedido->save($dados);
+        }
+      } catch(\Exception $e) {
+        echo json_encode(['status' => false]);
+    		dd($e->getMessage());
+      }
+
+      echo json_encode(['status' => true]);
+      $this->vendasEmSessaoRepository->limparSessao();
+
     }
-	}
+  }
 
   public function modalFormulario($idPedido = false)
   {
@@ -154,7 +184,7 @@ class PedidoController extends Controller
       $pedido = new Pedido();
       $pedido = $pedido->find($idPedido);
 
-      $clienteEndereco =  new ClienteEndereco();
+      $clienteEndereco = new ClienteEndereco();
       $idClienteEnderecoPedido = $clienteEndereco->find($pedido->id_cliente_endereco);
 
       $produtoPedido = new ProdutoPedido();
@@ -227,7 +257,7 @@ class PedidoController extends Controller
 
   public function teste()
   {
-    //$this->vendasEmSessaoRepository->limparSessao();
+    #$this->vendasEmSessaoRepository->limparSessao();
     dd(json_decode($this->vendasEmSessaoRepository->obterProdutosDaMesa()));
   }
 }

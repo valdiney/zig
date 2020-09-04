@@ -104,7 +104,8 @@ class VendasEmSessaoRepository
       'preco' => $produto->preco,
       'imagem' => $produto->imagem,
       'quantidade' => $produto->quantidade,
-      'total' => $produto->total
+      'total' => $produto->total,
+      'id_pedido' => $produto->id_pedido
     ];
   }
 }

@@ -434,7 +434,10 @@
       'id_meio_pagamento': $("#id_meio_pagamento").val(),
       'valor_frete': $("#valor_frete").val(),
       'valor_desconto': $("#valor_desconto").val(),
-      'previsao_entrega': $("#previsao_entrega").val()
+      'previsao_entrega': $("#previsao_entrega").val(),
+      <?php if (isset($pedido->id)):?>
+      'id_pedido': '<?php echo $pedido->id;?>'
+      <?php endif;?>
       }, function(resultado) {
         var retorno = JSON.parse(resultado);
         if (retorno.status == true) {

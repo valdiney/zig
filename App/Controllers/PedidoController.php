@@ -111,7 +111,37 @@ class PedidoController extends Controller
 
 	public function update()
 	{
-		# Escreva aqui...
+		if ($this->post->hasPost()) {
+      $pedido = new Pedido();
+      $produtoPedido = new ProdutoPedido();
+
+      $dadosPedido = (array) $this->post->only([
+        'id_vendedor', 'id_cliente', 'id_meio_pagamento',
+        'id_cliente_endereco', 'valor_desconto', 'valor_frete',
+        'previsao_entrega'
+      ]);
+
+      $dadosPedido['valor_desconto'] = formataValorMoedaParaGravacao($dadosPedido['valor_desconto']);
+      $dadosPedido['valor_frete'] = formataValorMoedaParaGravacao($dadosPedido['valor_frete']);
+      $dadosPedido['previsao_entrega'] = date('Y-m-d', strtotime($dadosPedido['previsao_entrega']));
+      $dadosPedido['id_empresa'] = $this->idEmpresa;
+      $dadosPedido['id_situacao_pedido'] = 1;
+
+      /**
+      * Calcula o valor total do pedido levendo-se em concideração
+      * o valor do desconto e valor do frete
+      */
+      $dadosPedido['total'] = json_decode($this->vendasEmSessaoRepository->obterValorTotalDosProdutosNaMesa())->total;
+      $dadosPedido['total'] = $pedido->valorTotalDoPedido($dadosPedido);
+
+      try {
+				$pedido->update($dadosPedido, $this->post->data()->id_pedido);
+
+			} catch(\Exception $e) {
+    		dd($e->getMessage());
+      }
+
+    }
 	}
 
   public function modalFormulario($idPedido = false)

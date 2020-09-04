@@ -22,8 +22,12 @@ class ProdutoPedido extends Model
 
   public function produtosPorIdPedido($idPedido = false)
   {
-    return $this->query(
-      "SELECT * FROM produtos_pedidos WHERE id_pedido = {$idPedido}"
+    return (object) $this->query(
+      "SELECT p.id, p.nome AS produto, p.preco, p.imagem,
+      pd.quantidade, pd.subtotal AS total
+      FROM produtos_pedidos AS pd
+      INNER JOIN produtos AS p ON pd.id_produto = p.id
+      WHERE pd.id_pedido = {$idPedido}"
     );
   }
 }

@@ -95,4 +95,16 @@ class VendasEmSessaoRepository
   {
     unset($_SESSION['venda']);
   }
+
+  function colocarProdutosVindosDoBancoDeDadosNaMesa($produto)
+  {
+    $_SESSION['venda'][$produto->id] = [
+      'id' => $produto->id,
+      'produto' => $produto->produto,
+      'preco' => $produto->preco,
+      'imagem' => $produto->imagem,
+      'quantidade' => $produto->quantidade,
+      'total' => $produto->total
+    ];
+  }
 }

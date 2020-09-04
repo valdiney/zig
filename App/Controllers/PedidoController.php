@@ -130,7 +130,9 @@ class PedidoController extends Controller
       $produtoPedido = new ProdutoPedido();
       $produtosSelecionadosNaEdicao = $produtoPedido->produtosPorIdPedido($pedido->id);
 
-      dd($produtosSelecionadosNaEdicao);
+      foreach ($produtosSelecionadosNaEdicao as $produto) {
+        $this->vendasEmSessaoRepository->colocarProdutosVindosDoBancoDeDadosNaMesa($produto);
+      }
     }
 
     $usuario = new Usuario();

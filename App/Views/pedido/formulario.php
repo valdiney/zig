@@ -420,7 +420,12 @@
   }*/
 
   function savePedidos() {
-    var rota = getDomain()+"/pedido/save";
+    <?php if (isset($pedido->id)):?>
+      var rota = getDomain()+"/pedido/update";
+    <?php else:?>
+      var rota = getDomain()+"/pedido/save";
+    <?php endif;?>
+
     $.post(rota, {
       '_token': '<?php echo TOKEN; ?>',
       'id_vendedor': $("#id_vendedor").val(),

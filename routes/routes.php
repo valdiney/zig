@@ -96,6 +96,7 @@ $route->get('pedido/obterOultimoProdutoAdicionado', 'PedidoController@obterOulti
 $route->get('pedido/obterAQuantidadeDoProdutoNoPedido/{idProduto}', 'PedidoController@obterAQuantidadeDoProdutoNoPedido');
 $route->get('pedido/obterValorTotalDoPedido', 'PedidoController@obterValorTotalDoPedido');
 $route->post('pedido/save', 'PedidoController@save');
+$route->post('pedido/update', 'PedidoController@update');
 
 $route->get('pedido/teste', 'PedidoController@teste');
 

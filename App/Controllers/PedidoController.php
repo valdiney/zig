@@ -165,7 +165,6 @@ class PedidoController extends Controller
 
       echo json_encode(['status' => true]);
       $this->vendasEmSessaoRepository->limparSessao();
-
     }
   }
 

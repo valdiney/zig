@@ -176,8 +176,8 @@
     <div class="col-md-4 destaque1">
       <div class="form-group">
         <a class="btn btn-success" style="margin-top:18px"
-        onclick="return adicionarProduto($('#id_produto').val(), $('#quantidade').val())">
-          <i class="fas fa-save"></i> Salvar
+        onclick="return salvarPrimeiroPasso()" id="salvar-endereco">
+          <i class="fas fa-save"></i> Próximo
         </a>
       </div>
     </div>
@@ -237,9 +237,9 @@
 
     <br>
 
-    <div class="row componente-produto-pedido">
+    <div class="row">
 
-      <div class="col-md-3">
+      <div class="col-md-3 componente-produto-pedido">
         <div class="form-group">
           <label for="id_meio_pagamento">Forma Pagamento *</label>
           <select class="form-control" name="id_meio_pagamento" id="id_meio_pagamento">
@@ -259,7 +259,7 @@
         </div>
       </div>
 
-      <div class="col-md-3">
+      <div class="col-md-3 componente-produto-pedido">
         <div class="form-group">
           <label for="valor_desconto">R$ Desconto</label>
           <input type="text" class="form-control campo-moeda" name="valor_desconto" id="valor_desconto" placeholder="Desconto..."
@@ -267,7 +267,7 @@
         </div>
       </div>
 
-      <div class="col-md-3">
+      <div class="col-md-3 componente-produto-pedido">
         <div class="form-group">
           <label for="valor_frete">R$ Frete</label>
           <input type="text" class="form-control campo-moeda" name="valor_frete" id="valor_frete" placeholder="Frete..."
@@ -275,7 +275,7 @@
         </div>
       </div>
 
-      <div class="col-md-3">
+      <div class="col-md-3 componente-produto-pedido">
         <div class="form-group">
           <label for="previsao_entrega">Previsão de entrega</label>
           <input type="date" class="form-control" name="previsao_entrega" id="previsao_entrega"
@@ -287,13 +287,6 @@
 
 
     </div><!--end row-->
-
-
-
-
-
-
-
 
 </form>
 
@@ -308,6 +301,8 @@ $(function() {
     affixesStay: false
   });
 });
+
+var idPedido = false;
 
 function enderecoPorIdCliente(idCliente, idClienteEnderecoPedido = false) {
     var rota = getDomain()+"/pedido/enderecoPorIdCliente/"+idCliente;
@@ -335,5 +330,28 @@ function enderecoPorIdCliente(idCliente, idClienteEnderecoPedido = false) {
         $('#id_cliente_endereco').html("<option value='selecione'>Não encontrado</option>");
       }
     });
+  }
+
+  /*Salva Vendedor, Cliente e Endereço*/
+  function salvarPrimeiroPasso() {
+    var rota = getDomain()+"/pedido/salvarPrimeiroPasso";
+
+    $.post(rota, {
+      '_token': '<?php echo TOKEN; ?>',
+      'id_cliente': $("#id_cliente").val(),
+      'id_cliente_endereco': $("#id_cliente_endereco").val(),
+
+      }, function(resultado) {
+        var retorno = JSON.parse(resultado);
+        if (retorno.status == true) {
+          $(".componente-produto-pedido").show();
+          $("#salvar-endereco").html('<i class="fas fa-save"></i> Salvar');
+          idPedido = retorno.id_pedido;
+        }
+
+        console.log(resultado);
+    })
+
+    return false;
   }
 </script>

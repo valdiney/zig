@@ -54,7 +54,32 @@ class PedidoController extends Controller
     $pedidos = $pedido->pedidos($this->idUsuarioLogado);
 
 		$this->view('pedido/index', $this->layout, compact('pedidos'));
-	}
+  }
+
+  public function salvarPrimeiroPasso()
+  {
+    if ($this->post->hasPost()) {
+      $pedido = new Pedido();
+      $produtoPedido = new ProdutoPedido();
+
+      # 7: Imcompleto
+      $idSituacaoPedido = 7;
+      $dadosPedido = (array) $this->post->only([
+        'id_cliente', 'id_cliente_endereco'
+      ]);
+
+      $dadosPedido['id_vendedor'] = $this->idUsuarioLogado;
+
+      try {
+        $pedido->save($dadosPedido);
+        echo json_encode(['status' => true, 'id_pedido' => $pedido->lastId()]);
+
+      } catch(\Exception $e) {
+        echo json_encode(['status' => false]);
+        dd($e->getMessage());
+      }
+    }
+  }
 
 	public function save()
 	{
@@ -68,44 +93,13 @@ class PedidoController extends Controller
         'previsao_entrega'
       ]);
 
-      $dadosPedido['valor_desconto'] = formataValorMoedaParaGravacao($dadosPedido['valor_desconto']);
-      $dadosPedido['valor_frete'] = formataValorMoedaParaGravacao($dadosPedido['valor_frete']);
-      $dadosPedido['previsao_entrega'] = date('Y-m-d', strtotime($dadosPedido['previsao_entrega']));
-      $dadosPedido['id_empresa'] = $this->idEmpresa;
-      $dadosPedido['id_situacao_pedido'] = 1;
-
-      /**
-      * Calcula o valor total do pedido levendo-se em concideração
-      * o valor do desconto e valor do frete
-      */
-      $dadosPedido['total'] = json_decode($this->vendasEmSessaoRepository->obterValorTotalDosProdutosNaMesa())->total;
-      $dadosPedido['total'] = $pedido->valorTotalDoPedido($dadosPedido);
-
       try {
-				$pedido->save($dadosPedido);
 
-			} catch(\Exception $e) {
-    		dd($e->getMessage());
-      }
+      }  catch(\Exception $e) {
+      echo json_encode(['status' => false]);
+      dd($e->getMessage());
+    }
 
-      try {
-        foreach (json_decode($this->vendasEmSessaoRepository->obterProdutosDaMesa()) as $produto) {
-          $produtoPedido = new ProdutoPedido();
-          $dados['id_pedido'] = $pedido->lastId();
-          $dados['id_produto'] = $produto->id;
-          $dados['preco'] = $produto->preco;
-          $dados['quantidade'] = $produto->quantidade;
-          $dados['subtotal'] = $produto->total;
-
-          $produtoPedido->save($dados);
-        }
-      } catch(\Exception $e) {
-        echo json_encode(['status' => false]);
-    		dd($e->getMessage());
-      }
-
-      echo json_encode(['status' => true]);
-      $this->vendasEmSessaoRepository->limparSessao();
     }
   }
 

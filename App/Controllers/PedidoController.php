@@ -81,6 +81,13 @@ class PedidoController extends Controller
     }
   }
 
+  public function adicionarProduto()
+  {
+    if ($this->post->hasPost()) {
+      echo json_encode(['teste' => 'yes']);
+    }
+  }
+
 	public function save()
 	{
     if ($this->post->hasPost()) {
@@ -212,12 +219,6 @@ class PedidoController extends Controller
   {
     $clienteEndereco = new ClienteEndereco();
     echo json_encode($clienteEndereco->enderecos($idCliente));
-  }
-
-  public function adicionarProduto($idProduto, $quantidade)
-	{
-    $operacao = $this->vendasEmSessaoRepository->colocarProdutosNaMesa($idProduto, $quantidade);
-    echo json_encode($operacao);
   }
 
   public function produtosAdicionados()

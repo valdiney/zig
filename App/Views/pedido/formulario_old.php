@@ -312,9 +312,6 @@
     });
   });
 
-  produtosAdicionados();
-  obterValorTotalDoPedido();
-
   function enderecoPorIdCliente(idCliente, idClienteEnderecoPedido = false) {
     var rota = getDomain()+"/pedido/enderecoPorIdCliente/"+idCliente;
     $('#id_cliente_endereco').html("<option>Carregando...</option>");
@@ -405,19 +402,6 @@
 
 
 
-  /*function incrementarQuantidadeDoProduto(idProduto) {
-    var campoQuantidade = $("#campo-quantidade"+idProduto);
-
-    // Incrementa o campo quantidade
-    campoQuantidade.val(Number(campoQuantidade.val())+1);
-
-    var rota = getDomain()+"/pedido/obterAQuantidadeDoProdutoNoPedido/"+idProduto;
-    $.get(rota, function(data, status) {
-      var produto = JSON.parse(data);
-      var valorIncrementado = valorTotalDoPedido += Number(produto.preco);
-      $("#total-geral").html(real(valorIncrementado));
-    });
-  }*/
 
   function savePedidos() {
     <?php if (isset($pedido->id)):?>

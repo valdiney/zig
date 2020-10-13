@@ -128,167 +128,35 @@
     }
 
     .componente-produto-pedido {
-      display:none;
+      /*display:none;*/
 
     }
+
+    .aba {
+      display:none;
+    }
 </style>
-<form>
-  <!-- token de segurança -->
-  <input type="hidden" name="_token" value="<?php echo TOKEN; ?>" />
 
-  <div class="row">
 
-    <?php if (isset($pedido->id)) : ?>
-      <input type="hidden" name="id" value="<?php echo $pedido->id; ?>">
-    <?php endif; ?>
-
+<div class="row">
     <div class="col-md-4">
-      <div class="form-group">
-        <label for="id_cliente">Clientes *</label>
-        <select class="form-control" name="id_cliente" id="id_cliente"
-        onchange="enderecoPorIdCliente(this.value);">
-          <option value="selecione">Selecione</option>
-          <?php foreach ($clientes as $cliente):?>
-            <?php if ($cliente->id == $pedido->id_cliente):?>
-              <option value="<?php echo $cliente->id; ?>" selected="selected">
-                <?php echo $cliente->nome; ?>
-              </option>
-            <?php else:?>
-              <option value="<?php echo $cliente->id; ?>">
-                <?php echo $cliente->nome; ?>
-              </option>
-            <?php endif;?>
-          <?php endforeach; ?>
-        </select>
-      </div>
+      <button class="btn btn-sucess" id="open-1" onclick="abas('aba1')">Selecionar Cliente</button>
     </div>
-
-     <div class="col-md-4">
-      <div class="form-group">
-        <label for="id_cliente_endereco">Endereços *</label>
-        <select class="form-control" name="id_cliente_endereco" id="id_cliente_endereco">
-          <option value="selecione">Selecione</option>
-
-        </select>
-      </div>
+    <div class="col-md-4" id="open-2" onclick="abas('aba2')">
+      <button class="btn btn-sucess">Incluir Produtos</button>
     </div>
-
-    <div class="col-md-4 destaque1">
-      <div class="form-group">
-        <a class="btn btn-success" style="margin-top:18px"
-        onclick="return salvarPrimeiroPasso()" id="salvar-endereco">
-          <i class="fas fa-save"></i> Próximo
-        </a>
-      </div>
+    <div class="col-md-4" id="open-3" onclick="abas('aba3')">
+      <button class="btn btn-sucess">Finalizar Pedido</button>
     </div>
+</div>
+
+<div class="row">
+  <?php require_once('abaCliente.php');?>
+  <?php require_once('abaIncluirProduto.php');?>
+</div>
 
 
 
-    <div class="col-md-4 destaque1 componente-produto-pedido">
-      <div class="form-group">
-        <label for="id_produto">Produtos *</label>
-        <select class="form-control" name="id_produto" id="id_produto">
-          <option value="selecione">Selecione</option>
-          <?php foreach ($produtos as $produto):?>
-            <option value="<?php echo $produto->id; ?>">
-              <?php echo $produto->nome; ?>
-            </option>
-          <?php endforeach; ?>
-        </select>
-      </div>
-    </div>
-
-    <div class="col-md-4 destaque1 componente-produto-pedido">
-        <div class="form-group">
-          <label for="quantidade">Quantidade *</label>
-          <input type="text" class="form-control" name="quantidade" id="quantidade" value="1">
-        </div>
-      </div>
-
-      <div class="col-md-4 destaque1 componente-produto-pedido">
-        <div class="form-group">
-          <a class="btn btn-success" style="margin-top:30px"
-          onclick="return adicionarProduto($('#id_produto').val(), $('#quantidade').val())">
-            <i class="fas fa-plus"></i> Adicionar
-          </a>
-        </div>
-      </div>
-
-    </div><!--end row-->
-
-    <div class="row componente-produto-pedido">
-      <div class="col-md-12 table-produtos">
-        <table class="table table tabela-ajustada tabela-de-produto table-striped">
-            <thead>
-              <tr>
-                <th>#</th>
-                <th>Produto</th>
-                <th>Qtd</th>
-                <th>Total</th>
-                <th>Ação</th>
-              </tr>
-            </thead>
-            <tbody>
-            </tbody>
-        </table>
-      </div>
-    </div>
-    <!--end row-->
-
-    <br>
-
-    <div class="row">
-
-      <div class="col-md-3 componente-produto-pedido">
-        <div class="form-group">
-          <label for="id_meio_pagamento">Forma Pagamento *</label>
-          <select class="form-control" name="id_meio_pagamento" id="id_meio_pagamento">
-            <option value="selecione">Selecione</option>
-            <?php foreach ($meiosPagamentos as $meiosPagamento):?>
-              <?php if ($pedido->id_meio_pagamento == $meiosPagamento->id):?>
-                <option value="<?php echo $meiosPagamento->id; ?>" selected="selected">
-                  <?php echo $meiosPagamento->legenda; ?>
-                </option>
-              <?php else:?>
-                <option value="<?php echo $meiosPagamento->id; ?>">
-                  <?php echo $meiosPagamento->legenda; ?>
-                </option>
-              <?php endif;?>
-            <?php endforeach; ?>
-          </select>
-        </div>
-      </div>
-
-      <div class="col-md-3 componente-produto-pedido">
-        <div class="form-group">
-          <label for="valor_desconto">R$ Desconto</label>
-          <input type="text" class="form-control campo-moeda" name="valor_desconto" id="valor_desconto" placeholder="Desconto..."
-          value="<?php if (isset($pedido->id) && $pedido->valor_desconto != null):?><?php echo real($pedido->valor_desconto);?><?php endif;?>">
-        </div>
-      </div>
-
-      <div class="col-md-3 componente-produto-pedido">
-        <div class="form-group">
-          <label for="valor_frete">R$ Frete</label>
-          <input type="text" class="form-control campo-moeda" name="valor_frete" id="valor_frete" placeholder="Frete..."
-          value="<?php if (isset($pedido->id) && $pedido->valor_frete != null):?><?php echo real($pedido->valor_frete);?><?php endif;?>">
-        </div>
-      </div>
-
-      <div class="col-md-3 componente-produto-pedido">
-        <div class="form-group">
-          <label for="previsao_entrega">Previsão de entrega</label>
-          <input type="date" class="form-control" name="previsao_entrega" id="previsao_entrega"
-          value="<?php if (isset($pedido->id) && $pedido->previsao_entrega != null):?><?php echo $pedido->previsao_entrega;?><?php endif;?>">
-        </div>
-      </div>
-
-
-
-
-    </div><!--end row-->
-
-</form>
 
 
 <script>
@@ -301,6 +169,14 @@ $(function() {
     affixesStay: false
   });
 });
+
+
+function abas(aba) {
+  $(".aba").hide();
+  $("#"+aba).show();
+}
+
+
 
 var idPedido = false;
 
@@ -353,5 +229,29 @@ function enderecoPorIdCliente(idCliente, idClienteEnderecoPedido = false) {
     })
 
     return false;
+  }
+
+  function adicionarProduto(idProduto, quantidade) {
+    var rota = getDomain()+"/pedido/adicionarProduto";
+    $.post(rota, {
+      '_token': '<?php echo TOKEN; ?>',
+      'id_pedido': idPedido,
+      'id_produto': idProduto,
+      'quantidade': quantidade
+
+      }, function(resultado) {
+        var retorno = JSON.parse(resultado);
+        if (retorno.status == true) {
+          $(".componente-produto-pedido").show();
+          $("#salvar-endereco").html('<i class="fas fa-save"></i> Salvar');
+          idPedido = retorno.id_pedido;
+        }
+
+        console.log(resultado);
+    })
+
+    return false;
+
+
   }
 </script>

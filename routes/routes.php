@@ -89,6 +89,7 @@ $route->get('pedido/modalFormulario/{idPedido?}', 'PedidoController@modalFormula
 $route->get('pedido/enderecoPorIdCliente/{idCliente?}', 'PedidoController@enderecoPorIdCliente');
 
 $route->post('pedido/salvarPrimeiroPasso', 'PedidoController@salvarPrimeiroPasso');
+$route->post('pedido/adicionarProduto', 'PedidoController@adicionarProduto');
 
 
 
@@ -96,9 +97,7 @@ $route->post('pedido/salvarPrimeiroPasso', 'PedidoController@salvarPrimeiroPasso
 
 
 
-
-
-$route->get('pedido/adicionarProduto/{idProduto}/{quantidade}', 'PedidoController@adicionarProduto');
+//$route->get('pedido/adicionarProduto/{idProduto}/{quantidade}', 'PedidoController@adicionarProduto');
 $route->get('pedido/produtosAdicionados', 'PedidoController@produtosAdicionados');
 $route->get('pedido/retirarProduto/{idProduto}/{idPedido?}', 'PedidoController@retirarProduto');
 $route->get('pedido/alterarAquantidadeDeUmProduto/{idProduto}/{quantidade}', 'PedidoController@alterarAquantidadeDeUmProduto');

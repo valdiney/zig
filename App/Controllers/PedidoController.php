@@ -84,7 +84,28 @@ class PedidoController extends Controller
   public function adicionarProduto()
   {
     if ($this->post->hasPost()) {
-      echo json_encode(['teste' => 'yes']);
+      $dadosDoFormulrio =  $this->post->data();
+
+      $produtoPedido = new ProdutoPedido();
+      $produto = new Produto();
+      $produto = $produto->find($dadosDoFormulrio->id_produto);
+
+      $dadosPedido = [
+        'id_pedido' => $dadosDoFormulrio->id_pedido,
+        'id_produto' => $produto->id,
+        'preco' => $produto->preco,
+        'quantidade' => $dadosDoFormulrio->quantidade,
+        'subtotal' => $produto->preco * $dadosDoFormulrio->quantidade
+      ];
+
+      try {
+        $produtoPedido->save($dadosPedido);
+        echo json_encode(['status' => true]);
+
+      } catch(\Exception $e) {
+        echo json_encode(['status' => false]);
+        dd($e->getMessage());
+      }
     }
   }
 

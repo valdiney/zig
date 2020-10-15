@@ -244,7 +244,7 @@ function enderecoPorIdCliente(idCliente, idClienteEnderecoPedido = false) {
         if (retorno.status == true) {
           $(".componente-produto-pedido").show();
           $("#salvar-endereco").html('<i class="fas fa-save"></i> Salvar');
-          idPedido = retorno.id_pedido;
+          //idPedido = retorno.id_pedido;
         }
 
         console.log(resultado);

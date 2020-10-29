@@ -31,6 +31,18 @@ class ProdutoPedido extends Model
     );
   }
 
+  # Retorna dados do produto e produto pedido
+  public function produtoPorIdProdutoPedido($idProdutoPedido = false)
+  {
+    return (object) $this->query(
+      "SELECT pd.id AS idProdutoPedido, p.id AS idProduto, p.nome AS produto, p.preco, p.imagem,
+      pd.quantidade, pd.subtotal AS total, pd.id_pedido
+      FROM produtos_pedidos AS pd
+      INNER JOIN produtos AS p ON pd.id_produto = p.id
+      WHERE pd.id = {$idProdutoPedido}"
+    );
+  }
+
   public function seNaoExisteProdutoNoPedido($idProduto, $idPedido)
   {
     $query = $this->query("SELECT * FROM produtos_pedidos WHERE id_produto = {$idProduto} AND id_pedido = {$idPedido}");

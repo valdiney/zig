@@ -101,8 +101,8 @@ class PedidoController extends Controller
       try {
         $produtoPedido->save($dadosPedido);
         echo json_encode([
-            'status' => true,
-            'produto' => $produtoPedido->produtoPorIdProdutoPedido($produtoPedido->lastId())
+          'status' => true,
+          'produto' => $produtoPedido->produtoPorIdProdutoPedido($produtoPedido->lastId())
         ]);
 
       } catch(\Exception $e) {

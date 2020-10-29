@@ -170,13 +170,10 @@ $(function() {
   });
 });
 
-
 function abas(aba) {
   $(".aba").hide();
   $("#"+aba).show();
 }
-
-
 
 var idPedido = false;
 
@@ -224,8 +221,6 @@ function enderecoPorIdCliente(idCliente, idClienteEnderecoPedido = false) {
           $("#salvar-endereco").html('<i class="fas fa-save"></i> Salvar');
           idPedido = retorno.id_pedido;
         }
-
-        console.log(resultado);
     })
 
     return false;
@@ -241,13 +236,26 @@ function enderecoPorIdCliente(idCliente, idClienteEnderecoPedido = false) {
 
       }, function(resultado) {
         var retorno = JSON.parse(resultado);
-        if (retorno.status == true) {
-          $(".componente-produto-pedido").show();
-          $("#salvar-endereco").html('<i class="fas fa-save"></i> Salvar');
+       // if (retorno.status == true) {
+          //$(".componente-produto-pedido").show();
+          //$("#salvar-endereco").html('<i class="fas fa-save"></i> Salvar');
           //idPedido = retorno.id_pedido;
-        }
+        //}
 
-        console.log(resultado);
+        //alert(retorno.produto[0].idProdutoPedido);
+        var produto = retorno.produto[0];
+        var t = "";
+
+          t += "<tr id='id-tr-"+produto.idProduto+"' data-produto-id="+produto.idProduto+">";
+          t += "<td>"+'<img class="img-produto-seleionado" src="'+getDomain()+'/'+produto.imagem+'">'+"</td>";
+          t += "<td>"+produto.produto+"</td>";
+          t += "<td>"+'<a class="controle-quantidade">-</a><input type="number" class="campo-quantidade" value="'+produto.quantidade+'" id="campo-quantidade'+produto.idProdutoPedido+'" onchange="alterarAquantidadeDeUmProduto('+produto.idProdutoPedido+', $(this).val())"><a class="controle-quantidade" onclick="incrementarQuantidadeDoProduto('+produto.idProdutoPedido+')">+</a>'+"</td>";
+          t += "<td class='total-cada-produto' data-valor-produto="+produto.total+" data-produto-id="+produto.id+">"+real(produto.total)+"</td>";
+          t += "<td>"+'<a class="btn-sm btn-link" onclick="retirarProduto('+produto.idProdutoPedido+', $(this))"><i class="fas fa-times" style="color:#cc0000;font-size:18px"></i></a>'+"</td>";
+          t += "</tr>";
+
+
+        $(".tabela-de-produto tbody").append(t);
     })
 
     return false;

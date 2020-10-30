@@ -112,6 +112,18 @@ class PedidoController extends Controller
     }
   }
 
+  public function excluirProdutoPedido($idProdutoPedido)
+  {
+    $produtoPedido = new ProdutoPedido();
+    try {
+      $produtoPedido->excluirProdutoPedido($idProdutoPedido);
+      echo json_encode(['status' => true]);
+
+    } catch(\Exception $e) {
+      echo json_encode(['status' => false]);
+    }
+  }
+
 	public function save()
 	{
     if ($this->post->hasPost()) {

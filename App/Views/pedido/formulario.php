@@ -135,18 +135,25 @@
     .aba {
       display:none;
     }
+
+    .botaoAbaAtual {
+      background:#009933!important;
+    }
+    .row-botoes-abas .col-md-4 {
+      text-align:center;
+    }
 </style>
 
 
-<div class="row">
+<div class="row row-botoes-abas">
     <div class="col-md-4">
-      <button class="btn btn-sucess" id="open-1" onclick="abas('aba1')">Selecionar Cliente</button>
+      <button class="btn btn-sucess button-aba-1 button-aba" onclick="abas('aba1')">Selecionar Cliente</button>
     </div>
-    <div class="col-md-4" id="open-2" onclick="abas('aba2')">
-      <button class="btn btn-sucess">Incluir Produtos</button>
+    <div class="col-md-4"  onclick="abas('aba2')">
+      <button class="btn btn-sucess button-aba-2 button-aba">Incluir Produtos</button>
     </div>
-    <div class="col-md-4" id="open-3" onclick="abas('aba3')">
-      <button class="btn btn-sucess">Finalizar Pedido</button>
+    <div class="col-md-4" onclick="abas('aba3')">
+      <button class="btn btn-sucess button-aba-3 button-aba">Finalizar Pedido</button>
     </div>
 </div>
 
@@ -154,10 +161,6 @@
   <?php require_once('abaCliente.php');?>
   <?php require_once('abaIncluirProduto.php');?>
 </div>
-
-
-
-
 
 <script>
 $(function() {
@@ -171,6 +174,7 @@ $(function() {
 });
 
 function abas(aba) {
+  //$("#"+aba).addClass('botaoAbaAtual');
   $(".aba").hide();
   $("#"+aba).show();
 }
@@ -217,6 +221,8 @@ function enderecoPorIdCliente(idCliente, idClienteEnderecoPedido = false) {
       }, function(resultado) {
         var retorno = JSON.parse(resultado);
         if (retorno.status == true) {
+          abas('aba2');
+          $(".button-aba-2").addClass('botaoAbaAtual');
           $(".componente-produto-pedido").show();
           $("#salvar-endereco").html('<i class="fas fa-save"></i> Salvar');
           idPedido = retorno.id_pedido;
@@ -242,24 +248,34 @@ function enderecoPorIdCliente(idCliente, idClienteEnderecoPedido = false) {
           //idPedido = retorno.id_pedido;
         //}
 
-        //alert(retorno.produto[0].idProdutoPedido);
         var produto = retorno.produto[0];
         var t = "";
 
-          t += "<tr id='id-tr-"+produto.idProduto+"' data-produto-id="+produto.idProduto+">";
-          t += "<td>"+'<img class="img-produto-seleionado" src="'+getDomain()+'/'+produto.imagem+'">'+"</td>";
-          t += "<td>"+produto.produto+"</td>";
-          t += "<td>"+'<a class="controle-quantidade">-</a><input type="number" class="campo-quantidade" value="'+produto.quantidade+'" id="campo-quantidade'+produto.idProdutoPedido+'" onchange="alterarAquantidadeDeUmProduto('+produto.idProdutoPedido+', $(this).val())"><a class="controle-quantidade" onclick="incrementarQuantidadeDoProduto('+produto.idProdutoPedido+')">+</a>'+"</td>";
-          t += "<td class='total-cada-produto' data-valor-produto="+produto.total+" data-produto-id="+produto.id+">"+real(produto.total)+"</td>";
-          t += "<td>"+'<a class="btn-sm btn-link" onclick="retirarProduto('+produto.idProdutoPedido+', $(this))"><i class="fas fa-times" style="color:#cc0000;font-size:18px"></i></a>'+"</td>";
-          t += "</tr>";
-
-
+        t += "<tr id='id-tr-"+produto.idProduto+"' data-produto-id="+produto.idProduto+">";
+        t += "<td>"+'<img class="img-produto-seleionado" src="'+getDomain()+'/'+produto.imagem+'">'+"</td>";
+        t += "<td>"+produto.produto+"</td>";
+        t += "<td>"+'<a class="controle-quantidade">-</a><input type="number" class="campo-quantidade" value="'+produto.quantidade+'" id="campo-quantidade'+produto.idProdutoPedido+'" onchange="alterarAquantidadeDeUmProduto('+produto.idProdutoPedido+', $(this).val())"><a class="controle-quantidade" onclick="incrementarQuantidadeDoProduto('+produto.idProdutoPedido+')">+</a>'+"</td>";
+        t += "<td class='total-cada-produto' data-valor-produto="+produto.total+" data-produto-id="+produto.idProduto+">"+real(produto.total)+"</td>";
+        t += "<td>"+'<a class="btn-sm btn-link" onclick="excluirProdutoPedido('+produto.idProdutoPedido+', $(this))"><i class="fas fa-times" style="color:#cc0000;font-size:18px"></i></a>'+"</td>";
+        t += "</tr>";
         $(".tabela-de-produto tbody").append(t);
     })
 
     return false;
+  }
 
+  function excluirProdutoPedido(idProdutoPedido, elemento) {
+    var rota = getDomain()+"/pedido/excluirProdutoPedido/"+idProdutoPedido;
+    $.get(rota, function(resultado) {
+      var retorno = JSON.parse(resultado);
 
+      if (retorno.status == true) {
+        elemento.parent().parent().fadeOut(400, function() {
+          $(this).remove();
+        })
+      }
+    });
+
+    return false;
   }
 </script>

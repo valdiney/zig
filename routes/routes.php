@@ -90,7 +90,7 @@ $route->get('pedido/enderecoPorIdCliente/{idCliente?}', 'PedidoController@endere
 
 $route->post('pedido/salvarPrimeiroPasso', 'PedidoController@salvarPrimeiroPasso');
 $route->post('pedido/adicionarProduto', 'PedidoController@adicionarProduto');
-
+$route->get('pedido/excluirProdutoPedido/{idProdutoPedido}', 'PedidoController@excluirProdutoPedido');
 
 
 

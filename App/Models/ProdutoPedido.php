@@ -43,6 +43,11 @@ class ProdutoPedido extends Model
     );
   }
 
+  public function excluirProdutoPedido($idProdutoPedido)
+  {
+    return $this->query("DELETE FROM produtos_pedidos WHERE id = {$idProdutoPedido}", false);
+  }
+
   public function seNaoExisteProdutoNoPedido($idProduto, $idPedido)
   {
     $query = $this->query("SELECT * FROM produtos_pedidos WHERE id_produto = {$idProduto} AND id_pedido = {$idPedido}");

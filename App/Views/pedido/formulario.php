@@ -159,6 +159,7 @@
 <div class="row">
   <?php require_once('abaCliente.php');?>
   <?php require_once('abaIncluirProduto.php');?>
+  <?php require_once('abaFinalizarPedido.php');?>
 </div>
 
 <script>
@@ -280,7 +281,6 @@ function enderecoPorIdCliente(idCliente, idClienteEnderecoPedido = false) {
 
   function alterarAquantidadeDeUmProduto(idProdutoPerdido, quantidade) {
     var rota = getDomain()+"/pedido/alterarQuantidadeProdutoPedido";
-    alert(idProdutoPerdido);
     $.post(rota, {
       '_token': '<?php echo TOKEN; ?>',
       'idProdutoPedido': idProdutoPerdido,
@@ -307,4 +307,22 @@ function enderecoPorIdCliente(idCliente, idClienteEnderecoPedido = false) {
   <?php if ($idPedido):?>
     carregaProdutosPedidos("<?php echo $idPedido;?>");
   <?php endif;?>
+
+  function finalizarPedido() {
+    var rota = getDomain()+"/pedido/finalizarPedido";
+
+    $.post(rota, {
+      '_token': '<?php echo TOKEN; ?>',
+      'id_pedido': idPedido,
+      'id_meio_pagamento': $("#id_meio_pagamento").val(),
+      'valor_desconto': $("#valor_desconto").val(),
+      'valor_frete': $("#valor_frete").val(),
+      'previsao_entrega': $("#previsao_entrega").val()
+    }, function(resultado) {
+      var retorno = JSON.parse(resultado);
+      if (retorno.status == true) {
+        window.location.reload();
+      }
+    });
+  }
 </script>

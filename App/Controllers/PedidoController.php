@@ -119,6 +119,27 @@ class PedidoController extends Controller
     }
   }
 
+  public function finalizarPedido()
+  {
+    $pedido = new Pedido();
+    $produtoPedido = new ProdutoPedido();
+    $dadosPedido = (array) $this->post->only([
+      'id_meio_pagamento', 'valor_desconto',
+      'valor_frete', 'previsao_entrega'
+    ]);
+
+    if ($this->post->hasPost()) {
+      try {
+        $pedido->update($dadosPedido, $this->post->data()->id_pedido);
+        echo json_encode(['status' => true]);
+
+      } catch(\Exception $e) {
+        echo json_encode(['status' => false]);
+        dd($e->getMessage());
+     }
+    }
+  }
+
   public function teste()
   {
     $produtoPedido = new ProdutoPedido();

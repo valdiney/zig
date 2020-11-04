@@ -93,6 +93,7 @@ $route->post('pedido/adicionarProduto', 'PedidoController@adicionarProduto');
 $route->get('pedido/excluirProdutoPedido/{idProdutoPedido}', 'PedidoController@excluirProdutoPedido');
 $route->post('pedido/alterarQuantidadeProdutoPedido', 'PedidoController@alterarQuantidadeProdutoPedido');
 $route->get('pedido/produtosPorIdPedido/{idPedido}', 'PedidoController@produtosPorIdPedido');
+$route->post('pedido/finalizarPedido', 'PedidoController@finalizarPedido');
 
 $route->get('pedido/teste', 'PedidoController@teste');
 

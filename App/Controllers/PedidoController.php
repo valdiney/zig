@@ -143,13 +143,15 @@ class PedidoController extends Controller
   public function produtosPorIdPedido($idPedido)
   {
     $produtoPedido = new ProdutoPedido();
-    echo json_encode($this->produtosPorIdPedido->produtosPorIdPedido($idPedido));
+    echo json_encode($produtoPedido->produtosPorIdPedido($idPedido));
   }
 
   public function modalFormulario($idPedido = false)
   {
     $pedido = false;
     $idClienteEnderecoPedido = false;
+
+    #dd($idPedido);
 
     $usuario = new Usuario();
     $usuario = $usuario->find($this->idUsuarioLogado);
@@ -165,6 +167,7 @@ class PedidoController extends Controller
 
     $this->view('pedido/formulario', null,
       compact(
+        'idPedido',
         'pedido',
         'usuario',
         'clientes',

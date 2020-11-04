@@ -179,6 +179,9 @@ function abas(aba) {
 }
 
 var idPedido = false;
+<?php if ($idPedido):?>
+  idPedido = <?php echo $idPedido;?>
+<?php endif;?>
 
 function enderecoPorIdCliente(idCliente, idClienteEnderecoPedido = false) {
     var rota = getDomain()+"/pedido/enderecoPorIdCliente/"+idCliente;
@@ -284,8 +287,24 @@ function enderecoPorIdCliente(idCliente, idClienteEnderecoPedido = false) {
       'quantidade': quantidade
     }, function(resultado) {
       var retorno = JSON.parse(resultado);
-
-
     });
   }
+
+  function carregaProdutosPedidos(idPedido) {
+    var rota = getDomain()+"/pedido/produtosPorIdPedido/"+idPedido;
+    $.get(rota, function(resultado) {
+      var produtos = JSON.parse(resultado);
+      var t = "";
+
+      $.each(produtos, function(index, produto) {
+        montaTabelaDeProdutos(produto);
+      });
+    });
+
+    return false;
+  }
+
+  <?php if ($idPedido):?>
+    carregaProdutosPedidos("<?php echo $idPedido;?>");
+  <?php endif;?>
 </script>

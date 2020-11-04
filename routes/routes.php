@@ -92,7 +92,7 @@ $route->post('pedido/salvarPrimeiroPasso', 'PedidoController@salvarPrimeiroPasso
 $route->post('pedido/adicionarProduto', 'PedidoController@adicionarProduto');
 $route->get('pedido/excluirProdutoPedido/{idProdutoPedido}', 'PedidoController@excluirProdutoPedido');
 $route->post('pedido/alterarQuantidadeProdutoPedido', 'PedidoController@alterarQuantidadeProdutoPedido');
-$route->get('pedido/produtosPorIdPedido', 'PedidoController@produtosPorIdPedido');
+$route->get('pedido/produtosPorIdPedido/{idPedido}', 'PedidoController@produtosPorIdPedido');
 
 # ----- LogController --------------------------------
 $route->get('logs', 'LogAcessoController@index');

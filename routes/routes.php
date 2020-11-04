@@ -91,23 +91,8 @@ $route->get('pedido/enderecoPorIdCliente/{idCliente?}', 'PedidoController@endere
 $route->post('pedido/salvarPrimeiroPasso', 'PedidoController@salvarPrimeiroPasso');
 $route->post('pedido/adicionarProduto', 'PedidoController@adicionarProduto');
 $route->get('pedido/excluirProdutoPedido/{idProdutoPedido}', 'PedidoController@excluirProdutoPedido');
-
-
-
-
-
-
-//$route->get('pedido/adicionarProduto/{idProduto}/{quantidade}', 'PedidoController@adicionarProduto');
-$route->get('pedido/produtosAdicionados', 'PedidoController@produtosAdicionados');
-$route->get('pedido/retirarProduto/{idProduto}/{idPedido?}', 'PedidoController@retirarProduto');
-$route->get('pedido/alterarAquantidadeDeUmProduto/{idProduto}/{quantidade}', 'PedidoController@alterarAquantidadeDeUmProduto');
-$route->get('pedido/obterOultimoProdutoAdicionado', 'PedidoController@obterOultimoProdutoAdicionado');
-$route->get('pedido/obterAQuantidadeDoProdutoNoPedido/{idProduto}', 'PedidoController@obterAQuantidadeDoProdutoNoPedido');
-$route->get('pedido/obterValorTotalDoPedido', 'PedidoController@obterValorTotalDoPedido');
-$route->post('pedido/save', 'PedidoController@save');
-$route->post('pedido/update', 'PedidoController@update');
-
-$route->get('pedido/teste', 'PedidoController@teste');
+$route->post('pedido/alterarQuantidadeProdutoPedido', 'PedidoController@alterarQuantidadeProdutoPedido');
+$route->get('pedido/produtosPorIdPedido', 'PedidoController@produtosPorIdPedido');
 
 # ----- LogController --------------------------------
 $route->get('logs', 'LogAcessoController@index');

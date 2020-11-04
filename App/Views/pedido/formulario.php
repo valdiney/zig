@@ -144,17 +144,16 @@
     }
 </style>
 
-
 <div class="row row-botoes-abas">
-    <div class="col-md-4">
-      <button class="btn btn-sucess button-aba-1 button-aba" onclick="abas('aba1')">Selecionar Cliente</button>
-    </div>
-    <div class="col-md-4"  onclick="abas('aba2')">
-      <button class="btn btn-sucess button-aba-2 button-aba">Incluir Produtos</button>
-    </div>
-    <div class="col-md-4" onclick="abas('aba3')">
-      <button class="btn btn-sucess button-aba-3 button-aba">Finalizar Pedido</button>
-    </div>
+  <div class="col-md-4">
+    <button class="btn btn-sucess button-aba-1 button-aba" onclick="abas('aba1')">Selecionar Cliente</button>
+  </div>
+  <div class="col-md-4"  onclick="abas('aba2')">
+    <button class="btn btn-sucess button-aba-2 button-aba">Incluir Produtos</button>
+  </div>
+  <div class="col-md-4" onclick="abas('aba3')">
+    <button class="btn btn-sucess button-aba-3 button-aba">Finalizar Pedido</button>
+  </div>
 </div>
 
 <div class="row">
@@ -242,26 +241,23 @@ function enderecoPorIdCliente(idCliente, idClienteEnderecoPedido = false) {
 
       }, function(resultado) {
         var retorno = JSON.parse(resultado);
-       // if (retorno.status == true) {
-          //$(".componente-produto-pedido").show();
-          //$("#salvar-endereco").html('<i class="fas fa-save"></i> Salvar');
-          //idPedido = retorno.id_pedido;
-        //}
-
         var produto = retorno.produto[0];
-        var t = "";
-
-        t += "<tr id='id-tr-"+produto.idProduto+"' data-produto-id="+produto.idProduto+">";
-        t += "<td>"+'<img class="img-produto-seleionado" src="'+getDomain()+'/'+produto.imagem+'">'+"</td>";
-        t += "<td>"+produto.produto+"</td>";
-        t += "<td>"+'<a class="controle-quantidade">-</a><input type="number" class="campo-quantidade" value="'+produto.quantidade+'" id="campo-quantidade'+produto.idProdutoPedido+'" onchange="alterarAquantidadeDeUmProduto('+produto.idProdutoPedido+', $(this).val())"><a class="controle-quantidade" onclick="incrementarQuantidadeDoProduto('+produto.idProdutoPedido+')">+</a>'+"</td>";
-        t += "<td class='total-cada-produto' data-valor-produto="+produto.total+" data-produto-id="+produto.idProduto+">"+real(produto.total)+"</td>";
-        t += "<td>"+'<a class="btn-sm btn-link" onclick="excluirProdutoPedido('+produto.idProdutoPedido+', $(this))"><i class="fas fa-times" style="color:#cc0000;font-size:18px"></i></a>'+"</td>";
-        t += "</tr>";
-        $(".tabela-de-produto tbody").append(t);
+        montaTabelaDeProdutos(produto);
     })
 
     return false;
+  }
+
+  function montaTabelaDeProdutos(produto) {
+    var t = "";
+    t += "<tr id='id-tr-"+produto.idProduto+"' data-produto-id="+produto.idProduto+">";
+    t += "<td>"+'<img class="img-produto-seleionado" src="'+getDomain()+'/'+produto.imagem+'">'+"</td>";
+    t += "<td>"+produto.produto+"</td>";
+    t += "<td>"+'<input type="number" class="campo-quantidade" value="'+produto.quantidade+'" id="campo-quantidade'+produto.idProdutoPedido+'" onchange="alterarAquantidadeDeUmProduto('+produto.idProdutoPedido+', $(this).val())">'+"</td>";
+    t += "<td class='total-cada-produto' data-valor-produto="+produto.total+" data-produto-id="+produto.idProduto+">"+real(produto.total)+"</td>";
+    t += "<td>"+'<a class="btn-sm btn-link" onclick="excluirProdutoPedido('+produto.idProdutoPedido+', $(this))"><i class="fas fa-times" style="color:#cc0000;font-size:18px"></i></a>'+"</td>";
+    t += "</tr>";
+    $(".tabela-de-produto tbody").append(t);
   }
 
   function excluirProdutoPedido(idProdutoPedido, elemento) {
@@ -277,5 +273,19 @@ function enderecoPorIdCliente(idCliente, idClienteEnderecoPedido = false) {
     });
 
     return false;
+  }
+
+  function alterarAquantidadeDeUmProduto(idProdutoPerdido, quantidade) {
+    var rota = getDomain()+"/pedido/alterarQuantidadeProdutoPedido";
+    alert(idProdutoPerdido);
+    $.post(rota, {
+      '_token': '<?php echo TOKEN; ?>',
+      'idProdutoPedido': idProdutoPerdido,
+      'quantidade': quantidade
+    }, function(resultado) {
+      var retorno = JSON.parse(resultado);
+
+
+    });
   }
 </script>

@@ -124,109 +124,32 @@ class PedidoController extends Controller
     }
   }
 
-	public function save()
-	{
-    if ($this->post->hasPost()) {
-      $pedido = new Pedido();
-      $produtoPedido = new ProdutoPedido();
+  public function alterarQuantidadeProdutoPedido()
+  {
+    $produtoPedido = new ProdutoPedido();
+    try {
+      $produtoPedido->alterarQuantidadeProdutoPedido(
+        $this->post->data()->idProdutoPedido,
+        $this->post->data()->quantidade
+      );
 
-      $dadosPedido = (array) $this->post->only([
-        'id_vendedor', 'id_cliente', 'id_meio_pagamento',
-        'id_cliente_endereco', 'valor_desconto', 'valor_frete',
-        'previsao_entrega'
-      ]);
+      echo json_encode(['status' => true]);
 
-      try {
-
-      }  catch(\Exception $e) {
+    } catch(\Exception $e) {
       echo json_encode(['status' => false]);
-      dd($e->getMessage());
-    }
-
     }
   }
 
-	public function update()
-	{
-		if ($this->post->hasPost()) {
-      $pedido = new Pedido();
-      $produtoPedido = new ProdutoPedido();
-
-      $dadosPedido = (array) $this->post->only([
-        'id_vendedor', 'id_cliente', 'id_meio_pagamento',
-        'id_cliente_endereco', 'valor_desconto', 'valor_frete',
-        'previsao_entrega'
-      ]);
-
-      $dadosPedido['valor_desconto'] = formataValorMoedaParaGravacao($dadosPedido['valor_desconto']);
-      $dadosPedido['valor_frete'] = formataValorMoedaParaGravacao($dadosPedido['valor_frete']);
-      $dadosPedido['previsao_entrega'] = date('Y-m-d', strtotime($dadosPedido['previsao_entrega']));
-      $dadosPedido['id_empresa'] = $this->idEmpresa;
-      $dadosPedido['id_situacao_pedido'] = 1;
-
-      /**
-      * Calcula o valor total do pedido levendo-se em concideração
-      * o valor do desconto e valor do frete
-      */
-      $dadosPedido['total'] = json_decode($this->vendasEmSessaoRepository->obterValorTotalDosProdutosNaMesa())->total;
-      $dadosPedido['total'] = $pedido->valorTotalDoPedido($dadosPedido);
-
-      try {
-				$pedido->update($dadosPedido, $this->post->data()->id_pedido);
-
-			} catch(\Exception $e) {
-    		dd($e->getMessage());
-      }
-
-      try {
-        foreach (json_decode($this->vendasEmSessaoRepository->obterProdutosDaMesa()) as $produto) {
-          $produtoPedido = new ProdutoPedido();
-          # Se não tiver o id do pedido na sessão, coloca
-          $dados['id_pedido'] = $this->post->data()->id_pedido;
-          $dados['id_produto'] = $produto->id;
-          $dados['preco'] = $produto->preco;
-          $dados['quantidade'] = $produto->quantidade;
-          $dados['subtotal'] = $produto->total;
-
-          # Vincula o pedido o produto selecionado
-          if ($produtoPedido->seNaoExisteProdutoNoPedido($produto->id, $this->post->data()->id_pedido)) {
-            $produtoPedido->save($dados);
-          } else {
-            $produtoPedido->updateProdutos($dados);
-          }
-        }
-      } catch(\Exception $e) {
-        echo json_encode(['status' => false]);
-    		dd($e->getMessage());
-      }
-
-      echo json_encode(['status' => true]);
-      $this->vendasEmSessaoRepository->limparSessao();
-    }
+  public function produtosPorIdPedido($idPedido)
+  {
+    $produtoPedido = new ProdutoPedido();
+    echo json_encode($this->produtosPorIdPedido->produtosPorIdPedido($idPedido));
   }
 
   public function modalFormulario($idPedido = false)
   {
     $pedido = false;
     $idClienteEnderecoPedido = false;
-    $produtosSelecionadosNaEdicao = false;
-
-    if ($idPedido) {
-      $this->vendasEmSessaoRepository->limparSessao();
-
-      $pedido = new Pedido();
-      $pedido = $pedido->find($idPedido);
-
-      $clienteEndereco = new ClienteEndereco();
-      $idClienteEnderecoPedido = $clienteEndereco->find($pedido->id_cliente_endereco);
-
-      $produtoPedido = new ProdutoPedido();
-      $produtosSelecionadosNaEdicao = $produtoPedido->produtosPorIdPedido($pedido->id);
-
-      foreach ($produtosSelecionadosNaEdicao as $produto) {
-        $this->vendasEmSessaoRepository->colocarProdutosVindosDoBancoDeDadosNaMesa($produto);
-      }
-    }
 
     $usuario = new Usuario();
     $usuario = $usuario->find($this->idUsuarioLogado);
@@ -255,47 +178,6 @@ class PedidoController extends Controller
   {
     $clienteEndereco = new ClienteEndereco();
     echo json_encode($clienteEndereco->enderecos($idCliente));
-  }
-
-  public function produtosAdicionados()
-  {
-    echo $this->vendasEmSessaoRepository->obterProdutosDaMesa();
-  }
-
-  public function retirarProduto($idProduto, $idPedido = false)
-  {
-    $this->vendasEmSessaoRepository->retirarProdutoDaMesa($idProduto);
-    if ($idPedido) {
-      $produtoPedido = new ProdutoPedido();
-      $produtoPedido->deletarProdutosDescartados($idProduto, $idPedido);
-    }
-  }
-
-  public function obterOultimoProdutoAdicionado()
-  {
-    echo $this->vendasEmSessaoRepository->obterProdutosDaMesa('ultimo');
-  }
-
-  public function alterarAquantidadeDeUmProduto($idProduto, $quantidade)
-	{
-		$this->vendasEmSessaoRepository->alterarAquantidadeDeUmProdutoNaMesa($idProduto, $quantidade);
-  }
-
-  public function obterValorTotalDoPedido()
-  {
-    echo $this->vendasEmSessaoRepository->obterValorTotalDosProdutosNaMesa();
-  }
-
-  public function teste()
-  {
-    $produtoPedido = new ProdutoPedido();
-
-    #$this->vendasEmSessaoRepository->limparSessao();
-    //dd(json_decode($this->vendasEmSessaoRepository->obterProdutosDaMesa()));
-
-    dd((array) $produtoPedido->produtosPorIdPedido(56));
-
-
   }
 }
 

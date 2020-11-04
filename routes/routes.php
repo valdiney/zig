@@ -94,6 +94,8 @@ $route->get('pedido/excluirProdutoPedido/{idProdutoPedido}', 'PedidoController@e
 $route->post('pedido/alterarQuantidadeProdutoPedido', 'PedidoController@alterarQuantidadeProdutoPedido');
 $route->get('pedido/produtosPorIdPedido/{idPedido}', 'PedidoController@produtosPorIdPedido');
 
+$route->get('pedido/teste', 'PedidoController@teste');
+
 # ----- LogController --------------------------------
 $route->get('logs', 'LogAcessoController@index');
 

@@ -109,7 +109,21 @@ class PedidoController extends Controller
         echo json_encode(['status' => false]);
         dd($e->getMessage());
       }
+
+      # Atualiza o valor do total na tabela de pedidos
+      $pedido = new Pedido();
+      $pedido->update(
+        ['total' => $produtoPedido->valorTotalDoPedido($dadosDoFormulrio->id_pedido)->total],
+        $dadosDoFormulrio->id_pedido
+      );
     }
+  }
+
+  public function teste()
+  {
+    $produtoPedido = new ProdutoPedido();
+    $a = $produtoPedido->valorTotalDoPedido(107)->total;
+    dd($a);
   }
 
   public function excluirProdutoPedido($idProdutoPedido)

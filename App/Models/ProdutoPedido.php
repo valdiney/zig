@@ -67,4 +67,14 @@ class ProdutoPedido extends Model
 
     return false;
   }
+
+  public function valorTotalDoPedido($idPedido)
+  {
+    return $this->queryGetOne(
+      "SELECT SUM(produtos_pedidos.subtotal) AS total
+      FROM pedidos INNER JOIN produtos_pedidos
+      ON pedidos.id = produtos_pedidos.id_pedido
+      WHERE produtos_pedidos.id_pedido = {$idPedido}"
+    );
+  }
 }

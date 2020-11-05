@@ -15,7 +15,7 @@
 	                <th>Cliente</th>
                   <th>Total</th>
                   <th>Situação</th>
-                  <th>Previsao Entrega</th>
+                  <th>Entrega</th>
                   <th style="text-align:right;padding-right:0">
                     <?php $rota = BASEURL.'/pedido/modalFormulario';?>
                     <button onclick="modalFormularioPedido('<?php echo $rota;?>', null);"
@@ -33,7 +33,15 @@
                 <td><?php echo $pedido->nomeCliente;?></td>
                 <td>R$ <?php echo real($pedido->total);?></td>
                 <td><?php echo $pedido->situacao;?></td>
-                <td><?php echo date('d/m/Y', strtotime($pedido->previsaoEntrega));?></td>
+                <td>
+                <?php
+                  if ($pedido->previsaoEntrega != '0000-00-00') {
+                    echo date('d/m/Y', strtotime($pedido->previsaoEntrega));
+                  } else {
+                    echo '<small>Não informado</small>';
+                  }
+                ?>
+                </td>
 
                 <td style="text-align:right">
                   <div class="btn-group" role="group">

@@ -146,13 +146,13 @@
 
 <div class="row row-botoes-abas">
   <div class="col-md-4">
-    <button class="btn btn-sucess button-aba-1 button-aba" onclick="abas('aba1')">Selecionar Cliente</button>
+    <a id="button-aba-1" class="btn btn-sucess button-aba" onclick="abas('aba1', 1)">Selecionar Cliente</a>
   </div>
-  <div class="col-md-4"  onclick="abas('aba2')">
-    <button class="btn btn-sucess button-aba-2 button-aba">Incluir Produtos</button>
+  <div class="col-md-4">
+    <a id="button-aba-2" class="btn btn-sucess button-aba" onclick="abas('aba2', 2)">Incluir Produtos</a>
   </div>
-  <div class="col-md-4" onclick="abas('aba3')">
-    <button class="btn btn-sucess button-aba-3 button-aba">Finalizar Pedido</button>
+  <div class="col-md-4">
+    <a id="button-aba-3" class="btn btn-sucess button-aba" onclick="abas('aba3', 3)">Finalizar Pedido</a>
   </div>
 </div>
 
@@ -173,10 +173,23 @@ $(function() {
   });
 });
 
-function abas(aba) {
-  //$("#"+aba).addClass('botaoAbaAtual');
+//$("#aba1").show();
+function abas(aba, botao) {
   $(".aba").hide();
   $("#"+aba).show();
+
+  if (botao == 1) {
+    $(".button-aba").removeClass('active');
+    $("#button-aba-1").addClass('active');
+
+  } else if (botao == 2) {
+    $(".button-aba").removeClass('active');
+    $("#button-aba-2").addClass('active');
+
+  } else if (botao == 3) {
+    $(".button-aba").removeClass('active');
+    $("#button-aba-3").addClass('active');
+  }
 }
 
 var idPedido = false;
@@ -242,7 +255,6 @@ function enderecoPorIdCliente(idCliente, idClienteEnderecoPedido = false) {
       'id_pedido': idPedido,
       'id_produto': idProduto,
       'quantidade': quantidade
-
       }, function(resultado) {
         var retorno = JSON.parse(resultado);
         var produto = retorno.produto[0];
@@ -268,7 +280,6 @@ function enderecoPorIdCliente(idCliente, idClienteEnderecoPedido = false) {
     var rota = getDomain()+"/pedido/excluirProdutoPedido/"+idProdutoPedido;
     $.get(rota, function(resultado) {
       var retorno = JSON.parse(resultado);
-
       if (retorno.status == true) {
         elemento.parent().parent().fadeOut(400, function() {
           $(this).remove();
@@ -310,7 +321,6 @@ function enderecoPorIdCliente(idCliente, idClienteEnderecoPedido = false) {
 
   function finalizarPedido() {
     var rota = getDomain()+"/pedido/finalizarPedido";
-
     $.post(rota, {
       '_token': '<?php echo TOKEN; ?>',
       'id_pedido': idPedido,

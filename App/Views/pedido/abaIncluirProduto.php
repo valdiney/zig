@@ -32,9 +32,6 @@
       </div>
   </div>
 
-
-
-
   <div class="row">
     <div class="col-md-12 table-produtos">
        <table class="table table tabela-ajustada tabela-de-produto table-striped">
@@ -48,14 +45,17 @@
             </tr>
           </thead>
           <tbody>
+
           </tbody>
        </table>
     </div>
 
+    <div class="col-md-12" style="float:right!important">
+      <span class="total-geral-produtos" style="float:right!important" class="pull-right">
+        <b>Total:</b> R$ 00,00
+      </span>
+    </div>
+
   </div>
-
-
-
-
-
 </div>
+

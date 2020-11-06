@@ -45,15 +45,11 @@
       </div>
     </div>
     <!--end row-->
-    <br>
-    <br>
-    <div class="row">
-      <div class="col-md-12">
 
-        <span id="total-geral" style="float:right">
-          <b>Total:</b> R$ 00,00
-        </span>
-      </div>
+    <div class="col-md-12" style="float:right!important;padding-right:0">
+      <span class="total-geral-produtos" style="float:right!important" class="pull-right">
+        <b>Total:</b> R$ 00,00
+      </span>
     </div>
 
     <button type="submit" class="btn btn-success btn-sm button-salvar-empresa"

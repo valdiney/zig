@@ -56,11 +56,13 @@ class PedidoController extends Controller
 		$this->view('pedido/index', $this->layout, compact('pedidos'));
   }
 
-  public function salvarPrimeiroPasso()
+  public function adicionarClienteEendereco()
   {
     if ($this->post->hasPost()) {
       $pedido = new Pedido();
       $produtoPedido = new ProdutoPedido();
+
+      $idPedido = $this->post->data()->id_pedido;
 
       $dadosPedido = (array) $this->post->only([
         'id_cliente', 'id_cliente_endereco'
@@ -70,13 +72,24 @@ class PedidoController extends Controller
       $dadosPedido['id_situacao_pedido'] = 7; # 7: Imcompleto
       $dadosPedido['previsao_entrega'] = null;
 
-      try {
-        $pedido->save($dadosPedido);
-        echo json_encode(['status' => true, 'id_pedido' => $pedido->lastId()]);
+      if ($idPedido ) {
+        try {
+          $pedido->update($dadosPedido, $idPedido );
+          echo json_encode(['status' => true, 'id_pedido' => $pedido->lastId()]);
 
-      } catch(\Exception $e) {
-        echo json_encode(['status' => false]);
-        dd($e->getMessage());
+        } catch(\Exception $e) {
+          echo json_encode(['status' => false]);
+          dd($e->getMessage());
+        }
+      } else {
+        try {
+          $pedido->save($dadosPedido);
+          echo json_encode(['status' => true, 'id_pedido' => $pedido->lastId()]);
+
+        } catch(\Exception $e) {
+          echo json_encode(['status' => false]);
+          dd($e->getMessage());
+        }
       }
     }
   }
@@ -181,10 +194,10 @@ class PedidoController extends Controller
   public function alterarQuantidadeProdutoPedido()
   {
     $produtoPedido = new ProdutoPedido();
-    $produtoPedido = $this->post->data()->idProdutoPedido;
+    $idProdutoPedido = $this->post->data()->idProdutoPedido;
     try {
       $produtoPedido->alterarQuantidadeProdutoPedido(
-        $produtoPedido,
+        $idProdutoPedido,
         $this->post->data()->quantidade
       );
 
@@ -207,6 +220,22 @@ class PedidoController extends Controller
   {
     $produtoPedido = new ProdutoPedido();
     echo json_encode($produtoPedido->produtosPorIdPedido($idPedido));
+  }
+
+  public function obterValorTotalDosProdutos($idPedido)
+  {
+    $pedido = new Pedido();
+    $produtoPedido = new ProdutoPedido();
+
+    $pedido = $pedido->find($idPedido);
+    $valorTotalDosProdutos = $produtoPedido->valorTotalDoPedido($idPedido)->total;
+
+    echo json_encode([
+      'totalGeral' => ($valorTotalDosProdutos + $pedido->valor_frete) - $pedido->valor_desconto,
+      'valorTotalDosProdutos' => $valorTotalDosProdutos,
+      'valorFrete' => $pedido->valor_frete,
+      'ValorDesconto' => $pedido->valor_desconto
+    ]);
   }
 
   public function modalFormulario($idPedido = false)

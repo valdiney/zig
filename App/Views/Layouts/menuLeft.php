@@ -36,7 +36,7 @@ use App\Config\ConfigPerfil;
         <li class="">
           <a href="<?php echo BASEURL;?>/produto"
             class="<?php currentRouteFromMenu('produto', 'produtoBorder');?>">
-            <i class="fab fa-product-hunt"></i>
+            <i class="fas fa-box-open"></i>
             <p>Produtos</p>
           </a>
         </li>

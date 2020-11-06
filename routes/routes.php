@@ -88,12 +88,13 @@ $route->get('pedido', 'PedidoController@index');
 $route->get('pedido/modalFormulario/{idPedido?}', 'PedidoController@modalFormulario');
 $route->get('pedido/enderecoPorIdCliente/{idCliente?}', 'PedidoController@enderecoPorIdCliente');
 
-$route->post('pedido/salvarPrimeiroPasso', 'PedidoController@salvarPrimeiroPasso');
+$route->post('pedido/adicionarClienteEendereco', 'PedidoController@adicionarClienteEendereco');
 $route->post('pedido/adicionarProduto', 'PedidoController@adicionarProduto');
 $route->get('pedido/excluirProdutoPedido/{idProdutoPedido}', 'PedidoController@excluirProdutoPedido');
 $route->post('pedido/alterarQuantidadeProdutoPedido', 'PedidoController@alterarQuantidadeProdutoPedido');
 $route->get('pedido/produtosPorIdPedido/{idPedido}', 'PedidoController@produtosPorIdPedido');
 $route->post('pedido/finalizarPedido', 'PedidoController@finalizarPedido');
+$route->get('pedido/obterValorTotalDosProdutos/{idPedido}', 'PedidoController@obterValorTotalDosProdutos');
 
 $route->get('pedido/teste', 'PedidoController@teste');
 

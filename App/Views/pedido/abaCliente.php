@@ -51,7 +51,7 @@
 
     <div class="col-md-4 destaque1">
       <div class="form-group">
-        <a class="btn btn-success" style="margin-top:18px"
+        <a class="btn btn-success" style="margin-top:28px"
         onclick="return salvarPrimeiroPasso()" id="salvar-endereco">
           <i class="fas fa-save"></i> Salvar
         </a>

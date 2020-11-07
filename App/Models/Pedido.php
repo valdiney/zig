@@ -15,35 +15,20 @@ class Pedido extends Model
 
     public function pedidos($idVendedor = false, $idCliente = false)
     {
-      return $this->query("SELECT pedidos.id AS idPedido, clientes.nome AS nomeCliente,
-        pedidos.previsao_entrega AS previsaoEntrega, pedidos.total,
-        situacao.legenda AS situacao
-        FROM pedidos INNER JOIN clientes ON pedidos.id_cliente = clientes.id
-        INNER JOIN situacoes_pedidos AS situacao ON pedidos.id_situacao_pedido = situacao.id
-        WHERE pedidos.id_vendedor = {$idVendedor}
-      ");
-    }
+      return $this->query(
+         "SELECT pedidos.id AS idPedido, clientes.nome AS nomeCliente,
+          IF(pedidos.previsao_entrega = '0000-00-00', 'Não informado', DATE_FORMAT(pedidos.previsao_entrega, '%d/%m/%Y')) AS previsaoEntrega,
+          pedidos.valor_frete AS valorFrete,
+          pedidos.valor_desconto AS valordesconto,
+          situacao.legenda AS situacao,
 
-    /**
-      * Calcula o valor total do pedido levendo-se em concideração
-      * o valor do desconto e valor do frete
-    */
-    public function valorTotalDoPedido($dados)
-    {
-      $total = $dados['total'];
-      $desconto = $dados['valor_desconto'];
-      $frete = $dados['valor_frete'];
+          (SELECT SUM(subtotal) FROM produtos_pedidos
+            WHERE produtos_pedidos.id_pedido = pedidos.id
+          ) + pedidos.valor_frete - pedidos.valor_desconto AS totalGeral
 
-      # Verifica se o valor do desconto foi colocado no pedido
-      if ( ! empty($desconto)) {
-        $total -= $desconto;
-      }
-
-      # Verifica se o valor do frete foi colocado no pedido
-      if ( ! empty($frete)) {
-        $total += $frete;
-      }
-
-      return $total;
+          FROM pedidos INNER JOIN clientes ON pedidos.id_cliente = clientes.id
+          LEFT JOIN situacoes_pedidos AS situacao ON pedidos.id_situacao_pedido = situacao.id
+          WHERE pedidos.id_vendedor = {$idVendedor}"
+      );
     }
 }

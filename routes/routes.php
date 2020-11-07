@@ -87,16 +87,16 @@ $route->get('clienteEndereco/modalVisualizarEnderecos/{idCliente}',
 $route->get('pedido', 'PedidoController@index');
 $route->get('pedido/modalFormulario/{idPedido?}', 'PedidoController@modalFormulario');
 $route->get('pedido/enderecoPorIdCliente/{idCliente?}', 'PedidoController@enderecoPorIdCliente');
+$route->post('pedido/tabelaDepedidosChamadosViaAjax', 'PedidoController@tabelaDepedidosChamadosViaAjax');
 
-$route->get('pedido/adicionarProduto/{idProduto}/{quantidade}', 'PedidoController@adicionarProduto');
-$route->get('pedido/produtosAdicionados', 'PedidoController@produtosAdicionados');
-$route->get('pedido/retirarProduto/{idProduto}/{idPedido?}', 'PedidoController@retirarProduto');
-$route->get('pedido/alterarAquantidadeDeUmProduto/{idProduto}/{quantidade}', 'PedidoController@alterarAquantidadeDeUmProduto');
-$route->get('pedido/obterOultimoProdutoAdicionado', 'PedidoController@obterOultimoProdutoAdicionado');
-$route->get('pedido/obterAQuantidadeDoProdutoNoPedido/{idProduto}', 'PedidoController@obterAQuantidadeDoProdutoNoPedido');
-$route->get('pedido/obterValorTotalDoPedido', 'PedidoController@obterValorTotalDoPedido');
-$route->post('pedido/save', 'PedidoController@save');
-$route->post('pedido/update', 'PedidoController@update');
+$route->post('pedido/adicionarClienteEendereco', 'PedidoController@adicionarClienteEendereco');
+$route->post('pedido/alterarClienteEndereco', 'PedidoController@alterarClienteEndereco');
+$route->post('pedido/adicionarProduto', 'PedidoController@adicionarProduto');
+$route->get('pedido/excluirProdutoPedido/{idProdutoPedido}', 'PedidoController@excluirProdutoPedido');
+$route->post('pedido/alterarQuantidadeProdutoPedido', 'PedidoController@alterarQuantidadeProdutoPedido');
+$route->get('pedido/produtosPorIdPedido/{idPedido}', 'PedidoController@produtosPorIdPedido');
+$route->post('pedido/finalizarPedido', 'PedidoController@finalizarPedido');
+$route->get('pedido/obterValorTotalDosProdutos/{idPedido}', 'PedidoController@obterValorTotalDosProdutos');
 
 $route->get('pedido/teste', 'PedidoController@teste');
 

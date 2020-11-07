@@ -112,7 +112,7 @@ use System\Session\Session;
 
 	<div class="card col-lg-12 content-div">
 		<div class="card-body">
-	        <h5 class="card-title"><i class="fab fa-product-hunt" style="color:#99ccff"></i> Produtos</h5>
+	        <h5 class="card-title"><i class="fas fa-box-open" style="color:#99ccff"></i> Produtos</h5>
 
             <div class="row div-inter-produtos">
                 <?php foreach ($produtos as $key => $produto):?>
@@ -145,8 +145,8 @@ use System\Session\Session;
 		            	<th>#</th>
 		                <th>Produto</th>
 		                <th>Preço</th>
-		                <th>Quantidade</th>
-		                <th>SubTotal</th>
+		                <th>QTD</th>
+		                <th>Total</th>
 		                <th>Ação</th>
 		            </tr>
 		        </thead>

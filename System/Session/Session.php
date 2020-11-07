@@ -31,9 +31,9 @@ class Session
   {
     session_destroy();
     ini_set('session.use_strict_mode', 0);
-    ini_set('session.cookie_lifetime', 43200);
-    ini_set('session.cache_expire', 43200);
-    ini_set('session.gc_maxlifetime', 43200);
+    ini_set('session.cookie_lifetime', 103200);
+    ini_set('session.cache_expire', 103200);
+    ini_set('session.gc_maxlifetime', 103200);
     session_start();
     $sessionId = md5(uniqid(true).time());
     $_SESSION['session_code'] = $sessionId;
@@ -52,7 +52,17 @@ class Session
 	public static function logout()
 	{
     self::regenerate();
-	}
+  }
+
+  public static function unset($name)
+  {
+    if (isset($_SESSION[$name])) {
+      unset($_SESSION[$name]);
+      return true;
+    }
+
+    return false;
+  }
 
     /**
     * --------------------------------------------------------------------------

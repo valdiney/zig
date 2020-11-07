@@ -23,12 +23,39 @@ class ProdutoPedido extends Model
   public function produtosPorIdPedido($idPedido = false)
   {
     return (object) $this->query(
-      "SELECT p.id, p.nome AS produto, p.preco, p.imagem,
+      "SELECT pd.id AS idProdutoPedido, p.id AS idProduto, p.nome AS produto, p.preco, p.imagem,
       pd.quantidade, pd.subtotal AS total, pd.id_pedido
       FROM produtos_pedidos AS pd
       INNER JOIN produtos AS p ON pd.id_produto = p.id
       WHERE pd.id_pedido = {$idPedido}"
     );
+  }
+
+  # Retorna dados do produto e produto pedido
+  public function produtoPorIdProdutoPedido($idProdutoPedido = false)
+  {
+    return (object) $this->query(
+      "SELECT pd.id AS idProdutoPedido, p.id AS idProduto, p.nome AS produto, p.preco, p.imagem,
+      pd.quantidade, pd.subtotal AS total, pd.id_pedido
+      FROM produtos_pedidos AS pd
+      INNER JOIN produtos AS p ON pd.id_produto = p.id
+      WHERE pd.id = {$idProdutoPedido}"
+    );
+  }
+
+  public function excluirProdutoPedido($idProdutoPedido)
+  {
+    return $this->query("DELETE FROM produtos_pedidos WHERE id = {$idProdutoPedido}", false);
+  }
+
+  public function alterarQuantidadeProdutoPedido($idProdutoPedido, $quantidade)
+  {
+    $produtoPedido = $this->find($idProdutoPedido);
+
+    $dado['quantidade'] = $quantidade;
+    $dado['subtotal'] = $quantidade * $produtoPedido->preco;
+
+    return $this->update($dado, $idProdutoPedido);
   }
 
   public function seNaoExisteProdutoNoPedido($idProduto, $idPedido)
@@ -41,19 +68,13 @@ class ProdutoPedido extends Model
     return false;
   }
 
-  public function deletarProdutosDescartados($idProduto, $idPedido)
+  public function valorTotalDoPedido($idPedido)
   {
-    return $this->query("DELETE FROM produtos_pedidos WHERE id_pedido = {$idPedido} AND id_produto = {$idProduto}");
-  }
-
-  public function updateProdutos(array $dados)
-  {
-    $this->query("UPDATE produtos_pedidos SET
-      preco = {$dados['preco']},
-      quantidade = {$dados['quantidade']},
-      subtotal = {$dados['subtotal']}
-      WHERE id_pedido = {$dados['id_pedido']} AND id_produto = {$dados['id_produto']}"
+    return $this->queryGetOne(
+      "SELECT SUM(produtos_pedidos.subtotal) + pedidos.valor_frete - pedidos.valor_desconto AS total
+      FROM pedidos INNER JOIN produtos_pedidos
+      ON pedidos.id = produtos_pedidos.id_pedido
+      WHERE produtos_pedidos.id_pedido = {$idPedido}"
     );
   }
 }
-

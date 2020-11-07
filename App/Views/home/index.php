@@ -81,7 +81,7 @@
             <div class="row">
               <div class="col-5 col-md-4">
                 <div class="icon-big text-center icon-warning">
-                  <i class="fab fa-product-hunt" style="color:#99ccff"></i>
+                  <i class="fas fa-box-open" style="color:#99ccff"></i>
                 </div>
               </div>
               <div class="col-7 col-md-8">
@@ -95,7 +95,7 @@
           <div class="card-footer ">
             <hr>
             <div class="stats">
-              <i class="fab fa-product-hunt" style="color:#99ccff"></i>
+              <i class="fas fa-box-open" style="color:#84b6e9"></i>
               <small>Produtos inativos <b><?php echo $produtosCadastrados->inativos;?></b></small>
             </div>
           </div>
@@ -259,11 +259,11 @@
 
 <script>
 
-  $(".vendas_por_vendedores tbody td").each(function() {
+  /*$(".vendas_por_vendedores tbody td").each(function() {
     console.log($(this).text());
 
 
-  });
+  });*/
 
 
 var ctx = document.getElementById("grafi-vendas-por-dia");

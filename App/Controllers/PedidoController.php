@@ -62,8 +62,6 @@ class PedidoController extends Controller
       $pedido = new Pedido();
       $produtoPedido = new ProdutoPedido();
 
-      $idPedido = $this->post->data()->id_pedido;
-
       $dadosPedido = (array) $this->post->only([
         'id_cliente', 'id_cliente_endereco'
       ]);
@@ -72,24 +70,34 @@ class PedidoController extends Controller
       $dadosPedido['id_situacao_pedido'] = 7; # 7: Imcompleto
       $dadosPedido['previsao_entrega'] = null;
 
-      if ($idPedido ) {
-        try {
-          $pedido->update($dadosPedido, $idPedido );
-          echo json_encode(['status' => true, 'id_pedido' => $pedido->lastId()]);
+      try {
+        $pedido->save($dadosPedido);
+        echo json_encode(['status' => true, 'id_pedido' => $pedido->lastId()]);
 
-        } catch(\Exception $e) {
-          echo json_encode(['status' => false]);
-          dd($e->getMessage());
-        }
-      } else {
-        try {
-          $pedido->save($dadosPedido);
-          echo json_encode(['status' => true, 'id_pedido' => $pedido->lastId()]);
+      } catch(\Exception $e) {
+        echo json_encode(['status' => false]);
+        dd($e->getMessage());
+      }
+    }
+  }
 
-        } catch(\Exception $e) {
-          echo json_encode(['status' => false]);
-          dd($e->getMessage());
-        }
+  public function alterarClienteEndereco()
+  {
+    if ($this->post->hasPost()) {
+      $pedido = new Pedido();
+      $produtoPedido = new ProdutoPedido();
+
+      $dadosPedido = (array) $this->post->only([
+        'id_cliente', 'id_cliente_endereco'
+      ]);
+
+      try {
+        $pedido->update($dadosPedido, $this->post->data()->id_pedido);
+        echo json_encode(['status' => true]);
+
+      } catch(\Exception $e) {
+        echo json_encode(['status' => false]);
+        dd($e->getMessage());
       }
     }
   }
@@ -122,13 +130,6 @@ class PedidoController extends Controller
         echo json_encode(['status' => false]);
         dd($e->getMessage());
       }
-
-      # Atualiza o valor do total na tabela de pedidos
-      $pedido = new Pedido();
-      $pedido->update(
-        ['total' => $produtoPedido->valorTotalDoPedido($dadosDoFormulrio->id_pedido)->total],
-        $dadosDoFormulrio->id_pedido
-      );
     }
   }
 
@@ -136,16 +137,20 @@ class PedidoController extends Controller
   {
     $pedido = new Pedido();
     $produtoPedido = new ProdutoPedido();
+
+    $idPedido = $this->post->data()->id_pedido;
     $dadosPedido = (array) $this->post->only([
       'id_meio_pagamento', 'valor_desconto',
       'valor_frete', 'previsao_entrega'
     ]);
 
+    $dadosPedido['valor_desconto'] = formataValorMoedaParaGravacao($dadosPedido['valor_desconto']);
+    $dadosPedido['valor_frete'] = formataValorMoedaParaGravacao($dadosPedido['valor_frete']);
     $dadosPedido['id_situacao_pedido'] = 1;
 
     if ($this->post->hasPost()) {
       try {
-        $pedido->update($dadosPedido, $this->post->data()->id_pedido);
+        $pedido->update($dadosPedido, $idPedido);
         echo json_encode(['status' => true]);
 
       } catch(\Exception $e) {
@@ -155,21 +160,10 @@ class PedidoController extends Controller
     }
   }
 
-  public function teste()
-  {
-    $produtoPedido = new ProdutoPedido();
-    $dadosProdutoPedido = $produtoPedido->find(116);
-    dd($dadosProdutoPedido);
-  }
-
   public function excluirProdutoPedido($idProdutoPedido)
   {
     $produtoPedido = new ProdutoPedido();
     $dadosProdutoPedido = $produtoPedido->find($idProdutoPedido);
-
-    # Seta esses dados na sessão
-    Session::set('id_pedido_temporario', $dadosProdutoPedido->id_pedido);
-    Session::set('preco_produto_temporario', $dadosProdutoPedido->preco);
 
     try {
       $produtoPedido->excluirProdutoPedido($idProdutoPedido);
@@ -178,17 +172,6 @@ class PedidoController extends Controller
     } catch(\Exception $e) {
       echo json_encode(['status' => false]);
     }
-
-    # Atualiza o valor do total na tabela de pedidos
-    $pedido = new Pedido();
-    $pedido->update(
-      ['total' => $produtoPedido->valorTotalDoPedido(Session::get('id_pedido_temporario'))->total],
-      Session::get('id_pedido_temporario')
-    );
-
-    # Deleta esses dados da sessão
-    Session::unset('id_pedido_temporario');
-    Session::unset('preco_produto_temporario');
   }
 
   public function alterarQuantidadeProdutoPedido()
@@ -206,14 +189,6 @@ class PedidoController extends Controller
     } catch(\Exception $e) {
       echo json_encode(['status' => false]);
     }
-
-    # Atualiza o valor do total na tabela de pedidos
-    $pedido = new Pedido();
-    $dadosProdutoPedido = $produtoPedido->find($produtoPedido);
-    $pedido->update(
-      ['total' => $produtoPedido->valorTotalDoPedido($dadosProdutoPedido->id_pedido)->total],
-      $dadosProdutoPedido->id_pedido
-    );
   }
 
   public function produtosPorIdPedido($idPedido)
@@ -226,15 +201,10 @@ class PedidoController extends Controller
   {
     $pedido = new Pedido();
     $produtoPedido = new ProdutoPedido();
-
-    $pedido = $pedido->find($idPedido);
     $valorTotalDosProdutos = $produtoPedido->valorTotalDoPedido($idPedido)->total;
 
     echo json_encode([
-      'totalGeral' => ($valorTotalDosProdutos + $pedido->valor_frete) - $pedido->valor_desconto,
-      'valorTotalDosProdutos' => $valorTotalDosProdutos,
-      'valorFrete' => $pedido->valor_frete,
-      'ValorDesconto' => $pedido->valor_desconto
+      'totalGeral' => $valorTotalDosProdutos
     ]);
   }
 

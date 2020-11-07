@@ -89,6 +89,7 @@ $route->get('pedido/modalFormulario/{idPedido?}', 'PedidoController@modalFormula
 $route->get('pedido/enderecoPorIdCliente/{idCliente?}', 'PedidoController@enderecoPorIdCliente');
 
 $route->post('pedido/adicionarClienteEendereco', 'PedidoController@adicionarClienteEendereco');
+$route->post('pedido/alterarClienteEndereco', 'PedidoController@alterarClienteEndereco');
 $route->post('pedido/adicionarProduto', 'PedidoController@adicionarProduto');
 $route->get('pedido/excluirProdutoPedido/{idProdutoPedido}', 'PedidoController@excluirProdutoPedido');
 $route->post('pedido/alterarQuantidadeProdutoPedido', 'PedidoController@alterarQuantidadeProdutoPedido');

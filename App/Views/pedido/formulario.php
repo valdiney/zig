@@ -233,7 +233,11 @@ function enderecoPorIdCliente(idCliente, idClienteEnderecoPedido = false) {
 
   /*Salva Vendedor, Cliente e Endereço*/
   function salvarPrimeiroPasso() {
-    var rota = getDomain()+"/pedido/adicionarClienteEendereco";
+    <?php if ($idPedido):?>
+      var rota = getDomain()+"/pedido/alterarClienteEndereco";
+    <?php else:?>
+      var rota = getDomain()+"/pedido/adicionarClienteEendereco";
+    <?php endif;?>
 
     if ($("#id_cliente").val() == 'selecione') {
       modalValidacao('Validação', 'Campo (Cliente) deve ser preenchido!');
@@ -267,6 +271,7 @@ function enderecoPorIdCliente(idCliente, idClienteEnderecoPedido = false) {
 
   function adicionarProduto(idProduto, quantidade) {
     var rota = getDomain()+"/pedido/adicionarProduto";
+
     $.post(rota, {
       '_token': '<?php echo TOKEN; ?>',
       'id_pedido': idPedido,
@@ -276,9 +281,11 @@ function enderecoPorIdCliente(idCliente, idClienteEnderecoPedido = false) {
         var retorno = JSON.parse(resultado);
         var produto = retorno.produto[0];
         montaTabelaDeProdutos(produto);
+        if (retorno.status == true) {
+          obterValorTotalDopedido(idPedido);
+        }
     })
 
-    obterValorTotalDopedido(idPedido);
     return false;
   }
 
@@ -302,10 +309,11 @@ function enderecoPorIdCliente(idCliente, idClienteEnderecoPedido = false) {
         elemento.parent().parent().fadeOut(400, function() {
           $(this).remove();
         })
+
+        obterValorTotalDopedido(idPedido);
       }
     });
 
-    obterValorTotalDopedido(idPedido);
     return false;
   }
 
@@ -317,9 +325,11 @@ function enderecoPorIdCliente(idCliente, idClienteEnderecoPedido = false) {
       'quantidade': quantidade
     }, function(resultado) {
       var retorno = JSON.parse(resultado);
+      if (retorno.status == true) {
+        obterValorTotalDopedido(idPedido);
+      }
     });
 
-    obterValorTotalDopedido(idPedido);
     return false;
   }
 
@@ -366,7 +376,7 @@ function enderecoPorIdCliente(idCliente, idClienteEnderecoPedido = false) {
       var retorno = JSON.parse(resultado);
 
       $(".total-geral-produtos").empty();
-      $(".total-geral-produtos").html("<b>Total:</b> " + real(retorno.valorTotalDosProdutos));
+      $(".total-geral-produtos").html("<b>Total:</b> " + real(retorno.totalGeral));
     });
   }
 </script>

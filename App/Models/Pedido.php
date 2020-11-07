@@ -15,13 +15,20 @@ class Pedido extends Model
 
     public function pedidos($idVendedor = false, $idCliente = false)
     {
-      return $this->query("SELECT pedidos.id AS idPedido, clientes.nome AS nomeCliente,
-        pedidos.previsao_entrega AS previsaoEntrega, pedidos.total,
-        situacao.legenda AS situacao
-        FROM pedidos INNER JOIN clientes ON pedidos.id_cliente = clientes.id
-        LEFT JOIN situacoes_pedidos AS situacao ON pedidos.id_situacao_pedido = situacao.id
-        WHERE pedidos.id_vendedor = {$idVendedor}
-      ");
+      return $this->query(
+         "SELECT pedidos.id AS idPedido, clientes.nome AS nomeCliente,
+          pedidos.previsao_entrega AS previsaoEntrega, pedidos.valor_frete AS valorFrete,
+          pedidos.valor_desconto AS valordesconto,
+          situacao.legenda AS situacao,
+
+          (SELECT SUM(subtotal) FROM produtos_pedidos
+            WHERE produtos_pedidos.id_pedido = pedidos.id
+          ) + pedidos.valor_frete - pedidos.valor_desconto AS totalGeral
+
+          FROM pedidos INNER JOIN clientes ON pedidos.id_cliente = clientes.id
+          LEFT JOIN situacoes_pedidos AS situacao ON pedidos.id_situacao_pedido = situacao.id
+          WHERE pedidos.id_vendedor = {$idVendedor}"
+      );
     }
 
     /**

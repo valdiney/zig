@@ -31,11 +31,11 @@
 	            <tr>
                 <td><?php echo $pedido->idPedido;?></td>
                 <td><?php echo $pedido->nomeCliente;?></td>
-                <td>R$ <?php echo real($pedido->total);?></td>
+                <td>R$ <?php echo real($pedido->totalGeral);?></td>
                 <td><?php echo $pedido->situacao;?></td>
                 <td>
                 <?php
-                  if ($pedido->previsaoEntrega != '0000-00-00') {
+                  if ( ! is_null($pedido->previsaoEntrega)) {
                     echo date('d/m/Y', strtotime($pedido->previsaoEntrega));
                   } else {
                     echo '<small>Não informado</small>';

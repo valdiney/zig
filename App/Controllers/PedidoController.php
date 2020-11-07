@@ -50,10 +50,15 @@ class PedidoController extends Controller
 
 	public function index()
 	{
+		$this->view('pedido/index', $this->layout);
+  }
+
+  public function tabelaDepedidosChamadosViaAjax()
+  {
     $pedido = new Pedido();
     $pedidos = $pedido->pedidos($this->idUsuarioLogado);
 
-		$this->view('pedido/index', $this->layout, compact('pedidos'));
+    $this->view('pedido/tabelaDePedidos', null, compact('pedidos'));
   }
 
   public function adicionarClienteEendereco()

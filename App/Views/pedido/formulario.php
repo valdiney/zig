@@ -263,6 +263,7 @@ function enderecoPorIdCliente(idCliente, idClienteEnderecoPedido = false) {
           $("#button-aba-1").removeClass('abaActive');
           $("#button-aba-2").addClass('abaActive');
           idPedido = retorno.id_pedido;
+          tabelaDepedidosChamadosViaAjax();
         }
     })
 
@@ -283,6 +284,7 @@ function enderecoPorIdCliente(idCliente, idClienteEnderecoPedido = false) {
         montaTabelaDeProdutos(produto);
         if (retorno.status == true) {
           obterValorTotalDopedido(idPedido);
+          tabelaDepedidosChamadosViaAjax();
         }
     })
 
@@ -311,6 +313,7 @@ function enderecoPorIdCliente(idCliente, idClienteEnderecoPedido = false) {
         })
 
         obterValorTotalDopedido(idPedido);
+        tabelaDepedidosChamadosViaAjax();
       }
     });
 
@@ -327,6 +330,7 @@ function enderecoPorIdCliente(idCliente, idClienteEnderecoPedido = false) {
       var retorno = JSON.parse(resultado);
       if (retorno.status == true) {
         obterValorTotalDopedido(idPedido);
+        tabelaDepedidosChamadosViaAjax();
       }
     });
 
@@ -365,6 +369,7 @@ function enderecoPorIdCliente(idCliente, idClienteEnderecoPedido = false) {
       var retorno = JSON.parse(resultado);
       if (retorno.status == true) {
         window.location.reload();
+        tabelaDepedidosChamadosViaAjax();
       }
     });
   }

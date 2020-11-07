@@ -33,15 +33,7 @@
                 <td><?php echo $pedido->nomeCliente;?></td>
                 <td>R$ <?php echo real($pedido->totalGeral);?></td>
                 <td><?php echo $pedido->situacao;?></td>
-                <td>
-                <?php
-                  if ( ! is_null($pedido->previsaoEntrega)) {
-                    echo date('d/m/Y', strtotime($pedido->previsaoEntrega));
-                  } else {
-                    echo '<small>Não informado</small>';
-                  }
-                ?>
-                </td>
+                <td><?php echo $pedido->previsaoEntrega;?></td>
 
                 <td style="text-align:right">
                   <div class="btn-group" role="group">

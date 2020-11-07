@@ -17,7 +17,8 @@ class Pedido extends Model
     {
       return $this->query(
          "SELECT pedidos.id AS idPedido, clientes.nome AS nomeCliente,
-          pedidos.previsao_entrega AS previsaoEntrega, pedidos.valor_frete AS valorFrete,
+          IF(pedidos.previsao_entrega = '0000-00-00', 'Não informado', DATE_FORMAT(pedidos.previsao_entrega, '%d/%m/%Y')) AS previsaoEntrega,
+          pedidos.valor_frete AS valorFrete,
           pedidos.valor_desconto AS valordesconto,
           situacao.legenda AS situacao,
 

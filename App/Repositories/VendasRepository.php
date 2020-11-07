@@ -34,11 +34,12 @@ class VendasRepository
 	public function percentualMeiosDePagamento($idEmpresa)
 	{
 		$query = $this->venda->query("
-			SELECT mpg.legenda, SUM(vendas.valor) AS total,
-			ROUND((COUNT(*) / (SELECT COUNT(*) FROM vendas)),2) * 100 AS media
+		  SELECT mpg.legenda, SUM(vendas.valor) AS total,
+			ROUND((COUNT(*) / (SELECT COUNT(*) FROM vendas WHERE vendas.created_at BETWEEN DATE_ADD(CURRENT_DATE(), INTERVAL -30 DAY) AND CURRENT_DATE())),2) * 100 AS media
 			FROM vendas
 			INNER JOIN meios_pagamentos AS mpg ON vendas.id_meio_pagamento = mpg.id
-			WHERE vendas.id_empresa = {$idEmpresa}
+			WHERE vendas.created_at BETWEEN DATE_ADD(CURRENT_DATE(), INTERVAL -30 DAY) AND CURRENT_DATE()
+			AND vendas.id_empresa = {$idEmpresa}
 			GROUP BY vendas.id_meio_pagamento
 		");
 
@@ -56,7 +57,8 @@ class VendasRepository
 	{
 		$query = $this->venda->query("
 			SELECT DATE_FORMAT(created_at, '%d/%m') AS data, COUNT(*) AS quantidade FROM vendas
-			WHERE MONTH(created_at) = MONTH(NOW()) AND id_empresa = {$idEmpresa}
+      WHERE created_at BETWEEN DATE_ADD(CURRENT_DATE(), INTERVAL -30 DAY) AND CURRENT_DATE()
+      AND id_empresa = {$idEmpresa}
 			GROUP BY DAY(created_at) ORDER BY DATE_FORMAT(created_at, '%d/%m') ASC
 		");
 

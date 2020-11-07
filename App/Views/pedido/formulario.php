@@ -248,6 +248,7 @@ function enderecoPorIdCliente(idCliente, idClienteEnderecoPedido = false) {
       return false;
     }
 
+    modalValidacao('Validação', 'Aguarde...');
     $.post(rota, {
       '_token': '<?php echo TOKEN; ?>',
       'id_cliente': $("#id_cliente").val(),
@@ -264,6 +265,7 @@ function enderecoPorIdCliente(idCliente, idClienteEnderecoPedido = false) {
           $("#button-aba-2").addClass('abaActive');
           idPedido = retorno.id_pedido;
           tabelaDepedidosChamadosViaAjax();
+          modalValidacaoClose();
         }
     })
 
@@ -273,6 +275,7 @@ function enderecoPorIdCliente(idCliente, idClienteEnderecoPedido = false) {
   function adicionarProduto(idProduto, quantidade) {
     var rota = getDomain()+"/pedido/adicionarProduto";
 
+    modalValidacao('Validação', 'Aguarde...');
     $.post(rota, {
       '_token': '<?php echo TOKEN; ?>',
       'id_pedido': idPedido,
@@ -285,6 +288,7 @@ function enderecoPorIdCliente(idCliente, idClienteEnderecoPedido = false) {
         if (retorno.status == true) {
           obterValorTotalDopedido(idPedido);
           tabelaDepedidosChamadosViaAjax();
+          modalValidacaoClose();
         }
     })
 
@@ -305,6 +309,8 @@ function enderecoPorIdCliente(idCliente, idClienteEnderecoPedido = false) {
 
   function excluirProdutoPedido(idProdutoPedido, elemento) {
     var rota = getDomain()+"/pedido/excluirProdutoPedido/"+idProdutoPedido;
+
+    modalValidacao('Validação', 'Aguarde...');
     $.get(rota, function(resultado) {
       var retorno = JSON.parse(resultado);
       if (retorno.status == true) {
@@ -314,6 +320,7 @@ function enderecoPorIdCliente(idCliente, idClienteEnderecoPedido = false) {
 
         obterValorTotalDopedido(idPedido);
         tabelaDepedidosChamadosViaAjax();
+        modalValidacaoClose();
       }
     });
 
@@ -322,6 +329,8 @@ function enderecoPorIdCliente(idCliente, idClienteEnderecoPedido = false) {
 
   function alterarAquantidadeDeUmProduto(idProdutoPerdido, quantidade) {
     var rota = getDomain()+"/pedido/alterarQuantidadeProdutoPedido";
+
+    modalValidacao('Validação', 'Aguarde...');
     $.post(rota, {
       '_token': '<?php echo TOKEN; ?>',
       'idProdutoPedido': idProdutoPerdido,
@@ -331,6 +340,7 @@ function enderecoPorIdCliente(idCliente, idClienteEnderecoPedido = false) {
       if (retorno.status == true) {
         obterValorTotalDopedido(idPedido);
         tabelaDepedidosChamadosViaAjax();
+        modalValidacaoClose();
       }
     });
 
@@ -358,6 +368,8 @@ function enderecoPorIdCliente(idCliente, idClienteEnderecoPedido = false) {
 
   function finalizarPedido() {
     var rota = getDomain()+"/pedido/finalizarPedido";
+
+    modalValidacao('Validação', 'Aguarde...');
     $.post(rota, {
       '_token': '<?php echo TOKEN; ?>',
       'id_pedido': idPedido,

@@ -2,16 +2,12 @@
 <?php use System\HtmlComponents\Modal\Modal;?>
 
 <div class="row">
-
 	<div class="card col-lg-12 content-div">
 		<div class="card-body">
-	        <h5 class="card-title"><i class="fas fa-shopping-basket" style="color:#ff99cc"></i> Pedidos</h5>
-	    </div>
-
-		  <div id="append-pedidos"></div>
-
+	    <h5 class="card-title"><i class="fas fa-shopping-basket" style="color:#ff99cc"></i> Pedidos</h5>
+	  </div>
+		<div id="append-pedidos"></div>
     <br>
-
    </div>
 </div>
 <script src="<?php echo BASEURL; ?>/public/assets/js/core/jquery.min.js"></script>

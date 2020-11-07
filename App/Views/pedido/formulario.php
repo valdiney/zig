@@ -263,7 +263,11 @@ function enderecoPorIdCliente(idCliente, idClienteEnderecoPedido = false) {
           $(".componente-produto-pedido").show();
           $("#button-aba-1").removeClass('abaActive');
           $("#button-aba-2").addClass('abaActive');
-          idPedido = retorno.id_pedido;
+
+          <?php if ( ! $idPedido):?>
+            idPedido = retorno.id_pedido;
+          <?php endif;?>
+
           tabelaDepedidosChamadosViaAjax();
           modalValidacaoClose();
         }

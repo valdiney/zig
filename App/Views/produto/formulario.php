@@ -13,8 +13,8 @@
 		<div class="col-md-4">
 		    <div class="form-group">
 		        <label for="nome">Nome *</label>
-		        <input type="text" class="form-control nome" name="nome" id="nome" 
-		        placeholder="Digite o nome do produto!" 
+		        <input type="text" class="form-control nome" name="nome" id="nome"
+		        placeholder="Digite o nome do produto!"
 		        value="<?php echo isset($produto->id) ? $produto->nome : ''?>">
 		    </div>
 		</div>
@@ -34,7 +34,7 @@
 		        <?php if (isset($produto->id)):?>
 		             <img src="<?php echo BASEURL.'/'.$produto->imagem;?>" class="imagem-produto">
 		        <?php else:?>
-		        	 <i class="fab fa-product-hunt" style="font-size:40px"></i>
+		        	 <i class="fas fa-box-open" style="font-size:40px"></i>
 		        <?php endif;?>
 		    </div>
 		</div>
@@ -58,9 +58,9 @@
     $(function() {
         jQuery('.campo-moeda')
         .maskMoney({
-          prefix:'R$ ', 
-          allowNegative: false, 
-          thousands:'.', decimal:',', 
+          prefix:'R$ ',
+          allowNegative: false,
+          thousands:'.', decimal:',',
           affixesStay: false
         });
     });

@@ -33,18 +33,18 @@
 			<tr>
 				<th>#</th>
 		        <th>Preço</th>
-		        <th>Quantidade</th>
+		        <th>Qtd</th>
 		        <th>Total</th>
-		        <th>Meio Pagamento</th>
+		        <th>Pagamento</th>
 		        <th>Hora</th>
 		        <th>Data</th>
 			</tr>
 		</thead>
-		<tbody>	        		
+		<tbody>
 			<?php foreach($vendas as $venda):?>
 				<tr>
 					<td>
-						<img class="imagem-perfil" src="<?php echo BASEURL.'/'.$venda->imagem;?>" 
+						<img class="imagem-perfil" src="<?php echo BASEURL.'/'.$venda->imagem;?>"
 						title="<?php echo $venda->nomeUsuario;?>">
 					</td>
 
@@ -53,7 +53,7 @@
 					<?php else:?>
 						<td><small>Não consta produto</small></td>
 					<?php endif;?>
-                    
+
                     <?php if ( ! is_null($venda->quantidade)):?>
 					    <td><?php echo $venda->quantidade;?></td>
 					<?php else:?>
@@ -68,7 +68,7 @@
 			<?php endforeach;?>
 		</tbody>
 	</table>
-	
+
 <?php else:?>
 	<br><br><br>
 	<center>

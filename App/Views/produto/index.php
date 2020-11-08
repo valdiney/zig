@@ -19,7 +19,7 @@ use System\HtmlComponents\FlashMessage\FlashMessage;
 
 	<div class="card col-lg-12 content-div">
 		<div class="card-body">
-	        <h5 class="card-title"><i class="fab fa-product-hunt" style="color:#99ccff"></i> Produtos</h5>
+	        <h5 class="card-title"><i class="fas fa-box-open" style="color:#99ccff"></i> Produtos</h5>
 	    </div>
 	    <!-- Mostra as mensagens de erro-->
 	    <?php FlashMessage::show();?>

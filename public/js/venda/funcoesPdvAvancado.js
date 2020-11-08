@@ -30,9 +30,9 @@ function obterProdutosDaMesa() {
       		  t += "<tr id='id-tr-"+value.id+"'>";
   	        t += "<td>"+'<img class="img-produto-seleionado" src="'+getDomain()+'/'+value.imagem+'">'+"</td>";
   	        t += "<td>"+value.produto+"</td>";
-  	        t += "<td>R$ "+real(value.preco)+"</td>";
+  	        t += "<td class='hidden-when-mobile'>"+real(value.preco)+"</td>";
   	        t += "<td>"+'<input type="number" class="campo-quantidade" value="'+value.quantidade+'" onchange="alterarAquantidadeDeUmProdutoNaMesa('+value.id+', this.value)">'+"</td>";
-  	        t += "<td class='pegarTotal'>R$ "+real(value.total)+"</td>";
+  	        t += "<td class='pegarTotal'>"+real(value.total)+"</td>";
   	        t += "<td>"+'<button class="btn-sm btn-link" onclick="retirarProdutoDaMesa('+value.id+', this)"><i class="fas fa-times" style="color:#cc0000;font-size:18px"></i></button>'+"</td>";
   	        t += "</tr>";
      	    });
@@ -57,9 +57,9 @@ function obterOultimoProdutoColocadoNaMesa() {
           t += "<tr id='id-tr-"+value.id+"'>";
   		    t += "<td>"+'<img class="img-produto-seleionado" src="'+getDomain()+'/'+value.imagem+'">'+"</td>";
   		    t += "<td>"+value.produto+"</td>";
-  		    t += "<td>R$ "+real(value.preco)+"</td>";
+  		    t += "<td class='hidden-when-mobile'>"+real(value.preco)+"</td>";
   		    t += "<td>"+'<input type="number" class="campo-quantidade" value="'+value.quantidade+'" onchange="alterarAquantidadeDeUmProdutoNaMesa('+value.id+', this.value)">'+"</td>";
-  		    t += "<td>R$ "+real(value.total)+"</td>";
+  		    t += "<td>"+real(value.total)+"</td>";
   		    t += "<td>"+'<button class="btn-sm btn-link" onclick="retirarProdutoDaMesa('+value.id+', this)"><i class="fas fa-times" style="color:#cc0000;font-size:18px"></i></button>'+"</td>";
   		    t += "</tr>";
 

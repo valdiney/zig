@@ -77,6 +77,12 @@ $configPdv = $configPdv->configPdv(Session::get('idEmpresa'));
     border:1px solid #dddddd;
     padding:5px;
   }
+
+  @media only screen and (max-width: 600px) {
+  .hidden-when-mobile {
+    display:none;
+  }
+}
   </style>
 </head>
 

@@ -85,7 +85,7 @@ use System\Session\Session;
 	}
 	.campo-quantidade {
 		border:1px solid #dee2e6;
-		width:100px;
+		width:50px;
 		text-align:center;
 	}
 	.div-inter-produtos {
@@ -135,8 +135,8 @@ use System\Session\Session;
 	<div class="card col-lg-9 content-div">
 		<div class="card-body" style="overflow-x:auto!important;">
 	        <h5 class="card-title">
-	        	<i class="fas fa-coins" style="color:#00cc99"></i>
-	        	Produtos selecionados
+	        	<i class="fas fa-box-open" style="color:#00cc99"></i>
+	        	Selecionados
 	        </h5>
 
 		    <table class="table tabela-ajustada tabela-de-produto" style="width:100%;">
@@ -144,7 +144,7 @@ use System\Session\Session;
 		            <tr>
 		            	<th>#</th>
 		                <th>Produto</th>
-		                <th>Preço</th>
+		                <th class="hidden-when-mobile">Preço</th>
 		                <th>QTD</th>
 		                <th>Total</th>
 		                <th>Ação</th>

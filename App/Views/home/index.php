@@ -185,6 +185,7 @@
               </small>
             </center>
 
+            <?php $momento = 0;?>
             <?php if (count($totalVendasPorUsuariosNoMes) > 0):?>
               <table class="table tabela-ajustada vendas_por_vendedores table-striped">
                   <thead>

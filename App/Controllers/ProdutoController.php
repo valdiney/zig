@@ -15,16 +15,20 @@ class ProdutoController extends Controller
 	protected $post;
 	protected $get;
 	protected $layout;
-	protected $idEmpresa;
+  protected $idEmpresa;
+  protected $diretorioImagemNoEnv;
 
 	public function __construct()
 	{
 		parent::__construct();
-		$this->layout = 'default';
+    $this->layout = 'default';
+
+    # Pega o diretório setado no .env
+    $this->diretorioImagemNoEnv = getenv('DIRETORIO_IMAGENS_PRODUTO');
 
 		$this->post = new Post();
 		$this->get = new Get();
-		$this->idEmpresa = Session::get('idEmpresa');
+    $this->idEmpresa = Session::get('idEmpresa');
 
 		$logged = new Logged();
 		$logged->isValid();
@@ -45,13 +49,15 @@ class ProdutoController extends Controller
 			$dados = (array) $this->post->data();
 
 			$dados['id_empresa'] = $this->idEmpresa;
-			$dados['preco'] = formataValorMoedaParaGravacao($dados['preco']);
+      $dados['preco'] = formataValorMoedaParaGravacao($dados['preco']);
 
       # Valida imagem somente se existir no envio
-      if (isset($dados['imagem'])) {
-  			# Pega o diretório setado no .env
-        $diretorioImagem = getenv('DIRETORIO_IMAGENS_PRODUTO');
-        if (is_null($diretorioImagem)) {
+      if ( ! empty($_FILES["imagem"]['name'])) {
+
+        $diretorioImagem = false;
+        if ($this->diretorioImagemNoEnv && ! is_null($this->diretorioImagemNoEnv)) {
+          $diretorioImagem = $this->diretorioImagemNoEnv;
+        } else {
           $diretorioImagem = 'public/imagem/produtos/';
         }
 
@@ -99,10 +105,11 @@ class ProdutoController extends Controller
 	        unlink($dadosProduto->imagem);
         }
 
-        # Pega o diretório setado no .env
-        $diretorioImagem = getenv('DIRETORIO_IMAGENS_PRODUTO');
-        if (is_null($diretorioImagem)) {
-        	$diretorioImagem = 'public/imagem/produtos/';
+        $diretorioImagem = false;
+        if ($this->diretorioImagemNoEnv && ! is_null($this->diretorioImagemNoEnv)) {
+          $diretorioImagem = $this->diretorioImagemNoEnv;
+        } else {
+          $diretorioImagem = 'public/imagem/produtos/';
         }
 
 				$retornoImagem = uploadImageHelper(

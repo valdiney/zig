@@ -38,7 +38,7 @@ class VendasRepository
 			ROUND((COUNT(*) / (SELECT COUNT(*) FROM vendas WHERE vendas.created_at BETWEEN DATE_ADD(CURRENT_DATE(), INTERVAL -30 DAY) AND CURRENT_DATE())),2) * 100 AS media
 			FROM vendas
 			INNER JOIN meios_pagamentos AS mpg ON vendas.id_meio_pagamento = mpg.id
-			WHERE vendas.created_at BETWEEN DATE_ADD(CURRENT_DATE(), INTERVAL -30 DAY) AND CURRENT_DATE()
+			WHERE DATE(vendas.created_at) BETWEEN NOW() - INTERVAL 30 DAY AND NOW()
 			AND vendas.id_empresa = {$idEmpresa}
 			GROUP BY vendas.id_meio_pagamento
 		");
@@ -55,11 +55,11 @@ class VendasRepository
 
 	public function quantidadeDeVendasRealizadasPorDia(array $periodo, $idEmpresa)
 	{
-		$query = $this->venda->query("
-			SELECT DATE_FORMAT(created_at, '%d/%m') AS data, COUNT(*) AS quantidade FROM vendas
-      WHERE created_at BETWEEN DATE_ADD(CURRENT_DATE(), INTERVAL -30 DAY) AND CURRENT_DATE()
+		$query = $this->venda->query(
+      "SELECT DATE_FORMAT(created_at, '%d/%m') AS data, COUNT(*) AS quantidade FROM vendas
+      WHERE DATE(created_at) BETWEEN NOW() - INTERVAL 30 DAY AND NOW()
       AND id_empresa = {$idEmpresa}
-			GROUP BY DAY(created_at) ORDER BY DATE_FORMAT(created_at, '%d/%m') ASC
+      GROUP BY DAY(created_at) ORDER BY DATE_FORMAT(created_at, '%d/%m') DESC
 		");
 
 		return $query;

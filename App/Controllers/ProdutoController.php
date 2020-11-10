@@ -16,15 +16,17 @@ class ProdutoController extends Controller
 	protected $get;
 	protected $layout;
   protected $idEmpresa;
-  protected $diretorioImagemNoEnv;
+  protected $diretorioImagemProdutoNoEnv;
+  protected $diretorioImagemProdutoPadrao;
 
 	public function __construct()
 	{
 		parent::__construct();
     $this->layout = 'default';
 
+    $this->diretorioImagemProdutoPadrao = 'public/imagem/produtos/';
     # Pega o diretório setado no .env
-    $this->diretorioImagemNoEnv = getenv('DIRETORIO_IMAGENS_PRODUTO');
+    $this->diretorioImagemProdutoNoEnv = getenv('DIRETORIO_IMAGENS_PRODUTO');
 
 		$this->post = new Post();
 		$this->get = new Get();
@@ -55,10 +57,10 @@ class ProdutoController extends Controller
       if ( ! empty($_FILES["imagem"]['name'])) {
 
         $diretorioImagem = false;
-        if ($this->diretorioImagemNoEnv && ! is_null($this->diretorioImagemNoEnv)) {
-          $diretorioImagem = $this->diretorioImagemNoEnv;
+        if ($this->diretorioImagemProdutoNoEnv && ! is_null($this->diretorioImagemProdutoNoEnv)) {
+          $diretorioImagem = $this->diretorioImagemProdutoNoEnv;
         } else {
-          $diretorioImagem = 'public/imagem/produtos/';
+          $diretorioImagem = $this->diretorioImagemProdutoPadrao;
         }
 
   			$retornoImagem = uploadImageHelper(
@@ -106,10 +108,10 @@ class ProdutoController extends Controller
         }
 
         $diretorioImagem = false;
-        if ($this->diretorioImagemNoEnv && ! is_null($this->diretorioImagemNoEnv)) {
-          $diretorioImagem = $this->diretorioImagemNoEnv;
+        if ($this->diretorioImagemProdutoNoEnv && ! is_null($this->diretorioImagemProdutoNoEnv)) {
+          $diretorioImagem = $this->diretorioImagemProdutoNoEnv;
         } else {
-          $diretorioImagem = 'public/imagem/produtos/';
+          $diretorioImagem = $this->diretorioImagemProdutoPadrao;
         }
 
 				$retornoImagem = uploadImageHelper(

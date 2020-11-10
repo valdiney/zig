@@ -53,3 +53,24 @@ function tabelaDepedidosChamadosViaAjax() {
   });
 }
 </script>
+
+<script>
+function alterarSituacaoPedido(idPedido, idSituacaoPedido) {
+    var rota = getDomain()+"/pedido/alterarSituacaoPedido";
+
+    modalValidacao('Validação', 'Aguarde...');
+    $.post(rota, {
+      '_token': '<?php echo TOKEN; ?>',
+      'id_pedido': idPedido,
+      'id_situacao_pedido': idSituacaoPedido,
+
+      }, function(resultado) {
+        var retorno = JSON.parse(resultado);
+        if (retorno.status == true) {
+          modalValidacaoClose();
+        }
+    })
+
+    return false;
+  }
+</script>

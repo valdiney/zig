@@ -342,6 +342,7 @@ function enderecoPorIdCliente(idCliente, idClienteEnderecoPedido = false) {
     }, function(resultado) {
       var retorno = JSON.parse(resultado);
       if (retorno.status == true) {
+        carregaProdutosPedidos(idPedido);
         obterValorTotalDopedido(idPedido);
         tabelaDepedidosChamadosViaAjax();
         modalValidacaoClose();
@@ -353,9 +354,15 @@ function enderecoPorIdCliente(idCliente, idClienteEnderecoPedido = false) {
 
   function carregaProdutosPedidos(idPedido) {
     var rota = getDomain()+"/pedido/produtosPorIdPedido/"+idPedido;
+
+    $('<center><span class="tabela-load">Carregando...</span></center>').insertAfter('.tabela-de-produto');
+    $(".tabela-de-produto tbody").empty();
+
     $.get(rota, function(resultado) {
       var produtos = JSON.parse(resultado);
       var t = "";
+
+      $(".tabela-load").hide();
 
       $.each(produtos, function(index, produto) {
         montaTabelaDeProdutos(produto);

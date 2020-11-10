@@ -56,7 +56,7 @@ class UsuarioController extends Controller
 		if ($this->post->hasPost()) {
 			$usuario = new Usuario();
 			$dados = (array) $this->post->data();
-			$dados['password'] = createHash($dados['password']);
+      $dados['password'] = createHash($dados['password']);
 
 			# Valida imagem somente se existir no envio
 			if (isset($dados['imagem'])) {

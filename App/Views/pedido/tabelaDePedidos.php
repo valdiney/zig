@@ -1,3 +1,10 @@
+<style>
+#id_situacao_pedido {
+  padding:0px!important;
+  background:#faf8f3;
+  border:1px solid #dee2e6;
+}
+</style>
 <table id="example" class="table tabela-ajustada table-striped" style="width:100%">
   <thead>
       <tr>
@@ -22,8 +29,25 @@
         <td><?php echo $pedido->idPedido;?></td>
         <td><?php echo $pedido->nomeCliente;?></td>
         <td>R$ <?php echo real($pedido->totalGeral);?></td>
-        <td><?php echo $pedido->situacao;?></td>
-        <td><?php echo $pedido->previsaoEntrega;?></td>
+        <td>
+          <select name="id_situacao_pedido" id="id_situacao_pedido"
+          onchange="alterarSituacaoPedido(<?php echo $pedido->idPedido;?>, $(this).val())">
+            <?php foreach ($situacoesPedidos as $situacaoPedido):?>
+              <?php if ($situacaoPedido->id == $pedido->id_situacao_pedido):?>
+                <option value="<?php echo $situacaoPedido->id;?>" selected="selected">
+                  <?php echo $situacaoPedido->legenda;?>
+                </option>
+              <?php else:?>
+                <option value="<?php echo $situacaoPedido->id;?>">
+                  <?php echo $situacaoPedido->legenda;?>
+                </option>
+              <?php endif;?>
+            <?php endforeach; ?>
+          </select>
+        </td>
+        <td><?php
+        echo ($pedido->previsaoEntrega == 'Não informado') ? '<small>'.$pedido->previsaoEntrega.'</small>' : $pedido->previsaoEntrega;?>
+        </td>
 
         <td style="text-align:right">
           <div class="btn-group" role="group">

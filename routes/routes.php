@@ -97,6 +97,7 @@ $route->post('pedido/alterarQuantidadeProdutoPedido', 'PedidoController@alterarQ
 $route->get('pedido/produtosPorIdPedido/{idPedido}', 'PedidoController@produtosPorIdPedido');
 $route->post('pedido/finalizarPedido', 'PedidoController@finalizarPedido');
 $route->get('pedido/obterValorTotalDosProdutos/{idPedido}', 'PedidoController@obterValorTotalDosProdutos');
+$route->post('pedido/alterarSituacaoPedido', 'PedidoController@alterarSituacaoPedido');
 
 $route->get('pedido/teste', 'PedidoController@teste');
 

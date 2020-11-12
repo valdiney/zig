@@ -268,7 +268,7 @@ function enderecoPorIdCliente(idCliente, idClienteEnderecoPedido = false) {
             idPedido = retorno.id_pedido;
           <?php endif;?>
 
-          tabelaDepedidosChamadosViaAjax();
+          pedidos();
           modalValidacaoClose();
         }
     })
@@ -289,9 +289,10 @@ function enderecoPorIdCliente(idCliente, idClienteEnderecoPedido = false) {
         var retorno = JSON.parse(resultado);
         var produto = retorno.produto[0];
         montaTabelaDeProdutos(produto);
-        if (retorno.status == true) {
+
+        if (retorno.status) {
           obterValorTotalDopedido(idPedido);
-          tabelaDepedidosChamadosViaAjax();
+          pedidos();
           modalValidacaoClose();
         }
     })
@@ -323,7 +324,7 @@ function enderecoPorIdCliente(idCliente, idClienteEnderecoPedido = false) {
         })
 
         obterValorTotalDopedido(idPedido);
-        tabelaDepedidosChamadosViaAjax();
+        pedidos();
         modalValidacaoClose();
       }
     });
@@ -344,7 +345,7 @@ function enderecoPorIdCliente(idCliente, idClienteEnderecoPedido = false) {
       if (retorno.status == true) {
         carregaProdutosPedidos(idPedido);
         obterValorTotalDopedido(idPedido);
-        tabelaDepedidosChamadosViaAjax();
+        pedidos();
         modalValidacaoClose();
       }
     });
@@ -392,7 +393,7 @@ function enderecoPorIdCliente(idCliente, idClienteEnderecoPedido = false) {
       var retorno = JSON.parse(resultado);
       if (retorno.status == true) {
         window.location.reload();
-        tabelaDepedidosChamadosViaAjax();
+        pedidos();
       }
     });
   }

@@ -34,7 +34,7 @@
         <div class="col-md-4">
           <div class="form-group">
             <label for="id_usuario">Clientes</label>
-            <select class="form-control" name="id_cliente" id="id_cliente">
+            <select class="form-control" name="id_cliente" id="id_cliente_filtro">
             <option value="todos">Todos</option>
             <?php foreach ($clientes as $cliente) : ?>
               <option value="<?php echo $cliente->id; ?>">

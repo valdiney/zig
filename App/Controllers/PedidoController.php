@@ -63,7 +63,7 @@ class PedidoController extends Controller
         $idCliente = $this->post->data()->id_cliente;
       }
 
-      $pedidos = $pedido->pedidos($this->idUsuarioLogado,$idCliente);
+      $pedidos = $pedido->pedidos($this->idUsuarioLogado, $idCliente);
 
       $situacaoPedido = new SituacaoPedido();
       $situacoesPedidos = $situacaoPedido->all();

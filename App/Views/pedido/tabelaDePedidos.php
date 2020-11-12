@@ -5,6 +5,8 @@
   border:1px solid #dee2e6;
 }
 </style>
+
+<?php if (count($pedidos) > 0):?>
 <table id="example" class="table tabela-ajustada table-striped" style="width:100%">
   <thead>
       <tr>
@@ -72,3 +74,11 @@
     <?php endforeach;?>
   <tfoot></tfoot>
 </table>
+<?php else:?>
+	<br><br><br>
+	<center>
+	    <i class="fas fa-sad-tear" style="font-size:40px;opacity:0.70"></i>
+	    <br><br>
+		<h6 style="opacity:0.70">Pedidos não encontrados!</h6>
+	</center>
+<?php endif;?>

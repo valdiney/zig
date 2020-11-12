@@ -47,16 +47,27 @@ class PedidoController extends Controller
 
 	public function index()
 	{
-		$this->view('pedido/index', $this->layout);
+    $cliente = new Cliente();
+    $clientes = $cliente->clientes($this->idEmpresa);
+
+		$this->view('pedido/index', $this->layout, compact('clientes'));
   }
 
   public function tabelaDepedidosChamadosViaAjax()
   {
-    $pedido = new Pedido();
-    $pedidos = $pedido->pedidos($this->idUsuarioLogado);
+    if ($this->post->hasPost()) {
+      $pedido = new Pedido();
 
-    $situacaoPedido = new SituacaoPedido();
-    $situacoesPedidos = $situacaoPedido->all();
+      $idCliente = false;
+      if ($this->post->data()->id_cliente != 'todos') {
+        $idCliente = $this->post->data()->id_cliente;
+      }
+
+      $pedidos = $pedido->pedidos($this->idUsuarioLogado,$idCliente);
+
+      $situacaoPedido = new SituacaoPedido();
+      $situacoesPedidos = $situacaoPedido->all();
+    }
 
     $this->view('pedido/tabelaDePedidos', null,
     compact(

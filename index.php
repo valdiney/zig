@@ -1,5 +1,9 @@
 <?php
 
+ini_set('display_errors', 1);
+  ini_set('display_startup_erros', 1);
+  error_reporting(E_ALL);
+
 if (
     (getenv('APP_ENV', 'local') != 'production' && getenv('APP_DISPLAY_ERRORS', 'false') == 'true') ||
     !file_exists('.env')

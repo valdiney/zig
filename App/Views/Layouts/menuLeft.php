@@ -87,7 +87,7 @@ use App\Config\ConfigPerfil;
   //const elmNav = document.querySelector(`.sidebar-wrapper li a[href='${urlNav}']`);
 
   //console.log(urlNav, elmNav);
-  if (elmNav) {
-    //elmNav.parentNode.classList.add('active');
-  }
+  /*if (elmNav) {
+    elmNav.parentNode.classList.add('active');
+  }*/
 </script>

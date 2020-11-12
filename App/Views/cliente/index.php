@@ -11,7 +11,7 @@
 
 	<div class="card col-lg-12 content-div">
 		<div class="card-body">
-	   <h5 class="card-title"><i class="fas fa-user-tie" style="color:#ad54da"></i> Clientes</h5>
+	   <h5 class="card-title"><i class="fas fa-user-tie"></i> Clientes</h5>
 	  </div>
 
       <?php if (count($clientes) > 0):?>

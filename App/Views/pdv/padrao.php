@@ -38,7 +38,7 @@ use System\Session\Session;
 
 	<div class="card col-lg-12 content-div">
 		<div class="card-body">
-	        <h5 class="card-title"><i class="fas fa-coins" style="color:#00cc99"></i> Registrar Venda</h5>
+	        <h5 class="card-title"><i class="fas fa-coins"></i> Registrar Venda</h5>
 
             <form method="post" action="<?php echo BASEURL;?>/pdvPadrao/save">
 		        <div class="row">

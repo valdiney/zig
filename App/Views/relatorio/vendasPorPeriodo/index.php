@@ -21,8 +21,8 @@ use System\Session\Session; ?>
 
   <div class="card col-lg-12 content-div">
     <div class="card-body">
-      <h5 class="card-title"><i class="fas fa-file-invoice-dollar" style="color:#ffcc66"></i>
-        Vendas por período!
+      <h5 class="card-title"><i class="fas fa-cart-arrow-down"></i>
+        Filtros
       </h5>
     </div>
 

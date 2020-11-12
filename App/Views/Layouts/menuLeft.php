@@ -66,7 +66,7 @@ use App\Config\ConfigPerfil;
         <a href="<?php echo BASEURL;?>/relatorio/vendasPorPeriodo"
           class="<?php currentRouteFromMenu('relatorio', 'relatorioBorder');?>
           <?php currentRouteFromMenu('relatorio/vendasPorPeriodo', 'relatorioBorder');?>">
-          <i class="fas fa-file-invoice-dollar"></i>
+          <i class="fas fa-cart-arrow-down"></i>
           <p>Relatórios</p>
         </a>
       </li>
@@ -83,11 +83,11 @@ use App\Config\ConfigPerfil;
   </ul>
 </div>
 <script>
-  const urlNav = `${location.origin}${location.pathname}`;
-  const elmNav = document.querySelector(`.sidebar-wrapper li a[href='${urlNav}']`);
+  //const urlNav = `${location.origin}${location.pathname}`;
+  //const elmNav = document.querySelector(`.sidebar-wrapper li a[href='${urlNav}']`);
 
-  console.log(urlNav, elmNav);
+  //console.log(urlNav, elmNav);
   if (elmNav) {
-    elmNav.parentNode.classList.add('active');
+    //elmNav.parentNode.classList.add('active');
   }
 </script>

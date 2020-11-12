@@ -44,8 +44,12 @@
 			<?php foreach($vendas as $venda):?>
 				<tr>
 					<td>
-						<img class="imagem-perfil" src="<?php echo BASEURL.'/'.$venda->imagem;?>"
-						title="<?php echo $venda->nomeUsuario;?>">
+            <?php if ( ! is_null($venda->imagem) || $venda->imagem != ''):?>
+              <img class="imagem-perfil" src="<?php echo BASEURL.'/'.$venda->imagem;?>"
+              title="<?php echo $venda->nomeUsuario;?>">
+            <?php else:?>
+              <i class="fas fa-user" style="font-size:30px"></i>
+            <?php endif;?>
 					</td>
 
 					<?php //if ($venda->preco != 0):?>

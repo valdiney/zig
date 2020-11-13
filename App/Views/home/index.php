@@ -185,7 +185,6 @@
               </small>
             </center>
 
-            <?php $momento = 0;?>
             <?php if (count($totalVendasPorUsuariosNoMes) > 0):?>
               <table class="table tabela-ajustada vendas_por_vendedores table-striped">
                   <thead>
@@ -200,23 +199,30 @@
                   <tbody>
                       <?php foreach($totalVendasPorUsuariosNoMes as $venda):?>
                         <tr>
-                          <td><img class="imagem-perfil" src="<?php echo BASEURL.'/'.$venda['imagem'];?>"></td>
-                          <td>R$ <?php echo real($venda['total']);?></td>
+                          <td title="<?php echo $venda->nomeUsuario;?>">
+                            <?php if ( ! is_null($venda->imagem) && $venda->imagem != ''):?>
+                              <img class="imagem-perfil" src="<?php echo BASEURL.'/'.$venda->imagem;?>">
+                            <?php else:?>
+                              <i class="fa fa-user" style="font-size:30px"></i>
+                            <?php endif;?>
+                          </td>
 
-                          <?php if (isset($venda['meios_pagamento'][0])):?>
-                            <td>R$ <?php echo real($venda['meios_pagamento'][0]['total']);?></td>
+                          <td>R$ <?php echo real($venda->valor);?></td>
+
+                          <?php if ( ! is_null($venda->Dinheiro)):?>
+                            <td>R$ <?php echo real($venda->Dinheiro);?></td>
                           <?php else:?>
                             <td><small>Não consta</small></td>
                           <?php endif;?>
 
-                          <?php if (isset($venda['meios_pagamento'][1])):?>
-                            <td>R$ <?php echo real($venda['meios_pagamento'][1]['total']);?></td>
+                          <?php if ( ! is_null($venda->Credito)):?>
+                            <td>R$ <?php echo real($venda->Credito);?></td>
                           <?php else:?>
                             <td><small>Não consta</small></td>
                           <?php endif;?>
 
-                          <?php if (isset($venda['meios_pagamento'][2])):?>
-                            <td>R$ <?php echo real($venda['meios_pagamento'][2]['total']);?></td>
+                          <?php if ( ! is_null($venda->Debito)):?>
+                            <td>R$ <?php echo real($venda->Debito);?></td>
                           <?php else:?>
                             <td><small>Não consta</small></td>
                           <?php endif;?>
@@ -242,12 +248,12 @@
             </div>-->
           </div>
         </div>
-      </div>
+      </div><!--end vendas por usuarios-->
 
 </div>
 
 
-  <script src="<?php echo BASEURL;?>/public/assets/js/core/jquery.min.js"></script>
+<script src="<?php echo BASEURL;?>/public/assets/js/core/jquery.min.js"></script>
 <script src="<?php echo BASEURL;?>/public/assets/chartjs/dist/Chart.min.js"></script>
 
 <?php Doughnut::start(

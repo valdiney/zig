@@ -20,7 +20,6 @@
           <th>#</th>
           <th>Empresa</th>
           <th>Cliente</th>
-          <th>Hora</th>
           <th>Data</th>
         </tr>
       </thead>
@@ -32,8 +31,7 @@
             </td>
             <td><?php echo $log->empresa_nome; ?></td>
             <td><?php echo $log->usuario_nome; ?></td>
-            <td><?php echo $log->hora; ?></td>
-            <td><?php echo $log->data; ?></td>
+            <td><?php echo $log->hora .' '. $log->data; ?></td>
           </tr>
         <?php endforeach; ?>
       <tfoot></tfoot>

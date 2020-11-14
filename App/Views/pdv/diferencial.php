@@ -112,7 +112,7 @@ use System\Session\Session;
 
 	<div class="card col-lg-12 content-div">
 		<div class="card-body">
-	        <h5 class="card-title"><i class="fas fa-box-open"></i> Produtos</h5>
+	        <h5 class="card-title"><i class="fas fa-cart-arrow-down"></i> Produtos</h5>
 
             <div class="row div-inter-produtos">
                 <?php foreach ($produtos as $key => $produto):?>
@@ -135,7 +135,7 @@ use System\Session\Session;
 	<div class="card col-lg-9 content-div">
 		<div class="card-body" style="overflow-x:auto!important;">
 	        <h5 class="card-title">
-	        	<i class="fas fa-box-open"></i>
+	        	<i class="fas fa-cart-arrow-down"></i>
 	        	Selecionados
 	        </h5>
 

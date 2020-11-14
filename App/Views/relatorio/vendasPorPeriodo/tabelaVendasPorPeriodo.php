@@ -35,7 +35,7 @@
 		        <!--<th>Preço</th>-->
 		        <th>Qtd</th>
 		        <th>Total</th>
-		        <th>Pagamento</th>
+		        <th>Venda</th>
 		        <th>Data</th>
 		        <!--<th>Data</th>-->
 			</tr>
@@ -67,7 +67,7 @@
 					<td>R$ <?php echo number_format($venda->valor, 2,',','.');?></td>
 					<td><?php echo $venda->legenda;?></td>
 					<td>
-          <?php echo date('d/m', strtotime($venda->data));?>
+          <?php echo $venda->data;?>
           <?php echo $venda->hora;?>h
           </td>
 

@@ -25,7 +25,7 @@
       <?php foreach ($clienteEnderecos as $endereco):?>
         <tr>
           <td>
-          <?phpecho $endereco->endereco.', <b>Nª</b> '.$endereco->numero;?>
+          <?php echo $endereco->endereco?> <b>Nª</b> <?php echo $endereco->numero;?>
           </td>
           <td><?php echo $endereco->cidade;?></td>
 

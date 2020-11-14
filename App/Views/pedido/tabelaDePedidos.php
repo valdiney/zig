@@ -4,31 +4,38 @@
   background:#faf8f3;
   border:1px solid #dee2e6;
 }
+
+@media only screen and (max-width: 600px) {
+  th {
+    font-size:10px!important;
+  }
+  #id_situacao_pedido {
+    width:50px!important;
+  }
 </style>
 
 <?php if (count($pedidos) > 0):?>
 <table id="example" class="table tabela-ajustada table-striped" style="width:100%">
   <thead>
       <tr>
-          <th>Nº</th>
+          <th class="hidden-when-mobile">Nº</th>
           <th>Cliente</th>
           <th>Total</th>
           <th>Situação</th>
-          <th>Entrega</th>
+          <th class="hidden-when-mobile">Entrega</th>
           <th style="text-align:right;padding-right:0">
             <?php $rota = BASEURL.'/pedido/modalFormulario';?>
             <button onclick="modalFormularioPedido('<?php echo $rota;?>', null);"
-              class="btn btn-sm btn-success">
+              class="btn btn-sm btn-success" title="Novo Pedido">
                 <i class="fas fa-plus"></i>
-                  Novo
-              </button>
+            </button>
           </th>
       </tr>
   </thead>
   <tbody>
     <?php foreach ($pedidos as $pedido):?>
       <tr>
-        <td><?php echo $pedido->idPedido;?></td>
+        <td class="hidden-when-mobile"><?php echo $pedido->idPedido;?></td>
         <td><?php echo $pedido->nomeCliente;?></td>
         <td>R$ <?php echo real($pedido->totalGeral);?></td>
         <td>
@@ -47,7 +54,7 @@
             <?php endforeach; ?>
           </select>
         </td>
-        <td><?php
+        <td class="hidden-when-mobile"><?php
         echo ($pedido->previsaoEntrega == 'Não informado') ? '<small>'.$pedido->previsaoEntrega.'</small>' : $pedido->previsaoEntrega;?>
         </td>
 

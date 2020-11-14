@@ -21,7 +21,8 @@ use System\Session\Session; ?>
 
   <div class="card col-lg-12 content-div">
     <div class="card-body">
-      <h5 class="card-title"><i class="fas fa-cart-arrow-down"></i>
+      <h5 class="card-title">
+        <?php iconFilter();?>
         Filtros
       </h5>
     </div>

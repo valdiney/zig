@@ -31,15 +31,14 @@ use App\Config\ConfigPerfil;
 	            <tr>
 	            	<th>#</th>
 	                <th>Nome</th>
-	                <th>E-mail</th>
+	                <th class="hidden-when-mobile">E-mail</th>
 	                <th>Perfil</th>
 	                <th style="text-align:right;padding-right:0">
 	                	<?php $rota = BASEURL.'/usuario/modalFormulario';?>
 	                	<?php if (Session::get('idPerfil') != ConfigPerfil::vendedor()):?>
 		                	<button onclick="modalUsuarios('<?php echo $rota;?>', false);"
-		                		class="btn btn-sm btn-success">
+		                		class="btn btn-sm btn-success" title="Novo Usuário!">
 		                	    <i class="fas fa-plus"></i>
-		                        Novo
 		                    </button>
 	                    <?php endif;?>
 	                </th>
@@ -59,7 +58,7 @@ use App\Config\ConfigPerfil;
 		            		<?php endif;?>
 		            	</td>
 		                <td><?php echo $usuario->nome;?></td>
-		                <td><?php echo $usuario->email;?></td>
+		                <td class="hidden-when-mobile"><?php echo $usuario->email;?></td>
 		                <td><?php echo $usuario->perfil;?></td>
 		                <td style="text-align:right">
 

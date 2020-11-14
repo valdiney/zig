@@ -22,7 +22,10 @@ class UsuarioController extends Controller
 	protected $layout;
 	protected $idEmpresa;
 	protected $idUsuarioLogado;
-	protected $idPerfilUsuarioLogado;
+  protected $idPerfilUsuarioLogado;
+
+  protected $diretorioImagemUsuarioNoEnv;
+  protected $diretorioImagemUsuarioPadrao;
 
 	public function __construct()
 	{
@@ -33,7 +36,10 @@ class UsuarioController extends Controller
 		$this->get = new Get();
 		$this->idEmpresa = Session::get('idEmpresa');
 		$this->idUsuarioLogado = Session::get('idUsuario');
-		$this->idPerfilUsuarioLogado = session::get('idPerfil');
+    $this->idPerfilUsuarioLogado = session::get('idPerfil');
+
+    $this->diretorioImagemUsuarioPadrao = 'public/imagem/perfil_usuarios/';
+    $this->diretorioImagemUsuarioNoEnv = getenv('DIRETORIO_IMAGENS_PERFIL_USUARIO');
 
 		$logged = new Logged();
 		$logged->isValid();
@@ -59,12 +65,13 @@ class UsuarioController extends Controller
       $dados['password'] = createHash($dados['password']);
 
 			# Valida imagem somente se existir no envio
-			if (isset($dados['imagem'])) {
+			if ( ! empty($_FILES["imagem"]['name'])) {
 
-				# Pega o diretório setado no .env
-        $diretorioImagem = getenv('DIRETORIO_IMAGENS_PERFIL_USUARIO');
-        if (is_null($diretorioImagem)) {
-          $diretorioImagem = 'public/imagem/perfil_usuarios/';
+			  $diretorioImagem = false;
+        if ($this->diretorioImagemUsuarioNoEnv && ! is_null($this->diretorioImagemUsuarioNoEnv)) {
+          $diretorioImagem = $this->diretorioImagemUsuarioNoEnv;
+        } else {
+          $diretorioImagem = $this->diretorioImagemUsuarioPadrao;
         }
 
 				$retornoImagem = uploadImageHelper(
@@ -111,10 +118,11 @@ class UsuarioController extends Controller
 				  unlink($dadosUsuario->imagem);
         }
 
-        # Pega o diretório setado no .env
-        $diretorioImagem = getenv('DIRETORIO_IMAGENS_PERFIL_USUARIO');
-        if (is_null($diretorioImagem)) {
-        	$diretorioImagem = 'public/imagem/perfil_usuarios/';
+        $diretorioImagem = false;
+        if ($this->diretorioImagemUsuarioNoEnv && ! is_null($this->diretorioImagemUsuarioNoEnv)) {
+          $diretorioImagem = $this->diretorioImagemUsuarioNoEnv;
+        } else {
+          $diretorioImagem = $this->diretorioImagemUsuarioPadrao;
         }
 
 				$retornoImagem = uploadImageHelper(

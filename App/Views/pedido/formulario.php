@@ -279,23 +279,29 @@ function enderecoPorIdCliente(idCliente, idClienteEnderecoPedido = false) {
   function adicionarProduto(idProduto, quantidade) {
     var rota = getDomain()+"/pedido/adicionarProduto";
 
-    modalValidacao('Validação', 'Aguarde...');
-    $.post(rota, {
-      '_token': '<?php echo TOKEN; ?>',
-      'id_pedido': idPedido,
-      'id_produto': idProduto,
-      'quantidade': quantidade
-      }, function(resultado) {
-        var retorno = JSON.parse(resultado);
-        var produto = retorno.produto[0];
-        montaTabelaDeProdutos(produto);
+    if (quantidade.val() > 0) {
+      quantidade = quantidade.val();
+      modalValidacao('Validação', 'Aguarde...');
+      $.post(rota, {
+        '_token': '<?php echo TOKEN; ?>',
+        'id_pedido': idPedido,
+        'id_produto': idProduto,
+        'quantidade': quantidade
+        }, function(resultado) {
+          var retorno = JSON.parse(resultado);
+          var produto = retorno.produto[0];
+          montaTabelaDeProdutos(produto);
 
-        if (retorno.status) {
-          obterValorTotalDopedido(idPedido);
-          pedidos();
-          modalValidacaoClose();
-        }
-    })
+          if (retorno.status) {
+            obterValorTotalDopedido(idPedido);
+            pedidos();
+            modalValidacaoClose();
+          }
+      })
+  } else {
+    quantidade.val(1);
+    return false;
+  }
 
     return false;
   }
@@ -305,7 +311,7 @@ function enderecoPorIdCliente(idCliente, idClienteEnderecoPedido = false) {
     t += "<tr id='id-tr-"+produto.idProduto+"' data-produto-id="+produto.idProduto+">";
     t += "<td>"+'<img class="img-produto-seleionado" src="'+getDomain()+'/'+produto.imagem+'">'+"</td>";
     t += "<td>"+produto.produto+"</td>";
-    t += "<td>"+'<input type="number" class="campo-quantidade" value="'+produto.quantidade+'" id="campo-quantidade'+produto.idProdutoPedido+'" onchange="alterarAquantidadeDeUmProduto('+produto.idProdutoPedido+', $(this).val())">'+"</td>";
+    t += "<td>"+'<input type="number" class="campo-quantidade" value="'+produto.quantidade+'" id="campo-quantidade'+produto.idProdutoPedido+'" onchange="alterarAquantidadeDeUmProduto('+produto.idProdutoPedido+', $(this))">'+"</td>";
     t += "<td class='total-cada-produto' data-valor-produto="+produto.total+" data-produto-id="+produto.idProduto+">"+real(produto.total)+"</td>";
     t += "<td>"+'<a class="btn-sm btn-link" onclick="excluirProdutoPedido('+produto.idProdutoPedido+', $(this))"><i class="fas fa-times" style="color:#cc0000;font-size:18px"></i></a>'+"</td>";
     t += "</tr>";
@@ -335,20 +341,26 @@ function enderecoPorIdCliente(idCliente, idClienteEnderecoPedido = false) {
   function alterarAquantidadeDeUmProduto(idProdutoPerdido, quantidade) {
     var rota = getDomain()+"/pedido/alterarQuantidadeProdutoPedido";
 
-    modalValidacao('Validação', 'Aguarde...');
-    $.post(rota, {
-      '_token': '<?php echo TOKEN; ?>',
-      'idProdutoPedido': idProdutoPerdido,
-      'quantidade': quantidade
-    }, function(resultado) {
-      var retorno = JSON.parse(resultado);
-      if (retorno.status == true) {
-        carregaProdutosPedidos(idPedido);
-        obterValorTotalDopedido(idPedido);
-        pedidos();
-        modalValidacaoClose();
-      }
-    });
+    if (quantidade.val() > 0) {
+      quantidade = quantidade.val();
+      modalValidacao('Validação', 'Aguarde...');
+      $.post(rota, {
+        '_token': '<?php echo TOKEN; ?>',
+        'idProdutoPedido': idProdutoPerdido,
+        'quantidade': quantidade
+      }, function(resultado) {
+        var retorno = JSON.parse(resultado);
+        if (retorno.status == true) {
+          carregaProdutosPedidos(idPedido);
+          obterValorTotalDopedido(idPedido);
+          pedidos();
+          modalValidacaoClose();
+        }
+      });
+    } else {
+      quantidade.val(1);
+      return false;
+    }
 
     return false;
   }

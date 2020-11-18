@@ -41,6 +41,11 @@ $configPdv = $configPdv->configPdv(Session::get('idEmpresa'));
 
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
 
+  <link rel="stylesheet" type="text/css" href="<?php echo BASEURL;?>/public/css/select2.css">
+
+
+
+
   <style>
   .disabled:hover {
     cursor:no-drop!important;
@@ -76,6 +81,11 @@ $configPdv = $configPdv->configPdv(Session::get('idEmpresa'));
     border-radius:10px;
     border:1px solid #dddddd;
     padding:5px;
+  }
+
+  .js-example-basic-single{
+    height:42.8px!important;
+    border:1px solid #dddddd!important;
   }
 
   @media only screen and (max-width: 600px) {
@@ -226,6 +236,8 @@ $configPdv = $configPdv->configPdv(Session::get('idEmpresa'));
   <script src="<?php echo BASEURL;?>/public/js/mask.js"></script>
   <script src="<?php echo BASEURL;?>/public/assets/js/paper-dashboard.min.js"></script>
 
+  <script src="<?php echo BASEURL;?>/public/js/select2.js"></script>
+
   <script>
     $(function() {
         jQuery('.campo-moeda')
@@ -241,7 +253,13 @@ $configPdv = $configPdv->configPdv(Session::get('idEmpresa'));
           $(".collapse").toggle();
         })
     });
-  </script>
+
+  // Select2
+  /*$.noConflict();
+  jQuery(document).ready(function(){
+    jQuery('.js-example-basic-single').select2();
+  });*/
+</script>
 
 </body>
 

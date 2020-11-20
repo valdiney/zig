@@ -140,6 +140,9 @@ background:#f4f3ef;
 .abaActive {
   border-top:5px solid #6bd098;
 }
+.abaDesativada {
+  opacity:0.40!important;
+}
 </style>
 
 <div class="row row-botoes-abas">
@@ -202,6 +205,13 @@ var idPedido = false;
 <?php if ($idPedido):?>
   idPedido = <?php echo $idPedido;?>
 <?php endif;?>
+
+if ( ! idPedido) {
+  $("#button-aba-2").addClass('abaDesativada');
+  $("#button-aba-3").addClass('abaDesativada');
+  $("#button-aba-2").prop("disabled", true);
+  $("#button-aba-3").prop("disabled", true);
+}
 
 function enderecoPorIdCliente(idCliente, idClienteEnderecoPedido = false) {
     var rota = getDomain()+"/pedido/enderecoPorIdCliente/"+idCliente;
@@ -270,6 +280,11 @@ function enderecoPorIdCliente(idCliente, idClienteEnderecoPedido = false) {
 
           pedidos();
           modalValidacaoClose();
+
+          $("#button-aba-2").removeClass('abaDesativada');
+          $("#button-aba-3").removeClass('abaDesativada');
+          $("#button-aba-2").prop("disabled", false);
+          $("#button-aba-3").prop("disabled", false);
         }
     })
 
@@ -279,29 +294,34 @@ function enderecoPorIdCliente(idCliente, idClienteEnderecoPedido = false) {
   function adicionarProduto(idProduto, quantidade) {
     var rota = getDomain()+"/pedido/adicionarProduto";
 
-    if (quantidade.val() > 0) {
-      quantidade = quantidade.val();
-      modalValidacao('Validação', 'Aguarde...');
-      $.post(rota, {
-        '_token': '<?php echo TOKEN; ?>',
-        'id_pedido': idPedido,
-        'id_produto': idProduto,
-        'quantidade': quantidade
-        }, function(resultado) {
-          var retorno = JSON.parse(resultado);
-          var produto = retorno.produto[0];
-          montaTabelaDeProdutos(produto);
+    if (idProduto == "selecione") {
+      modalValidacao('Validação', 'Selecione um Produto!');
+      return false;
+    }
 
-          if (retorno.status) {
-            obterValorTotalDopedido(idPedido);
-            pedidos();
-            modalValidacaoClose();
-          }
-      })
-  } else {
-    quantidade.val(1);
-    return false;
-  }
+    if (quantidade.val() <= 0 || quantidade.val() == '') {
+      modalValidacao('Validação', 'Insira a quantidade do Produto!');
+      return false;
+    }
+
+    quantidade = quantidade.val();
+    modalValidacao('Validação', 'Aguarde...');
+    $.post(rota, {
+      '_token': '<?php echo TOKEN; ?>',
+      'id_pedido': idPedido,
+      'id_produto': idProduto,
+      'quantidade': quantidade
+      }, function(resultado) {
+        var retorno = JSON.parse(resultado);
+        var produto = retorno.produto[0];
+        montaTabelaDeProdutos(produto);
+
+        if (retorno.status) {
+          obterValorTotalDopedido(idPedido);
+          pedidos();
+          modalValidacaoClose();
+        }
+    })
 
     return false;
   }
@@ -392,6 +412,11 @@ function enderecoPorIdCliente(idCliente, idClienteEnderecoPedido = false) {
 
   function finalizarPedido() {
     var rota = getDomain()+"/pedido/finalizarPedido";
+
+    if ($("#id_meio_pagamento").val() == "selecione") {
+      modalValidacao('Validação', 'Selecione uma forma de Pagamento!');
+      return false;
+    }
 
     modalValidacao('Validação', 'Aguarde...');
     $.post(rota, {

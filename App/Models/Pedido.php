@@ -33,7 +33,7 @@ class Pedido extends Model
 
           FROM pedidos INNER JOIN clientes ON pedidos.id_cliente = clientes.id
           LEFT JOIN situacoes_pedidos AS situacao ON pedidos.id_situacao_pedido = situacao.id
-          WHERE pedidos.id_vendedor = {$idVendedor} {$queryPorCliente} ORDER BY pedidos.id"
+          WHERE pedidos.id_vendedor = {$idVendedor} {$queryPorCliente} ORDER BY pedidos.id DESC"
       );
     }
 }

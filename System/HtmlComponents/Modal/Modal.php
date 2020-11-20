@@ -12,7 +12,7 @@ class Modal
         echo '<h4 class="modal-title" style="margin-top:0;padding-top:0">'.$attributes['title'].'</h4>';
         echo '<button type="button" class="close" data-dismiss="modal">&times;</button>';
         echo '</div>';
-        echo '<div class="modal-body into-modal">';
+        echo '<div class="modal-body into-modal" id="scroll-wrap">';
     }
 
     public static function stop()

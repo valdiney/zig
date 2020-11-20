@@ -93,7 +93,11 @@ $configPdv = $configPdv->configPdv(Session::get('idEmpresa'));
     display:none;
   }
 }
-  </style>
+#scroll-wrap {
+  max-height: 70vh;
+  overflow-y: auto;
+}
+</style>
 </head>
 
 <body class="">
@@ -259,6 +263,8 @@ $configPdv = $configPdv->configPdv(Session::get('idEmpresa'));
   jQuery(document).ready(function(){
     jQuery('.js-example-basic-single').select2();
   });*/
+
+
 </script>
 
 </body>

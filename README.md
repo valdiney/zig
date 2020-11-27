@@ -122,6 +122,12 @@ Cole este valor dentro da migration que acabou de criar e pronto!
 
 Depois, rode o servidor php
 
+```TEXT
+php -S localhost:8000
+```
+
+Você também pode executar um container Docker com o comando:\
+
 ```bash
 $ docker-compose up -d
 ```

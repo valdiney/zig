@@ -228,6 +228,17 @@ class PedidoController extends Controller
     ]);
   }
 
+  public function obterValorTotalDoPedido($idPedido, $desconto = false, $frete = false)
+  {
+    $pedido = new Pedido();
+    $produtoPedido = new ProdutoPedido();
+    $valorTotalDosProdutos = $produtoPedido->valorTotalDoPedido($idPedido)->total;
+
+    echo json_encode([
+      'totalGeral' => $valorTotalDosProdutos
+    ]);
+  }
+
   public function alterarSituacaoPedido()
   {
     if ($this->post->hasPost()) {

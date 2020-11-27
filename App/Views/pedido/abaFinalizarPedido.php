@@ -24,7 +24,8 @@
         <div class="form-group">
           <label for="valor_desconto">R$ Desconto</label>
           <input type="text" class="form-control campo-moeda" name="valor_desconto" id="valor_desconto" placeholder="Desconto..."
-          value="<?php if (isset($pedido->id) && $pedido->valor_desconto != null):?><?php echo real($pedido->valor_desconto);?><?php endif;?>">
+          value="<?php if (isset($pedido->id) && $pedido->valor_desconto != null):?><?php echo real($pedido->valor_desconto);?><?php endif;?>"
+          onchange="somaTotalComDescontoSomenteParaMostrarNaView($(this))">
         </div>
       </div>
 
@@ -40,7 +41,8 @@
         <div class="form-group">
           <label for="previsao_entrega">Previsão de entrega</label>
           <input type="date" class="form-control" name="previsao_entrega" id="previsao_entrega"
-          value="<?php if (isset($pedido->id) && $pedido->previsao_entrega != null):?><?php echo $pedido->previsao_entrega;?><?php endif;?>">
+          value="<?php if (isset($pedido->id) && $pedido->previsao_entrega != null):?><?php echo $pedido->previsao_entrega;?><?php endif;?>"
+            onchange="somaTotalComFreteSomenteParaMostrarNaView($(this))">
         </div>
       </div>
     </div>

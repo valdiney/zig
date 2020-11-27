@@ -13,7 +13,7 @@
     width:50px!important;
   }
 </style>
-
+<?php $rota = BASEURL.'/pedido/modalFormulario';?>
 <?php if (count($pedidos) > 0):?>
 <table id="example" class="table tabela-ajustada table-striped" style="width:100%">
   <thead>
@@ -24,7 +24,6 @@
           <th>Situação</th>
           <th class="hidden-when-mobile">Entrega</th>
           <th style="text-align:right;padding-right:0">
-            <?php $rota = BASEURL.'/pedido/modalFormulario';?>
             <button onclick="modalFormularioPedido('<?php echo $rota;?>', null);"
               class="btn btn-sm btn-success" title="Novo Pedido">
                 <i class="fas fa-plus"></i>
@@ -87,5 +86,11 @@
 	    <i class="fas fa-sad-tear" style="font-size:40px;opacity:0.70"></i>
 	    <br><br>
 		<h6 style="opacity:0.70">Pedidos não encontrados!</h6>
+      <button
+        onclick="modalFormularioPedido('<?php echo $rota;?>', null);"
+        class="btn btn-sm btn-success" title="Cadastrar Pedido!">
+          <i class="fas fa-plus"></i>
+          Deseja cadastrar algum?
+    </button>
 	</center>
 <?php endif;?>

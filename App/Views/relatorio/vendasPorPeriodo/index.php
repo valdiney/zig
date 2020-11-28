@@ -21,8 +21,9 @@ use System\Session\Session; ?>
 
   <div class="card col-lg-12 content-div">
     <div class="card-body">
-      <h5 class="card-title"><i class="fas fa-file-invoice-dollar" style="color:#ffcc66"></i>
-        Vendas por período!
+      <h5 class="card-title">
+        <?php iconFilter();?>
+        Filtros
       </h5>
     </div>
 
@@ -49,11 +50,11 @@ use System\Session\Session; ?>
         <div class="col-md-4">
           <div class="form-group">
             <label for="id_usuario">Vendedor *</label>
-            <select class="form-control" name="id_usuario" id="id_usuario">
+            <select class="form-control js-example-basic-single" name="id_usuario" id="id_usuario">
               <option value="todos">Todos</option>
               <?php foreach ($usuarios as $usuario) : ?>
                 <option value="<?php echo $usuario->id; ?>">
-                  <?php echo $usuario->nome; ?>
+                  <?php echo "<img class='img-flag' src='".$usuario->imagem."'>".$usuario->nome; ?>
                 </option>
               <?php endforeach; ?>
             </select>

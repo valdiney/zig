@@ -25,7 +25,7 @@
       <div class="col-md-4 destaque1">
         <div class="form-group">
           <a class="btn btn-success" style="margin-top:30px"
-          onclick="return adicionarProduto($('#id_produto').val(), $('#quantidade').val())">
+          onclick="return adicionarProduto($('#id_produto').val(), $('#quantidade'))">
             <i class="fas fa-plus"></i> Adicionar
           </a>
         </div>

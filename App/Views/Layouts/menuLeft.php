@@ -20,14 +20,14 @@ use App\Config\ConfigPerfil;
         <?php if ($configPdv->id_tipo_pdv == 1):?>
             <a href="<?php echo BASEURL;?>/pdvPadrao"
               class="<?php currentRouteFromMenu('pdvPadrao', 'pdvBorder');?>">
-              <i class="fas fa-coins"></i>
-              <p>PDV <small style="float:right;opacity:0.50">Padrão</small></p>
+              <i class="fas fa-cart-arrow-down"></i>
+              <p>Vendas <small style="float:right;opacity:0.50">Padrão</small></p>
             </a>
          <?php elseif($configPdv->id_tipo_pdv == 2):?>
             <a href="<?php echo BASEURL;?>/pdvDiferencial"
               class="<?php currentRouteFromMenu('pdvDiferencial', 'pdvBorder');?>">
-              <i class="fas fa-coins"></i>
-              <p>PDV <small style="float:right;opacity:0.50">Diferencial</small></p>
+              <i class="fas fa-cart-arrow-down"></i>
+              <p>Vendas <small style="float:right;opacity:0.50">Diferencial</small></p>
             </a>
          <?php endif;?>
       </li>
@@ -66,7 +66,7 @@ use App\Config\ConfigPerfil;
         <a href="<?php echo BASEURL;?>/relatorio/vendasPorPeriodo"
           class="<?php currentRouteFromMenu('relatorio', 'relatorioBorder');?>
           <?php currentRouteFromMenu('relatorio/vendasPorPeriodo', 'relatorioBorder');?>">
-          <i class="fas fa-file-invoice-dollar"></i>
+          <i class="fas fa-file-contract"></i>
           <p>Relatórios</p>
         </a>
       </li>
@@ -83,11 +83,11 @@ use App\Config\ConfigPerfil;
   </ul>
 </div>
 <script>
-  const urlNav = `${location.origin}${location.pathname}`;
-  const elmNav = document.querySelector(`.sidebar-wrapper li a[href='${urlNav}']`);
+  //const urlNav = `${location.origin}${location.pathname}`;
+  //const elmNav = document.querySelector(`.sidebar-wrapper li a[href='${urlNav}']`);
 
-  console.log(urlNav, elmNav);
-  if (elmNav) {
+  //console.log(urlNav, elmNav);
+  /*if (elmNav) {
     elmNav.parentNode.classList.add('active');
-  }
+  }*/
 </script>

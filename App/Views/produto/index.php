@@ -19,7 +19,7 @@ use System\HtmlComponents\FlashMessage\FlashMessage;
 
 	<div class="card col-lg-12 content-div">
 		<div class="card-body">
-	        <h5 class="card-title"><i class="fas fa-box-open" style="color:#99ccff"></i> Produtos</h5>
+	        <h5 class="card-title"><i class="fas fa-box-open"></i> Produtos</h5>
 	    </div>
 	    <!-- Mostra as mensagens de erro-->
 	    <?php FlashMessage::show();?>
@@ -30,13 +30,11 @@ use System\HtmlComponents\FlashMessage\FlashMessage;
 	            	<th>#</th>
 	                <th>Nome</th>
 	                <th>R$ Preço</th>
-	                <th>Data</th>
 	                <th style="text-align:right;padding-right:0">
 	                	<?php $rota = BASEURL.'/produto/modalFormulario';?>
 	                	<button onclick="modalFormularioProdutos('<?php echo $rota;?>', false);"
-	                		class="btn btn-sm btn-success">
+	                		class="btn btn-sm btn-success" title="Novo Produto!">
 	                	    <i class="fas fa-plus"></i>
-	                        Novo
 	                    </button>
 	                </th>
 	            </tr>
@@ -56,7 +54,6 @@ use System\HtmlComponents\FlashMessage\FlashMessage;
                         </td>
 		            	<td><?php echo $produto->nome;?></td>
 		            	<td><?php echo real($produto->preco);?></td>
-		            	<td><?php echo date('d/m/Y', strtotime($produto->created_at));?></td>
 
 		                <td style="text-align:right">
 

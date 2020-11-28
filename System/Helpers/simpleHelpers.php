@@ -128,3 +128,8 @@ function fileGet($url) {
     $jsonFile = file_get_contents($url, false, $context);
     return json_decode($jsonFile, true);
 }
+
+
+function iconFilter() {
+  echo '<i class="fas fa-filter"></i>';
+}

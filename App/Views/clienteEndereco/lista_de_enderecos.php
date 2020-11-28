@@ -9,18 +9,14 @@
   <table class="table tabela-ajustada table-striped" style="width:100%">
     <thead>
       <tr>
-        <th>CEP</th>
         <th>Endereço</th>
-        <th>Bairro</th>
         <th>Cidade</th>
-        <th>Estado</th>
         <th style="text-align:right;padding-right:0">
           <?php $rota = BASEURL.'/clienteEndereco/modalFormulario';?>
           <button
           onclick="modalFormularioEndereco('<?php echo $rota;?>', <?php echo $cliente->id;?>, null);"
-            class="btn btn-sm btn-success">
+            class="btn btn-sm btn-success" title="Novo Endereço!">
               <i class="fas fa-plus"></i>
-                Novo
             </button>
         </th>
       </tr>
@@ -28,11 +24,10 @@
     <tbody>
       <?php foreach ($clienteEnderecos as $endereco):?>
         <tr>
-          <td><?php echo $endereco->cep;?></td>
-          <td><?php echo $endereco->endereco;?></td>
-          <td><?php echo $endereco->bairro;?></td>
+          <td>
+          <?php echo $endereco->endereco?> <b>Nª</b> <?php echo $endereco->numero;?>
+          </td>
           <td><?php echo $endereco->cidade;?></td>
-          <td><?php echo $endereco->estado;?></td>
 
           <td style="text-align:right">
             <div class="btn-group" role="group">

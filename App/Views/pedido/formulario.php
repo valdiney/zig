@@ -140,6 +140,9 @@ background:#f4f3ef;
 .abaActive {
   border-top:5px solid #6bd098;
 }
+.abaDesativada {
+  opacity:0.40!important;
+}
 </style>
 
 <div class="row row-botoes-abas">
@@ -202,6 +205,13 @@ var idPedido = false;
 <?php if ($idPedido):?>
   idPedido = <?php echo $idPedido;?>
 <?php endif;?>
+
+if ( ! idPedido) {
+  $("#button-aba-2").addClass('abaDesativada');
+  $("#button-aba-3").addClass('abaDesativada');
+  $("#button-aba-2").prop("disabled", true);
+  $("#button-aba-3").prop("disabled", true);
+}
 
 function enderecoPorIdCliente(idCliente, idClienteEnderecoPedido = false) {
     var rota = getDomain()+"/pedido/enderecoPorIdCliente/"+idCliente;
@@ -268,8 +278,13 @@ function enderecoPorIdCliente(idCliente, idClienteEnderecoPedido = false) {
             idPedido = retorno.id_pedido;
           <?php endif;?>
 
-          tabelaDepedidosChamadosViaAjax();
+          pedidos();
           modalValidacaoClose();
+
+          $("#button-aba-2").removeClass('abaDesativada');
+          $("#button-aba-3").removeClass('abaDesativada');
+          $("#button-aba-2").prop("disabled", false);
+          $("#button-aba-3").prop("disabled", false);
         }
     })
 
@@ -279,6 +294,17 @@ function enderecoPorIdCliente(idCliente, idClienteEnderecoPedido = false) {
   function adicionarProduto(idProduto, quantidade) {
     var rota = getDomain()+"/pedido/adicionarProduto";
 
+    if (idProduto == "selecione") {
+      modalValidacao('Validação', 'Selecione um Produto!');
+      return false;
+    }
+
+    if (quantidade.val() <= 0 || quantidade.val() == '') {
+      modalValidacao('Validação', 'Insira a quantidade do Produto!');
+      return false;
+    }
+
+    quantidade = quantidade.val();
     modalValidacao('Validação', 'Aguarde...');
     $.post(rota, {
       '_token': '<?php echo TOKEN; ?>',
@@ -289,9 +315,10 @@ function enderecoPorIdCliente(idCliente, idClienteEnderecoPedido = false) {
         var retorno = JSON.parse(resultado);
         var produto = retorno.produto[0];
         montaTabelaDeProdutos(produto);
-        if (retorno.status == true) {
+
+        if (retorno.status) {
           obterValorTotalDopedido(idPedido);
-          tabelaDepedidosChamadosViaAjax();
+          pedidos();
           modalValidacaoClose();
         }
     })
@@ -304,7 +331,7 @@ function enderecoPorIdCliente(idCliente, idClienteEnderecoPedido = false) {
     t += "<tr id='id-tr-"+produto.idProduto+"' data-produto-id="+produto.idProduto+">";
     t += "<td>"+'<img class="img-produto-seleionado" src="'+getDomain()+'/'+produto.imagem+'">'+"</td>";
     t += "<td>"+produto.produto+"</td>";
-    t += "<td>"+'<input type="number" class="campo-quantidade" value="'+produto.quantidade+'" id="campo-quantidade'+produto.idProdutoPedido+'" onchange="alterarAquantidadeDeUmProduto('+produto.idProdutoPedido+', $(this).val())">'+"</td>";
+    t += "<td>"+'<input type="number" class="campo-quantidade" value="'+produto.quantidade+'" id="campo-quantidade'+produto.idProdutoPedido+'" onchange="alterarAquantidadeDeUmProduto('+produto.idProdutoPedido+', $(this))">'+"</td>";
     t += "<td class='total-cada-produto' data-valor-produto="+produto.total+" data-produto-id="+produto.idProduto+">"+real(produto.total)+"</td>";
     t += "<td>"+'<a class="btn-sm btn-link" onclick="excluirProdutoPedido('+produto.idProdutoPedido+', $(this))"><i class="fas fa-times" style="color:#cc0000;font-size:18px"></i></a>'+"</td>";
     t += "</tr>";
@@ -323,7 +350,7 @@ function enderecoPorIdCliente(idCliente, idClienteEnderecoPedido = false) {
         })
 
         obterValorTotalDopedido(idPedido);
-        tabelaDepedidosChamadosViaAjax();
+        pedidos();
         modalValidacaoClose();
       }
     });
@@ -334,28 +361,41 @@ function enderecoPorIdCliente(idCliente, idClienteEnderecoPedido = false) {
   function alterarAquantidadeDeUmProduto(idProdutoPerdido, quantidade) {
     var rota = getDomain()+"/pedido/alterarQuantidadeProdutoPedido";
 
-    modalValidacao('Validação', 'Aguarde...');
-    $.post(rota, {
-      '_token': '<?php echo TOKEN; ?>',
-      'idProdutoPedido': idProdutoPerdido,
-      'quantidade': quantidade
-    }, function(resultado) {
-      var retorno = JSON.parse(resultado);
-      if (retorno.status == true) {
-        obterValorTotalDopedido(idPedido);
-        tabelaDepedidosChamadosViaAjax();
-        modalValidacaoClose();
-      }
-    });
+    if (quantidade.val() > 0) {
+      quantidade = quantidade.val();
+      modalValidacao('Validação', 'Aguarde...');
+      $.post(rota, {
+        '_token': '<?php echo TOKEN; ?>',
+        'idProdutoPedido': idProdutoPerdido,
+        'quantidade': quantidade
+      }, function(resultado) {
+        var retorno = JSON.parse(resultado);
+        if (retorno.status == true) {
+          carregaProdutosPedidos(idPedido);
+          obterValorTotalDopedido(idPedido);
+          pedidos();
+          modalValidacaoClose();
+        }
+      });
+    } else {
+      quantidade.val(1);
+      return false;
+    }
 
     return false;
   }
 
   function carregaProdutosPedidos(idPedido) {
     var rota = getDomain()+"/pedido/produtosPorIdPedido/"+idPedido;
+
+    $('<center><span class="tabela-load">Carregando...</span></center>').insertAfter('.tabela-de-produto');
+    $(".tabela-de-produto tbody").empty();
+
     $.get(rota, function(resultado) {
       var produtos = JSON.parse(resultado);
       var t = "";
+
+      $(".tabela-load").hide();
 
       $.each(produtos, function(index, produto) {
         montaTabelaDeProdutos(produto);
@@ -373,6 +413,11 @@ function enderecoPorIdCliente(idCliente, idClienteEnderecoPedido = false) {
   function finalizarPedido() {
     var rota = getDomain()+"/pedido/finalizarPedido";
 
+    if ($("#id_meio_pagamento").val() == "selecione") {
+      modalValidacao('Validação', 'Selecione uma forma de Pagamento!');
+      return false;
+    }
+
     modalValidacao('Validação', 'Aguarde...');
     $.post(rota, {
       '_token': '<?php echo TOKEN; ?>',
@@ -385,7 +430,7 @@ function enderecoPorIdCliente(idCliente, idClienteEnderecoPedido = false) {
       var retorno = JSON.parse(resultado);
       if (retorno.status == true) {
         window.location.reload();
-        tabelaDepedidosChamadosViaAjax();
+        pedidos();
       }
     });
   }

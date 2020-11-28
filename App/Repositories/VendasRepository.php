@@ -78,36 +78,32 @@ class VendasRepository
 
   public function totalVendasPorUsuariosNoMes($idEmpresa, $mes)
   {
-    $query = $this->venda->query("
-      SELECT usuarios.id AS idUsuario, usuarios.nome, usuarios.imagem,
-      SUM(vendas.valor) AS valor, DATE_FORMAT(vendas.created_at, '%m')
+    $query = $this->venda->query(
+      "SELECT usuarios.id AS idUsuario, usuarios.nome, usuarios.imagem,
+      usuarios.nome AS nomeUsuario,
+      SUM(vendas.valor) AS valor, DATE_FORMAT(vendas.created_at, '%m'),
+      (
+      SELECT SUM(vendas.valor) AS total FROM vendas WHERE id_meio_pagamento = 1
+      AND id_usuario = usuarios.id AND DATE_FORMAT(vendas.created_at, '%m') = {$mes}
+      ) AS Dinheiro,
+      (
+      SELECT SUM(vendas.valor) AS total FROM vendas WHERE id_meio_pagamento = 2
+      AND id_usuario = usuarios.id AND DATE_FORMAT(vendas.created_at, '%m') = {$mes}
+      ) AS Credito,
+      (
+      SELECT SUM(vendas.valor) AS total FROM vendas WHERE id_meio_pagamento = 3
+      AND id_usuario = usuarios.id AND DATE_FORMAT(vendas.created_at, '%m') = {$mes}
+      ) AS Debito
+
       FROM vendas INNER JOIN usuarios ON vendas.id_usuario = usuarios.id
-      WHERE vendas.id_empresa = {$idEmpresa} AND
+      WHERE vendas.id_empresa = 1 AND
       DATE_FORMAT(vendas.created_at, '%m') = {$mes}
-      GROUP BY usuarios.nome, usuarios.id
+      GROUP BY usuarios.nome, usuarios.id ORDER BY vendas.valor DESC
     ");
 
-    $dados = [];
-    foreach ($query as $venda) {
+    //dd($query);
 
-      $dados[$venda->idUsuario]['nome'] = $venda->nome;
-      $dados[$venda->idUsuario]['total'] = $venda->valor;
-      $dados[$venda->idUsuario]['imagem'] = $venda->imagem;
-
-      $meioPagamentos = $this->totalVendasUsuariosPorMeioDePagamento(
-        $idEmpresa,
-        $venda->idUsuario,
-        date('m')
-      );
-
-      if (count($meioPagamentos) > 0) {
-        foreach ($meioPagamentos as $meioPagamento) {
-          $dados[$venda->idUsuario]['meios_pagamento'][] = (array) $meioPagamento;
-        }
-      }
-    }
-
-    return $dados;
+    return $query;
   }
 
   public function totalVendasUsuariosPorMeioDePagamento($idEmpresa, $idUsuario, $mes)

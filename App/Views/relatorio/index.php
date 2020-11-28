@@ -17,13 +17,13 @@
 	        <h5 class="card-title">Relatórios</h5>
 	    </div>
 
-      
+
 	  <div class="row">
 
 	  	<div class="col-lg-4">
 		   	 <div class="card card-option" style="width: 18rem;">
 				  <div class="card-body">
-				  	<center><i class="fas fa-piggy-bank icon-sale" style="color:#ff9b9b"></i></center> <br>
+				  	<center><i class="fas fa-piggy-bank icon-sale"></i></center> <br>
 				    <center><a href="<?php echo BASEURL;?>/relatorio/vendasPorPeriodo" class="btn btn-primary">Vendas por período</a></center>
 				 </div>
 			  </div>
@@ -32,20 +32,20 @@
 	     <div class="col-lg-4">
 		   	 <div class="card card-option" style="width: 18rem;">
 				  <div class="card-body">
-				  	<center><i class="fas fa-piggy-bank icon-sale" style="color:#9be6e6"></i></center> <br>
+				  	<center><i class="fas fa-piggy-bank icon-sale"></i></center> <br>
 				    <center><a href="#" class="btn btn-primary">Comparação entre períodos</a></center>
 				 </div>
 			  </div>
 	     </div>
 
-	  
-	  	
+
+
 	  </div>
 
-		
 
-		
+
+
     <br>
-	
+
    </div>
 </div>

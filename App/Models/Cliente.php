@@ -22,7 +22,7 @@ class Cliente extends Model
   			FROM clientes AS cl
   			LEFT JOIN clientes_segmentos AS cs ON cl.id_cliente_segmento = cs.id
   			LEFT JOIN clientes_tipos AS ct ON cl.id_cliente_tipo = ct.id
-  			WHERE cl.id_empresa = {$idEmpresa}");
+  			WHERE cl.id_empresa = {$idEmpresa} ORDER BY cl.nome");
     }
 
     public function verificaSeEmailExiste($email)

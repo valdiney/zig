@@ -32,27 +32,31 @@
 		<thead>
 			<tr>
 				<th>#</th>
-		        <th>Preço</th>
+		        <!--<th>Preço</th>-->
 		        <th>Qtd</th>
 		        <th>Total</th>
-		        <th>Pagamento</th>
-		        <th>Hora</th>
+		        <th>Venda</th>
 		        <th>Data</th>
+		        <!--<th>Data</th>-->
 			</tr>
 		</thead>
 		<tbody>
 			<?php foreach($vendas as $venda):?>
 				<tr>
 					<td>
-						<img class="imagem-perfil" src="<?php echo BASEURL.'/'.$venda->imagem;?>"
-						title="<?php echo $venda->nomeUsuario;?>">
+            <?php if ( ! is_null($venda->imagem) || $venda->imagem != ''):?>
+              <img class="imagem-perfil" src="<?php echo BASEURL.'/'.$venda->imagem;?>"
+              title="<?php echo $venda->nomeUsuario;?>">
+            <?php else:?>
+              <i class="fas fa-user" style="font-size:30px"></i>
+            <?php endif;?>
 					</td>
 
-					<?php if ($venda->preco != 0):?>
-					    <td>R$ <?php echo number_format($venda->preco, 2,',','.');?></td>
-					<?php else:?>
-						<td><small>Não consta produto</small></td>
-					<?php endif;?>
+					<?php //if ($venda->preco != 0):?>
+					    <!--<td>R$ <?php //echo number_format($venda->preco, 2,',','.');?></td>-->
+					<?php //else:?>
+						<!--<td><small>Não consta produto</small></td>-->
+					<?php //endif;?>
 
                     <?php if ( ! is_null($venda->quantidade)):?>
 					    <td><?php echo $venda->quantidade;?></td>
@@ -62,8 +66,11 @@
 
 					<td>R$ <?php echo number_format($venda->valor, 2,',','.');?></td>
 					<td><?php echo $venda->legenda;?></td>
-					<td><?php echo $venda->hora;?>h</td>
-					<td><?php echo $venda->data;?></td>
+					<td>
+          <?php echo $venda->data;?>
+          <?php echo $venda->hora;?>h
+          </td>
+
 				</tr>
 			<?php endforeach;?>
 		</tbody>

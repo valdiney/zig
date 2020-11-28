@@ -15,10 +15,15 @@ class Pedido extends Model
 
     public function pedidos($idVendedor = false, $idCliente = false)
     {
+      $queryPorCliente = false;
+      if ($idCliente) {
+        $queryPorCliente = "AND pedidos.id_cliente = {$idCliente}";
+      }
+
       return $this->query(
          "SELECT pedidos.id AS idPedido, clientes.nome AS nomeCliente,
           IF(pedidos.previsao_entrega = '0000-00-00', 'Não informado', DATE_FORMAT(pedidos.previsao_entrega, '%d/%m/%Y')) AS previsaoEntrega,
-          pedidos.valor_frete AS valorFrete,
+          pedidos.valor_frete AS valorFrete, pedidos.id_situacao_pedido,
           pedidos.valor_desconto AS valordesconto,
           situacao.legenda AS situacao,
 
@@ -28,7 +33,7 @@ class Pedido extends Model
 
           FROM pedidos INNER JOIN clientes ON pedidos.id_cliente = clientes.id
           LEFT JOIN situacoes_pedidos AS situacao ON pedidos.id_situacao_pedido = situacao.id
-          WHERE pedidos.id_vendedor = {$idVendedor}"
+          WHERE pedidos.id_vendedor = {$idVendedor} {$queryPorCliente} ORDER BY pedidos.id DESC"
       );
     }
 }

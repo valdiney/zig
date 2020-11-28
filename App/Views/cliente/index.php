@@ -11,7 +11,7 @@
 
 	<div class="card col-lg-12 content-div">
 		<div class="card-body">
-	   <h5 class="card-title"><i class="fas fa-user-tie" style="color:#ad54da"></i> Clientes</h5>
+	   <h5 class="card-title"><i class="fas fa-user-tie"></i> Clientes</h5>
 	  </div>
 
       <?php if (count($clientes) > 0):?>
@@ -19,16 +19,15 @@
 	        <thead>
             <tr>
                 <th>Nome</th>
-                <th>Designação</th>
-                <th>Segmento</th>
-                <th>Status</th>
-                <th>Endereços</th>
+                <th class="hidden-when-mobile">Designação</th>
+                <th class="hidden-when-mobile">Segmento</th>
+                <th>Ativo</th>
+                <th>Endereço</th>
                 <th style="text-align:right;padding-right:0">
                 	<?php $rota = BASEURL.'/cliente/modalFormulario';?>
                 	<button onclick="modalFormularioClientes('<?php echo $rota;?>', false);"
-                		class="btn btn-sm btn-success">
+                		class="btn btn-sm btn-success" title="Novo Cliente">
                 	    <i class="fas fa-plus"></i>
-                        Novo
                     </button>
                 </th>
             </tr>
@@ -37,10 +36,9 @@
 	        	<?php foreach ($clientes as $cliente):?>
 	            <tr>
 	            	<td><?php echo $cliente->nome;?></td>
+	            	<td class="hidden-when-mobile"><?php echo $cliente->descricaoClienteTipo;?></td>
 
-	            	<td><?php echo $cliente->descricaoClienteTipo;?></td>
-
-	            	<td>
+	            	<td class="hidden-when-mobile">
 	            		<?php
 	            		echo ! is_null($cliente->descricaoSegmento) ?
 	            		$cliente->descricaoSegmento : "<small>Não consta</small>";
@@ -48,7 +46,7 @@
 	            	</td>
 
 	            	<td class="<?php echo (is_null($cliente->deleted_at)) ? 'ativo' : 'desativado';?>">
-	            		<?php echo (is_null($cliente->deleted_at)) ? 'Ativo' : 'Desativado';?>
+	            		<?php echo (is_null($cliente->deleted_at)) ? 'Sim' : 'Não';?>
 	            	</td>
 
                 <td>
@@ -189,7 +187,7 @@
 
         $("#containerModalVisualizarEnderecos").html("<center><h3>Carregando...</h3></center>");
         $("#modalVisualizarEnderecos").modal({backdrop: 'static'});
-        $("#modalVisualizarEnderecos .modal-title").html("Cliente <b>"+nomeCliente+"</b>");
+        $("#modalVisualizarEnderecos .modal-title").html("<b>"+nomeCliente+"</b>");
         $("#containerModalVisualizarEnderecos").load(url);
     }
 

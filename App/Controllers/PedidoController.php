@@ -13,12 +13,9 @@ use App\Models\ClienteEndereco;
 use App\Models\Produto;
 use App\Models\MeioPagamento;
 use App\Models\ProdutoPedido;
+use App\Models\SituacaoPedido;
 
 use App\Repositories\VendasEmSessaoRepository;
-
-ini_set('display_errors', 1);
-ini_set('display_startup_erros', 1);
-error_reporting(E_ALL);
 
 class PedidoController extends Controller
 {
@@ -50,15 +47,33 @@ class PedidoController extends Controller
 
 	public function index()
 	{
-		$this->view('pedido/index', $this->layout);
+    $cliente = new Cliente();
+    $clientes = $cliente->clientes($this->idEmpresa);
+
+		$this->view('pedido/index', $this->layout, compact('clientes'));
   }
 
   public function tabelaDepedidosChamadosViaAjax()
   {
-    $pedido = new Pedido();
-    $pedidos = $pedido->pedidos($this->idUsuarioLogado);
+    if ($this->post->hasPost()) {
+      $pedido = new Pedido();
 
-    $this->view('pedido/tabelaDePedidos', null, compact('pedidos'));
+      $idCliente = false;
+      if ($this->post->data()->id_cliente != 'todos') {
+        $idCliente = $this->post->data()->id_cliente;
+      }
+
+      $pedidos = $pedido->pedidos($this->idUsuarioLogado, $idCliente);
+
+      $situacaoPedido = new SituacaoPedido();
+      $situacoesPedidos = $situacaoPedido->all();
+    }
+
+    $this->view('pedido/tabelaDePedidos', null,
+    compact(
+      'pedidos',
+      'situacoesPedidos'
+    ));
   }
 
   public function adicionarClienteEendereco()
@@ -211,6 +226,36 @@ class PedidoController extends Controller
     echo json_encode([
       'totalGeral' => $valorTotalDosProdutos
     ]);
+  }
+
+  public function obterValorTotalDoPedido($idPedido, $desconto = false, $frete = false)
+  {
+    $pedido = new Pedido();
+    $produtoPedido = new ProdutoPedido();
+    $valorTotalDosProdutos = $produtoPedido->valorTotalDoPedido($idPedido)->total;
+
+    echo json_encode([
+      'totalGeral' => $valorTotalDosProdutos
+    ]);
+  }
+
+  public function alterarSituacaoPedido()
+  {
+    if ($this->post->hasPost()) {
+      $pedido = new Pedido();
+
+      try {
+        $pedido->update(
+          ['id_situacao_pedido' => $this->post->data()->id_situacao_pedido],
+          $this->post->data()->id_pedido
+        );
+        echo json_encode(['status' => true]);
+
+      } catch(\Exception $e) {
+        echo json_encode(['status' => false]);
+        dd($e->getMessage());
+     }
+    }
   }
 
   public function modalFormulario($idPedido = false)

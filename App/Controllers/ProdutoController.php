@@ -15,16 +15,22 @@ class ProdutoController extends Controller
 	protected $post;
 	protected $get;
 	protected $layout;
-	protected $idEmpresa;
+  protected $idEmpresa;
+  protected $diretorioImagemProdutoNoEnv;
+  protected $diretorioImagemProdutoPadrao;
 
 	public function __construct()
 	{
 		parent::__construct();
-		$this->layout = 'default';
+    $this->layout = 'default';
+
+    $this->diretorioImagemProdutoPadrao = 'public/imagem/produtos/';
+    # Pega o diretório setado no .env
+    $this->diretorioImagemProdutoNoEnv = getenv('DIRETORIO_IMAGENS_PRODUTO');
 
 		$this->post = new Post();
 		$this->get = new Get();
-		$this->idEmpresa = Session::get('idEmpresa');
+    $this->idEmpresa = Session::get('idEmpresa');
 
 		$logged = new Logged();
 		$logged->isValid();
@@ -45,14 +51,16 @@ class ProdutoController extends Controller
 			$dados = (array) $this->post->data();
 
 			$dados['id_empresa'] = $this->idEmpresa;
-			$dados['preco'] = formataValorMoedaParaGravacao($dados['preco']);
+      $dados['preco'] = formataValorMoedaParaGravacao($dados['preco']);
 
       # Valida imagem somente se existir no envio
-      if (isset($dados['imagem'])) {
-  			# Pega o diretório setado no .env
-        $diretorioImagem = getenv('DIRETORIO_IMAGENS_PRODUTO');
-        if (is_null($diretorioImagem)) {
-          $diretorioImagem = 'public/imagem/produtos/';
+      if ( ! empty($_FILES["imagem"]['name'])) {
+
+        $diretorioImagem = false;
+        if ($this->diretorioImagemProdutoNoEnv && ! is_null($this->diretorioImagemProdutoNoEnv)) {
+          $diretorioImagem = $this->diretorioImagemProdutoNoEnv;
+        } else {
+          $diretorioImagem = $this->diretorioImagemProdutoPadrao;
         }
 
   			$retornoImagem = uploadImageHelper(
@@ -99,10 +107,11 @@ class ProdutoController extends Controller
 	        unlink($dadosProduto->imagem);
         }
 
-        # Pega o diretório setado no .env
-        $diretorioImagem = getenv('DIRETORIO_IMAGENS_PRODUTO');
-        if (is_null($diretorioImagem)) {
-        	$diretorioImagem = 'public/imagem/produtos/';
+        $diretorioImagem = false;
+        if ($this->diretorioImagemProdutoNoEnv && ! is_null($this->diretorioImagemProdutoNoEnv)) {
+          $diretorioImagem = $this->diretorioImagemProdutoNoEnv;
+        } else {
+          $diretorioImagem = $this->diretorioImagemProdutoPadrao;
         }
 
 				$retornoImagem = uploadImageHelper(

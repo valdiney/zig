@@ -1,0 +1,42 @@
+version: '3'
+services:
+  api:
+    container_name: ${CONTAINER_NAME_API}
+    build: ./.docker/web
+    env_file:
+      - .env
+    ports:
+      - "${PORT_API}:80"
+    volumes:
+      - .docker/web/api.conf:/etc/apache2/sites-enabled/api.conf
+      - .:/var/www/html/
+    environment:
+      DOCKER_HOST_IP:
+      MYSQL_ROOT_PASSWORD:
+      MYSQL_DATABASE:
+      MYSQL_USER:
+      MYSQL_PASSWORD:
+    links:
+      - db
+    tty: true
+  db:
+    container_name: ${HOST_NAME}
+    image: mysql:5.6
+    ports:
+      - "${PORT_DB}:3306"
+    volumes:
+      - data:/var/lib/mysql
+    environment:
+      - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}
+      - MYSQL_DATABASE=${MYSQL_DATABASE}
+  app:
+    image: phpmyadmin/phpmyadmin:latest
+    links:
+      - db
+    ports:
+      - 80:80
+    environment:
+      - PMA_ARBITRARY=1
+
+volumes:
+  data:

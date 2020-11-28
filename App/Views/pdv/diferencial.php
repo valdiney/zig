@@ -50,8 +50,8 @@ use System\Session\Session;
      	box-shadow:silver 1px 1px 3px;
     }
 	.card-produtos img {
-		width:100px;
-	    height:100px;
+		width:80px;
+	    height:80px;
 	    object-fit:cover;
 	    object-position:center;
 	    margin:0 auto;
@@ -77,11 +77,11 @@ use System\Session\Session;
 	}
 	.img-produto-seleionado {
 		width:30px;
-	    height:30px;
-	    object-fit:cover;
-	    object-position:center;
-	    border-radius:50%;
-	    border:1px solid #dee2e6;
+	  height:30px;
+	  object-fit:cover;
+	  object-position:center;
+	  border-radius:50%;
+	  border:1px solid #dee2e6;
 	}
 	.campo-quantidade {
 		border:1px solid #dee2e6;
@@ -97,14 +97,17 @@ use System\Session\Session;
         background-color:white;
     }
     .div-inter-produtos::-webkit-scrollbar {
-        width: 3px;
-        background:#f0f4f7;
+        width: 5px;
+        background:#252422;
     }
     .div-inter-produtos::-webkit-scrollbar-thumb {
-        background:#d0d9e1;
+        background:#252422;
     }
     .div-inter-produtos::-webkit-input-placeholder {
         color: #8198ac;
+    }
+    .div-inter-produtos {
+      height:300px!important;
     }
 </style>
 
@@ -112,13 +115,13 @@ use System\Session\Session;
 
 	<div class="card col-lg-12 content-div">
 		<div class="card-body">
-	        <h5 class="card-title"><i class="fas fa-box-open" style="color:#99ccff"></i> Produtos</h5>
+	        <h5 class="card-title"><i class="fas fa-cart-arrow-down"></i> Produtos</h5>
 
             <div class="row div-inter-produtos">
                 <?php foreach ($produtos as $key => $produto):?>
-	            	<div class="col-lg-2 card-produtos"
-	            	onclick="colocarProdutosNaMesa('<?php echo $produto->id;?>', this)">
-	            		<img src="<?php echo BASEURL .'/'. $produto->imagem;?>" title="Adicionar!">
+	            	<div class="col-lg-2 card-produtos">
+	            		<img src="<?php echo BASEURL .'/'. $produto->imagem;?>" title="Adicionar!"
+                  onclick="colocarProdutosNaMesa('<?php echo $produto->id;?>', this)">
 	            		<center><span class="produto-titulo"><?php echo mb_strtoupper($produto->nome);?></span></center>
 	            		<center><span class="produto-valor">R$ <?php echo real($produto->preco);?></span></center>
 	            	</div>
@@ -135,7 +138,7 @@ use System\Session\Session;
 	<div class="card col-lg-9 content-div">
 		<div class="card-body" style="overflow-x:auto!important;">
 	        <h5 class="card-title">
-	        	<i class="fas fa-box-open" style="color:#00cc99"></i>
+	        	<i class="fas fa-cart-arrow-down"></i>
 	        	Selecionados
 	        </h5>
 

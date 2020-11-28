@@ -5,13 +5,10 @@ class Session
 {
 	public static function start()
   {
-		if ( ! isset($_SESSION)) {
+		if (!isset($_SESSION)) {
 			session_start();
     }
-    if (empty($_SESSION['session_code']) || time() - $_SESSION['session_time'] > 3600) {
-      self::regenerate();
-    }
-	}
+  }
 
 	public static function set($name = null, $value = null)
 	{
@@ -30,14 +27,6 @@ class Session
   public static function regenerate()
   {
     session_destroy();
-    ini_set('session.use_strict_mode', 0);
-    ini_set('session.cookie_lifetime', 103200);
-    ini_set('session.cache_expire', 103200);
-    ini_set('session.gc_maxlifetime', 103200);
-    session_start();
-    $sessionId = md5(uniqid(true).time());
-    $_SESSION['session_code'] = $sessionId;
-    $_SESSION['session_time'] = time();
   }
 
 	public static function hasSession($name = null)

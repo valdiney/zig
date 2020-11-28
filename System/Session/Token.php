@@ -2,8 +2,6 @@
 
 namespace System\Session;
 
-use Exception;
-
 class Token
 {
 

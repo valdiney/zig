@@ -2,6 +2,7 @@
 namespace App\Controllers;
 
 use App\Models\LogAcesso;
+use App\Services\LoginRemeber\LoginRemeber;
 use System\Controller\Controller;
 use System\Post\Post;
 use System\Get\Get;
@@ -38,12 +39,12 @@ class LoginController extends Controller
 	{
     $email = $this->post->data()->email;
     $password = $this->post->data()->password;
+    $mustRememberLogin = $this->post->data()->remember==="on";
 
     $usuario = new Usuario();
     $dadosUsuario = $usuario->findBy('email', $email);
 
     if ($usuario->userExist(['email' => $email, 'password' => $password])) {
-
       # Grava o Log de Acessos
       $log = new LogAcesso();
       $dados = [];
@@ -64,16 +65,42 @@ class LoginController extends Controller
       Session::set('emailUsuario', $dadosUsuario->email);
       Session::set('imagem', $dadosUsuario->imagem);
 
+      if ($mustRememberLogin) {
+        $this->handleRememberUser($dadosUsuario);
+      }
+
       return $this->get->redirectTo("home");
     }
 
-    Session::flash('error', 'Usuário não encontrado!');
-    return $this->get->redirectTo("login");
 	}
 
 	public function logout()
 	{
-		Session::logout();
-		return $this->get->redirectTo("login");
+    $this->removeRememberToken();
+    Session::logout();
+    return $this->get->redirectTo("login");
 	}
+
+  private function handleRememberUser($user)
+  {
+    $loginRemember = new LoginRemeber($user);
+    $loginRemember->execute();
+  }
+
+  private function removeRememberToken()
+  {
+    $loginRemember = new LoginRemeber();
+
+    $usuario = new Usuario();
+    $hash = $loginRemember->getRememberCookie();
+    $user = (new Usuario)->findBy('remember_token', $hash);
+
+    $data = [
+      "remember_token" => null,
+      "remember_expire_date" => null,
+    ];
+    $usuario->update($data, $user->id);
+
+    $loginRemember->deleteRememberCookie();
+  }
 }

@@ -1,6 +1,8 @@
 <?php
 namespace System\Session;
 
+use App\Services\LoginRemeber\LoginRemeber;
+
 class Session
 {
 	public static function start()
@@ -24,11 +26,6 @@ class Session
 		return false;
 	}
 
-  public static function regenerate()
-  {
-    session_destroy();
-  }
-
 	public static function hasSession($name = null)
 	{
 		if (isset($_SESSION[$name])) {
@@ -40,7 +37,9 @@ class Session
 
 	public static function logout()
 	{
-    self::regenerate();
+    Session::unset('logged');
+
+    self::handleRemoveLoginCookie();
   }
 
   public static function unset($name)
@@ -79,4 +78,11 @@ class Session
 		$name = 'flash_' . $name;
 		return $_SESSION[$name];
 	}
+
+  private static function handleRemoveLoginCookie()
+  {
+    $loginRemember = new LoginRemeber();
+    $cookieName = $loginRemember->getCookieName();
+    Session::unset($cookieName);
+  }
 }

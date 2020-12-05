@@ -22,6 +22,13 @@ use System\HtmlComponents\FlashMessage\FlashMessage; ?>
     <label for="password">Senha</label>
   </div>
 
+  <div class="p-2">
+    <label for="remember" class="checkbox-options">
+      <input type="checkbox" name="remember" id="remember" checked />
+      Permanecer conectado
+    </label>
+  </div>
+
   <button class="btn btn-lg btn-primary btn-block text-uppercase" type="submit">Entrar</button>
 
   <div class="form-links">

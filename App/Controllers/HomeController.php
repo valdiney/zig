@@ -39,7 +39,7 @@ class HomeController extends Controller
 
 	public function index()
 	{
-		$vendasRepository = new VendasRepository();
+    $vendasRepository = new VendasRepository();
 
     $faturamentoDeVandasNoMes = $vendasRepository->faturamentoDeVendasNoMes(
       date('m'), date('Y'), $this->idEmpresa

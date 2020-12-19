@@ -1124,7 +1124,7 @@ CREATE TABLE IF NOT EXISTS `usuarios` (
 -- Copiando dados para a tabela realbi53_tonie.usuarios: ~18 rows (aproximadamente)
 /*!40000 ALTER TABLE `usuarios` DISABLE KEYS */;
 INSERT INTO `usuarios` (`id`, `id_empresa`, `nome`, `email`, `password`, `id_sexo`, `id_perfil`, `imagem`, `created_at`, `updated_at`) VALUES
-	(1, 1, 'Valdiney França', 'valdiney.2@hotmail.com', '4860b8a986a92086885755ecc8c9480d1c1b98b0', 1, 2, 'public/imagem/perfil_usuarios/1585493352.jpg', '2020-07-26 14:43:29', '2020-07-26 14:43:28'),
+	(1, 1, 'Valdiney França', 'admin@admin.com', '4860b8a986a92086885755ecc8c9480d1c1b98b0', 1, 2, 'public/imagem/perfil_usuarios/1585493352.jpg', '2020-07-26 14:43:29', '2020-07-26 14:43:28'),
 	(2, 1, 'Renata de Jesus Lima', 'renata@hotmail.com', '3b5df72898847f008454f4ed60280d6bdffc890d', 2, 4, '../public/imagem/perfil_usuarios/1593884290.jpg', '2020-07-04 14:38:10', '2020-07-04 14:38:10'),
 	(35, 1, 'João de Jesus', 'joao@gmail.com', '3b5df72898847f008454f4ed60280d6bdffc890d', 1, 5, 'public/imagem/perfil_usuarios/1585493875.png', '2020-09-19 11:30:47', '2020-09-19 11:30:47'),
 	(36, 1, 'Mariana Pinheiro', 'mariana@gmail.com', '3b5df72898847f008454f4ed60280d6bdffc890d', 2, 4, 'public/imagem/perfil_usuarios/1585494012.png', '2020-04-25 00:54:55', '2020-03-29 15:00:12'),

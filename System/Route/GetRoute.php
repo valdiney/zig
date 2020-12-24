@@ -131,18 +131,13 @@ class GetRoute
     * Example http://localhost:8000
     * @return String
     */
-  public function getBaseUrl()
-  {
-    $protocol = "http";
-    if ( ! is_null(getenv('HTTPS'))) {
-      if (getenv('HTTPS') == 'true') {
-          $protocol = "https";
-      }
-        }
+    public function getBaseUrl(): string
+    {
+      $protocol = getenv('HTTPS')? "https": "http";
 
-      $branch  = dirname($_SERVER['SCRIPT_NAME'], 2);
-      $branch  = trim($branch, '/');
-      $baseUrl = "{$protocol}://{$_SERVER['HTTP_HOST']}{$branch}";
-      return $baseUrl;
-  }
+      $branch = dirname($_SERVER['SCRIPT_NAME'], 2);
+      $branch = trim($branch, '/');
+
+      return "{$protocol}://{$_SERVER['HTTP_HOST']}/{$branch}";
+    }
 }

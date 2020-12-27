@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Models;
 
 use System\Model\Model;
@@ -10,12 +11,12 @@ class Cliente extends Model
 
     public function __construct()
     {
-    	parent::__construct();
+        parent::__construct();
     }
 
     public function clientes($idEmpresa)
     {
-    	return $this->query("
+        return $this->query("
     		SELECT cl.id, cl.nome, cl.email, cl.cnpj, cl.cpf, cl.telefone, cl.celular, cl.deleted_at,
   			cs.id AS idSegmento, cs.descricao AS descricaoSegmento,
   			ct.id AS idClienteTipo, ct.descricao AS descricaoClienteTipo
@@ -27,7 +28,7 @@ class Cliente extends Model
 
     public function verificaSeEmailExiste($email)
     {
-        if ( ! $email) {
+        if (!$email) {
             return false;
         }
 
@@ -41,7 +42,7 @@ class Cliente extends Model
 
     public function verificaSeCnpjExiste($cnpj)
     {
-        if ( ! $cnpj) {
+        if (!$cnpj) {
             return false;
         }
 
@@ -55,7 +56,7 @@ class Cliente extends Model
 
     public function verificaSeCpfExiste($cpf)
     {
-        if ( ! $cpf) {
+        if (!$cpf) {
             return false;
         }
 
@@ -79,17 +80,17 @@ class Cliente extends Model
 
     public function quantidadeDeClientesCadastrados($idEmpresa)
     {
-      $ativos = $this->queryGetOne("
-        SELECT COUNT(*) quantidade FROM clientes WHERE id_empresa = {$idEmpresa} AND created_at IS NOT NULL"
-      );
+        $ativos = $this->queryGetOne("
+            SELECT COUNT(*) quantidade FROM clientes WHERE id_empresa = {$idEmpresa} AND deleted_at IS NULL
+        ");
 
-      $inativos = $this->queryGetOne("
-        SELECT COUNT(*) quantidade FROM clientes WHERE id_empresa = {$idEmpresa} AND created_at IS  NULL"
-      );
+        $inativos = $this->queryGetOne("
+            SELECT COUNT(*) quantidade FROM clientes WHERE id_empresa = {$idEmpresa} AND deleted_at IS NOT NULL
+        ");
 
-      return (object) [
-        'ativos' => $ativos->quantidade,
-        'inativos' => $inativos->quantidade
-      ];
+        return (object)[
+            'ativos' => $ativos->quantidade,
+            'inativos' => $inativos->quantidade
+        ];
     }
 }

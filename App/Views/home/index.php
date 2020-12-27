@@ -263,8 +263,6 @@
 <script>
     /*$(".vendas_por_vendedores tbody td").each(function() {
       console.log($(this).text());
-
-
     });*/
     var ctx = document.getElementById("grafi-vendas-por-dia");
     var myChart = new Chart(ctx, {

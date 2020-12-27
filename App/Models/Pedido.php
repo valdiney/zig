@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Models;
 
 use System\Model\Model;
@@ -10,18 +11,35 @@ class Pedido extends Model
 
     public function __construct()
     {
-      parent::__construct();
+        parent::__construct();
     }
 
-    public function pedidos($idVendedor = false, $idCliente = false)
+    public function pedidos($idVendedor = false, $idCliente = false, $ativos = null, $situacaoPedido = null, $date = null)
     {
-      $queryPorCliente = false;
-      if ($idCliente) {
-        $queryPorCliente = "AND pedidos.id_cliente = {$idCliente}";
-      }
+        $queryPorCliente = false;
 
-      return $this->query(
-         "SELECT pedidos.id AS idPedido, clientes.nome AS nomeCliente,
+        if ($idCliente) {
+            $queryPorCliente = "AND pedidos.id_cliente = {$idCliente}";
+        }
+
+        if ($ativos) {
+            $queryPorCliente = "AND pedidos.deleted_at IS NOT NULL";
+        }
+
+        if ($situacaoPedido) {
+            $queryPorCliente = "AND pedidos.id_situacao_pedido = {$situacaoPedido}";
+        }
+
+        if ($date && $date['tipo'] === 'pedido') {
+            $queryPorCliente = "AND pedidos.created_at >= '{$date['de']}' AND pedidos.created_at <= '{$date['ate']}'";
+        }
+
+        if ($date && $date['tipo'] === 'entrega') {
+            $queryPorCliente = "AND pedidos.previsao_entrega >= '{$date['de']}' AND pedidos.previsao_entrega <= '{$date['ate']}'";
+        }
+
+        return $this->query(
+            "SELECT pedidos.id AS idPedido, clientes.nome AS nomeCliente,
           IF(pedidos.previsao_entrega = '0000-00-00', 'Não informado', DATE_FORMAT(pedidos.previsao_entrega, '%d/%m/%Y')) AS previsaoEntrega,
           pedidos.valor_frete AS valorFrete, pedidos.id_situacao_pedido,
           pedidos.valor_desconto AS valordesconto,
@@ -34,6 +52,6 @@ class Pedido extends Model
           FROM pedidos INNER JOIN clientes ON pedidos.id_cliente = clientes.id
           LEFT JOIN situacoes_pedidos AS situacao ON pedidos.id_situacao_pedido = situacao.id
           WHERE pedidos.id_vendedor = {$idVendedor} {$queryPorCliente} ORDER BY pedidos.id DESC"
-      );
+        );
     }
 }

@@ -133,7 +133,7 @@ class GetRoute
     */
     public function getBaseUrl(): string
     {
-      $protocol = getenv('HTTPS')? "https": "http";
+      $protocol = filter_var(getenv('HTTPS'), FILTER_VALIDATE_BOOLEAN) ? "https" : "http";
 
       $branch = dirname($_SERVER['SCRIPT_NAME'], 2);
       $branch = trim($branch, '/');

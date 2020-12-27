@@ -137,7 +137,8 @@ class GetRoute
 
       $branch = dirname($_SERVER['SCRIPT_NAME'], 2);
       $branch = trim($branch, '/');
+      $branch = $branch? "/{$branch}": "";
 
-      return "{$protocol}://{$_SERVER['HTTP_HOST']}/{$branch}";
+      return "{$protocol}://{$_SERVER['HTTP_HOST']}{$branch}";
     }
 }

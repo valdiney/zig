@@ -19,11 +19,26 @@
 		    </div>
 		</div>
 
-		<div class="col-md-4">
+		<div class="col-md-2">
 		    <div class="form-group">
 		        <label for="preco">R$ Preço *</label>
 		        <input type="text" class="form-control campo-moeda" name="preco" id="preco" placeholder="00,00"
 		        value="<?php echo isset($produto->preco) ? real($produto->preco) : ''?>">
+		    </div>
+		</div>
+
+		<div class="col-md-2">
+		    <div class="form-group">
+		        <label for="ativo">
+                    Ativo *
+                    <input
+                        id="ativo"
+                        name="ativo"
+                        type="checkbox"
+                        class="form-control"
+                        <?php if($produto->deleted_at === null): ?> checked <?php endif; ?>
+                    >
+                </label>
 		    </div>
 		</div>
 

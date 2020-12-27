@@ -96,8 +96,10 @@ class ProdutoController extends Controller
             $dadosProduto = $produto->find($this->post->data()->id);
 
             $dados = (array)$this->post->only([
-                'nome', 'preco', 'descricao'
+                'nome', 'preco', 'descricao', 'deleted_at'
             ]);
+
+            $dados['deleted_at'] = $dados['deleted_at']==="on"? null: date("Y-m-d H:i:s");
 
             $dados['preco'] = formataValorMoedaParaGravacao($dados['preco']);
 

@@ -24,12 +24,12 @@ class Produto extends Model
     public function quantidadeDeProdutosCadastrados($idEmpresa)
     {
         $ativos = $this->queryGetOne("
-        SELECT COUNT(*) quantidade FROM produtos WHERE id_empresa = {$idEmpresa} AND created_at IS NOT NULL"
-        );
+            SELECT COUNT(*) quantidade FROM produtos WHERE id_empresa = {$idEmpresa} AND deleted_at IS NULL
+        ");
 
         $inativos = $this->queryGetOne("
-        SELECT COUNT(*) quantidade FROM produtos WHERE id_empresa = {$idEmpresa} AND created_at IS  NULL"
-        );
+            SELECT COUNT(*) quantidade FROM produtos WHERE id_empresa = {$idEmpresa} AND deleted_at IS NOT NULL
+        ");
 
         return (object)[
             'ativos' => $ativos->quantidade,

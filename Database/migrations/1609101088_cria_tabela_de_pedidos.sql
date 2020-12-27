@@ -1,0 +1,22 @@
+CREATE TABLE IF NOT EXISTS `pedidos` (
+    `id` int(11) NOT NULL AUTO_INCREMENT,
+    `id_empresa` int(11) NOT NULL DEFAULT '0',
+    `id_vendedor` int(11) NOT NULL DEFAULT '0',
+    `id_cliente` int(11) NOT NULL DEFAULT '0',
+    `id_meio_pagamento` int(11) DEFAULT NULL,
+    `id_situacao_pedido` int(11) NOT NULL,
+    `id_cliente_endereco` int(11) NOT NULL,
+    `valor_desconto` double NOT NULL DEFAULT '0',
+    `valor_frete` double NOT NULL DEFAULT '0',
+    `previsao_entrega` date NOT NULL DEFAULT '0000-00-00',
+    `total` double NOT NULL,
+    `created_at` timestamp NULL DEFAULT NULL,
+    `updated_at` timestamp NULL DEFAULT NULL,
+    PRIMARY KEY (`id`),
+    KEY `FK_empresas_pedidos` (`id_empresa`),
+    KEY `FK_usuarios_pedidos` (`id_vendedor`),
+    KEY `FK_clientes_pedidos` (`id_cliente`),
+    KEY `FK_meio_pagamentos_pedidos` (`id_meio_pagamento`),
+    KEY `FK_cliente_endereco_pedidos` (`id_cliente_endereco`),
+    KEY `FK_situacao_pedidos` (`id_situacao_pedido`)
+) ENGINE=MyISAM AUTO_INCREMENT=182 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;

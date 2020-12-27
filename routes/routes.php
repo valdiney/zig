@@ -54,13 +54,13 @@ $route->get('pdvDiferencial/colocarProdutosNaMesa/{idProduto}', 'PdvDiferencialC
 $route->get('pdvDiferencial/obterProdutosDaMesa/{posicaoProduto?}', 'PdvDiferencialController@obterProdutosDaMesa');
 
 $route->get('pdvDiferencial/alterarAquantidadeDeUmProdutoNaMesa/{idProduto}/{quantidade}',
-  'PdvDiferencialController@alterarAquantidadeDeUmProdutoNaMesa');
+    'PdvDiferencialController@alterarAquantidadeDeUmProdutoNaMesa');
 
 $route->get('pdvDiferencial/retirarProdutoDaMesa/{idProduto}', 'PdvDiferencialController@retirarProdutoDaMesa');
 $route->post('pdvDiferencial/saveVendasViaSession', 'PdvDiferencialController@saveVendasViaSession');
 
 $route->get('pdvDiferencial/obterValorTotalDosProdutosNaMesa',
-  'PdvDiferencialController@obterValorTotalDosProdutosNaMesa');
+    'PdvDiferencialController@obterValorTotalDosProdutosNaMesa');
 
 # ----- ClienteController --------------------------------
 $route->get('cliente', 'ClienteController@index');
@@ -78,10 +78,10 @@ $route->get('cliente/verificaSeCpfExiste/{cpf}/{idCliente?}', 'ClienteController
 $route->post('clienteEndereco/save', 'ClienteEnderecoController@save');
 $route->post('clienteEndereco/update', 'ClienteEnderecoController@update');
 $route->get('clienteEndereco/modalFormulario/{idCliente}/{idEnderecoCliente?}',
-  'ClienteEnderecoController@modalFormulario');
+    'ClienteEnderecoController@modalFormulario');
 $route->get('clienteEndereco/buscarEnderecoViaCep/{cep?}', 'ClienteEnderecoController@buscarEnderecoViaCep');
 $route->get('clienteEndereco/modalVisualizarEnderecos/{idCliente}',
-  'ClienteEnderecoController@modalVisualizarEnderecos');
+    'ClienteEnderecoController@modalVisualizarEnderecos');
 
 # ----- PedidoController --------------------------------
 $route->get('pedido', 'PedidoController@index');

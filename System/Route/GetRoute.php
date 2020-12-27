@@ -1,4 +1,5 @@
 <?php
+
 namespace System\Route;
 
 /*
@@ -11,134 +12,131 @@ namespace System\Route;
 
 class GetRoute
 {
-  private $baseUrl;
-  private $urlParamethers;
-  private $controller;
-  private $method;
+    public $existControllerOnRoute = false;
+    private $baseUrl;
+    private $urlParameters;
+    private $controller;
+    private $method;
+    private $controllerNameAliases;
+    private $methodNameAliases;
 
-  private $controllerNameAliases;
-  private $methodNameAliases;
+    public function __construct()
+    {
+        $this->baseUrl = $this->getBaseUrl();
 
-  public $existControllerOnRoute = false;
-  public $existMethodOnRoute = false;
+        $this->getControllerAndMethod();
+        $this->veriFyControllerOnUrl();
+        $this->veriFyMethodOnUrl();
 
-  public function __construct()
-  {
-    $this->baseUrl = $this->getBaseUrl();
+        if (!defined('CONTROLLER_NAME') && !defined('BASEURL')) {
+            define('CONTROLLER_NAME', $this->controller);
+            define('METHOD_NAME', $this->method);
+            define('BASEURL', $this->getBaseUrl());
+        }
 
-    $this->getControllerAndMethod();
-    $this->veriFyControllerOnUrl();
-    $this->veriFyMethodOnUrl();
-
-    if ( ! defined('CONTROLLER_NAME') && ! defined('BASEURL')) {
-        define('CONTROLLER_NAME', $this->controller);
-        define('METHOD_NAME', $this->method);
-        define('BASEURL', $this->getBaseUrl());
+        $this->getUrlVariables();
     }
 
-    $this->getUrlVariables();
-  }
-
-  public function getControllerNameAliases()
-  {
-    return $this->controllerNameAliases;
-  }
-
-  public function getMethodNameAliases()
-  {
-    return $this->methodNameAliases;
-  }
-
     /**
-    * This method is used to obtain and separate the
-    * name of controller and the called method on url.
-    */
-  private function getControllerAndMethod()
-  {
-      $scriptName = dirname($_SERVER['SCRIPT_NAME'], 2);
-      $redirectUrl = str_replace("{$scriptName}/", '', $_SERVER['REQUEST_URI']);
-      $redirectUrl = trim($redirectUrl, '/');
-
-      if ($redirectUrl) {
-          $this->urlParamethers = explode('/', $redirectUrl);
-      }
-  }
-
-    /**
-    * This method is used to verify if exist controller name passed on url of the browser.
-    */
-  private function veriFyControllerOnUrl()
-  {
-    if ( ! empty($this->urlParamethers[3])) {
-      $this->existControllerOnRoute = true;
-    }
-    if ($this->urlParamethers && array_key_exists(0, $this->urlParamethers)) {
-      $this->controller = ucfirst($this->urlParamethers[0]).'Controller';
-      $this->controllerNameAliases = $this->urlParamethers[0];
-    }
-  }
-
-    /**
-    * This method is used to verify if exist method name passed on url of the browser.
-    */
-  private function veriFyMethodOnUrl()
-  {
-    if ($this->urlParamethers && array_key_exists(1, $this->urlParamethers)) {
-      $this->method = $this->urlParamethers[1];
-      $nameAndAliases = $this->urlParamethers;
-      array_shift($nameAndAliases);
-      $nameAndAliases = implode('/', $nameAndAliases);
-      $this->methodNameAliases = $nameAndAliases;
-    }
-  }
-
-  public function getUrlVariables()
-  {
-      if ($this->urlParamethers == null) {
-        return [];
-      }
-
-    $data = [];
-    foreach ($this->urlParamethers as $key => $value) {
-      if ($key >= 2) {
-        array_push($data, $value);
-      }
-    }
-
-    return $data;
-  }
-
-    /**
-    * This method is return the controller name.
-    * @return String
-    */
-  public function getControllerName()
-  {
-    return $this->controller;
-  }
-
-    /**
-    * This method return the method name.
-    * @return String
-    */
-  public function getMethodName()
-  {
-    return $this->method;
-  }
-
-    /**
-    * This method return the url passed on browser.
-    * Example http://localhost:8000
-    * @return String
-    */
+     * This method return the url passed on browser.
+     * Example http://localhost:8000
+     * @return String
+     */
     public function getBaseUrl(): string
     {
-      $protocol = getenv('HTTPS')? "https": "http";
+        $protocol = getenv('HTTPS') ? "https" : "http";
 
-      $branch = dirname($_SERVER['SCRIPT_NAME'], 2);
-      $branch = trim($branch, '/');
-      $branch = $branch? "/{$branch}": "";
+        $branch = dirname($_SERVER['SCRIPT_NAME'], 2);
+        $branch = trim($branch, '/');
+        $branch = $branch ? "/{$branch}" : "";
 
-      return "{$protocol}://{$_SERVER['HTTP_HOST']}{$branch}";
+        return "{$protocol}://{$_SERVER['HTTP_HOST']}{$branch}";
+    }
+
+    /**
+     * This method is used to obtain and separate the
+     * name of controller and the called method on url.
+     */
+    private function getControllerAndMethod()
+    {
+        $scriptName = dirname($_SERVER['SCRIPT_NAME'], 2);
+        $redirectUrl = str_replace("{$scriptName}/", '', $_SERVER['REQUEST_URI']);
+        $redirectUrl = trim($redirectUrl, '/');
+
+        if ($redirectUrl) {
+            $this->urlParameters = explode('/', $redirectUrl);
+        }
+    }
+
+    /**
+     * This method is used to verify if exist controller name passed on url of the browser.
+     */
+    private function veriFyControllerOnUrl()
+    {
+        if (!empty($this->urlParameters[3])) {
+            $this->existControllerOnRoute = true;
+        }
+        if ($this->urlParameters && array_key_exists(0, $this->urlParameters)) {
+            $this->controller = ucfirst($this->urlParameters[0]) . 'Controller';
+            $this->controllerNameAliases = $this->urlParameters[0];
+        }
+    }
+
+    /**
+     * This method is used to verify if exist method name passed on url of the browser.
+     */
+    private function veriFyMethodOnUrl()
+    {
+        if ($this->urlParameters && array_key_exists(1, $this->urlParameters)) {
+            $this->method = $this->urlParameters[1];
+            $nameAndAliases = $this->urlParameters;
+            array_shift($nameAndAliases);
+            $nameAndAliases = implode('/', $nameAndAliases);
+            $this->methodNameAliases = $nameAndAliases;
+        }
+    }
+
+    public function getUrlVariables()
+    {
+        if ($this->urlParameters == null) {
+            return [];
+        }
+
+        $data = [];
+        foreach ($this->urlParameters as $key => $value) {
+            if ($key >= 2) {
+                array_push($data, $value);
+            }
+        }
+
+        return $data;
+    }
+
+    public function getControllerNameAliases()
+    {
+        return $this->controllerNameAliases;
+    }
+
+    public function getMethodNameAliases()
+    {
+        return $this->methodNameAliases;
+    }
+
+    /**
+     * This method is return the controller name.
+     * @return String
+     */
+    public function getControllerName()
+    {
+        return $this->controller;
+    }
+
+    /**
+     * This method return the method name.
+     * @return String
+     */
+    public function getMethodName()
+    {
+        return $this->method;
     }
 }

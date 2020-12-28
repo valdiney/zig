@@ -24,7 +24,7 @@ class GetRoute
     {
         $this->baseUrl = $this->getBaseUrl();
 
-        $this->getControllerAndMethod();
+        $this->generateControllerAndMethod();
         $this->veriFyControllerOnUrl();
         $this->veriFyMethodOnUrl();
 
@@ -40,32 +40,42 @@ class GetRoute
     /**
      * This method return the url passed on browser.
      * Example http://localhost:8000
+     * @param bool|null $https
+     * @param string|null $scriptName
+     * @param string|null $host
      * @return String
      */
-    public function getBaseUrl(): string
+    public function getBaseUrl(bool $https = null, string $scriptName = null, string $host = null): string
     {
-        $protocol = getenv('HTTPS') ? "https" : "http";
+        $https = $https ?? getenv('HTTPS');
+        $scriptName = $scriptName ?? $_SERVER['SCRIPT_NAME'];
+        $host = $host ?? $_SERVER['HTTP_HOST'];
 
-        $branch = dirname($_SERVER['SCRIPT_NAME'], 2);
+        $protocol = filter_var($https, FILTER_VALIDATE_BOOLEAN) ? "https" : "http";
+
+        $branch = dirname($scriptName, 2);
         $branch = trim($branch, '/');
         $branch = $branch ? "/{$branch}" : "";
 
-        return "{$protocol}://{$_SERVER['HTTP_HOST']}{$branch}";
+        return "{$protocol}://{$host}{$branch}";
     }
 
     /**
      * This method is used to obtain and separate the
      * name of controller and the called method on url.
+     * @param string|null $scriptName
+     * @param string|null $requestUri
      */
-    private function getControllerAndMethod()
+    public function generateControllerAndMethod(string $scriptName = null, string $requestUri = null)
     {
-        $scriptName = dirname($_SERVER['SCRIPT_NAME'], 2);
-        $redirectUrl = str_replace("{$scriptName}/", '', $_SERVER['REQUEST_URI']);
+        $scriptName = $scriptName ?? $_SERVER['SCRIPT_NAME'];
+        $requestUri = $requestUri ?? $_SERVER['REQUEST_URI'];
+
+        $scriptName = dirname($scriptName, 2);
+        $redirectUrl = str_replace("{$scriptName}/", '', $requestUri);
         $redirectUrl = trim($redirectUrl, '/');
 
-        if ($redirectUrl) {
-            $this->urlParameters = explode('/', $redirectUrl);
-        }
+        $this->urlParameters = $redirectUrl? explode('/', $redirectUrl): null;
     }
 
     /**
@@ -138,5 +148,13 @@ class GetRoute
     public function getMethodName()
     {
         return $this->method;
+    }
+
+    /**
+     * @return array|null
+     */
+    public function getUrlParameters(): ?array
+    {
+        return $this->urlParameters;
     }
 }

@@ -15,6 +15,7 @@
     </testsuites>
     <php>
         <server name="REQUEST_METHOD" value="GET"/>
+        <server name="SCRIPT_NAME" value="/public/index.php"/>
         <server name="HTTP_HOST" value="localhost:8000"/>
         <server name="REQUEST_URI" value="/"/>
     </php>

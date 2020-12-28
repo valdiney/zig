@@ -1,8 +1,9 @@
 <?php
 
-namespace System\Route;
+namespace Tests\Unit\System\Route;
 
 use PHPUnit\Framework\TestCase;
+use System\Route\GetRoute;
 
 class GetRouteTest extends TestCase
 {
@@ -21,14 +22,14 @@ class GetRouteTest extends TestCase
      * @param string|null $host
      * @param string $expected
      */
-    public function testSePegaAUrlCorreta(bool $https, string $scriptName, string $host, string $expected)
+    public function testSePegaAUrlCorreta(bool $https, string $scriptName, string $host, string $expected): void
     {
         $url = $this->getRoute->getBaseUrl($https, $scriptName, $host);
 
         self::assertEquals($expected, $url);
     }
 
-    public function testSePegaControllerEMetodoCorreto()
+    public function testSePegaControllerEMetodoCorreto(): void
     {
         $this->getRoute->generateControllerAndMethod("/public/index.php", "/users/1");
 

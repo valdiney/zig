@@ -10,11 +10,6 @@ class GetRouteTest extends TestCase
     /** @var GetRoute */
     private $getRoute;
 
-    protected function setUp(): void
-    {
-        $this->getRoute = new GetRoute();
-    }
-
     /**
      * @dataProvider urls
      * @param bool $https
@@ -46,5 +41,10 @@ class GetRouteTest extends TestCase
             [false, "/teste/public/index.php", "localhost", "http://localhost/teste"],
             [false, "/abc/def/ghi/public/index.php", "localhost", "http://localhost/abc/def/ghi"],
         ];
+    }
+
+    protected function setUp(): void
+    {
+        $this->getRoute = new GetRoute();
     }
 }

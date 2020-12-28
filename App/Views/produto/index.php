@@ -58,7 +58,7 @@ use System\HtmlComponents\Modal\Modal;
                     </td>
                     <td><?php echo $produto->nome; ?></td>
                     <td>
-                        <?php echo $produto->deleted_at? "Não": "Sim"; ?>
+                        <?php echo $produto->deleted_at ? "Não" : "Sim"; ?>
                     </td>
                     <td><?php echo real($produto->preco); ?></td>
 

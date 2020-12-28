@@ -2,8 +2,8 @@
 
 namespace App\Controllers;
 use System\Controller\Controller;
-use System\Post\Post;
 use System\Get\Get;
+use System\Post\Post;
 
 class _ClassName_ extends Controller
 {

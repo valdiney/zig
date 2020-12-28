@@ -1,4 +1,5 @@
 <?php
+
 namespace System\Model;
 
 use System\Database\Native;
@@ -8,6 +9,6 @@ class Model extends NativeQuery
 {
     public function __construct()
     {
-    	parent::__construct(Native::connect());
+        parent::__construct(Native::connect());
     }
 }

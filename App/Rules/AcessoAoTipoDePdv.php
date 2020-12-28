@@ -1,9 +1,10 @@
 <?php
+
 namespace App\Rules;
-use System\Get\Get;
-use System\Session\Session;
 
 use App\Models\ConfigPdv;
+use System\Get\Get;
+use System\Session\Session;
 
 class AcessoAoTipoDePdv
 {
@@ -18,22 +19,22 @@ class AcessoAoTipoDePdv
     {
         $configPdv = new ConfigPdv();
         $configPdv = $configPdv->findBy('id_empresa', Session::get('idEmpresa'));
-        $rotaAtual = CONTROLLER_NAME.'/'.METHOD_NAME;
-        
+        $rotaAtual = CONTROLLER_NAME . '/' . METHOD_NAME;
+
         /*
-        * Se a configuração estiver setada para o PDV Diferencial e tentar acessar o PDV Padrão, 
+        * Se a configuração estiver setada para o PDV Diferencial e tentar acessar o PDV Padrão,
           redireciona para o PDV diferencial
         */
         if ($rotaAtual == 'PdvPadraoController/index' && $configPdv->id_tipo_pdv == 2) {
             $this->get->redirectTo("pdvDiferencial");
-        
-        /*
-        * Se a configuração estiver setada para o PDV padrão e tentar acessar o PDV Diferencial, 
-          redireciona para o PDV padrão
-        */
+
+            /*
+            * Se a configuração estiver setada para o PDV padrão e tentar acessar o PDV Diferencial,
+              redireciona para o PDV padrão
+            */
         } elseif ($rotaAtual == 'PdvDiferencialController/index' && $configPdv->id_tipo_pdv == 1) {
             $this->get->redirectTo("pdvPadrao");
-        } 
+        }
 
         return false;
     }

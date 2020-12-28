@@ -75,7 +75,7 @@ class GetRoute
         $redirectUrl = str_replace("{$scriptName}/", '', $requestUri);
         $redirectUrl = trim($redirectUrl, '/');
 
-        $this->urlParameters = $redirectUrl? explode('/', $redirectUrl): null;
+        $this->urlParameters = $redirectUrl ? explode('/', $redirectUrl) : null;
     }
 
     /**

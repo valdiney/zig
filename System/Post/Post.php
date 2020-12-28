@@ -1,4 +1,5 @@
 <?php
+
 namespace System\Post;
 
 /*
@@ -28,14 +29,14 @@ class Post
     {
         $data = [];
         foreach ($_POST as $key => $value) {
-          // remove token do data
-          if ($key == '_token') {
-            continue;
-          }
-          $data[$key] = (empty($value) ? null : $value);
+            // remove token do data
+            if ($key == '_token') {
+                continue;
+            }
+            $data[$key] = (empty($value) ? null : $value);
         }
 
-        $this->data = (Object) $data;
+        $this->data = (object)$data;
     }
 
     /*
@@ -51,20 +52,20 @@ class Post
      * This method is used to return an object with data passed in array argument.
      * @return Object
     */
-    public function only(Array $data)
+    public function only(array $data)
     {
         $filteredData = [];
-        $internalData = (Array) $this->data;
+        $internalData = (array)$this->data;
 
         foreach ($data as $value) {
-            if ( ! array_key_exists($value, $internalData)) {
+            if (!array_key_exists($value, $internalData)) {
                 echo "The ({$value}) value not exist in Post Request";
             }
 
             $filteredData[$value] = $internalData[$value];
         }
 
-        return (Object) $filteredData;
+        return (object)$filteredData;
     }
 
     /*

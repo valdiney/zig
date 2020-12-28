@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Models;
 
 use System\Model\Model;
@@ -10,6 +11,6 @@ class MeioPagamento extends Model
 
     public function __construct()
     {
-    	parent::__construct();
+        parent::__construct();
     }
 }

@@ -33,8 +33,7 @@ MYSQL_PASSWORD=zig
 
 > Você precisa do composer instalado em sua máquina!
 
-Entre na pasta do projeto via linha de comando e execute o
-comando para baixar as dependências do projeto!
+Entre na pasta do projeto via linha de comando e execute o comando para baixar as dependências do projeto!
 
 ```shell
 composer install
@@ -50,27 +49,24 @@ composer install
 php command migrate
 ```
 
-**AVISO**: Não se esqueça de rodar o comando abaixo para gerar uma nova migration
-todas às vezes que alterar o banco de dados:
+**AVISO**: Não se esqueça de rodar o comando abaixo para gerar uma nova migration todas às vezes que alterar o banco de
+dados:
 
 ```shell
 php command create migration [descreva as mudanças]
 ```
 
-Entre no diretório que será exibido no console, ou vá até o último arquivo
-do diretório ´./dump/migrations/´.
+Entre no diretório que será exibido no console, ou vá até o último arquivo do diretório ´./dump/migrations/´.
 
 Caso se trate de uma nova tabela você deverá buscar pelo `sql` da criação da tabela.
 
 No `phpmyadmin`, por exemplo, você deve abrir a tabela > Export > dump all rows
 (caso só precise da estrutura e não dos dados) > Go.
 
-Salve o conteúdo dentro da migration que acabou de criar.
-Quando der a opção de salvar, vá até o diretório onde estão as
+Salve o conteúdo dentro da migration que acabou de criar. Quando der a opção de salvar, vá até o diretório onde estão as
 migrations > duplo clique no arquivo > substituir e pronto!
 
-Caso se trate de uma nova coluna ou edição de uma existente,
-você verá que logo após a edição o `phpmyadmin` exibirá o
+Caso se trate de uma nova coluna ou edição de uma existente, você verá que logo após a edição o `phpmyadmin` exibirá o
 comando executado, como o exemplo:
 
 ```sql

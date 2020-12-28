@@ -83,7 +83,7 @@ class PedidoController extends Controller
             }
 
             $ativos = $this->post->data()->ativo ?? "";
-            $ativos = $ativos==="on";
+            $ativos = $ativos === "on";
 
             $situacaoPedido = $this->post->data()->situacao_pedido ?? "";
 

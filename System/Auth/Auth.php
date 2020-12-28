@@ -1,39 +1,41 @@
 <?php
+
 namespace System\Auth;
+
 use System\Session\Session;
 
 trait Auth
 {
-	public function loginExists($login = false)
-	{
-		$query = $this->db->prepare("SELECT * FROM {$this->table} WHERE login = ?");
-		$query->execute(array($login));
+    public function loginExists($login = false)
+    {
+        $query = $this->db->prepare("SELECT * FROM {$this->table} WHERE login = ?");
+        $query->execute(array($login));
 
-		if ($query->rowCount() > 0) {
-			return true;
-		}
+        if ($query->rowCount() > 0) {
+            return true;
+        }
 
-		return false;
-	}
+        return false;
+    }
 
-	private function loginVerify(Array $data)
-	{
-		$array = array_keys($data);
-		$loginField = $array[0];
-		$passwordField = $array[1];
+    public function userExist(array $data)
+    {
+        if ($this->loginVerify($data)) {
+            Session::set('logged', true);
+            return true;
+        }
 
-		$query = $this->db->prepare("SELECT * FROM {$this->table} WHERE {$loginField} = ? AND {$passwordField} = ?");
-		$query->execute(array($data[$loginField], createHash($data[$passwordField])));
-		return $query->rowCount();
-	}
+        return false;
+    }
 
-	public function userExist(Array $data)
-	{
-		if ($this->loginVerify($data)) {
-			Session::set('logged', true);
-			return true;
-		}
+    private function loginVerify(array $data)
+    {
+        $array = array_keys($data);
+        $loginField = $array[0];
+        $passwordField = $array[1];
 
-		return false;
-	}
+        $query = $this->db->prepare("SELECT * FROM {$this->table} WHERE {$loginField} = ? AND {$passwordField} = ?");
+        $query->execute(array($data[$loginField], createHash($data[$passwordField])));
+        return $query->rowCount();
+    }
 }

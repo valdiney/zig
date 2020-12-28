@@ -1,8 +1,6 @@
 <?php
 namespace System\NativeQuery;
 
-use PDOException;
-
 class NativeQuery
 {
 	protected $db;

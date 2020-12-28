@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Models;
 
 use System\Model\Model;
@@ -10,11 +11,11 @@ class TipoPdv extends Model
 
     public function __construct()
     {
-    	parent::__construct();
+        parent::__construct();
     }
 
-    public function tiposPdv() 
+    public function tiposPdv()
     {
-    	return $this->all();
-    }  
+        return $this->all();
+    }
 }

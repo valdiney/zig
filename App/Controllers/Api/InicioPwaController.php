@@ -1,31 +1,31 @@
-<?php 
-namespace App\Controllers\Api;
-use System\Controller\Controller;
-use System\Post\Post;
-use System\Get\Get;
+<?php
 
-use App\Models\Usuario;
+namespace App\Controllers\Api;
+
+use System\Controller\Controller;
+use System\Get\Get;
+use System\Post\Post;
 
 class InicioPwaController extends Controller
 {
-	protected $post;
-	protected $get;
+    protected $post;
+    protected $get;
 
-	public function __construct()
-	{
-		parent::__construct();
+    public function __construct()
+    {
+        parent::__construct();
 
-		$this->post = new Post();
-		$this->get = new Get();
-	}
+        $this->post = new Post();
+        $this->get = new Get();
+    }
 
-	public function index()
-	{
-		$this->view('pwa/login/index', null);
-	}
+    public function index()
+    {
+        $this->view('pwa/login/index', null);
+    }
 
-	public function pdv()
-	{
-		$this->view('pwa/pdv/index', null);
-	}
+    public function pdv()
+    {
+        $this->view('pwa/pdv/index', null);
+    }
 }

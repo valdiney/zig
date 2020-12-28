@@ -1,46 +1,51 @@
 <?php
-function createMessage($e) {
-	echo "
+function createMessage($e)
+{
+    echo "
 		<style>body{background:#f1f1f1;}</style>
 		<center>
 			<span style='border:1px solid red;display:block;padding:10px;background:white;font-family:arial;'>
 			    Message: {$e->getMessage()}
 			</span>
 		</center>";
-	exit;
+    exit;
 }
 
-function dd($data) {
-  if (!defined('IS_TERMINAL')) {
-    echo "<style>body {background:black;}</style>";
-    echo "<pre style='background:#f4f5f7;border:3px solid #00cc99;padding:10px'>";
-  }
-	print_r($data);
-	exit;
+function dd($data)
+{
+    if (!defined('IS_TERMINAL')) {
+        echo "<style>body {background:black;}</style>";
+        echo "<pre style='background:#f4f5f7;border:3px solid #00cc99;padding:10px'>";
+    }
+    print_r($data);
+    exit;
 }
 
-function dump($data) {
-	var_dump($data);
-	exit;
+function dump($data)
+{
+    var_dump($data);
+    exit;
 }
 
-function createHash($password = null) {
-	$oldSalt = "dfddfdfddfd;dfdfd45654;df45541254sdsdw";
-	$oldUnicSalt = "awsqkx12454788956sddef$";
-  // adicionando verificação para os antigos sistemas que já tem senhas salvas no banco
-  $hash = getenv('HASH');
-  $salt = $hash ? $hash : $oldSalt;
-  $unicSalt = $hash ? strrev($hash): $oldUnicSalt;
-  return sha1("{$password}{$salt}{$unicSalt}");
+function createHash($password = null)
+{
+    $oldSalt = "dfddfdfddfd;dfdfd45654;df45541254sdsdw";
+    $oldUnicSalt = "awsqkx12454788956sddef$";
+    // adicionando verificação para os antigos sistemas que já tem senhas salvas no banco
+    $hash = getenv('HASH');
+    $salt = $hash ? $hash : $oldSalt;
+    $unicSalt = $hash ? strrev($hash) : $oldUnicSalt;
+    return sha1("{$password}{$salt}{$unicSalt}");
 }
 
-function uploadImageHelper($uploadClass, $folder, $image) {
-	$uploadClass->file($image);
-	$uploadClass->folder($folder);
-    $uploadClass->extensions(array("png","jpg","jpeg"));
+function uploadImageHelper($uploadClass, $folder, $image)
+{
+    $uploadClass->file($image);
+    $uploadClass->folder($folder);
+    $uploadClass->extensions(array("png", "jpg", "jpeg"));
 
-	$error = null;
-	switch ($uploadClass->getErrors()) {
+    $error = null;
+    switch ($uploadClass->getErrors()) {
         case 1:
             $error = "Formato não esperado";
             break;
@@ -57,57 +62,62 @@ function uploadImageHelper($uploadClass, $folder, $image) {
 
     try {
 
-        if ( $error !== null) {
+        if ($error !== null) {
             throw new \Exception($error);
         }
 
         $uploadClass->move();
 
-    } catch(\Exception $e) {
+    } catch (\Exception $e) {
         return ['error' => $e->getMessage()];
     }
 
     return $uploadClass->destinationPath();
 }
 
-function in64($string) {
-    $string = "atzxyzendMosterw||zig".$string;
+function in64($string)
+{
+    $string = "atzxyzendMosterw||zig" . $string;
     return base64_encode($string);
 }
 
-function out64($string) {
-  $auxiliar = base64_decode($string) ?? null;
+function out64($string)
+{
+    $auxiliar = base64_decode($string) ?? null;
 
-  if ($string) {
-    return explode('||zig', $auxiliar)[1];
-  }
-  return false;
+    if ($string) {
+        return explode('||zig', $auxiliar)[1];
+    }
+    return false;
 }
 
 /*
 Formata o valor para Real antes de apresentar na View
 */
-function real($valor) {
-    return number_format($valor, 2,',','.');
+function real($valor)
+{
+    return number_format($valor, 2, ',', '.');
 }
 
 /*
 Essa função prepara o valor da moeda pora ser gravado no banco
 Exemplo: Tranforma o valor ( 2.440,80 ) em ( 2440.80 )
 */
-function formataValorMoedaParaGravacao($valor) {
-     $verificaPonto = ".";
-     if (strpos("[".$valor."]", "$verificaPonto")) {
-         $valor = str_replace('.','', $valor);
-         $valor = str_replace(',','.', $valor);
-     } else {
-         $valor = str_replace(',','.', $valor);
-     }
+function formataValorMoedaParaGravacao($valor)
+{
+    $verificaPonto = ".";
+    if (strpos("[" . $valor . "]", "$verificaPonto")) {
+        $valor = str_replace('.', '', $valor);
+        $valor = str_replace(',', '.', $valor);
+    } else {
+        $valor = str_replace(',', '.', $valor);
+    }
 
-   return $valor;
+    return $valor;
 }
 
-function currentRouteFromMenu($route, $extraClass = false) {
+function currentRouteFromMenu($route, $extraClass = false)
+{
     $route = explode('/', $route);
     $controller = explode('Controller', CONTROLLER_NAME)[0];
     $method = METHOD_NAME;
@@ -117,11 +127,12 @@ function currentRouteFromMenu($route, $extraClass = false) {
     }
 }
 
-function fileGet($url) {
+function fileGet($url)
+{
     $context = stream_context_create([
         'http' => [
             'ignore_errors' => true,
-            'method'        => 'GET'
+            'method' => 'GET'
         ]
     ]);
 
@@ -130,6 +141,7 @@ function fileGet($url) {
 }
 
 
-function iconFilter() {
-  echo '<i class="fas fa-filter"></i>';
+function iconFilter()
+{
+    echo '<i class="fas fa-filter"></i>';
 }

@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Models;
 
 use System\Model\Model;
@@ -10,12 +11,12 @@ class LogAcesso extends Model
 
     public function __construct()
     {
-    	parent::__construct();
+        parent::__construct();
     }
 
     public function logs($idEmpresa)
     {
-      return $this->query("
+        return $this->query("
           SELECT
             log.id, log.id_usuario, log.id_empresa, log.created_at,
             usuarios.nome AS usuario_nome, usuarios.imagem AS usuario_imagem,

@@ -99,7 +99,7 @@ class ProdutoController extends Controller
                 'nome', 'preco', 'descricao', 'deleted_at'
             ]);
 
-            $dados['deleted_at'] = $dados['deleted_at']==="on"? null: date("Y-m-d H:i:s");
+            $dados['deleted_at'] = $dados['deleted_at'] === "on" ? null : date("Y-m-d H:i:s");
 
             $dados['preco'] = formataValorMoedaParaGravacao($dados['preco']);
 

@@ -3,7 +3,7 @@ namespace System\NativeQuery;
 
 class NativeQuery
 {
-	protected $db;
+    protected $db;
 
 	public function __construct(\PDO $pdo)
 	{

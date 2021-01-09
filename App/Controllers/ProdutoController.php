@@ -49,10 +49,16 @@ class ProdutoController extends Controller
     {
         if ($this->post->hasPost()) {
             $produto = new Produto();
-            $dados = (array)$this->post->data();
+            $dados = (array) $this->post->data();
 
             $dados['id_empresa'] = $this->idEmpresa;
             $dados['preco'] = formataValorMoedaParaGravacao($dados['preco']);
+
+            if (isset($dados['deleted_at'])) {
+                $dados['deleted_at'] = timestamp();
+            } else {
+                $dados['deleted_at'] = NULL;
+            }
 
             # Valida imagem somente se existir no envio
             if (!empty($_FILES["imagem"]['name'])) {

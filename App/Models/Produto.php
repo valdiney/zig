@@ -17,7 +17,7 @@ class Produto extends Model
     public function produtos($idEmpresa)
     {
         return $this->query(
-            "SELECT * FROM produtos WHERE id_empresa = {$idEmpresa}"
+            "SELECT * FROM produtos WHERE id_empresa = {$idEmpresa} AND deleted_at IS NULL"
         );
     }
 

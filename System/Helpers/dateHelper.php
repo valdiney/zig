@@ -14,6 +14,11 @@ function dateFormat($date = null)
     }
 }
 
+function timestamp()
+{
+    return date('Y-m-d H:i:s');
+}
+
 function decrementDaysFromDate($returnFormat, $days = 1, $date = false)
 {
 

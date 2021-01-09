@@ -28,26 +28,11 @@
             </div>
         </div>
 
-        <div class="col-md-2">
-            <div class="form-group">
-                <label for="ativo">
-                    Ativo *
-                    <input
-                        id="ativo"
-                        name="ativo"
-                        type="checkbox"
-                        class="form-control"
-                        <?php if ($produto && $produto->deleted_at === null): ?> checked <?php endif; ?>
-                    >
-                </label>
-            </div>
-        </div>
-
         <div class="col-md-4">
             <div class="form-group">
                 <label for="imagem">Escolher Imagem do Produto</label>
                 <input type="file" class="form-control" name="imagem" id="imagem"> <br>
-                <?php if (isset($produto->id)): ?>
+                <?php if (isset($produto->id) && ! is_null($produto->imagem)): ?>
                     <img src="<?php echo BASEURL . '/' . $produto->imagem; ?>" class="imagem-produto">
                 <?php else: ?>
                     <i class="fas fa-box-open" style="font-size:40px"></i>
@@ -65,6 +50,25 @@
 
     </div><!--end row-->
 
+    <div class="row">
+        <div class="col-md-12">
+            <div class="form-group" style="background:#fffcf5">
+                <label for="ativo">
+                    Ativo: <small style="opacity:0.80">Mostrar produto no PDV</small>
+                    <input
+                        id="ativo"
+                        name="deleted_at"
+                        type="checkbox"
+                        class="form-control"
+                        <?php if (isset($produto->id) && is_null($produto->deleted_at)):?>
+                           checked
+                        <?php endif;?>
+                   checked>
+                </label>
+            </div>
+        </div>
+    </div>
+
     <button type="submit" class="btn btn-success btn-sm" style="float:right"
             onclick="return salvarProduto()">
         <i class="fas fa-save"></i> Salvar
@@ -81,4 +85,10 @@
                 affixesStay: false
             });
     });
+
+    $("#ativo").click(function() {
+        if ( ! $(this).is(':checked')) {
+            modalValidacao('Validação', '<small>Ao desativar este Produto ele não será apresentado nas Vendas!</small>');
+        }
+    })
 </script>

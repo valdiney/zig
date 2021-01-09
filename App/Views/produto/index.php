@@ -15,6 +15,9 @@ use System\HtmlComponents\Modal\Modal;
         border-radius: 50%;
         border: 1px solid silver;
     }
+    .with_deleted_at {
+        opacity:0.70;
+    }
 </style>
 
 <div class="row">
@@ -50,21 +53,22 @@ use System\HtmlComponents\Modal\Modal;
                         <?php if (!is_null($produto->imagem) && $produto->imagem != ''): ?>
                             <center>
                                 <img src="<?php echo BASEURL . '/' . $produto->imagem; ?>" width="40"
-                                     class="imagem-produto">
+                                    class="imagem-produto">
                             </center>
                         <?php else: ?>
-                            <center><i class="fab fa-product-hunt" style="font-size:40px"></i></center>
+                            <center><i class="fas fa-box-open" style="font-size:25px"></i></center>
                         <?php endif; ?>
                     </td>
                     <td><?php echo $produto->nome; ?></td>
-                    <td>
-                        <?php echo $produto->deleted_at ? "Não" : "Sim"; ?>
-                    </td>
+                    <?php if (is_null($produto->deleted_at)):?>
+                        <td>Sim</td>
+                    <?php else:?>
+                        <td class="with_deleted_at">Não</td>
+                    <?php endif;?>
+
                     <td><?php echo real($produto->preco); ?></td>
 
                     <td style="text-align:right">
-
-
                         <div class="btn-group" role="group">
                             <button id="btnGroupDrop1" type="button" class="btn btn-sm btn-secondary dropdown-toggle"
                                     data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">

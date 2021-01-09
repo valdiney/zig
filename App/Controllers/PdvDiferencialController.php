@@ -60,6 +60,10 @@ class PdvDiferencialController extends Controller
 
     public function saveVendasViaSession()
     {
+        if (!isset($_SESSION['venda']) ||empty($_SESSION['venda'])) {
+            return;
+        }
+
         $status = false;
         foreach ($_SESSION['venda'] as $produto) {
             $dados = [

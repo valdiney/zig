@@ -207,5 +207,5 @@ use App\Views\Layouts\HtmlComponents\Modal;
 </div><!--end row-->
 
 <script src="<?php echo BASEURL; ?>/public/assets/js/core/jquery.min.js"></script>
-<script src="<?php echo BASEURL; ?>/public/js/helpers.js"></script>
-<script src="<?php echo BASEURL; ?>/public/js/venda/funcoesPdvAvancado.js"></script>
+<script defer src="<?php echo BASEURL; ?>/public/js/helpers.js"></script>
+<script defer src="<?php echo BASEURL; ?>/public/js/venda/funcoesPdvAvancado.js"></script>

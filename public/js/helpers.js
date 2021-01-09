@@ -1,45 +1,52 @@
 ///////////////////////////////////////////////////////////////////////////////
 function load(url, idElement) {
-  var xhttp;
-  if (window.XMLHttpRequest) {
-    xhttp = new XMLHttpRequest();
-  } else {
-    xhttp = new ActiveXObject("Microsoft.XMLHTTP");
-  }
-
-  document.getElementById(idElement).innerHTML = "<center><h3>Carregando...</h3></center>";
-
-  xhttp.onreadystatechange = function() {
-    if (this.readyState == 4 && this.status == 200) {
-    	console.log(this.responseText);
-      document.getElementById(idElement).innerHTML = this.responseText;
+    var xhttp;
+    if (window.XMLHttpRequest) {
+        xhttp = new XMLHttpRequest();
+    } else {
+        xhttp = new ActiveXObject("Microsoft.XMLHTTP");
     }
-  };
 
-  xhttp.open("GET", url, true);
-  xhttp.send();
+    document.getElementById(idElement).innerHTML = "<center><h3>Carregando...</h3></center>";
+
+    xhttp.onreadystatechange = function () {
+        if (this.readyState == 4 && this.status == 200) {
+            console.log(this.responseText);
+            document.getElementById(idElement).innerHTML = this.responseText;
+        }
+    };
+
+    xhttp.open("GET", url, true);
+    xhttp.send();
 }
+
 //////////////////////////////////////////////////////////////////////////////////
 
 /////////////////////////////////////////////////////////////////////////////////
 function getProtocol() {
-   return window.location.protocol;
+    return window.location.protocol;
 }
-function getUrl(){
-   return window.location.href;
+
+function getUrl() {
+    return window.location.href;
 }
+
 function getHost() {
-   return window.location.host;
+    return window.location.host;
 }
+
 function getPath() {
-   return window.location.pathname;
+    return window.location.pathname;
 }
+
 function getDomain() {
-   return document.querySelector('base').href;
+    return document.querySelector('base').href;
 }
+
 function link(url) {
-   location.href = url;
+    location.href = url;
 }
+
 //////////////////////////////////////////////////////////////////////////////
 
 //////////////////////////////////////////////////////////////////////////////
@@ -57,11 +64,12 @@ function anulaDuploClick(form) {
         }
     });
 }
+
 //////////////////////////////////////////////////////////////////////////////
 
 //////////////////////////////////////////////////////////////////////////////
 function modalValidacao(title = false, mensagem) {
-    $(function() {
+    $(function () {
         $("#modal-validacao .modal-title").text(title);
         $("#modal-validacao #modal-body-content").html("<center><h3>" + mensagem + "</center></h3>");
         $("#modal-validacao").modal({backdrop: 'static'});
@@ -69,78 +77,80 @@ function modalValidacao(title = false, mensagem) {
 }
 
 function modalValidacaoClose() {
-  $(function() {
     $("#modal-validacao .close").click();
-  });
 }
+
 //////////////////////////////////////////////////////////////////////////////
 
 function real(valor) {
-  valor = Number(valor);
-  return valor.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
+    valor = Number(valor);
+    return valor.toLocaleString('pt-BR', {style: 'currency', currency: 'BRL'});
 }
+
 //////////////////////////////////////////////////////////////////////////////
 
 //////////////////////////////////////////////////////////////////////////////
 function in64(data) {
-  return btoa('atzxyzendMosterw||zig'+data);
+    return btoa('atzxyzendMosterw||zig' + data);
 }
 
 function out64(data) {
-  return atob(data);
+    return atob(data);
 }
+
 //////////////////////////////////////////////////////////////////////////////
 
 //////////////////////////////////////////////////////////////////////////////
 function emailValido(mail) {
     var er = new RegExp(/^[A-Za-z0-9_\-\.]+@[A-Za-z0-9_\-\.]{2,}\.[A-Za-z0-9]{2,}(\.[A-Za-z0-9])?/);
-     if (typeof(mail) == "string") {
+    if (typeof (mail) == "string") {
         if (er.test(mail)) {
             return true;
         }
-    } else if(typeof(mail) == "object") {
+    } else if (typeof (mail) == "object") {
         if (er.test(mail.value)) {
             return true;
         }
-    }
-    else {
+    } else {
         return false;
     }
 }
+
 //////////////////////////////////////////////////////////////////////////////
 
 //////////////////////////////////////////////////////////////////////////////
 function cpfValido(strCPF) {
     strCPF = strCPF.replace(/\D/g, '');
     if (strCPF == '') {
-      return false;
+        return false;
     }
 
     var Soma;
     var Resto;
     Soma = 0;
-  if (strCPF == "00000000000") return false;
+    if (strCPF == "00000000000") return false;
 
-  for (i=1; i<=9; i++) Soma = Soma + parseInt(strCPF.substring(i-1, i)) * (11 - i);
-  Resto = (Soma * 10) % 11;
-
-    if ((Resto == 10) || (Resto == 11))  Resto = 0;
-    if (Resto != parseInt(strCPF.substring(9, 10)) ) return false;
-
-  Soma = 0;
-    for (i = 1; i <= 10; i++) Soma = Soma + parseInt(strCPF.substring(i-1, i)) * (12 - i);
+    for (i = 1; i <= 9; i++) Soma = Soma + parseInt(strCPF.substring(i - 1, i)) * (11 - i);
     Resto = (Soma * 10) % 11;
 
-    if ((Resto == 10) || (Resto == 11))  Resto = 0;
-    if (Resto != parseInt(strCPF.substring(10, 11) ) ) return false;
+    if ((Resto == 10) || (Resto == 11)) Resto = 0;
+    if (Resto != parseInt(strCPF.substring(9, 10))) return false;
+
+    Soma = 0;
+    for (i = 1; i <= 10; i++) Soma = Soma + parseInt(strCPF.substring(i - 1, i)) * (12 - i);
+    Resto = (Soma * 10) % 11;
+
+    if ((Resto == 10) || (Resto == 11)) Resto = 0;
+    if (Resto != parseInt(strCPF.substring(10, 11))) return false;
     return true;
 }
+
 //////////////////////////////////////////////////////////////////////////////
 
 //////////////////////////////////////////////////////////////////////////////
 function CNPJvalido(cnpj) {
-    cnpj = cnpj.replace(/[^\d]+/g,'');
-    if(cnpj == '')
+    cnpj = cnpj.replace(/[^\d]+/g, '');
+    if (cnpj == '')
         return false;
 
     if (cnpj.length != 14)
@@ -160,13 +170,13 @@ function CNPJvalido(cnpj) {
         return false;
 
     tamanho = cnpj.length - 2
-    numeros = cnpj.substring(0,tamanho);
+    numeros = cnpj.substring(0, tamanho);
     digitos = cnpj.substring(tamanho);
     soma = 0;
     pos = tamanho - 7;
     for (i = tamanho; i >= 1; i--) {
-      soma += numeros.charAt(tamanho - i) * pos--;
-      if (pos < 2)
+        soma += numeros.charAt(tamanho - i) * pos--;
+        if (pos < 2)
             pos = 9;
     }
     resultado = soma % 11 < 2 ? 0 : 11 - soma % 11;
@@ -174,18 +184,19 @@ function CNPJvalido(cnpj) {
         return false;
 
     tamanho = tamanho + 1;
-    numeros = cnpj.substring(0,tamanho);
+    numeros = cnpj.substring(0, tamanho);
     soma = 0;
     pos = tamanho - 7;
     for (i = tamanho; i >= 1; i--) {
-      soma += numeros.charAt(tamanho - i) * pos--;
-      if (pos < 2)
+        soma += numeros.charAt(tamanho - i) * pos--;
+        if (pos < 2)
             pos = 9;
     }
     resultado = soma % 11 < 2 ? 0 : 11 - soma % 11;
     if (resultado != digitos.charAt(1))
-          return false;
+        return false;
 
     return true;
 }
+
 //////////////////////////////////////////////////////////////////////////////

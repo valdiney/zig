@@ -37,7 +37,7 @@
                         name="ativo"
                         type="checkbox"
                         class="form-control"
-                        <?php if ($produto->deleted_at === null): ?> checked <?php endif; ?>
+                        <?php if ($produto && $produto->deleted_at === null): ?> checked <?php endif; ?>
                     >
                 </label>
             </div>

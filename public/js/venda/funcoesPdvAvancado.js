@@ -8,7 +8,7 @@ function colocarProdutosNaMesa(id, item) {
     const rota = getDomain() + "/pdvDiferencial/colocarProdutosNaMesa/" + id;
     $.get(rota, function (data, status) {
         obterOultimoProdutoColocadoNaMesa('ultimo');
-        setTimeout(modalValidacaoClose, 700);
+        setTimeout(modalValidacaoClose, 1000);
     });
 }
 
@@ -87,7 +87,7 @@ function alterarAquantidadeDeUmProdutoNaMesa(id, quantidade) {
             $(".tabela-de-produto tbody").empty();
             obterProdutosDaMesa();
             obterValorTotalDosProdutosNaMesa();
-            modalValidacaoClose();
+            setTimeout(modalValidacaoClose, 1000);
         });
     }
 }
@@ -127,17 +127,30 @@ function saveVendasViaSession(token) {
     var rota = getDomain() + "/pdvDiferencial/saveVendasViaSession";
 
     modalValidacao('Salvando', 'Processando...');
-    modalValidacaoClose();
 
-    $.post(rota, {'id_meio_pagamento': $('#id_meio_pagamento').val(), '_token': token}, function (result) {
-        var status = JSON.parse(result);
-        if (status.status == true) {
-            $(".tabela-de-produto tbody").empty();
-            verificaSeTemProdutosNaMesa(1);
-            obterValorTotalDosProdutosNaMesa();
-            modalValidacao('Venda', 'Venda realizada com Sucesso!');
-        }
-    });
+    new Promise(function (resolve, reject) {
+        setTimeout(resolve, 700);
+    })
+    .then(function () {
+        return new Promise(function (resolve, reject) {
+            setTimeout(modalValidacaoClose, 700);
+            setTimeout(resolve, 1000);
+        })
+    })
+    .then(function () {
+        $.post(rota, {'id_meio_pagamento': $('#id_meio_pagamento').val(), '_token': token}, function (result) {
+            var status = result? JSON.parse(result): null;
+            if (status && status.status) {
+                $(".tabela-de-produto tbody").empty();
+                verificaSeTemProdutosNaMesa(1);
+                obterValorTotalDosProdutosNaMesa();
+                modalValidacao('Venda', 'Venda realizada com Sucesso!');
+            }
+        })
+    })
+    .finally(function () {
+        setTimeout(modalValidacaoClose, 1000);
+    })
 }
 
 /*Se não tiver podutos selecionados, mostra uma mensagem*/

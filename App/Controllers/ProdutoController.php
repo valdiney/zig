@@ -55,9 +55,9 @@ class ProdutoController extends Controller
             $dados['preco'] = formataValorMoedaParaGravacao($dados['preco']);
 
             if (isset($dados['deleted_at'])) {
-                $dados['deleted_at'] = timestamp();
-            } else {
                 $dados['deleted_at'] = NULL;
+            } else {
+                $dados['deleted_at'] = timestamp();
             }
 
             # Valida imagem somente se existir no envio

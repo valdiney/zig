@@ -58,7 +58,7 @@ use App\Views\Layouts\HtmlComponents\Modal;
         box-shadow: silver 1px 1px 3px;
     }
 
-    .card-produtos img {
+    .card-produtos img, .icone-produtos {
         width: 80px;
         height: 80px;
         object-fit: cover;
@@ -69,6 +69,15 @@ use App\Views\Layouts\HtmlComponents\Modal;
         border: 1px solid gray;
         padding: 3px;
         background: white;
+    }
+    .icone-produtos {
+        padding-top:15px;
+        padding-left:8px;
+    }
+    .icone-produtos:hover {
+        cursor: pointer;
+        border: 2px solid #7fe3ca;
+        filter: brightness(95%);
     }
 
     .produto-titulo {
@@ -140,9 +149,16 @@ use App\Views\Layouts\HtmlComponents\Modal;
             <div class="row div-inter-produtos">
                 <?php foreach ($produtos as $key => $produto): ?>
                     <div class="col-lg-2 card-produtos">
-                        <img src="<?php echo BASEURL . '/' . $produto->imagem; ?>" title="Adicionar!"
+                        <?php if (!is_null($produto->imagem) && $produto->imagem != ''): ?>
+                            <img src="<?php echo BASEURL . '/' . $produto->imagem; ?>" title="Adicionar!"
                              onclick="colocarProdutosNaMesa('<?php echo $produto->id; ?>', this)">
-                        <center><span class="produto-titulo"><?php echo mb_strtoupper($produto->nome); ?></span>
+                             <?php else: ?>
+                            <i class="fas fa-box-open icone-produtos" style="font-size:50px"
+                            onclick="colocarProdutosNaMesa('<?php echo $produto->id; ?>', this)" title="Adicionar!"></i>
+                        <?php endif; ?>
+
+                        <center>
+                            <span class="produto-titulo"><?php echo mb_strtoupper($produto->nome); ?></span>
                         </center>
                         <center><span class="produto-valor">R$ <?php echo real($produto->preco); ?></span></center>
                     </div>

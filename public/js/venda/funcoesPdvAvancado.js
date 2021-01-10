@@ -28,7 +28,11 @@ function obterProdutosDaMesa() {
         if (produtos.length != 0) {
             $.each(produtos, function (index, value) {
                 t += "<tr id='id-tr-" + value.id + "'>";
-                t += "<td>" + '<img class="img-produto-seleionado" src="' + getDomain() + '/' + value.imagem + '">' + "</td>";
+                if (value.imagem == null || value.imagem == '') {
+                    t += "<td><i class='fas fa-box-open' style='font-size:20px'></td>";
+                } else {
+                   t += "<td>" + '<img class="img-produto-seleionado" src="' + getDomain() + '/' + value.imagem + '">' + "</td>";
+                }
                 t += "<td>" + value.produto + "</td>";
                 t += "<td class='hidden-when-mobile'>" + real(value.preco) + "</td>";
                 t += "<td>" + '<input type="number" class="campo-quantidade" value="' + value.quantidade + '" onchange="alterarAquantidadeDeUmProdutoNaMesa(' + value.id + ', this.value)">' + "</td>";
@@ -55,7 +59,11 @@ function obterOultimoProdutoColocadoNaMesa() {
 
         if ($("#id-tr-" + value.id).length == 0) {
             t += "<tr id='id-tr-" + value.id + "'>";
-            t += "<td>" + '<img class="img-produto-seleionado" src="' + getDomain() + '/' + value.imagem + '">' + "</td>";
+            if (value.imagem == null || value.imagem == '') {
+                t += "<td><i class='fas fa-box-open' style='font-size:20px'></td>";
+            } else {
+               t += "<td>" + '<img class="img-produto-seleionado" src="' + getDomain() + '/' + value.imagem + '">' + "</td>";
+            }
             t += "<td>" + value.produto + "</td>";
             t += "<td class='hidden-when-mobile'>" + real(value.preco) + "</td>";
             t += "<td>" + '<input type="number" class="campo-quantidade" value="' + value.quantidade + '" onchange="alterarAquantidadeDeUmProdutoNaMesa(' + value.id + ', this.value)">' + "</td>";

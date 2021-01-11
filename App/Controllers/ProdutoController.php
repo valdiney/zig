@@ -54,10 +54,11 @@ class ProdutoController extends Controller
             $dados['id_empresa'] = $this->idEmpresa;
             $dados['preco'] = formataValorMoedaParaGravacao($dados['preco']);
 
-            if (isset($dados['deleted_at'])) {
-                $dados['deleted_at'] = NULL;
-            } else {
+            if ( ! isset($dados['deleted_at'])) {
                 $dados['deleted_at'] = timestamp();
+            } else {
+                # Retira o deleted_at do array para que seja cadastrado como null no banco
+                unset($dados['deleted_at']);
             }
 
             # Valida imagem somente se existir no envio

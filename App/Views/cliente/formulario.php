@@ -253,4 +253,7 @@
             }
         });
     }
+
+// Select2
+jQuery('#id_cliente_segmento').select2();
 </script>

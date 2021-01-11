@@ -94,7 +94,7 @@ class ClienteController extends Controller
         $clientesTipos = $clienteTipo->all();
 
         $clienteSegmento = new ClienteSegmento();
-        $clientesSegmentos = $clienteSegmento->all();
+        $clientesSegmentos = $clienteSegmento->segmentos();
 
         $this->view('cliente/formulario', null,
             compact(

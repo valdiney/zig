@@ -13,4 +13,9 @@ class ClienteSegmento extends Model
     {
         parent::__construct();
     }
+
+    public function segmentos()
+    {
+        return $this->query("SELECT * FROM clientes_segmentos ORDER BY descricao ASC");
+    }
 }

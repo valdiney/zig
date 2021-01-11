@@ -270,11 +270,7 @@ $configPdv = $configPdv->configPdv(Session::get('idEmpresa'));
         })
     });
 
-    // Select2
-    /*$.noConflict();
-    jQuery(document).ready(function(){
-      jQuery('.js-example-basic-single').select2();
-    });*/
+
 
 
 </script>

@@ -140,7 +140,7 @@
         }, function (resultado) {
             var retorno = JSON.parse(resultado);
             if (retorno.status == true) {
-                modalValidacaoClose();
+                setTimeout(modalValidacaoClose, 800);
             }
         })
 

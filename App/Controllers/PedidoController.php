@@ -118,8 +118,9 @@ class PedidoController extends Controller
             ]);
 
             $dadosPedido['id_vendedor'] = $this->idUsuarioLogado;
-            $dadosPedido['id_situacao_pedido'] = 7; # 7: Imcompleto
-            $dadosPedido['previsao_entrega'] = null;
+            $dadosPedido['id_situacao_pedido'] = 7; # 7: Incompleto
+            $dadosPedido['previsao_entrega'] = '0000-00-00';
+            $dadosPedido['total'] = '0';
 
             try {
                 $pedido->save($dadosPedido);

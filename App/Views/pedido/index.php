@@ -124,7 +124,6 @@
         $("#modalPedidos").modal({backdrop: 'static'});
         $("#formulario").load(url);
     }
-
 </script>
 
 <script>

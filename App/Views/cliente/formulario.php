@@ -1,7 +1,23 @@
+<style>
+.obs {
+    background:#fffcf5;
+    padding-10px;
+    margin-bottom:20px;
+    opacity:0.80;
+}
+</style>
+
 <form method="post"
       action="<?php echo isset($cliente->id) ? BASEURL . '/cliente/update' : BASEURL . '/cliente/save'; ?>"
       enctype='multipart/form-data'>
     <div class="row">
+
+        <div class="col-md-12 obs">
+            <span>
+            Obs: Ao cadastrar um Cliente, é recomendável que cadastre também o endereço!
+            <br> Esta informação será usada no modulo de pedidos!
+            </span>
+        </div>
 
         <input type="hidden" name="_token" value="<?php echo TOKEN; ?>"/>
 

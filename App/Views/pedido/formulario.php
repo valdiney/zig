@@ -306,7 +306,7 @@
                 <?php endif;?>
 
                 pedidos();
-                modalValidacaoClose();
+                setTimeout(modalValidacaoClose, 600);
 
                 $("#button-aba-2").removeClass('abaDesativada');
                 $("#button-aba-3").removeClass('abaDesativada');
@@ -346,7 +346,7 @@
             if (retorno.status) {
                 obterValorTotalDopedido(idPedido);
                 pedidos();
-                modalValidacaoClose();
+                setTimeout(modalValidacaoClose, 600);
             }
         })
 
@@ -378,7 +378,7 @@
 
                 obterValorTotalDopedido(idPedido);
                 pedidos();
-                modalValidacaoClose();
+                setTimeout(modalValidacaoClose, 600);
             }
         });
 
@@ -401,7 +401,7 @@
                     carregaProdutosPedidos(idPedido);
                     obterValorTotalDopedido(idPedido);
                     pedidos();
-                    modalValidacaoClose();
+                    setTimeout(modalValidacaoClose, 600);
                 }
             });
         } else {

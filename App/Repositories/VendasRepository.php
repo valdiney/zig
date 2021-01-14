@@ -37,7 +37,7 @@ class VendasRepository
     {
         $query = $this->venda->query("
 		  SELECT mpg.legenda, SUM(vendas.valor) AS total,
-			ROUND((COUNT(*) / (SELECT COUNT(*) FROM vendas WHERE vendas.created_at BETWEEN DATE_ADD(CURRENT_DATE(), INTERVAL -30 DAY) AND CURRENT_DATE())),2) * 100 AS media
+			ROUND((COUNT(*) / (SELECT COUNT(*) FROM vendas WHERE id_empresa = {$idEmpresa} AND vendas.created_at BETWEEN DATE_ADD(CURRENT_DATE(), INTERVAL -30 DAY) AND CURRENT_DATE())),2) * 100 AS media
 			FROM vendas
 			INNER JOIN meios_pagamentos AS mpg ON vendas.id_meio_pagamento = mpg.id
 			WHERE DATE(vendas.created_at) BETWEEN NOW() - INTERVAL 30 DAY AND NOW()
@@ -82,25 +82,25 @@ class VendasRepository
     {
         $query = $this->venda->query(
             "SELECT usuarios.id AS idUsuario, usuarios.nome, usuarios.imagem,
-      usuarios.nome AS nomeUsuario,
-      SUM(vendas.valor) AS valor, DATE_FORMAT(vendas.created_at, '%m'),
-      (
-      SELECT SUM(vendas.valor) AS total FROM vendas WHERE id_meio_pagamento = 1
-      AND id_usuario = usuarios.id AND DATE_FORMAT(vendas.created_at, '%m') = {$mes}
-      ) AS Dinheiro,
-      (
-      SELECT SUM(vendas.valor) AS total FROM vendas WHERE id_meio_pagamento = 2
-      AND id_usuario = usuarios.id AND DATE_FORMAT(vendas.created_at, '%m') = {$mes}
-      ) AS Credito,
-      (
-      SELECT SUM(vendas.valor) AS total FROM vendas WHERE id_meio_pagamento = 3
-      AND id_usuario = usuarios.id AND DATE_FORMAT(vendas.created_at, '%m') = {$mes}
-      ) AS Debito
+            usuarios.nome AS nomeUsuario,
+            SUM(vendas.valor) AS valor, DATE_FORMAT(vendas.created_at, '%m'),
+            (
+            SELECT SUM(vendas.valor) AS total FROM vendas WHERE id_meio_pagamento = 1
+            AND id_usuario = usuarios.id AND DATE_FORMAT(vendas.created_at, '%m') = {$mes}
+            ) AS Dinheiro,
+            (
+            SELECT SUM(vendas.valor) AS total FROM vendas WHERE id_meio_pagamento = 2
+            AND id_usuario = usuarios.id AND DATE_FORMAT(vendas.created_at, '%m') = {$mes}
+            ) AS Credito,
+            (
+            SELECT SUM(vendas.valor) AS total FROM vendas WHERE id_meio_pagamento = 3
+            AND id_usuario = usuarios.id AND DATE_FORMAT(vendas.created_at, '%m') = {$mes}
+            ) AS Debito
 
-      FROM vendas INNER JOIN usuarios ON vendas.id_usuario = usuarios.id
-      WHERE vendas.id_empresa = 1 AND
-      DATE_FORMAT(vendas.created_at, '%m') = {$mes}
-      GROUP BY usuarios.nome, usuarios.id ORDER BY vendas.valor DESC
+            FROM vendas INNER JOIN usuarios ON vendas.id_usuario = usuarios.id
+            WHERE vendas.id_empresa = 1 AND vendas.id_empresa = {$idEmpresa} AND
+            DATE_FORMAT(vendas.created_at, '%m') = {$mes}
+            GROUP BY usuarios.nome, usuarios.id ORDER BY vendas.valor DESC
     ");
 
         //dd($query);

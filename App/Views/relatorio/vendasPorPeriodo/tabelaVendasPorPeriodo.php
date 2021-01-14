@@ -18,7 +18,11 @@
 				      <?php echo $tipo->legenda; ?> R$ <?php echo real($tipo->totalVendas); ?>
 				 </span>
             <?php elseif ($tipo->idMeioPagamento == 3): ?>
-                <span class="badge" style="background:#ff9b9b;padding:5px">
+                <span class="badge" style="background:#dbb4dc;padding:5px">
+				      <?php echo $tipo->legenda; ?> R$ <?php echo real($tipo->totalVendas); ?>
+				 </span>
+            <?php elseif ($tipo->idMeioPagamento == 4): ?>
+                <span class="badge" style="background:#98c0d5;padding:5px">
 				      <?php echo $tipo->legenda; ?> R$ <?php echo real($tipo->totalVendas); ?>
 				 </span>
             <?php endif; ?>
@@ -37,7 +41,7 @@
             <th>Total</th>
             <th>Venda</th>
             <th>Data</th>
-            <th>Compensação do boleto</th>
+            <th title="Data de compensação do Boleto!">Boleto</th>
             <!--<th>Data</th>-->
         </tr>
         </thead>

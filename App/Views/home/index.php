@@ -50,7 +50,7 @@
                 <div class="row">
                     <div class="col-5 col-md-4">
                         <div class="icon-big text-center icon-warning">
-                            <i class="fas fa-coins" style="color:#fc9898"></i>
+                            <i class="fas fa-coins" style="color:#ff9966"></i>
                         </div>
                     </div>
                     <div class="col-7 col-md-8">
@@ -258,7 +258,7 @@
     'grafico-tipo-pagamento',
     $percentualMeiosDePagamento->medias,
     $percentualMeiosDePagamento->legendas,
-    ["#83e6cd", "#9be6e6", "#ffe6b5"]
+    ["#83e6cd", "#9be6e6", "#dbb4dc", "#98c0d5"]
 ); ?>
 <script>
     /*$(".vendas_por_vendedores tbody td").each(function() {

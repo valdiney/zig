@@ -18,6 +18,14 @@ use System\HtmlComponents\Modal\Modal;
     .with_deleted_at {
         opacity:0.70;
     }
+    #containerModalImagemProduto img {
+        display:block;
+        margin:0 auto;
+    }
+    .imagem-produto:hover {
+        border:1px solid #009966;
+        cursor:pointer;
+    }
 </style>
 
 <div class="row">
@@ -52,8 +60,10 @@ use System\HtmlComponents\Modal\Modal;
                     <td>
                         <?php if (!is_null($produto->imagem) && $produto->imagem != ''): ?>
                             <center>
-                                <img src="<?php echo BASEURL . '/' . $produto->imagem; ?>" width="40"
-                                    class="imagem-produto">
+                                <?php $imagem = BASEURL . '/' . $produto->imagem; ?>
+                                <img src="<?php echo $imagem; ?>" width="40"
+                                    class="imagem-produto" title="Visualizar Imagem!"
+                                    onclick="modalImagemDoProduto('<?php echo $imagem;?>', '<?php echo $produto->nome;?>')">
                             </center>
                         <?php else: ?>
                             <center><i class="fas fa-box-open" style="font-size:25px"></i></center>
@@ -109,6 +119,16 @@ use System\HtmlComponents\Modal\Modal;
 
 <?php Modal::stop(); ?>
 
+<?php Modal::start([
+    'id' => 'modalImagemProduto',
+    'width' => 'modal-lg',
+    'title' => 'Imagem do Produto'
+]); ?>
+
+<div id="containerModalImagemProduto"></div>
+
+<?php Modal::stop(); ?>
+
 <script>
     function modalFormularioProdutos(rota, id) {
         var url = "";
@@ -136,5 +156,12 @@ use System\HtmlComponents\Modal\Modal;
         }
 
         return true;
+    }
+
+    function modalImagemDoProduto(imagem, nome) {
+        $("#modalImagemProduto").modal().show();
+        var html = '<center><h3>'+nome+'<h3></center>';
+            html += '<img src="'+imagem+'"/>';
+        $("#containerModalImagemProduto").html(html);
     }
 </script>

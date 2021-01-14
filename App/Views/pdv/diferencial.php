@@ -138,6 +138,16 @@ use App\Views\Layouts\HtmlComponents\Modal;
     .div-inter-produtos {
         height: 300px !important;
     }
+    #data-compensacao {
+        transition: opacity 1s ease-out;
+        opacity: 0;
+        height: 0;
+        overflow: hidden;
+    }
+    #data-compensacao.visivel {
+        opacity: 1;
+        height: auto;
+    }
 </style>
 
 <div class="row">
@@ -205,13 +215,17 @@ use App\Views\Layouts\HtmlComponents\Modal;
             <hr>
             <div class="form-group">
                 <label for="id_meio_pagamento">Meios de pagamento *</label>
-                <select class="form-control" name="id_meio_pagamento" id="id_meio_pagamento">
+                <select class="form-control" name="id_meio_pagamento" id="id_meio_pagamento" onchange="handleAoMudarMeioDePagamento()">
                     <?php foreach ($meiosPagamentos as $pagamento): ?>
                         <option value="<?php echo $pagamento->id; ?>">
                             <?php echo $pagamento->legenda; ?>
                         </option>
                     <?php endforeach; ?>
                 </select>
+            </div>
+            <div class="form-group" id="data-compensacao">
+                <label for="id_meio_pagamento">Data de compensacao *</label>
+                <input type="date" class="form-control" id="data_compensacao_boleto" name="data_compensacao_boleto">
             </div>
 
             <button class="btn btn-sm btn-success btn-block" onclick="saveVendasViaSession('<?php echo TOKEN; ?>')">

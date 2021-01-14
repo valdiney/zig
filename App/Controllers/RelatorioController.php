@@ -5,6 +5,7 @@ namespace App\Controllers;
 use App\Models\Usuario;
 use App\Repositories\RelatorioVendasPorPeriodoRepository;
 use App\Rules\Logged;
+use DateTime;
 use System\Controller\Controller;
 use System\Get\Get;
 use System\Post\Post;
@@ -66,6 +67,16 @@ class RelatorioController extends Controller
                 $idUsuario,
                 $this->idEmpresa
             );
+
+            if ($vendas && count($vendas) > 0) {
+                $vendas = array_map(function ($venda) {
+                    if ($venda->data_compensacao) {
+                        $date = DateTime::createFromFormat("Y-m-d", $venda->data_compensacao);
+                        $venda->data_compensacao = $date->format("d/m/Y");
+                    }
+                    return $venda;
+                }, $vendas);
+            }
 
             $meiosDePagamento = $relatorioVendas->totalVendidoPorMeioDePagamento(
                 ['de' => $de, 'ate' => $ate],

@@ -45,8 +45,8 @@ class PdvDiferencialController extends Controller
 
     public function index()
     {
-        $meioPagamanto = new MeioPagamento();
-        $meiosPagamentos = $meioPagamanto->all();
+        $meioPagamento = new MeioPagamento();
+        $meiosPagamentos = $meioPagamento->all();
 
         $produto = new Produto();
         $produtos = $produto->produtos($this->idEmpresa);
@@ -66,9 +66,18 @@ class PdvDiferencialController extends Controller
 
         $status = false;
         foreach ($_SESSION['venda'] as $produto) {
+            $meioDePagamento = $this->post->data()->id_meio_pagamento;
+            $dataCompensacao = null;
+
+            // só adiciona caso seja um boleto
+            if ($meioDePagamento == 4) {
+                $dataCompensacao = $this->post->data()->data_compensacao;
+            }
+
             $dados = [
                 'id_usuario' => $this->idUsuario,
-                'id_meio_pagamento' => $this->post->data()->id_meio_pagamento,
+                'id_meio_pagamento' => $meioDePagamento,
+                'data_compensacao' => $dataCompensacao,
                 'id_empresa' => $this->idEmpresa,
                 'id_produto' => $produto['id'],
                 'preco' => $produto['preco'],

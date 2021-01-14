@@ -133,6 +133,15 @@ function obterValorTotalDosProdutosNaMesa() {
 /*Salva os produtos selecionados, ou seja, realiza a venda de fato!*/
 function saveVendasViaSession(token) {
     var rota = getDomain() + "/pdvDiferencial/saveVendasViaSession";
+    const meioPagamento = $('#id_meio_pagamento').val();
+    const dataCompensacao = $('#data_compensacao_boleto').val();
+
+    // verifica se é boleto e preencheu a data de compensacao
+    if (meioPagamento == 4 && dataCompensacao == "") {
+        modalValidacao('Algo deu errado', 'Você precisa adiciona a data de compensação do boleto!');
+        setTimeout(modalValidacaoClose, 2000);
+        return;
+    }
 
     modalValidacao('Salvando', 'Processando...');
 
@@ -146,7 +155,13 @@ function saveVendasViaSession(token) {
         })
     })
     .then(function () {
-        $.post(rota, {'id_meio_pagamento': $('#id_meio_pagamento').val(), '_token': token}, function (result) {
+        const payload = {
+            'id_meio_pagamento': meioPagamento,
+            'data_compensacao': dataCompensacao,
+            '_token': token
+        };
+
+        $.post(rota, payload, function (result) {
             var status = result? JSON.parse(result): null;
             if (status && status.status) {
                 $(".tabela-de-produto tbody").empty();
@@ -174,3 +189,16 @@ function verificaSeTemProdutosNaMesa(t) {
 function modalMensagemAdicionandoProdutosAMessa() {
     modalValidacao('Validação', 'Adicionando...');
 }
+
+function handleAoMudarMeioDePagamento() {
+    const dataCompensacao = document.querySelector("#data-compensacao");
+    const elmtMeiosDePagamento = document.querySelector("#id_meio_pagamento");
+    const meiosDePagamento = parseInt(elmtMeiosDePagamento.value);
+    if (meiosDePagamento !== 4) {
+        dataCompensacao.classList.remove("visivel");
+        dataCompensacao.value = "";
+        return;
+    }
+    dataCompensacao.classList.add("visivel");
+}
+handleAoMudarMeioDePagamento();

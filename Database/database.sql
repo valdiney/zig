@@ -414,6 +414,7 @@ CREATE TABLE IF NOT EXISTS `vendas` (
   `preco` double DEFAULT '0',
   `quantidade` int(11) DEFAULT NULL,
   `valor` double NOT NULL DEFAULT '0',
+  `data_compensacao` DATE NULL DEFAULT NULL,
   `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
   PRIMARY KEY (`id`),

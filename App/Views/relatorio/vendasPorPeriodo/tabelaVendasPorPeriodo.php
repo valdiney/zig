@@ -37,6 +37,7 @@
             <th>Total</th>
             <th>Venda</th>
             <th>Data</th>
+            <th>Compensação do boleto</th>
             <!--<th>Data</th>-->
         </tr>
         </thead>
@@ -70,6 +71,15 @@
                 <td>
                     <?php echo $venda->data; ?>
                     <?php echo $venda->hora; ?>h
+                </td>
+                <td>
+                <?php
+                if ($venda->data_compensacao) {
+                    echo $venda->data_compensacao;
+                } else {
+                    echo ".";
+                }
+                ?>
                 </td>
 
             </tr>

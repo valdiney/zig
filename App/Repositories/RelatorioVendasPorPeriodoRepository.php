@@ -87,7 +87,7 @@ class RelatorioVendasPorPeriodoRepository
             "SELECT vendas.id, vendas.valor, DATE_FORMAT(vendas.created_at, '%H:%i') AS hora,
 			DATE_FORMAT(vendas.created_at, '%d/%m/%Y') AS data,
       meios_pagamentos.legenda, usuarios.id, usuarios.nome AS nomeUsuario, usuarios.imagem,
-      vendas.preco, vendas.quantidade,
+      vendas.preco, vendas.quantidade, vendas.data_compensacao,
       produtos.id AS idProduto, produtos.nome AS nomeProduto
       FROM vendas INNER JOIN usuarios
       ON vendas.id_usuario = usuarios.id

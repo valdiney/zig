@@ -19,7 +19,7 @@
                     <button onclick="modalFormularioEmpresa('<?php echo $rota; ?>', null);"
                             class="btn btn-sm btn-success">
                         <i class="fas fa-plus"></i>
-                        Novo
+
                     </button>
                 </th>
             </tr>

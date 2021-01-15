@@ -129,6 +129,9 @@
 
 <script src="<?php echo BASEURL; ?>/public/js/maskedInput.js"></script>
 <script>
+    // Anula duplo click em salvar
+    anulaDuploClick($('form'));
+
     // Aplica as regras quando carregar a modal no modo edição
     <?php if (isset($cliente->id)):?>
     <?php if ($cliente->id_cliente_tipo == 1):?>

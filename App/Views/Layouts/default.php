@@ -289,10 +289,6 @@ $configPdv = $configPdv->configPdv(Session::get('idEmpresa'));
             $(".collapse").toggle();
         })
     });
-
-
-
-
 </script>
 
 </body>

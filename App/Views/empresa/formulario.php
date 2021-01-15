@@ -78,6 +78,9 @@
 <script src="<?php echo BASEURL; ?>/public/js/maskedInput.js"></script>
 
 <script>
+    // Anula duplo click em salvar
+    anulaDuploClick($('form'));
+
     // Aplica as mascas nos elementos
     jQuery(function ($) {
         jQuery("#cnpj").mask("99.999.999/9999-99");

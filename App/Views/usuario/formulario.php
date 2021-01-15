@@ -102,6 +102,9 @@
 
 
 <script>
+    // Anula duplo click em salvar
+    anulaDuploClick($('form'));
+
     function verificaSeEmailExiste(email, id) {
         var rota = getDomain() + "/usuario/verificaSeEmailExiste";
         if (id) {

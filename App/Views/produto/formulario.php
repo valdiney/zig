@@ -76,6 +76,9 @@
 </form>
 
 <script>
+    // Anula duplo click em salvar
+    anulaDuploClick($('form'));
+
     $(function () {
         jQuery('.campo-moeda')
             .maskMoney({

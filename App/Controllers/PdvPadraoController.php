@@ -91,4 +91,16 @@ class PdvPadraoController extends Controller
             }
         }
     }
+
+    public function desativarVenda($idVenda)
+    {
+        $venda = new Venda();
+        try {
+            $venda->update(['deleted_at' => timestamp()], $idVenda);
+            echo json_encode(['status' => true]);
+
+        } catch (\Exception $e) {
+            dd($e->getMessage());
+        }
+    }
 }

@@ -30,6 +30,7 @@ class VendasDoDiaRepository
             ON vendas.id_usuario =  usuarios.id
             INNER JOIN meios_pagamentos ON vendas.id_meio_pagamento = meios_pagamentos.id
             WHERE vendas.id_empresa = {$idEmpresa} AND DATE(vendas.created_at) = '{$data}'
+            AND vendas.deleted_at IS NULL
             ORDER BY vendas.created_at DESC {$queryQuantidade}"
         );
     }
@@ -42,7 +43,7 @@ class VendasDoDiaRepository
 
         $query = $this->venda->query(
             "SELECT SUM(valor) AS totalVendas FROM vendas WHERE id_empresa = {$idEmpresa}
-            AND DATE(created_at) = '{$data}'"
+            AND DATE(created_at) = '{$data}' AND vendas.deleted_at IS NULL"
         );
 
         return $query[0]->totalVendas;
@@ -59,7 +60,7 @@ class VendasDoDiaRepository
                 "SELECT meios_pagamentos.legenda, SUM(vendas.valor) AS totalVendas FROM vendas
                 INNER JOIN meios_pagamentos ON vendas.id_meio_pagamento = meios_pagamentos.id
                 WHERE vendas.id_empresa = {$idEmpresa} AND vendas.id_meio_pagamento = {$idMeioPagamento}
-                AND DATE(vendas.created_at) = '{$data}'"
+                AND DATE(vendas.created_at) = '{$data}' AND vendas.deleted_at IS NULL"
             );
 
             return $query[0];
@@ -70,7 +71,7 @@ class VendasDoDiaRepository
             meios_pagamentos.legenda, SUM(vendas.valor) AS totalVendas FROM vendas
             INNER JOIN meios_pagamentos ON vendas.id_meio_pagamento = meios_pagamentos.id
             WHERE vendas.id_empresa = {$idEmpresa}
-            AND DATE(vendas.created_at) = '{$data}'
+            AND DATE(vendas.created_at) = '{$data} AND vendas.deleted_at IS NULL'
             GROUP BY vendas.id_meio_pagamento"
         );
 

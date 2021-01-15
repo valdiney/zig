@@ -1,7 +1,3 @@
-<?php
-
-?>
-
 <style type="text/css">
     .imagem-perfil {
         width: 30px;
@@ -132,4 +128,5 @@
 
         window.location.href = rota;
     }
+
 </script>

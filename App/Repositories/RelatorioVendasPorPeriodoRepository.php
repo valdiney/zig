@@ -32,6 +32,7 @@ class RelatorioVendasPorPeriodoRepository
             INNER JOIN meios_pagamentos ON vendas.id_meio_pagamento = meios_pagamentos.id
             WHERE vendas.id_empresa = {$idEmpresa}
             AND DATE(vendas.created_at) BETWEEN '{$de}' AND '{$ate}' {$queryPorUsuario}
+            AND vendas.deleted_at IS NULL
             GROUP BY vendas.id_meio_pagamento"
         );
 
@@ -50,7 +51,8 @@ class RelatorioVendasPorPeriodoRepository
 
         $query = $this->venda->query(
             "SELECT SUM(valor) AS totalVendas FROM vendas WHERE id_empresa = {$idEmpresa}
-            AND DATE(vendas.created_at) BETWEEN '{$de}' AND '{$ate}' {$queryPorUsuario}"
+            AND DATE(vendas.created_at) BETWEEN '{$de}' AND '{$ate}' {$queryPorUsuario}
+            AND vendas.deleted_at IS NULL"
         );
 
         return $query[0]->totalVendas;
@@ -84,18 +86,19 @@ class RelatorioVendasPorPeriodoRepository
         }
 
         $query = $this->venda->query(
-            "SELECT vendas.id, vendas.valor, DATE_FORMAT(vendas.created_at, '%H:%i') AS hora,
+            "SELECT vendas.id AS idVenda, vendas.valor, DATE_FORMAT(vendas.created_at, '%H:%i') AS hora,
 			DATE_FORMAT(vendas.created_at, '%d/%m/%Y') AS data,
-      meios_pagamentos.legenda, usuarios.id, usuarios.nome AS nomeUsuario, usuarios.imagem,
-      vendas.preco, vendas.quantidade, vendas.data_compensacao,
-      produtos.id AS idProduto, produtos.nome AS nomeProduto
-      FROM vendas INNER JOIN usuarios
-      ON vendas.id_usuario = usuarios.id
-      INNER JOIN meios_pagamentos ON vendas.id_meio_pagamento = meios_pagamentos.id
-      LEFT JOIN produtos ON vendas.id_produto = produtos.id
-      WHERE vendas.id_empresa = {$idEmpresa} AND DATE(vendas.created_at)
-      BETWEEN '{$de}' AND '{$ate}' {$queryPorUsuario}
-      ORDER BY vendas.created_at DESC");
+            meios_pagamentos.legenda, usuarios.id, usuarios.nome AS nomeUsuario, usuarios.imagem,
+            vendas.preco, vendas.quantidade, vendas.data_compensacao,
+            produtos.id AS idProduto, produtos.nome AS nomeProduto
+            FROM vendas INNER JOIN usuarios
+            ON vendas.id_usuario = usuarios.id
+            INNER JOIN meios_pagamentos ON vendas.id_meio_pagamento = meios_pagamentos.id
+            LEFT JOIN produtos ON vendas.id_produto = produtos.id
+            WHERE vendas.id_empresa = {$idEmpresa} AND DATE(vendas.created_at)
+            BETWEEN '{$de}' AND '{$ate}' {$queryPorUsuario}
+            AND vendas.deleted_at IS NULL
+            ORDER BY vendas.created_at DESC");
 
         return $query;
     }

@@ -1,3 +1,5 @@
+<!--Usando o Html Components-->
+<?php use System\HtmlComponents\Modal\Modal; ?>
 <?php if (count($vendas) > 0): ?>
     <br>
 
@@ -41,8 +43,7 @@
             <th>Total</th>
             <th>Venda</th>
             <th>Data</th>
-            <th title="Data de compensação do Boleto!">Boleto</th>
-            <!--<th>Data</th>-->
+            <th style="text-align:right">Ação</th>
         </tr>
         </thead>
         <tbody>
@@ -76,14 +77,26 @@
                     <?php echo $venda->data; ?>
                     <?php echo $venda->hora; ?>h
                 </td>
-                <td>
-                <?php
-                if ($venda->data_compensacao) {
-                    echo $venda->data_compensacao;
-                } else {
-                    echo ".";
-                }
-                ?>
+
+                <td style="text-align:right">
+                    <div class="btn-group" role="group">
+                        <button id="btnGroupDrop1" type="button" class="btn btn-sm btn-secondary dropdown-toggle"
+                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <i class="fas fa-cogs"></i>
+                        </button>
+                        <div class="dropdown-menu" aria-labelledby="btnGroupDrop1">
+
+                            <button class="dropdown-item" href="#"
+                            onclick="modalAtivarEdesativarVenda('<?php echo $venda->idVenda; ?>')">
+                                <i class="fas fa-window-close"></i> Excluir esta Venda
+                            </button>
+
+                            <!--<a class="dropdown-item" href="#">
+                                <i class="fas fa-trash-alt" style="color:#cc6666"></i> Excluir
+                            </a>-->
+
+                        </div>
+                    </div>
                 </td>
 
             </tr>
@@ -99,3 +112,42 @@
         <h6 style="opacity:0.70">Vendas não encontradas!</h6>
     </div>
 <?php endif; ?>
+
+<!--Modal Desativar e ativar Clientes-->
+<?php Modal::start([
+    'id' => 'modalDesativarVenda',
+    'width' => 'modal-sm',
+    'title' => '<i class="fas fa-cart-arrow-down"></i>'
+]); ?>
+<div id="modalConteudo">
+    <p id="nomeCliente">Tem certeza que deseja Excluir esta venda?</p>
+
+    <center>
+        <set-modal-button class="set-modal-button"></set-modal-button>
+        <button class="btn btn-sm btn-default" data-dismiss="modal">
+            <i class="fas fa-window-close"></i> Não
+        </button>
+    </center>
+</div>
+<?php Modal::stop(); ?>
+
+<script>
+function modalAtivarEdesativarVenda(id) {
+    $("set-modal-button").html('<button class="btn btn-sm btn-success" id="buttonDesativarVenda" data-id-venda="'+id+'" onclick="desativarVenda(this)"><i class="far fa-check-circle"></i> Sim</button>');
+    $("#modalDesativarVenda").modal({backdrop: 'static'});
+}
+
+function desativarVenda(elemento) {
+        modalValidacao('Validação', 'Excluindo venda...');
+        id = elemento.dataset.idVenda;
+
+        var rota = getDomain() + "/desativarVenda/" + id;
+        $.get(rota, function (data, status) {
+            var dados = JSON.parse(data);
+            if (dados.status == true) {
+                location.reload();
+                //$("#modalDesativarCliente .close").click();
+            }
+        });
+    }
+</script>

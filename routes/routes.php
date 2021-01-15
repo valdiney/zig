@@ -34,6 +34,8 @@ $route->post('relatorio/vendasChamadaAjax', 'RelatorioController@vendasChamadaAj
 $route->get('relatorio/gerarXls/{de}/{ate}/{opcao?}', 'RelatorioController@gerarXls');
 $route->get('relatorio/gerarPDF/{de}/{ate}/{opcao?}', 'RelatorioController@gerarPDF');
 
+$route->get('desativarVenda/{idVenda}', 'PdvPadraoController@desativarVenda');
+
 # ----- ProdutoController --------------------------------
 $route->get('produto', 'ProdutoController@index');
 $route->get('produto/modalFormulario/{idProduto?}', 'ProdutoController@modalFormulario');

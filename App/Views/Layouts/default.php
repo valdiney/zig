@@ -47,6 +47,26 @@ $configPdv = $configPdv->configPdv(Session::get('idEmpresa'));
 
     <link rel="stylesheet" type="text/css" href="<?php echo BASEURL; ?>/public/css/select2.css">
 
+    <meta name="author" content="ZigMoney">
+    <meta property="og:url" content="https://github.com/valdiney/zig/">
+
+    <?php if (getenv('APPLICATION_NAME')): ?>
+        <title><?php echo getenv('APPLICATION_NAME'); ?></title>
+        <meta property="og:title" content="<?php echo getenv('APPLICATION_NAME'); ?>">
+        <meta property="og:site_name" content="<?php echo getenv('APPLICATION_NAME'); ?>">
+    <?php else: ?>
+        <meta property="og:title" content="ZigMoney">
+        <meta property="og:site_name" content="ZigMoney>
+    <?php endif; ?>
+
+    <meta property="og:description" content="Tentativa de criar um Chat simples usando Firebase">
+    <meta property="og:image" content="https://raw.githubusercontent.com/valdiney/zig/master/prints/dashboard.png">
+    <meta property="og:image:type" content="image/jpeg">
+    <meta property="og:image:width" content="800">
+    <meta property="og:image:height" content="600">
+    <meta property="og:type" content="website">
+    <meta name="mobile-web-app-capable" content="yes">
+
 
     <style>
         .disabled:hover {

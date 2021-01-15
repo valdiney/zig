@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Controllers;
 
 use App\Models\Produto;
@@ -10,6 +9,11 @@ use System\Controller\Controller;
 use System\Get\Get;
 use System\Post\Post;
 use System\Session\Session;
+
+
+ini_set('display_errors',1);
+ini_set('display_startup_erros',1);
+error_reporting(E_ALL);
 
 class ProdutoController extends Controller
 {
@@ -103,10 +107,15 @@ class ProdutoController extends Controller
             $dadosProduto = $produto->find($this->post->data()->id);
 
             $dados = (array)$this->post->only([
-                'nome', 'preco', 'descricao', 'deleted_at'
+                'nome', 'preco', 'descricao'
             ]);
 
-            $dados['deleted_at'] = $dados['deleted_at'] === "on" ? null : date("Y-m-d H:i:s");
+            if ( ! isset($this->post->data()->deleted_at)) {
+                $dados['deleted_at'] = timestamp();
+            } else {
+                # Retira o deleted_at do array para que seja cadastrado como null no banco
+                unset($dados['deleted_at']);
+            }
 
             $dados['preco'] = formataValorMoedaParaGravacao($dados['preco']);
 

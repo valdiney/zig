@@ -103,20 +103,28 @@ class RelatorioVendasPorPeriodoRepository
         return $query;
     }
 
-    public function gerarRelatioDeVendasPorPeriodoPDF(array $periodo, $idUsuario = false, $idEmpresa = false)
+    public function gerarRelatioDeVendasPorPeriodoPDF(array $periodo, $idUsuario = false, $idEmpresa = false, $empresa)
     {
         $periodo = ['de' => $periodo['de'], 'ate' => $periodo['ate']];
         $vendas = $this->vendasPorPeriodo($periodo, $idUsuario, $idEmpresa);
 
-        $gerarXls = new GerarRelatorioDeVendasPorPeriodoPDFService();
-        $gerarXls->setDiretorio('public/arquivos_temporarios');
-        $gerarXls->setNomeDoArquivo('Relatorio de vendas por periodo' . $idEmpresa);
+        $pdfService = new GerarRelatorioDeVendasPorPeriodoPDFService();
+        $pdfService->setDiretorio('public/arquivos_temporarios');
+        $pdfService->setNomeDoArquivo('Relatorio de vendas por periodo' . $idEmpresa);
 
-        $gerarXls->setPeriodo([
+        $pdfService->setPeriodo([
             'de' => date('d/m/Y', strtotime($periodo['de'])),
             'ate' => date('d/m/Y', strtotime($periodo['ate']))
         ]);
 
-        $gerarXls->gerarPDF($vendas);
+        $pdfService->setTotalVendas(
+            $this->totalDasVendas(
+                $periodo,
+                $idUsuario,
+                $idEmpresa
+        ));
+
+        $pdfService->setEmpresa($empresa);
+        $pdfService->gerarPDF($vendas);
     }
 }

@@ -3,6 +3,7 @@
 namespace App\Controllers;
 
 use App\Models\Usuario;
+use App\Models\Empresa;
 use App\Repositories\RelatorioVendasPorPeriodoRepository;
 use App\Rules\Logged;
 use DateTime;
@@ -10,7 +11,6 @@ use System\Controller\Controller;
 use System\Get\Get;
 use System\Post\Post;
 use System\Session\Session;
-
 
 class RelatorioController extends Controller
 {
@@ -110,10 +110,18 @@ class RelatorioController extends Controller
 
     public function gerarPDF($de, $ate, $opcao = false)
     {
+        $empresa = new Empresa();
+        $empresa = $empresa->find($this->idEmpresa);
+
         $relatorioVendas = new RelatorioVendasPorPeriodoRepository();
         $periodo = ['de' => $de, 'ate' => $ate];
 
         $idUsuario = ($opcao == 'todos') ? false : $opcao;
-        $relatorioVendas->gerarRelatioDeVendasPorPeriodoPDF($periodo, $idUsuario, $this->idEmpresa);
+        $relatorioVendas->gerarRelatioDeVendasPorPeriodoPDF(
+            $periodo,
+            $idUsuario,
+            $this->idEmpresa,
+            $empresa
+        );
     }
 }

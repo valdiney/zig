@@ -10,6 +10,28 @@ class GerarRelatorioDeVendasPorPeriodoPDFService
     protected $nomeDoArquivo;
     protected $diretorio;
     protected $periodo = [];
+    protected $empresa;
+    protected $totalVendas;
+
+    public function setTotalVendas($totalVendas)
+    {
+        $this->totalVendas = $totalVendas;
+    }
+
+    public function getTotalVendas()
+    {
+        return $this->totalVendas;
+    }
+
+    public function setEmpresa($empresa)
+    {
+        $this->empresa = $empresa;
+    }
+
+    public function getEmpresa()
+    {
+        return $this->empresa;
+    }
 
     public function setTitulo($titulo)
     {
@@ -33,7 +55,7 @@ class GerarRelatorioDeVendasPorPeriodoPDFService
 
     public function gerarPDF($vendas)
     {
-        $titulo = "Relatório de vendas por período.{$this->periodo['de']} à {$this->periodo['ate']}";
+        $titulo = "Relatório de vendas por período. {$this->periodo['de']} à {$this->periodo['ate']}";
         $head = [
             'Usuário',
             'preço',
@@ -69,7 +91,7 @@ class GerarRelatorioDeVendasPorPeriodoPDFService
         // download
         $dompdf->render();
         // renderiza no navegador
-        // $dompdf->stream($this->nomeDoArquivo, array("Attachment" => false));
+        //return $dompdf->stream($this->nomeDoArquivo, array("Attachment" => false));
         // salva arquivo
         return $dompdf->stream($this->nomeDoArquivo);
         exit(0);

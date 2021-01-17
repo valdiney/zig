@@ -27,8 +27,15 @@
 </head>
 <body>
 
-<h2><?php echo $titulo; ?></h2>
+<center><h2 style="margin-bottom:3"><b>Empresa:</b> <?php echo $this->getEmpresa()->nome;?></h2></center>
+<center>
+    <h4 style="margin-top:0;opacity:0.80"><?php echo $titulo; ?></h4>
+</center>
 
+<center>
+    <span><b>Total Vendido: R$ <?php echo real($this->getTotalVendas());?></b></span>
+</center>
+<br>
 <table>
     <thead>
     <tr>

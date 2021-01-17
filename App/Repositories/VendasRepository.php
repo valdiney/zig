@@ -104,13 +104,11 @@ class VendasRepository
             ) AS Debito
 
             FROM vendas INNER JOIN usuarios ON vendas.id_usuario = usuarios.id
-            WHERE vendas.id_empresa = 1 AND vendas.id_empresa = {$idEmpresa} AND
+            WHERE vendas.id_empresa = {$idEmpresa} AND vendas.id_empresa = {$idEmpresa} AND
             DATE_FORMAT(vendas.created_at, '%m') = {$mes}
             AND vendas.deleted_at IS NULL
             GROUP BY usuarios.nome, usuarios.id ORDER BY vendas.valor DESC
     ");
-
-        //dd($query);
 
         return $query;
     }

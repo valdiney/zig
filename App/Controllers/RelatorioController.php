@@ -44,7 +44,14 @@ class RelatorioController extends Controller
         $usuario = new Usuario();
         $usuarios = $usuario->usuarios($this->idEmpresa, $this->idPerfilUsuarioLogado);
 
-        $this->view('relatorio/vendasPorPeriodo/index', $this->layout, compact('usuarios'));
+        $relatorioVendas = new RelatorioVendasPorPeriodoRepository();
+        $periodoDisponivelParaConsulta = $relatorioVendas->periodoDisponivelParaConsulta($this->idEmpresa);
+
+        $this->view('relatorio/vendasPorPeriodo/index', $this->layout,
+        compact(
+            'usuarios',
+            'periodoDisponivelParaConsulta'
+        ));
     }
 
     public function vendasChamadaAjax()

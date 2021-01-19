@@ -127,4 +127,16 @@ class RelatorioVendasPorPeriodoRepository
         $pdfService->setEmpresa($empresa);
         $pdfService->gerarPDF($vendas);
     }
+
+    public function periodoDisponivelParaConsulta($idEmpresa)
+    {
+        return $this->venda->queryGetOne(
+            "SELECT DATE_FORMAT(created_at, '%d/%m/%Y') AS primeiraVenda,
+            (SELECT DATE_FORMAT(created_at, '%d/%m/%Y') FROM vendas WHERE
+            id_empresa = {$idEmpresa}
+            AND deleted_at IS NULL ORDER BY created_at DESC LIMIT 1) AS ultimaVenda
+            FROM vendas WHERE id_empresa = {$idEmpresa}
+            AND deleted_at IS NULL ORDER BY created_at ASC LIMIT 1
+        ");
+    }
 }

@@ -86,18 +86,15 @@ class VendasRepository
         $query = $this->venda->query(
             "SELECT usuarios.id AS idUsuario, usuarios.nome, usuarios.imagem,
             usuarios.nome AS nomeUsuario,
-            SUM(vendas.valor) AS valor, DATE_FORMAT(vendas.created_at, '%m'),
-            (
+            SUM(vendas.valor) AS valor, DATE_FORMAT(vendas.created_at, '%m'), (
             SELECT SUM(vendas.valor) AS total FROM vendas WHERE id_meio_pagamento = 1
             AND id_usuario = usuarios.id AND DATE_FORMAT(vendas.created_at, '%m') = {$mes}
             AND vendas.deleted_at IS NULL
-            ) AS Dinheiro,
-            (
+            ) AS Dinheiro, (
             SELECT SUM(vendas.valor) AS total FROM vendas WHERE id_meio_pagamento = 2
             AND id_usuario = usuarios.id AND DATE_FORMAT(vendas.created_at, '%m') = {$mes}
             AND vendas.deleted_at IS NULL
-            ) AS Credito,
-            (
+            ) AS Credito, (
             SELECT SUM(vendas.valor) AS total FROM vendas WHERE id_meio_pagamento = 3
             AND id_usuario = usuarios.id AND DATE_FORMAT(vendas.created_at, '%m') = {$mes}
             AND vendas.deleted_at IS NULL
@@ -115,12 +112,13 @@ class VendasRepository
 
     public function totalVendasUsuariosPorMeioDePagamento($idEmpresa, $idUsuario, $mes)
     {
-        $query = $this->venda->query("SELECT meios_pagamentos.id, meios_pagamentos.legenda, SUM(vendas.valor) AS total
-      FROM vendas INNER JOIN meios_pagamentos ON vendas.id_meio_pagamento = meios_pagamentos.id
-      WHERE vendas.id_usuario = {$idUsuario} AND vendas.id_empresa = {$idEmpresa}
-      AND DATE_FORMAT(vendas.created_at, '%m') = {$mes}
-      AND vendas.deleted_at IS NULL
-      GROUP BY vendas.id_meio_pagamento
+        $query = $this->venda->query(
+            "SELECT meios_pagamentos.id, meios_pagamentos.legenda, SUM(vendas.valor) AS total
+            FROM vendas INNER JOIN meios_pagamentos ON vendas.id_meio_pagamento = meios_pagamentos.id
+            WHERE vendas.id_usuario = {$idUsuario} AND vendas.id_empresa = {$idEmpresa}
+            AND DATE_FORMAT(vendas.created_at, '%m') = {$mes}
+            AND vendas.deleted_at IS NULL
+            GROUP BY vendas.id_meio_pagamento
     ");
 
         return $query;

@@ -24,6 +24,8 @@
             <th>Total</th>
             <th>Situação</th>
             <th class="hidden-when-mobile">Entrega</th>
+            <th class="hidden-when-mobile">Forma de pagamento</th>
+            <th class="hidden-when-mobile">Data de compensação</th>
             <th style="text-align:right;padding-right:0">
                 <button onclick="modalFormularioPedido('<?php echo $rota; ?>', null);"
                         class="btn btn-sm btn-success" title="Novo Pedido">
@@ -57,7 +59,12 @@
                 <td class="hidden-when-mobile"><?php
                     echo ($pedido->previsaoEntrega == 'Não informado') ? '<small>' . $pedido->previsaoEntrega . '</small>' : $pedido->previsaoEntrega; ?>
                 </td>
-
+                <td class="hidden-when-mobile"><?php
+                    echo $pedido->forma_pagamento; ?>
+                </td>
+                <td class="hidden-when-mobile"><?php
+                    echo $pedido->data_compensacao; ?>
+                </td>
                 <td style="text-align:right">
                     <div class="btn-group" role="group">
                         <button id="btnGroupDrop1" type="button" class="btn btn-sm btn-secondary dropdown-toggle"

@@ -14,6 +14,7 @@ use App\Repositories\VendasEmSessaoRepository;
 use App\Rules\Logged;
 use DateTime;
 use Exception;
+use stdClass;
 use System\Controller\Controller;
 use System\Get\Get;
 use System\Post\Post;
@@ -94,6 +95,10 @@ class PedidoController extends Controller
             ];
 
             $pedidos = $pedido->pedidos($this->idUsuarioLogado, $idCliente, $ativos, $situacaoPedido, $date);
+        }
+
+        if (!empty($pedidos)) {
+            $pedidos = $this->formataDataDeCompensacao($pedidos);
         }
 
         $situacaoPedido = new SituacaoPedido();
@@ -193,11 +198,15 @@ class PedidoController extends Controller
         $idPedido = $this->post->data()->id_pedido;
         $dadosPedido = (array)$this->post->only([
             'id_meio_pagamento', 'valor_desconto',
-            'valor_frete', 'previsao_entrega'
+            'valor_frete', 'previsao_entrega',
+            'data_compensacao'
         ]);
 
-        $dadosPedido['valor_desconto'] = formataValorMoedaParaGravacao($dadosPedido['valor_desconto']);
-        $dadosPedido['valor_frete'] = formataValorMoedaParaGravacao($dadosPedido['valor_frete']);
+        $desconto = $dadosPedido['valor_desconto'] ?? 0;
+        $dadosPedido['valor_desconto'] = formataValorMoedaParaGravacao($desconto);
+        $frete = $dadosPedido['valor_frete'] ?? 0;
+        $dadosPedido['valor_frete'] = formataValorMoedaParaGravacao($frete);
+        $dadosPedido['previsao_entrega'] = $dadosPedido['previsao_entrega'] ?? "0000-00-00";
         $dadosPedido['id_situacao_pedido'] = 1;
 
         if ($this->post->hasPost()) {
@@ -331,6 +340,23 @@ class PedidoController extends Controller
     {
         $clienteEndereco = new ClienteEndereco();
         echo json_encode($clienteEndereco->enderecos($idCliente));
+    }
+
+    /**
+     * @param array $pedidos
+     * @return array|stdClass[]
+     */
+    private function formataDataDeCompensacao(array $pedidos): array
+    {
+        return array_map(static function (stdClass $pedido) {
+            if (!$pedido->data_compensacao) {
+                $pedido->data_compensacao = "-";
+                return $pedido;
+            }
+            $dataCompensacao = DateTime::createFromFormat("Y-m-d", $pedido->data_compensacao);
+            $pedido->data_compensacao = $dataCompensacao->format("d/m/Y");
+            return $pedido;
+        }, $pedidos);
     }
 }
 

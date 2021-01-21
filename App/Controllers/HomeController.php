@@ -75,7 +75,7 @@ class HomeController extends Controller
         $produto = new Produto();
         $produtosCadastrados = $produto->quantidadeDeProdutosCadastrados($this->idEmpresa);
 
-        $produtosMaisVendidosNoMes = $vendasRepository->produtosMaisVendidosNoMes($this->idEmpresa, date('m'), 10);
+        $produtosMaisVendidosNoMes = $vendasRepository->produtosMaisVendidosNoMes($this->idEmpresa, date('m'), 5);
 
         $this->view('home/index', $this->layout,
             compact(

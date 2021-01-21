@@ -258,7 +258,7 @@
         <div class="card card-stats">
             <div class="card-body">
                 <center>
-                    Produtos mais vendidos
+                    (5) Produtos mais vendidos
                     <small style="opacity:0.70">
                         Mês de <?php echo mesesPorExtensoEnumeroDoMes(date('m')); ?>
                     </small>
@@ -270,7 +270,7 @@
                         <tr>
                             <th>#</th>
                             <th>Produto</th>
-                            <th>Quantidade</th>
+                            <th>QTD</th>
 
                         </tr>
                         </thead>

@@ -251,6 +251,75 @@
             </div>
         </div>
     </div><!--end vendas por usuarios-->
+
+
+
+    <div class="col-lg-6 col-md-6 col-sm-6">
+        <div class="card card-stats">
+            <div class="card-body">
+                <center>
+                    Produtos mais vendidos
+                    <small style="opacity:0.70">
+                        Mês de <?php echo mesesPorExtensoEnumeroDoMes(date('m')); ?>
+                    </small>
+                </center>
+
+                <?php if (count($produtosMaisVendidosNoMes) > 0): ?>
+                    <table class="table tabela-ajustada vendas_por_vendedores table-striped">
+                        <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Produto</th>
+                            <th>Quantidade</th>
+
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <?php foreach ($produtosMaisVendidosNoMes as $produto): ?>
+                            <tr>
+                                <td title="<?php echo $produto->nome; ?>">
+                                    <?php if (!is_null($produto->imagem) && $produto->imagem != ''): ?>
+                                        <img class="imagem-perfil" src="<?php echo BASEURL . '/' . $produto->imagem; ?>">
+                                    <?php else: ?>
+                                        <i class="fas fa-box-open" style="font-size:20px"></i>
+                                    <?php endif; ?>
+                                </td>
+
+                                <td><?php echo $produto->nome;?></td>
+                                <td><?php echo $produto->quantidade;?></td>
+
+                            </tr>
+                        <?php endforeach; ?>
+                        </tbody>
+                    </table>
+
+                <?php else: ?>
+                    <br><br><br>
+                    <center>
+                        <i class="fas fa-sad-tear" style="font-size:40px;opacity:0.70"></i>
+                        <br><br>
+                        <h6 style="opacity:0.70">Não houve vendas hoje!</h6>
+                    </center>
+                <?php endif; ?>
+            </div>
+            <div class="card-footer ">
+                <hr>
+                <!--<div class="stats">
+                  <i class="fa fa-refresh"></i>
+                  Update Now
+                </div>-->
+            </div>
+        </div>
+    </div><!--end vendas por usuarios-->
+
+
+
+
+
+
+
+
+
 </div>
 <script src="<?php echo BASEURL; ?>/public/assets/js/core/jquery.min.js"></script>
 <script src="<?php echo BASEURL; ?>/public/assets/chartjs/dist/Chart.min.js"></script>

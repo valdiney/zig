@@ -112,16 +112,25 @@ class VendasRepository
 
     public function totalVendasUsuariosPorMeioDePagamento($idEmpresa, $idUsuario, $mes)
     {
-        $query = $this->venda->query(
+        return $this->venda->query(
             "SELECT meios_pagamentos.id, meios_pagamentos.legenda, SUM(vendas.valor) AS total
             FROM vendas INNER JOIN meios_pagamentos ON vendas.id_meio_pagamento = meios_pagamentos.id
             WHERE vendas.id_usuario = {$idUsuario} AND vendas.id_empresa = {$idEmpresa}
             AND DATE_FORMAT(vendas.created_at, '%m') = {$mes}
             AND vendas.deleted_at IS NULL
             GROUP BY vendas.id_meio_pagamento
-    ");
+        ");
+    }
 
-        return $query;
+    public function produtosMaisVendidosNoMes($idEmpresa, $mes, $quantidade)
+    {
+        return $this->venda->query(
+            "SELECT produtos.imagem, produtos.nome, SUM(vendas.quantidade) AS quantidade FROM vendas
+            INNER JOIN produtos ON vendas.id_produto = produtos.id
+            WHERE vendas.id_empresa = {$idEmpresa} AND vendas.deleted_at IS NULL
+            AND produtos.deleted_at IS NULL
+            GROUP BY vendas.id_produto ORDER BY quantidade DESC LIMIT {$quantidade}
+        ");
     }
 }
 

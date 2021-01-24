@@ -1,9 +1,9 @@
 <?php
 
-namespace Tests\Unit\System\Aplicacao;
+namespace Tests\Unit\System\Aplicacao\Request;
 
 use PHPUnit\Framework\TestCase;
-use System\Aplicacao\Request;
+use System\Aplicacao\Request\Request;
 
 class RequestTest extends TestCase
 {

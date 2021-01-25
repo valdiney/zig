@@ -48,6 +48,6 @@ class CadastroUsuarioRequestTest extends TestCase
         $cadastroRequest = new CadastroExemploRequest($request);
 
         $result = $cadastroRequest->all();
-        self::assertEquals(["role_id" => 2], $result);
+        self::assertEquals((object)["role_id" => 2], $result);
     }
 }

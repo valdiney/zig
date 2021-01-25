@@ -25,18 +25,27 @@ class Request
         $this->setSession($_SESSION ?? []);
     }
 
-    public function get(string $name)
+    public function get(string $name = null)
     {
+        if (!$name) {
+            return $this->get;
+        }
         return $this->get[$name] ?? null;
     }
 
-    public function post(string $name)
+    public function post(string $name = null)
     {
+        if (!$name) {
+            return $this->post;
+        }
         return $this->post[$name] ?? null;
     }
 
-    public function session(string $name)
+    public function session(string $name = null)
     {
+        if (!$name) {
+            return $this->session;
+        }
         return $this->session[$name] ?? null;
     }
 

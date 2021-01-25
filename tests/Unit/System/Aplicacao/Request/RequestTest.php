@@ -45,4 +45,13 @@ class RequestTest extends TestCase
         $result = $request->session("lorem");
         self::assertEquals("ipsum", $result);
     }
+
+    public function testSeRecebeDadosDefaults(): void
+    {
+        $request = new Request();
+        $request->setDefaults();
+
+        $result = $request->get("teste");
+        self::assertEquals("123", $result);
+    }
 }

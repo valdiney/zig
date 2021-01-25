@@ -33,9 +33,21 @@ class CadastroUsuarioRequestTest extends TestCase
 
     public function testSeExibeThrowQuandoOsCamposNaoSaoPassados(): void
     {
-        self::expectException(InvalidArgumentException::class);
+        $this->expectException(InvalidArgumentException::class);
 
         $request = new Request();
         new CadastroExemploRequest($request);
+    }
+
+    public function testSeRetornaSomenteValoresEspecificados(): void
+    {
+        $request = new Request([
+            "role_id" => 2,
+            "outro_valor" => "lorem ipsum"
+        ]);
+        $cadastroRequest = new CadastroExemploRequest($request);
+
+        $result = $cadastroRequest->all();
+        self::assertEquals(["role_id" => 2], $result);
     }
 }

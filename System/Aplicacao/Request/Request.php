@@ -41,6 +41,15 @@ class Request
         return $this->post[$name] ?? null;
     }
 
+    /**
+     * Retorna $_GET e $_POST
+     * @return array
+     */
+    public function all(): array
+    {
+        return array_merge($this->get, $this->post);
+    }
+
     public function session(string $name = null)
     {
         if (!$name) {

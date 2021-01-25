@@ -4,6 +4,8 @@ namespace Tests\Unit\System\Aplicacao\Request;
 
 use PHPUnit\Framework\TestCase;
 use System\Aplicacao\Request\Request;
+use System\Entidade\EntidadeUsuario;
+use System\Infra\Permanencia\UsuarioPermanenciaObjectRepo;
 
 class RequestTest extends TestCase
 {
@@ -53,5 +55,24 @@ class RequestTest extends TestCase
 
         $result = $request->get("teste");
         self::assertEquals("123", $result);
+    }
+
+    public function testSeRetornaQuandoOUsuarioEstaDesconectado(): void
+    {
+        $request = new Request();
+        $result = $request->usuarioConectado();
+        self::assertFalse($result);
+    }
+
+    public function testSeRetornaQuandoOUsuarioEstaConectado(): void
+    {
+        $usuario = new EntidadeUsuario(1);
+        $permanencia = new UsuarioPermanenciaObjectRepo();
+        $permanencia->adicionaPermanencia($usuario);
+
+        $request = new Request();
+        $request->setUsuario($usuario, $permanencia);
+        $result = $request->usuarioConectado();
+        self::assertTrue($result);
     }
 }

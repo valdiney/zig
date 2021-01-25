@@ -2,6 +2,10 @@
 
 namespace System\Aplicacao\Request;
 
+use stdClass;
+use System\Aplicacao\Permanencia\UsuarioPermanenciaRepository;
+use System\Entidade\EntidadeUsuario;
+
 class Request
 {
     /** @var array */
@@ -10,6 +14,10 @@ class Request
     private $post;
     /** @var array */
     private $session;
+    /** @var UsuarioPermanenciaRepository */
+    private $permanenciaRepository;
+    /** @var EntidadeUsuario */
+    private $entidadeUsuario;
 
     public function __construct(array $get = [], array $post = [], array $session = [])
     {
@@ -30,7 +38,7 @@ class Request
         if (!$name) {
             return $this->get;
         }
-        return $this->get[$name] ?? null;
+        return $this->get->{$name} ?? null;
     }
 
     public function post(string $name = null)
@@ -38,16 +46,7 @@ class Request
         if (!$name) {
             return $this->post;
         }
-        return $this->post[$name] ?? null;
-    }
-
-    /**
-     * Retorna $_GET e $_POST
-     * @return array
-     */
-    public function all(): array
-    {
-        return array_merge($this->get, $this->post);
+        return $this->post->{$name} ?? null;
     }
 
     public function session(string $name = null)
@@ -55,30 +54,57 @@ class Request
         if (!$name) {
             return $this->session;
         }
-        return $this->session[$name] ?? null;
+        return $this->session->{$name} ?? null;
+    }
+
+    /**
+     * Retorna $_GET e $_POST
+     * @return stdClass
+     */
+    public function all(): stdClass
+    {
+        return (object) array_merge((array) $this->get, (array) $this->post);
+    }
+
+    public function usuarioConectado(): bool
+    {
+        if (!$this->entidadeUsuario) {
+            return false;
+        }
+        return $this->permanenciaRepository->checaEstaConectado($this->entidadeUsuario);
     }
 
     /**
      * @param array $get
      */
-    private function setGet(array $get): void
+    public function setGet(array $get): void
     {
-        $this->get = sanitizeMany($get);
+        $this->get = (object) sanitizeMany($get);
     }
 
     /**
      * @param array $post
      */
-    private function setPost(array $post): void
+    public function setPost(array $post): void
     {
-        $this->post = sanitizeMany($post);
+        $this->post = (object) sanitizeMany($post);
     }
 
     /**
      * @param array $session
      */
-    private function setSession(array $session = []): void
+    public function setSession(array $session = []): void
     {
-        $this->session = sanitizeMany($session);
+        $this->session = (object) sanitizeMany($session);
+    }
+
+    /**
+     * @param EntidadeUsuario $usuario
+     * @param UsuarioPermanenciaRepository $permanencia
+     */
+    public function setUsuario(EntidadeUsuario $usuario, UsuarioPermanenciaRepository $permanencia): void
+    {
+        $this->entidadeUsuario = $usuario;
+        $this->permanenciaRepository = $permanencia;
     }
 }

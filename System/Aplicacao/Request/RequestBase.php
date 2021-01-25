@@ -3,6 +3,7 @@
 namespace System\Aplicacao\Request;
 
 use InvalidArgumentException;
+use stdClass;
 
 abstract class RequestBase
 {
@@ -19,9 +20,9 @@ abstract class RequestBase
 
     /**
      * Dados do $_GET e $_POST
-     * @return array
+     * @return stdClass
      */
-    public function all(): array
+    public function all(): stdClass
     {
         if ($this->finalizado === false) {
             $this->finaliza();
@@ -67,29 +68,31 @@ abstract class RequestBase
 
     private function filtraDadosRequest(): void
     {
-        $post = $this->filtraDados($this->request->post());
-        $get = $this->filtraDados($this->request->get());
-        $this->request = new Request($get, $post, $this->request->session());
+        $post = (array) $this->filtraDados($this->request->post());
+        $get = (array) $this->filtraDados($this->request->get());
+        $session = (array) $this->request->session();
+        $this->request = new Request($get, $post, $session);
     }
 
-    private function filtraDados(array $dataRequest): array
+    private function filtraDados(stdClass $dataRequest): stdClass
     {
+        $response = new stdClass();
         $campos = $this->campos();
-        $response = [];
+        $dataRequest = (array) $dataRequest;
         foreach ($dataRequest as $name => $value) {
             if (in_array($name, $campos, true)) {
-                $response[$name] = $value;
+                $response->{$name} = $value;
             }
         }
         return $response;
     }
 
-    private function checkCampoExiste(string $value, array $data): bool
+    private function checkCampoExiste(string $value, stdClass $data): bool
     {
-        if (empty($data)) {
+        if ($data === null) {
             return true;
         }
-        return isset($data[$value]) === false;
+        return isset($data->{$value}) === false;
     }
 
     /**

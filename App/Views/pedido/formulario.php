@@ -433,6 +433,24 @@
         return false;
     }
 
+    function meioPagamentoEhBoleto(idMeioPagamento) {
+        return idMeioPagamento === 4;
+    }
+
+    function formaDePagamentoAlterado() {
+        const meioPagamento = document.querySelector("#id_meio_pagamento") || null;
+        if (!meioPagamento) return;
+        const idMeioPagamento = parseInt(meioPagamento.value);
+        const elmDataCompensacao = document.querySelector("#data_compensacao");
+        if (meioPagamentoEhBoleto(idMeioPagamento)) {
+            elmDataCompensacao.value = "";
+            elmDataCompensacao.disabled = false;
+            return;
+        }
+        elmDataCompensacao.value = "";
+        elmDataCompensacao.disabled = true;
+    }
+
     <?php if ($idPedido):?>
     carregaProdutosPedidos("<?php echo $idPedido;?>");
     <?php endif;?>
@@ -442,22 +460,39 @@
 
         if ($("#id_meio_pagamento").val() == "selecione") {
             modalValidacao('Validação', 'Selecione uma forma de Pagamento!');
+            setTimeout(modalValidacaoClose, 3000)
+            return false;
+        }
+
+        if ($("#id_meio_pagamento").val() === "4" && $("#data_compensacao").val() === "") {
+            modalValidacao('Validação', 'Selecione a data de compensação do boleto!');
+            setTimeout(modalValidacaoClose, 3000)
             return false;
         }
 
         modalValidacao('Validação', 'Aguarde...');
+
         $.post(rota, {
             '_token': '<?php echo TOKEN; ?>',
             'id_pedido': idPedido,
             'id_meio_pagamento': $("#id_meio_pagamento").val(),
+            'data_compensacao': $("#data_compensacao").val(),
             'valor_desconto': $("#valor_desconto").val(),
             'valor_frete': $("#valor_frete").val(),
             'previsao_entrega': $("#previsao_entrega").val()
         }, function (resultado) {
-            var retorno = JSON.parse(resultado);
-            if (retorno.status == true) {
-                window.location.reload();
-                pedidos();
+            try {
+                var retorno = JSON.parse(resultado);
+                if (retorno.status == true) {
+                    modalValidacao('Sucesso', 'Pedido adicionado com sucesso!');
+                    setTimeout(() => {
+                        window.location.reload();
+                        pedidos();
+                    }, 2000)
+                }
+            } catch (e) {
+                modalValidacao('Ops', 'Não foi possível salvar o pedido!');
+                setTimeout(modalValidacaoClose, 3000)
             }
         });
     }

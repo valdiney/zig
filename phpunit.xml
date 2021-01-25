@@ -18,5 +18,7 @@
         <server name="SCRIPT_NAME" value="/public/index.php"/>
         <server name="HTTP_HOST" value="localhost:8000"/>
         <server name="REQUEST_URI" value="/"/>
+        <get name="teste" value="123"/>
+        <post name="teste" value="123"/>
     </php>
 </phpunit>

@@ -1,4 +1,7 @@
 <?php
+
+use System\Utils\Sanitize;
+
 function createMessage($e)
 {
     echo "
@@ -144,4 +147,28 @@ function fileGet($url)
 function iconFilter()
 {
     echo '<i class="fas fa-filter"></i>';
+}
+
+if (function_exists("sanitize") === false)
+{
+    /**
+     * @param $value
+     * @return mixed
+     */
+    function sanitize($value)
+    {
+        return Sanitize::value($value);
+    }
+}
+
+if (function_exists("sanitizeMany") === false)
+{
+    /**
+     * @param array $data
+     * @return mixed
+     */
+    function sanitizeMany(array $data): array
+    {
+        return array_map("sanitize", $data);
+    }
 }

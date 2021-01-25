@@ -1,6 +1,6 @@
 <?php
 
-namespace System\Entidade\EntidadeUsuario;
+namespace System\Entidade;
 
 class EntidadeUsuario
 {

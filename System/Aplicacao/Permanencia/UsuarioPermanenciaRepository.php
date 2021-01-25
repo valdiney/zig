@@ -2,8 +2,7 @@
 
 namespace System\Aplicacao\Permanencia;
 
-use System\Aplicacao\Permanencia;
-use System\Entidade\EntidadeUsuario\EntidadeUsuario;
+use System\Entidade\EntidadeUsuario;
 
 interface UsuarioPermanenciaRepository
 {

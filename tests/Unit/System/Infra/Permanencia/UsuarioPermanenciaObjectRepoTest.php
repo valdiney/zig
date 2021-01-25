@@ -2,7 +2,7 @@
 
 namespace Tests\Unit\System\Infra\Permanencia;
 
-use System\Entidade\EntidadeUsuario\EntidadeUsuario;
+use System\Entidade\EntidadeUsuario;
 use System\Infra\Permanencia\UsuarioPermanenciaObjectRepo;
 use PHPUnit\Framework\TestCase;
 

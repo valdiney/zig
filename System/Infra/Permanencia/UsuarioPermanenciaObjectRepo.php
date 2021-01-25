@@ -3,7 +3,7 @@
 namespace System\Infra\Permanencia;
 
 use System\Aplicacao\Permanencia\UsuarioPermanenciaRepository;
-use System\Entidade\EntidadeUsuario\EntidadeUsuario;
+use System\Entidade\EntidadeUsuario;
 
 class UsuarioPermanenciaObjectRepo implements UsuarioPermanenciaRepository
 {

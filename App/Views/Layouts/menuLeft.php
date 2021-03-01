@@ -67,20 +67,26 @@ use System\Session\Session;
             <li class="">
                 <a href="<?php echo BASEURL; ?>/relatorio/vendasPorPeriodo"
                    class="<?php currentRouteFromMenu('relatorio', 'relatorioBorder'); ?>
-          <?php currentRouteFromMenu('relatorio/vendasPorPeriodo', 'relatorioBorder'); ?>">
+                    <?php currentRouteFromMenu('relatorio/vendasPorPeriodo', 'relatorioBorder'); ?>">
                     <i class="fas fa-file-contract"></i>
                     <p>Relatórios</p>
                 </a>
             </li>
         <?php endif; ?>
 
-
-        <!--<li class="active-pro">
-          <a>
-            <i class="fas fa-cogs" style="color:#c3c3c3"></i>
-            <p><p>Configurações</p></p>
-          </a>
-        </li>-->
+        <div class="dropdown">
+            <li class="active-pro dropdown-toggle dropdown-toggle dropdown-toggle-split" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <a>
+                    <i class="fas fa-cogs" style="color:#6e6e6d"></i>
+                    <p><p>Configurações</p></p>
+                </a>
+                <div class="dropdown-menu" aria-labelledby="dropdownMenuLink" style="margin-left:50px">
+                    <a class="dropdown-item" href="#"><i class="fas fa-users" style="color:#212120"></i> Usuários</a>
+                    <a class="dropdown-item" href="#"><i class="fas fa-store" style="color:#212120"></i> Empresas</a>
+                    <a class="dropdown-item" href="#"><i class="fas fa-file-signature" style="color:#212120"></i> Logs de acessos</a>
+                </div>
+            </li>
+        </div><!--end dropdown-->
 
     </ul>
 </div>

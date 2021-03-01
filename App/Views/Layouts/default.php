@@ -1,5 +1,4 @@
 <?php
-
 use App\Config\ConfigPerfil;
 use App\Models\ConfigPdv;
 use System\Session\Session;
@@ -67,12 +66,10 @@ $configPdv = $configPdv->configPdv(Session::get('idEmpresa'));
     <meta property="og:type" content="website">
     <meta name="mobile-web-app-capable" content="yes">
 
-
     <style>
         .disabled:hover {
             cursor: no-drop !important;
         }
-
         .perfil {
             border-radius: 50%;
             width: 40px;
@@ -80,50 +77,40 @@ $configPdv = $configPdv->configPdv(Session::get('idEmpresa'));
             object-fit: cover;
             object-position: center;
         }
-
         .currentRouteFromMenu {
             background: #3b3b3a;
             border-radius: 10px;
         }
-
         .tabela-ajustada tr td {
             padding-top: 2px !important;
             padding-bottom: 2px !important;
             font-size: 12px !important;
         }
-
         .tabela-ajustada th {
             font-size: 13px !important;
         }
-
         .table-striped > tbody > tr:nth-child(2n+1) > td, .table-striped > tbody > tr:nth-child(2n+1) > th {
             background-color: #fffcf5;
         }
-
         .active {
             color: #0a9850 !important;
         }
-
         .legendaPerfil {
-            font-size: 12px;
-        !important;
+            font-size: 12px!important;
             background: #f4f3ef;
             border-radius: 10px;
             border: 1px solid #dddddd;
             padding: 5px;
         }
-
         .js-example-basic-single {
             height: 42.8px !important;
             border: 1px solid #dddddd !important;
         }
-
         @media only screen and (max-width: 600px) {
             .hidden-when-mobile {
                 display: none;
             }
         }
-
         #scroll-wrap {
             max-height: 70vh;
             overflow-y: auto;
@@ -271,7 +258,6 @@ $configPdv = $configPdv->configPdv(Session::get('idEmpresa'));
 <script src="<?php echo BASEURL; ?>/public/js/helpers.js"></script>
 <script src="<?php echo BASEURL; ?>/public/js/mask.js"></script>
 <script src="<?php echo BASEURL; ?>/public/assets/js/paper-dashboard.min.js"></script>
-
 <script src="<?php echo BASEURL; ?>/public/js/select2.js"></script>
 
 <script>
@@ -283,7 +269,6 @@ $configPdv = $configPdv->configPdv(Session::get('idEmpresa'));
                 thousands: '.', decimal: ',',
                 affixesStay: false
             });
-
 
         $("#menu").click(function () {
             $(".collapse").toggle();

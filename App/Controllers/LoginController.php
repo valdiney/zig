@@ -72,6 +72,8 @@ class LoginController extends Controller
             return $this->get->redirectTo("home");
         }
 
+        Session::flash('error', 'Usuário não encontrado!');
+        return $this->get->redirectTo("login");
     }
 
     private function handleRememberUser($user)

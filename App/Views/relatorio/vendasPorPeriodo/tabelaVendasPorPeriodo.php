@@ -63,7 +63,7 @@
                     <?php if (!is_null($venda->produtoImagem) || $venda->produtoImagem != ''): ?>
                         <img class="imagem-perfil" style="border:1px solid silver" src="<?php echo BASEURL . '/' . $venda->produtoImagem; ?>"
                              alt="Imagem do perfil"
-                             title="<?php echo $venda->produtoNome; ?>">
+                             title="<?php echo $venda->produtoNome . ' | R$:' . real($venda->preco); ?>">
                     <?php elseif (!is_null($venda->quantidade)): ?>
                         <i class="fas fa-box-open" style="font-size:20px"></i>
                     <?php else: ?>

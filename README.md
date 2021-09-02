@@ -7,7 +7,8 @@ suas vendas diárias de forma simples e organizada. Trata-se de um sistema web e
 O intuito é disponibilizar uma plataforma com módulos que facilite e potencialize o controle de informações
 de vendas totalmente online.
 
-🚧 Projeto em desenvolvimento e recebendo commit todos os dias! ✊
+🚧 Projeto em desenvolvimento e recebendo commit sempre que possível! ✊ <br>
+🚀 Estamos trabalhando em algumas implementações bem legais, como por exemplo, valor investido em produtos e lucro estimado.
 
 ![print](https://raw.githubusercontent.com/valdiney/zig/master/prints/dashboard.png)
 

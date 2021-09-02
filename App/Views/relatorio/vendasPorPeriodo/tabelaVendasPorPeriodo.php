@@ -38,7 +38,7 @@
         <thead>
         <tr>
             <th class="hidden-when-mobile">#</th>
-            <!--<th>Preço</th>-->
+            <th class="hidden-when-mobile">Produto</th>
             <th>Qtd</th>
             <th>Total</th>
             <th>Venda</th>
@@ -56,6 +56,18 @@
                              title="<?php echo $venda->nomeUsuario; ?>">
                     <?php else: ?>
                         <i class="fas fa-user" style="font-size:30px"></i>
+                    <?php endif; ?>
+                </td>
+
+                <td class="hidden-when-mobile">
+                    <?php if (!is_null($venda->produtoImagem) || $venda->produtoImagem != ''): ?>
+                        <img class="imagem-perfil" style="border:1px solid silver" src="<?php echo BASEURL . '/' . $venda->produtoImagem; ?>"
+                             alt="Imagem do perfil"
+                             title="<?php echo $venda->produtoNome; ?>">
+                    <?php elseif (!is_null($venda->quantidade)): ?>
+                        <i class="fas fa-box-open" style="font-size:20px"></i>
+                    <?php else: ?>
+                        <small>Não consta</small>
                     <?php endif; ?>
                 </td>
 

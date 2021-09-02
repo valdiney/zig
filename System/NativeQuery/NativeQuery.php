@@ -57,7 +57,6 @@ class NativeQuery
 	{
 		if ($this->timestamps) {
 			$data['created_at'] = date('Y/m/d H:i:s');
-            $data['updated_at'] = date('Y/m/d H:i:s');
 		}
 
 		foreach ($data as $key => $list) {
@@ -69,7 +68,7 @@ class NativeQuery
 		$values = "'" . implode("','", $values) . "'";
 
 		if ($this->db->query("INSERT INTO {$this->table} ({$fields}) VALUES ({$values})")) {
-			return true;
+			return $this->lastId();
 		}
 
 		return false;

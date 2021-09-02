@@ -1,1807 +1,895 @@
 -- --------------------------------------------------------
--- Servidor:                     162.241.203.232
--- Versão do servidor:           5.7.23-23 - Percona Server (GPL), Release 23, Revision 500fcf5
--- OS do Servidor:               Linux
--- HeidiSQL Versão:              11.0.0.6046
+-- Servidor:                     localhost
+-- Versão do servidor:           8.0.21 - MySQL Community Server - GPL
+-- OS do Servidor:               Win64
+-- HeidiSQL Versão:              11.2.0.6213
 -- --------------------------------------------------------
 
-/*!40101 SET @OLD_CHARACTER_SET_CLIENT = @@CHARACTER_SET_CLIENT */;
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET NAMES utf8 */;
 /*!50503 SET NAMES utf8mb4 */;
-/*!40014 SET @OLD_FOREIGN_KEY_CHECKS = @@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS = 0 */;
-/*!40101 SET @OLD_SQL_MODE = @@SQL_MODE, SQL_MODE = 'NO_AUTO_VALUE_ON_ZERO' */;
+/*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
+/*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
+/*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 
--- Copiando estrutura do banco de dados para realbi53_tonie
-CREATE DATABASE IF NOT EXISTS `realbi53_tonie` /*!40100 DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci */;
-USE `realbi53_tonie`;
+-- Copiando estrutura do banco de dados para zig
+CREATE DATABASE IF NOT EXISTS `zig` /*!40100 DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci */ /*!80016 DEFAULT ENCRYPTION='N' */;
+USE `zig`;
 
--- Copiando estrutura para tabela realbi53_tonie.clientes
-CREATE TABLE IF NOT EXISTS `clientes`
-(
-    `id`                  int(11)     NOT NULL AUTO_INCREMENT,
-    `id_empresa`          int(11)     NOT NULL,
-    `id_cliente_tipo`     int(11)     NOT NULL,
-    `id_cliente_segmento` int(11)              DEFAULT NULL,
-    `nome`                varchar(50) NOT NULL,
-    `email`               varchar(50) NOT NULL,
-    `cnpj`                varchar(50)          DEFAULT NULL,
-    `cpf`                 varchar(50)          DEFAULT NULL,
-    `telefone`            varchar(50)          DEFAULT NULL,
-    `celular`             varchar(50)          DEFAULT NULL,
-    `created_at`          timestamp   NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-    `updated_at`          timestamp   NOT NULL DEFAULT '0000-00-00 00:00:00',
-    `deleted_at`          timestamp   NULL     DEFAULT NULL,
-    PRIMARY KEY (`id`),
-    KEY `FK_clientes_tipos_clientes` (`id_cliente_tipo`),
-    KEY `FK_clientes_clientes_segmentos` (`id_cliente_segmento`),
-    KEY `FK_clientes_empresas` (`id_empresa`),
-    CONSTRAINT `FK_clientes_clientes_segmentos` FOREIGN KEY (`id_cliente_segmento`) REFERENCES `clientes_segmentos` (`id`),
-    CONSTRAINT `FK_clientes_empresas` FOREIGN KEY (`id_empresa`) REFERENCES `empresas` (`id`),
-    CONSTRAINT `FK_clientes_tipos_clientes` FOREIGN KEY (`id_cliente_tipo`) REFERENCES `clientes_tipos` (`id`)
-) ENGINE = InnoDB
-  AUTO_INCREMENT = 24
-  DEFAULT CHARSET = latin1;
+-- Copiando estrutura para tabela zig.clientes
+CREATE TABLE IF NOT EXISTS `clientes` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `id_empresa` int NOT NULL,
+  `id_cliente_tipo` int NOT NULL,
+  `id_cliente_segmento` int DEFAULT NULL,
+  `nome` varchar(50) NOT NULL,
+  `email` varchar(50) NOT NULL,
+  `cnpj` varchar(50) DEFAULT NULL,
+  `cpf` varchar(50) DEFAULT NULL,
+  `telefone` varchar(50) DEFAULT NULL,
+  `celular` varchar(50) DEFAULT NULL,
+  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
+  `deleted_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `FK_clientes_tipos_clientes` (`id_cliente_tipo`),
+  KEY `FK_clientes_clientes_segmentos` (`id_cliente_segmento`),
+  KEY `FK_clientes_empresas` (`id_empresa`),
+  CONSTRAINT `FK_clientes_clientes_segmentos` FOREIGN KEY (`id_cliente_segmento`) REFERENCES `clientes_segmentos` (`id`),
+  CONSTRAINT `FK_clientes_empresas` FOREIGN KEY (`id_empresa`) REFERENCES `empresas` (`id`),
+  CONSTRAINT `FK_clientes_tipos_clientes` FOREIGN KEY (`id_cliente_tipo`) REFERENCES `clientes_tipos` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=29 DEFAULT CHARSET=latin1;
 
--- Copiando dados para a tabela realbi53_tonie.clientes: ~5 rows (aproximadamente)
-/*!40000 ALTER TABLE `clientes`
-    DISABLE KEYS */;
-INSERT INTO `clientes` (`id`, `id_empresa`, `id_cliente_tipo`, `id_cliente_segmento`, `nome`, `email`, `cnpj`, `cpf`,
-                        `telefone`, `celular`, `created_at`, `updated_at`, `deleted_at`)
-VALUES (2, 1, 2, 2, 'Açaí dos meus Sonhos', 'acaidosmeussonhos@gmail.com', '16.138.154/0001-84', NULL, '(71) 9873-9218',
-        '(71) 45564-6556', '2020-05-28 17:46:58', '2020-06-10 13:37:17', NULL),
-       (4, 1, 1, 4, 'Mariana Luna de Jesus', 'mariana@gmail.com', '80.006.659/1854-54', '896.811.810-64',
-        '(71) 9873-9218', '(71) 98530-0528', '2020-05-28 18:23:59', '2020-06-10 12:33:31', NULL),
-       (5, 1, 2, 3, 'Pizzaria Segue o Baile', 'pizzariasegueobaile@hotmail.com', '50.902.478/0001-081', NULL,
-        '(71) 98739-2183', '(71)98530-0528', '2020-05-28 21:13:44', '2020-06-10 12:33:27', NULL),
-       (7, 1, 2, 2, 'Limpa Cano', 'limpacano@gmail.com', '41.977.238/0001-59', NULL, '(71) 9873-9218',
-        '(71) 45564-6556', '2020-05-31 17:25:50', '2020-06-10 13:31:34', NULL),
-       (18, 1, 2, 4, 'Têxtil Sul ', 'textilsul@hotmail.com', '84.039.937/0001-60', '', '(71) 5656-5656',
-        '(71) 54665-6566', '2020-11-15 11:00:31', '2020-11-15 11:00:31', NULL),
-       (21, 1, 1, 1, 'Teste', 'testeddd@gmail.com', '84.039.937/0001-60', '021.810.945-86', '(71) 9860-0965', NULL,
-        '2020-07-24 09:26:50', '2020-07-24 09:26:50', '2020-07-24 09:26:50'),
-       (22, 4, 2, 3, 'Albino', 'albino@albino.com', '33.681.638/0001-94', '', '(47) 9998-8888', '',
-        '2020-07-21 21:20:40', '2020-07-21 21:20:41', NULL),
-       (23, 5, 1, 4, 'Railson dos Santos', 'railson@gmail.com', '', '666.708.289-77', '', '', '2020-11-09 14:36:10',
-        '2020-11-09 14:36:10', NULL);
-/*!40000 ALTER TABLE `clientes`
-    ENABLE KEYS */;
+-- Copiando dados para a tabela zig.clientes: ~4 rows (aproximadamente)
+/*!40000 ALTER TABLE `clientes` DISABLE KEYS */;
+INSERT INTO `clientes` (`id`, `id_empresa`, `id_cliente_tipo`, `id_cliente_segmento`, `nome`, `email`, `cnpj`, `cpf`, `telefone`, `celular`, `created_at`, `updated_at`, `deleted_at`) VALUES
+	(25, 1, 1, 53, 'Teste', 'teste@gmail.com', NULL, '039.043.055-22', '(71) 8360-4833', '(71) 98318-6845', '2021-01-14 23:22:04', '2021-01-14 23:20:46', NULL),
+	(26, 4, 2, 4, 'Jocemar D. bBRAATZ pA', 'contato@maximoppi.com.br', '23.478.848/0001-26', '', '', '', '2020-12-09 14:19:02', '2020-12-09 14:19:02', NULL),
+	(27, 1, 1, 9, 'Jujubas', 'jujubas@gmail.com', '', '058.115.185-28', '', '', '2021-01-11 19:34:12', '2021-01-11 19:34:12', NULL),
+	(28, 1, 1, 6, 'Matrix', 'matrix@gmail.com', '', '666.708.289-77', '', '', '2021-01-15 17:20:31', '2021-01-15 17:20:31', NULL);
+/*!40000 ALTER TABLE `clientes` ENABLE KEYS */;
 
--- Copiando estrutura para tabela realbi53_tonie.clientes_enderecos
-CREATE TABLE IF NOT EXISTS `clientes_enderecos`
-(
-    `id`          int(11)     NOT NULL AUTO_INCREMENT,
-    `id_empresa`  int(11)     NOT NULL DEFAULT '0',
-    `id_cliente`  int(11)     NOT NULL DEFAULT '0',
-    `cep`         varchar(50)          DEFAULT NULL,
-    `endereco`    varchar(50) NOT NULL,
-    `bairro`      varchar(50) NOT NULL,
-    `cidade`      varchar(50)          DEFAULT NULL,
-    `estado`      varchar(50)          DEFAULT NULL,
-    `numero`      int(11)              DEFAULT NULL,
-    `complemento` text,
-    `created_at`  timestamp   NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-    `updated_at`  timestamp   NOT NULL DEFAULT '0000-00-00 00:00:00',
-    PRIMARY KEY (`id`),
-    KEY `FK_clientes_enderecos_empresas` (`id_empresa`),
-    KEY `FK_clientes_enderecos_clientes` (`id_cliente`),
-    CONSTRAINT `FK_clientes_enderecos_clientes` FOREIGN KEY (`id_cliente`) REFERENCES `clientes` (`id`),
-    CONSTRAINT `FK_clientes_enderecos_empresas` FOREIGN KEY (`id_empresa`) REFERENCES `empresas` (`id`)
-) ENGINE = InnoDB
-  AUTO_INCREMENT = 26
-  DEFAULT CHARSET = latin1;
+-- Copiando estrutura para tabela zig.clientes_enderecos
+CREATE TABLE IF NOT EXISTS `clientes_enderecos` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `id_empresa` int NOT NULL DEFAULT '0',
+  `id_cliente` int NOT NULL DEFAULT '0',
+  `cep` varchar(50) DEFAULT NULL,
+  `endereco` varchar(50) NOT NULL,
+  `bairro` varchar(50) NOT NULL,
+  `cidade` varchar(50) DEFAULT NULL,
+  `estado` varchar(50) DEFAULT NULL,
+  `numero` int DEFAULT NULL,
+  `complemento` text,
+  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
+  PRIMARY KEY (`id`),
+  KEY `FK_clientes_enderecos_empresas` (`id_empresa`),
+  KEY `FK_clientes_enderecos_clientes` (`id_cliente`),
+  CONSTRAINT `FK_clientes_enderecos_clientes` FOREIGN KEY (`id_cliente`) REFERENCES `clientes` (`id`),
+  CONSTRAINT `FK_clientes_enderecos_empresas` FOREIGN KEY (`id_empresa`) REFERENCES `empresas` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=31 DEFAULT CHARSET=latin1;
 
--- Copiando dados para a tabela realbi53_tonie.clientes_enderecos: ~8 rows (aproximadamente)
-/*!40000 ALTER TABLE `clientes_enderecos`
-    DISABLE KEYS */;
-INSERT INTO `clientes_enderecos` (`id`, `id_empresa`, `id_cliente`, `cep`, `endereco`, `bairro`, `cidade`, `estado`,
-                                  `numero`, `complemento`, `created_at`, `updated_at`)
-VALUES (3, 1, 4, '41.927-210', '2ª travessa são benedito', 'Chapada do Rio vermelho', 'salvador', 'Bahia', 14, NULL,
-        '2020-07-23 21:59:35', '2020-07-23 21:59:33'),
-       (4, 1, 4, '41927210', '2ª travessa são benedito', 'Chapada do Rio vermelho', 'salvador', 'Bahia', 14, ' bg ',
-        '2020-05-29 12:31:48', '2020-05-29 12:31:48'),
-       (5, 1, 4, '41927210', '2ª travessa são benedito', 'Chapada do Rio vermelho', 'salvador', 'Bahia', 56, 'Casa',
-        '2020-05-29 12:32:23', '2020-05-29 14:11:53'),
-       (18, 1, 4, '41.927-210', '2ª Travessa São Benedito', 'Santa Cruz', 'Salvador', 'BA', 15, '',
-        '2020-06-08 10:11:00', '2020-06-08 10:11:00'),
-       (19, 1, 18, '41.927-210', '2ª Travessa São Benedito', 'Santa Cruz', 'Salvador', 'BA', 3, NULL,
-        '2020-07-23 22:00:39', '2020-07-23 22:00:37'),
-       (20, 4, 22, '89.222-480', 'Rua Avaí', 'Bom Retiro', 'Joinville', 'SC', 315, 'entregar p jorgin',
-        '2020-07-21 21:21:40', '2020-07-21 21:21:40'),
-       (21, 1, 18, '78.028-610', 'Rua Santa Luzia', 'Cidade Verde', 'Cuiabá', 'MT', 47, '', '2020-07-23 22:28:00',
-        '2020-07-23 22:28:00'),
-       (22, 1, 18, '78.152-072', 'Rua Santa Luzia', 'São Matheus', 'Várzea Grande', 'MT', 7, '', '2020-07-23 22:35:38',
-        '2020-07-23 22:35:38'),
-       (23, 1, 5, '78.120-064', 'Rua Maria Quitéria de Jesus Medeiros', 'Parque do Lago', 'Várzea Grande', 'MT', 3, '',
-        '2020-07-23 22:38:17', '2020-07-23 22:38:17'),
-       (24, 1, 2, '89.222-480', 'Rua Avaí', 'Bom Retiro', 'Joinville', 'SC', 315, NULL, '2020-11-14 14:23:11',
-        '2020-11-14 14:23:11'),
-       (25, 5, 23, '41.940-620', 'Rua Alagoinhas', 'Rio Vermelho', 'Salvador', 'BA', 125, '', '2020-11-09 14:37:12',
-        '2020-11-09 14:37:12');
-/*!40000 ALTER TABLE `clientes_enderecos`
-    ENABLE KEYS */;
+-- Copiando dados para a tabela zig.clientes_enderecos: ~3 rows (aproximadamente)
+/*!40000 ALTER TABLE `clientes_enderecos` DISABLE KEYS */;
+INSERT INTO `clientes_enderecos` (`id`, `id_empresa`, `id_cliente`, `cep`, `endereco`, `bairro`, `cidade`, `estado`, `numero`, `complemento`, `created_at`, `updated_at`) VALUES
+	(28, 4, 26, '89.215-200', 'Estrada Lagoinha', 'Morro do Meio', 'Joinville', 'SC', 1394, '', '2020-12-09 14:20:23', '2020-12-09 14:20:23'),
+	(29, 1, 25, '41.927-210', '2ª Travessa São Benedito', 'Santa Cruz', 'Salvador', 'BA', 14, 'Casa', '2021-01-09 10:49:45', '2021-01-09 10:49:45'),
+	(30, 1, 27, '41.927-210', '2ª Travessa São Benedito', 'Santa Cruz', 'Salvador', 'BA', 14, 'jjjj', '2021-01-15 17:35:14', '2021-01-15 17:35:14');
+/*!40000 ALTER TABLE `clientes_enderecos` ENABLE KEYS */;
 
--- Copiando estrutura para tabela realbi53_tonie.clientes_segmentos
-CREATE TABLE IF NOT EXISTS `clientes_segmentos`
-(
-    `id`         int(11)     NOT NULL AUTO_INCREMENT,
-    `descricao`  varchar(50) NOT NULL,
-    `created_at` timestamp   NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-    `updated_at` timestamp   NOT NULL DEFAULT '0000-00-00 00:00:00',
-    PRIMARY KEY (`id`)
-) ENGINE = InnoDB
-  AUTO_INCREMENT = 5
-  DEFAULT CHARSET = latin1;
+-- Copiando estrutura para tabela zig.clientes_segmentos
+CREATE TABLE IF NOT EXISTS `clientes_segmentos` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `descricao` varchar(50) NOT NULL,
+  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=128 DEFAULT CHARSET=latin1;
 
--- Copiando dados para a tabela realbi53_tonie.clientes_segmentos: ~4 rows (aproximadamente)
-/*!40000 ALTER TABLE `clientes_segmentos`
-    DISABLE KEYS */;
-INSERT INTO `clientes_segmentos` (`id`, `descricao`, `created_at`, `updated_at`)
-VALUES (1, 'Restaurante', '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
-       (2, 'Hamburgueria', '2020-05-28 10:28:08', '2020-05-28 10:28:09'),
-       (3, 'Pizzaria', '2020-05-28 10:28:52', '2020-05-28 10:28:53'),
-       (4, 'Outros...', '2020-06-02 00:00:26', '2020-06-02 00:00:27');
-/*!40000 ALTER TABLE `clientes_segmentos`
-    ENABLE KEYS */;
+-- Copiando dados para a tabela zig.clientes_segmentos: ~127 rows (aproximadamente)
+/*!40000 ALTER TABLE `clientes_segmentos` DISABLE KEYS */;
+INSERT INTO `clientes_segmentos` (`id`, `descricao`, `created_at`, `updated_at`) VALUES
+	(1, 'Restaurante', '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+	(2, 'Hamburgueria', '2020-05-28 10:28:08', '2020-05-28 10:28:09'),
+	(3, 'Pizzaria', '2020-05-28 10:28:52', '2020-05-28 10:28:53'),
+	(4, 'Outros...', '2020-06-02 00:00:26', '2020-06-02 00:00:27'),
+	(5, 'Arte e Antiguidades', '2021-01-11 16:10:15', '0000-00-00 00:00:00'),
+	(6, 'Artigos Religiosos', '2021-01-11 16:10:15', '0000-00-00 00:00:00'),
+	(7, 'Assinaturas e Revistas', '2021-01-11 16:10:15', '0000-00-00 00:00:00'),
+	(8, 'Automóveis e Veículos', '2021-01-11 16:10:15', '0000-00-00 00:00:00'),
+	(9, 'Bebês e Cia', '2021-01-11 16:10:15', '0000-00-00 00:00:00'),
+	(10, 'Blu-Ray', '2021-01-11 16:10:15', '0000-00-00 00:00:00'),
+	(11, 'Brindes / Materiais Promocionais', '2021-01-11 16:10:15', '0000-00-00 00:00:00'),
+	(12, 'Brinquedos e Games', '2021-01-11 16:10:15', '0000-00-00 00:00:00'),
+	(13, 'Casa e Decoração', '2021-01-11 16:10:15', '0000-00-00 00:00:00'),
+	(14, 'CDs', '2021-01-11 16:10:15', '0000-00-00 00:00:00'),
+	(15, 'Colecionáveis', '2021-01-11 16:10:15', '0000-00-00 00:00:00'),
+	(16, 'Compras Coletivas', '2021-01-11 16:10:15', '0000-00-00 00:00:00'),
+	(17, 'Construção e Ferramentas', '2021-01-11 16:10:15', '0000-00-00 00:00:00'),
+	(18, 'Cosméticos e Perfumaria', '2021-01-11 16:10:15', '0000-00-00 00:00:00'),
+	(19, 'Cursos e Educação', '2021-01-11 16:10:15', '0000-00-00 00:00:00'),
+	(20, 'Discos de Vinil', '2021-01-11 16:10:15', '0000-00-00 00:00:00'),
+	(21, 'DVDs', '2021-01-11 16:10:15', '0000-00-00 00:00:00'),
+	(22, 'Eletrodomésticos', '2021-01-11 16:10:15', '0000-00-00 00:00:00'),
+	(23, 'Eletrônicos', '2021-01-11 16:10:15', '0000-00-00 00:00:00'),
+	(24, 'Emissoras de Rádio', '2021-01-11 16:10:15', '0000-00-00 00:00:00'),
+	(25, 'Emissoras de Televisão', '2021-01-11 16:10:15', '0000-00-00 00:00:00'),
+	(26, 'Empregos', '2021-01-11 16:10:15', '0000-00-00 00:00:00'),
+	(27, 'Empresas de Telemarketing', '2021-01-11 16:10:15', '0000-00-00 00:00:00'),
+	(28, 'Esporte e Lazer', '2021-01-11 16:10:15', '0000-00-00 00:00:00'),
+	(29, 'Fitas K7 Gravadas', '2021-01-11 16:10:15', '0000-00-00 00:00:00'),
+	(30, 'Flores, Cestas e Presentes', '2021-01-11 16:10:15', '0000-00-00 00:00:00'),
+	(31, 'Fotografia', '2021-01-11 16:10:15', '0000-00-00 00:00:00'),
+	(32, 'HD-DVD', '2021-01-11 16:10:15', '0000-00-00 00:00:00'),
+	(33, 'Igrejas / Templos / Instituições Religiosas', '2021-01-11 16:10:15', '0000-00-00 00:00:00'),
+	(34, 'Indústria, Comércio e Negócios', '2021-01-11 16:10:15', '0000-00-00 00:00:00'),
+	(35, 'Infláveis Promocionais', '2021-01-11 16:10:15', '0000-00-00 00:00:00'),
+	(36, 'Informática', '2021-01-11 16:10:15', '0000-00-00 00:00:00'),
+	(37, 'Ingressos', '2021-01-11 16:10:15', '0000-00-00 00:00:00'),
+	(38, 'Instrumentos Musicais', '2021-01-11 16:10:15', '0000-00-00 00:00:00'),
+	(39, 'Joalheria', '2021-01-11 16:10:15', '0000-00-00 00:00:00'),
+	(40, 'Lazer', '2021-01-11 16:10:15', '0000-00-00 00:00:00'),
+	(41, 'LD', '2021-01-11 16:10:15', '0000-00-00 00:00:00'),
+	(42, 'Livros', '2021-01-11 16:10:15', '0000-00-00 00:00:00'),
+	(43, 'MD', '2021-01-11 16:10:15', '0000-00-00 00:00:00'),
+	(44, 'Moda e Acessórios', '2021-01-11 16:10:15', '0000-00-00 00:00:00'),
+	(45, 'Motéis', '2021-01-11 16:10:15', '0000-00-00 00:00:00'),
+	(46, 'Música Digital', '2021-01-11 16:10:15', '0000-00-00 00:00:00'),
+	(47, 'Natal', '2021-01-11 16:10:15', '0000-00-00 00:00:00'),
+	(48, 'Negócios e Oportunidades', '2021-01-11 16:10:15', '0000-00-00 00:00:00'),
+	(49, 'Outros Serviços', '2021-01-11 16:10:15', '0000-00-00 00:00:00'),
+	(50, 'Outros Serviços de Avaliação', '2021-01-11 16:10:15', '0000-00-00 00:00:00'),
+	(51, 'Papelaria e Escritório', '2021-01-11 16:10:15', '0000-00-00 00:00:00'),
+	(52, 'Páscoa', '2021-01-11 16:10:15', '0000-00-00 00:00:00'),
+	(53, 'Pet Shop', '2021-01-11 16:10:15', '0000-00-00 00:00:00'),
+	(54, 'Saúde', '2021-01-11 16:10:15', '0000-00-00 00:00:00'),
+	(55, 'Serviço Advocaticios', '2021-01-11 16:10:15', '0000-00-00 00:00:00'),
+	(56, 'Serviço de Distribuição de Jornais / Revistas', '2021-01-11 16:10:15', '0000-00-00 00:00:00'),
+	(57, 'Serviços Administrativos', '2021-01-11 16:10:15', '0000-00-00 00:00:00'),
+	(58, 'Serviços Artísticos', '2021-01-11 16:10:15', '0000-00-00 00:00:00'),
+	(59, 'Serviços de Abatedouros / Matadouros', '2021-01-11 16:10:15', '0000-00-00 00:00:00'),
+	(60, 'Serviços de Aeroportos', '2021-01-11 16:10:15', '0000-00-00 00:00:00'),
+	(61, 'Serviços de Agências', '2021-01-11 16:10:15', '0000-00-00 00:00:00'),
+	(62, 'Serviços de Aluguel / Locação', '2021-01-11 16:10:15', '0000-00-00 00:00:00'),
+	(63, 'Serviços de Armazenagem', '2021-01-11 16:10:15', '0000-00-00 00:00:00'),
+	(64, 'Serviços de Assessorias', '2021-01-11 16:10:15', '0000-00-00 00:00:00'),
+	(65, 'Serviços de Assistência Técnica / Instalações ', '2021-01-11 16:10:15', '0000-00-00 00:00:00'),
+	(66, 'Serviços de Associações', '2021-01-11 16:10:15', '0000-00-00 00:00:00'),
+	(67, 'Serviços de Bancos de Sangue', '2021-01-11 16:10:15', '0000-00-00 00:00:00'),
+	(68, 'Serviços de Bibliotecas', '2021-01-11 16:10:15', '0000-00-00 00:00:00'),
+	(69, 'Serviços de Cartórios', '2021-01-11 16:10:15', '0000-00-00 00:00:00'),
+	(70, 'Serviços de Casas Lotéricas', '2021-01-11 16:10:15', '0000-00-00 00:00:00'),
+	(71, 'Serviços de Confecções', '2021-01-11 16:10:15', '0000-00-00 00:00:00'),
+	(72, 'Serviços de Consórcios', '2021-01-11 16:10:15', '0000-00-00 00:00:00'),
+	(73, 'Serviços de Consultorias', '2021-01-11 16:10:15', '0000-00-00 00:00:00'),
+	(74, 'Serviços de Cooperativas', '2021-01-11 16:10:15', '0000-00-00 00:00:00'),
+	(75, 'Serviços de Despachante', '2021-01-11 16:10:15', '0000-00-00 00:00:00'),
+	(76, 'Serviços de Engenharia', '2021-01-11 16:10:15', '0000-00-00 00:00:00'),
+	(77, 'Serviços de Estacionamentos', '2021-01-11 16:10:15', '0000-00-00 00:00:00'),
+	(78, 'Serviços de Estaleiros', '2021-01-11 16:10:15', '0000-00-00 00:00:00'),
+	(79, 'Serviços de Exportação / Importação', '2021-01-11 16:10:15', '0000-00-00 00:00:00'),
+	(80, 'Serviços de Geólogos', '2021-01-11 16:10:15', '0000-00-00 00:00:00'),
+	(81, 'Serviços de joalheiros', '2021-01-11 16:10:15', '0000-00-00 00:00:00'),
+	(82, 'Serviços de Leiloeiros', '2021-01-11 16:10:15', '0000-00-00 00:00:00'),
+	(83, 'Serviços de limpeza', '2021-01-11 16:10:15', '0000-00-00 00:00:00'),
+	(84, 'Serviços de Loja de Conveniência', '2021-01-11 16:10:15', '0000-00-00 00:00:00'),
+	(85, 'Serviços de Mão de Obra', '2021-01-11 16:10:15', '0000-00-00 00:00:00'),
+	(86, 'Serviços de Órgão Públicos', '2021-01-11 16:10:15', '0000-00-00 00:00:00'),
+	(87, 'Serviços de Pesquisas', '2021-01-11 16:10:15', '0000-00-00 00:00:00'),
+	(88, 'Serviços de Portos', '2021-01-11 16:10:15', '0000-00-00 00:00:00'),
+	(89, 'Serviços de Saúde / Bem Estar', '2021-01-11 16:10:15', '0000-00-00 00:00:00'),
+	(90, 'Serviços de Seguradoras', '2021-01-11 16:10:15', '0000-00-00 00:00:00'),
+	(91, 'Serviços de Segurança', '2021-01-11 16:10:15', '0000-00-00 00:00:00'),
+	(92, 'Serviços de Sinalização', '2021-01-11 16:10:15', '0000-00-00 00:00:00'),
+	(93, 'Serviços de Sindicatos / Federações', '2021-01-11 16:10:15', '0000-00-00 00:00:00'),
+	(94, 'Serviços de Traduções', '2021-01-11 16:10:15', '0000-00-00 00:00:00'),
+	(95, 'Serviços de Transporte', '2021-01-11 16:10:15', '0000-00-00 00:00:00'),
+	(96, 'Serviços de Utilidade Pública', '2021-01-11 16:10:15', '0000-00-00 00:00:00'),
+	(97, 'Serviços em Agricultura / Pecuária / Piscicultura', '2021-01-11 16:10:15', '0000-00-00 00:00:00'),
+	(98, 'Serviços em Alimentação', '2021-01-11 16:10:15', '0000-00-00 00:00:00'),
+	(99, 'Serviços em Arte', '2021-01-11 16:10:15', '0000-00-00 00:00:00'),
+	(100, 'Serviços em Cine / Foto / Som', '2021-01-11 16:10:15', '0000-00-00 00:00:00'),
+	(101, 'Serviços em Comunicação', '2021-01-11 16:10:15', '0000-00-00 00:00:00'),
+	(102, 'Serviços em Construção', '2021-01-11 16:10:15', '0000-00-00 00:00:00'),
+	(103, 'Serviços em Ecologia / Meio Ambiente', '2021-01-11 16:10:15', '0000-00-00 00:00:00'),
+	(104, 'Serviços em Eletroeletrônica / Metal Mecânica', '2021-01-11 16:10:15', '0000-00-00 00:00:00'),
+	(105, 'Serviços em Festas / Eventos', '2021-01-11 16:10:15', '0000-00-00 00:00:00'),
+	(106, 'Serviços em Informática', '2021-01-11 16:10:15', '0000-00-00 00:00:00'),
+	(107, 'Serviços em Internet', '2021-01-11 16:10:15', '0000-00-00 00:00:00'),
+	(108, 'Serviços em Jóias / Relógios / Óticas', '2021-01-11 16:10:15', '0000-00-00 00:00:00'),
+	(109, 'Serviços em Telefonia', '2021-01-11 16:10:15', '0000-00-00 00:00:00'),
+	(110, 'Serviços em Veículos', '2021-01-11 16:10:15', '0000-00-00 00:00:00'),
+	(111, 'Serviços Esotéricos / Místicos', '2021-01-11 16:10:15', '0000-00-00 00:00:00'),
+	(112, 'Serviços Financeiros', '2021-01-11 16:10:15', '0000-00-00 00:00:00'),
+	(113, 'Serviços Funerários', '2021-01-11 16:10:15', '0000-00-00 00:00:00'),
+	(114, 'Serviços Gerais', '2021-01-11 16:10:15', '0000-00-00 00:00:00'),
+	(115, 'Serviços Gráficos / Editoriais', '2021-01-11 16:10:15', '0000-00-00 00:00:00'),
+	(116, 'Serviços para Animais', '2021-01-11 16:10:15', '0000-00-00 00:00:00'),
+	(117, 'Serviços para Deficientes', '2021-01-11 16:10:15', '0000-00-00 00:00:00'),
+	(118, 'Serviços para Escritórios', '2021-01-11 16:10:15', '0000-00-00 00:00:00'),
+	(119, 'Serviços para Roupas', '2021-01-11 16:10:15', '0000-00-00 00:00:00'),
+	(120, 'Serviços Socias / Assistenciais', '2021-01-11 16:10:15', '0000-00-00 00:00:00'),
+	(121, 'Sex Shop', '2021-01-11 16:10:15', '0000-00-00 00:00:00'),
+	(122, 'Shopping Centers', '2021-01-11 16:10:15', '0000-00-00 00:00:00'),
+	(123, 'Tabacaria', '2021-01-11 16:10:15', '0000-00-00 00:00:00'),
+	(124, 'Tarifas Bancárias', '2021-01-11 16:10:15', '0000-00-00 00:00:00'),
+	(125, 'Tarifas Telefônicas', '2021-01-11 16:10:15', '0000-00-00 00:00:00'),
+	(126, 'Telefonia', '2021-01-11 16:10:15', '0000-00-00 00:00:00'),
+	(127, 'Turismo', '2021-01-11 16:10:15', '0000-00-00 00:00:00');
+/*!40000 ALTER TABLE `clientes_segmentos` ENABLE KEYS */;
 
--- Copiando estrutura para tabela realbi53_tonie.clientes_tipos
-CREATE TABLE IF NOT EXISTS `clientes_tipos`
-(
-    `id`         int(11)     NOT NULL AUTO_INCREMENT,
-    `descricao`  varchar(50) NOT NULL,
-    `created_at` timestamp   NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-    `updated_at` timestamp   NOT NULL DEFAULT '0000-00-00 00:00:00',
-    PRIMARY KEY (`id`)
-) ENGINE = InnoDB
-  AUTO_INCREMENT = 3
-  DEFAULT CHARSET = latin1;
+-- Copiando estrutura para tabela zig.clientes_tipos
+CREATE TABLE IF NOT EXISTS `clientes_tipos` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `descricao` varchar(50) NOT NULL,
+  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
 
--- Copiando dados para a tabela realbi53_tonie.clientes_tipos: ~2 rows (aproximadamente)
-/*!40000 ALTER TABLE `clientes_tipos`
-    DISABLE KEYS */;
-INSERT INTO `clientes_tipos` (`id`, `descricao`, `created_at`, `updated_at`)
-VALUES (1, 'Pessoa Fisica', '2020-05-28 10:24:51', '2020-05-28 10:24:52'),
-       (2, 'Pessoa Juridica', '2020-05-28 10:25:05', '2020-05-28 10:25:06');
-/*!40000 ALTER TABLE `clientes_tipos`
-    ENABLE KEYS */;
+-- Copiando dados para a tabela zig.clientes_tipos: ~2 rows (aproximadamente)
+/*!40000 ALTER TABLE `clientes_tipos` DISABLE KEYS */;
+INSERT INTO `clientes_tipos` (`id`, `descricao`, `created_at`, `updated_at`) VALUES
+	(1, 'Pessoa Fisica', '2020-05-28 10:24:51', '2020-05-28 10:24:52'),
+	(2, 'Pessoa Juridica', '2020-05-28 10:25:05', '2020-05-28 10:25:06');
+/*!40000 ALTER TABLE `clientes_tipos` ENABLE KEYS */;
 
--- Copiando estrutura para tabela realbi53_tonie.config_pdv
-CREATE TABLE IF NOT EXISTS `config_pdv`
-(
-    `id`          int(11)   NOT NULL AUTO_INCREMENT,
-    `id_empresa`  int(11)   NOT NULL,
-    `id_tipo_pdv` int(11)   NOT NULL DEFAULT '1',
-    `created_at`  timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-    `updated_at`  timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
-    PRIMARY KEY (`id`),
-    KEY `FK_config_pdv_clientes` (`id_empresa`),
-    KEY `FK_config_pdv_tipo_pdv` (`id_tipo_pdv`),
-    CONSTRAINT `FK_config_pdv_clientes` FOREIGN KEY (`id_empresa`) REFERENCES `empresas` (`id`),
-    CONSTRAINT `FK_config_pdv_tipo_pdv` FOREIGN KEY (`id_tipo_pdv`) REFERENCES `tipos_pdv` (`id`)
-) ENGINE = InnoDB
-  AUTO_INCREMENT = 8
-  DEFAULT CHARSET = latin1;
+-- Copiando estrutura para tabela zig.config_pdv
+CREATE TABLE IF NOT EXISTS `config_pdv` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `id_empresa` int NOT NULL,
+  `id_tipo_pdv` int NOT NULL DEFAULT '1',
+  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
+  PRIMARY KEY (`id`),
+  KEY `FK_config_pdv_clientes` (`id_empresa`),
+  KEY `FK_config_pdv_tipo_pdv` (`id_tipo_pdv`),
+  CONSTRAINT `FK_config_pdv_clientes` FOREIGN KEY (`id_empresa`) REFERENCES `empresas` (`id`),
+  CONSTRAINT `FK_config_pdv_tipo_pdv` FOREIGN KEY (`id_tipo_pdv`) REFERENCES `tipos_pdv` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=latin1;
 
--- Copiando dados para a tabela realbi53_tonie.config_pdv: ~5 rows (aproximadamente)
-/*!40000 ALTER TABLE `config_pdv`
-    DISABLE KEYS */;
-INSERT INTO `config_pdv` (`id`, `id_empresa`, `id_tipo_pdv`, `created_at`, `updated_at`)
-VALUES (3, 1, 1, '2020-11-26 18:38:06', '2020-11-26 18:38:06'),
-       (4, 2, 1, '2020-07-10 09:44:26', '2020-07-10 09:44:26'),
-       (5, 3, 1, '2020-07-19 09:20:53', '2020-07-19 09:20:53'),
-       (6, 4, 2, '2020-07-21 14:15:58', '2020-07-21 14:15:58'),
-       (7, 5, 2, '2020-11-12 22:37:05', '2020-11-12 22:37:05');
-/*!40000 ALTER TABLE `config_pdv`
-    ENABLE KEYS */;
+-- Copiando dados para a tabela zig.config_pdv: ~5 rows (aproximadamente)
+/*!40000 ALTER TABLE `config_pdv` DISABLE KEYS */;
+INSERT INTO `config_pdv` (`id`, `id_empresa`, `id_tipo_pdv`, `created_at`, `updated_at`) VALUES
+	(3, 1, 2, '2021-09-01 21:39:06', '2021-09-01 21:39:06'),
+	(6, 4, 2, '2020-07-21 14:15:58', '2020-07-21 14:15:58'),
+	(7, 5, 2, '2021-01-13 17:38:35', '2021-01-13 17:38:35'),
+	(8, 6, 2, '2021-01-18 17:35:22', '2021-01-18 17:35:22'),
+	(9, 7, 1, '2021-03-03 21:31:06', '2021-03-03 21:31:06');
+/*!40000 ALTER TABLE `config_pdv` ENABLE KEYS */;
 
--- Copiando estrutura para tabela realbi53_tonie.empresas
-CREATE TABLE IF NOT EXISTS `empresas`
-(
-    `id`          int(11)     NOT NULL AUTO_INCREMENT,
-    `nome`        varchar(50) NOT NULL,
-    `email`       varchar(50) NOT NULL,
-    `telefone`    varchar(50)          DEFAULT NULL,
-    `celular`     varchar(50)          DEFAULT NULL,
-    `id_segmento` int(11)     NOT NULL,
-    `created_at`  timestamp   NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-    `updated_at`  timestamp   NOT NULL DEFAULT '0000-00-00 00:00:00',
-    PRIMARY KEY (`id`)
-) ENGINE = InnoDB
-  AUTO_INCREMENT = 6
-  DEFAULT CHARSET = latin1;
+-- Copiando estrutura para tabela zig.empresas
+CREATE TABLE IF NOT EXISTS `empresas` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `nome` varchar(50) NOT NULL,
+  `email` varchar(50) NOT NULL,
+  `telefone` varchar(50) DEFAULT NULL,
+  `celular` varchar(50) DEFAULT NULL,
+  `id_segmento` int NOT NULL,
+  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=latin1;
 
--- Copiando dados para a tabela realbi53_tonie.empresas: ~0 rows (aproximadamente)
-/*!40000 ALTER TABLE `empresas`
-    DISABLE KEYS */;
-INSERT INTO `empresas` (`id`, `nome`, `email`, `telefone`, `celular`, `id_segmento`, `created_at`, `updated_at`)
-VALUES (1, 'Cliente Teste', 'cliente_teste@hotmail.com', NULL, NULL, 0, '2020-07-15 18:54:31', '2020-07-15 18:54:27'),
-       (2, 'Açaí dos meus Sonhos', 'acaidosmeussonhos@gmail.com', '(71) 9860-0965', '(71) 45564-6556', 2,
-        '2020-07-15 22:06:33', '2020-07-15 22:06:30'),
-       (3, 'Sabor Açaí', 'saboracai@gmail.com', '', '(71) 99260-8599', 3, '2020-07-19 09:20:53', '2020-07-19 09:20:53'),
-       (4, 'BOUTHIN DISTRIBUIDORA LTDA', 'fernando@bouthin.com.br', '(47) 3424-1444', '', 4, '2020-07-21 14:01:06',
-        '2020-07-21 14:01:06'),
-       (5, 'Ghetto Modas', 'ghettomodas@hotmail.com', '', '', 4, '2020-11-09 14:14:43', '2020-11-09 14:14:43');
-/*!40000 ALTER TABLE `empresas`
-    ENABLE KEYS */;
+-- Copiando dados para a tabela zig.empresas: ~5 rows (aproximadamente)
+/*!40000 ALTER TABLE `empresas` DISABLE KEYS */;
+INSERT INTO `empresas` (`id`, `nome`, `email`, `telefone`, `celular`, `id_segmento`, `created_at`, `updated_at`) VALUES
+	(1, 'Tonie', 'cliente_teste@hotmail.com', NULL, NULL, 0, '2020-11-26 22:33:38', '2020-11-26 22:33:38'),
+	(4, 'BOUTHIN DISTRIBUIDORA LTDA', 'fernando@bouthin.com.br', '(47) 3424-1444', '', 4, '2020-07-21 14:01:06', '2020-07-21 14:01:06'),
+	(5, 'Majukids', 'jeane.2@hotmail.com', '', '', 4, '2021-01-05 17:00:26', '2021-01-05 17:00:26'),
+	(6, 'Açaí dos meus Sonhos', 'santosalvin@hotmail.com', '', '', 2, '2021-01-18 17:32:44', '2021-01-18 17:32:44'),
+	(7, 'Fashion Star ', 'aninha.cc8@gmail.com ', '(47) 9881-9000', '(47) 98819-0000', 44, '2021-03-01 21:32:54', '2021-03-01 21:32:54');
+/*!40000 ALTER TABLE `empresas` ENABLE KEYS */;
 
--- Copiando estrutura para tabela realbi53_tonie.log_acessos
-CREATE TABLE IF NOT EXISTS `log_acessos`
-(
-    `id`         int(11)   NOT NULL AUTO_INCREMENT,
-    `id_usuario` int(11)   NOT NULL DEFAULT '0',
-    `id_empresa` int(11)   NOT NULL DEFAULT '0',
-    `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00' ON UPDATE CURRENT_TIMESTAMP,
-    `deleted_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
-    PRIMARY KEY (`id`),
-    KEY `FK_log_usuarios` (`id_usuario`),
-    KEY `FK_log_clientes` (`id_empresa`),
-    CONSTRAINT `FK_log_clientes` FOREIGN KEY (`id_empresa`) REFERENCES `empresas` (`id`),
-    CONSTRAINT `FK_log_usuarios` FOREIGN KEY (`id_usuario`) REFERENCES `usuarios` (`id`)
-) ENGINE = InnoDB
-  AUTO_INCREMENT = 501
-  DEFAULT CHARSET = latin1;
+-- Copiando estrutura para tabela zig.log_acessos
+CREATE TABLE IF NOT EXISTS `log_acessos` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `id_usuario` int NOT NULL DEFAULT '0',
+  `id_empresa` int NOT NULL DEFAULT '0',
+  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00' ON UPDATE CURRENT_TIMESTAMP,
+  `deleted_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
+  PRIMARY KEY (`id`),
+  KEY `FK_log_usuarios` (`id_usuario`),
+  KEY `FK_log_clientes` (`id_empresa`),
+  CONSTRAINT `FK_log_clientes` FOREIGN KEY (`id_empresa`) REFERENCES `empresas` (`id`),
+  CONSTRAINT `FK_log_usuarios` FOREIGN KEY (`id_usuario`) REFERENCES `usuarios` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=753 DEFAULT CHARSET=latin1;
 
--- Copiando dados para a tabela realbi53_tonie.log_acessos: ~143 rows (aproximadamente)
-/*!40000 ALTER TABLE `log_acessos`
-    DISABLE KEYS */;
-INSERT INTO `log_acessos` (`id`, `id_usuario`, `id_empresa`, `created_at`, `updated_at`, `deleted_at`)
-VALUES (1, 1, 1, '2020-06-24 12:34:39', '2020-06-24 12:34:39', '0000-00-00 00:00:00'),
-       (2, 1, 1, '2020-06-24 20:13:14', '2020-06-24 20:13:14', '0000-00-00 00:00:00'),
-       (3, 1, 1, '2020-06-24 21:48:40', '2020-06-24 21:48:40', '0000-00-00 00:00:00'),
-       (4, 1, 1, '2020-06-25 06:41:38', '2020-06-25 06:41:38', '0000-00-00 00:00:00'),
-       (5, 1, 1, '2020-06-25 08:04:45', '2020-06-25 08:04:45', '0000-00-00 00:00:00'),
-       (6, 1, 1, '2020-06-25 12:48:35', '2020-06-25 12:48:35', '0000-00-00 00:00:00'),
-       (7, 1, 1, '2020-06-25 12:53:20', '2020-06-25 12:53:20', '0000-00-00 00:00:00'),
-       (8, 1, 1, '2020-06-25 12:53:47', '2020-06-25 12:53:47', '0000-00-00 00:00:00'),
-       (9, 1, 1, '2020-06-25 16:40:02', '2020-06-25 16:40:02', '0000-00-00 00:00:00'),
-       (10, 1, 1, '2020-06-25 16:59:14', '2020-06-25 16:59:14', '0000-00-00 00:00:00'),
-       (11, 1, 1, '2020-06-26 13:27:18', '2020-06-26 13:27:18', '0000-00-00 00:00:00'),
-       (12, 1, 1, '2020-06-26 22:32:25', '2020-06-26 22:32:25', '0000-00-00 00:00:00'),
-       (13, 1, 1, '2020-06-27 07:55:25', '2020-06-27 07:55:25', '0000-00-00 00:00:00'),
-       (14, 1, 1, '2020-06-27 15:39:09', '2020-06-27 15:39:09', '0000-00-00 00:00:00'),
-       (15, 1, 1, '2020-06-27 22:23:11', '2020-06-27 22:23:11', '0000-00-00 00:00:00'),
-       (16, 1, 1, '2020-06-27 23:49:24', '2020-06-27 23:49:24', '0000-00-00 00:00:00'),
-       (17, 1, 1, '2020-06-28 08:41:53', '2020-06-28 08:41:53', '0000-00-00 00:00:00'),
-       (18, 1, 1, '2020-06-28 08:46:31', '2020-06-28 08:46:31', '0000-00-00 00:00:00'),
-       (19, 1, 1, '2020-06-28 10:03:59', '2020-06-28 10:03:59', '0000-00-00 00:00:00'),
-       (20, 1, 1, '2020-06-28 18:38:00', '2020-06-28 18:38:00', '0000-00-00 00:00:00'),
-       (21, 1, 1, '2020-06-28 18:38:40', '2020-06-28 18:38:40', '0000-00-00 00:00:00'),
-       (22, 1, 1, '2020-06-28 18:38:56', '2020-06-28 18:38:56', '0000-00-00 00:00:00'),
-       (23, 38, 1, '2020-06-28 18:39:42', '2020-06-28 18:39:42', '0000-00-00 00:00:00'),
-       (24, 38, 1, '2020-06-28 18:40:14', '2020-06-28 18:40:14', '0000-00-00 00:00:00'),
-       (25, 1, 1, '2020-06-29 13:02:52', '2020-06-29 13:02:52', '0000-00-00 00:00:00'),
-       (26, 1, 1, '2020-06-29 13:37:25', '2020-06-29 13:37:25', '0000-00-00 00:00:00'),
-       (27, 1, 1, '2020-06-29 14:21:32', '2020-06-29 14:21:32', '0000-00-00 00:00:00'),
-       (28, 1, 1, '2020-06-30 11:12:43', '2020-06-30 11:12:43', '0000-00-00 00:00:00'),
-       (29, 1, 1, '2020-07-01 21:40:40', '2020-07-01 21:40:40', '0000-00-00 00:00:00'),
-       (30, 1, 1, '2020-07-02 08:26:09', '2020-07-02 08:26:09', '0000-00-00 00:00:00'),
-       (31, 1, 1, '2020-07-03 08:13:12', '2020-07-03 08:13:12', '0000-00-00 00:00:00'),
-       (32, 1, 1, '2020-07-03 12:39:12', '2020-07-03 12:39:12', '0000-00-00 00:00:00'),
-       (33, 1, 1, '2020-07-03 15:44:41', '2020-07-03 15:44:41', '0000-00-00 00:00:00'),
-       (34, 1, 1, '2020-07-04 00:02:10', '2020-07-04 00:02:10', '0000-00-00 00:00:00'),
-       (35, 1, 1, '2020-07-04 10:29:28', '2020-07-04 10:29:28', '0000-00-00 00:00:00'),
-       (36, 1, 1, '2020-07-04 14:02:26', '2020-07-04 14:02:26', '0000-00-00 00:00:00'),
-       (37, 1, 1, '2020-07-04 14:26:50', '2020-07-04 14:26:50', '0000-00-00 00:00:00'),
-       (38, 1, 1, '2020-07-04 21:11:44', '2020-07-04 21:11:44', '0000-00-00 00:00:00'),
-       (39, 1, 1, '2020-07-04 22:27:49', '2020-07-04 22:27:49', '0000-00-00 00:00:00'),
-       (40, 1, 1, '2020-07-04 22:37:01', '2020-07-04 22:37:01', '0000-00-00 00:00:00'),
-       (41, 1, 1, '2020-07-05 10:36:28', '2020-07-05 10:36:28', '0000-00-00 00:00:00'),
-       (42, 1, 1, '2020-07-05 16:35:15', '2020-07-05 16:35:15', '0000-00-00 00:00:00'),
-       (43, 1, 1, '2020-07-05 16:35:21', '2020-07-05 16:35:21', '0000-00-00 00:00:00'),
-       (44, 1, 1, '2020-07-05 16:40:23', '2020-07-05 16:40:23', '0000-00-00 00:00:00'),
-       (45, 1, 1, '2020-07-05 16:45:26', '2020-07-05 16:45:26', '0000-00-00 00:00:00'),
-       (46, 1, 1, '2020-07-05 17:41:19', '2020-07-05 17:41:19', '0000-00-00 00:00:00'),
-       (47, 1, 1, '2020-07-05 21:04:15', '2020-07-05 21:04:15', '0000-00-00 00:00:00'),
-       (48, 1, 1, '2020-07-05 21:04:20', '2020-07-05 21:04:20', '0000-00-00 00:00:00'),
-       (49, 1, 1, '2020-07-05 21:04:27', '2020-07-05 21:04:27', '0000-00-00 00:00:00'),
-       (50, 1, 1, '2020-07-05 21:09:32', '2020-07-05 21:09:32', '0000-00-00 00:00:00'),
-       (51, 1, 1, '2020-07-05 21:16:43', '2020-07-05 21:16:43', '0000-00-00 00:00:00'),
-       (52, 1, 1, '2020-07-05 21:27:45', '2020-07-05 21:27:45', '0000-00-00 00:00:00'),
-       (53, 1, 1, '2020-07-05 21:29:44', '2020-07-05 21:29:44', '0000-00-00 00:00:00'),
-       (54, 1, 1, '2020-07-05 21:29:51', '2020-07-05 21:29:51', '0000-00-00 00:00:00'),
-       (55, 1, 1, '2020-07-05 21:37:38', '2020-07-05 21:37:38', '0000-00-00 00:00:00'),
-       (56, 1, 1, '2020-07-05 21:37:41', '2020-07-05 21:37:41', '0000-00-00 00:00:00'),
-       (57, 1, 1, '2020-07-05 21:39:09', '2020-07-05 21:39:09', '0000-00-00 00:00:00'),
-       (58, 1, 1, '2020-07-05 21:46:57', '2020-07-05 21:46:57', '0000-00-00 00:00:00'),
-       (59, 1, 1, '2020-07-05 21:47:38', '2020-07-05 21:47:38', '0000-00-00 00:00:00'),
-       (60, 1, 1, '2020-07-05 21:48:06', '2020-07-05 21:48:06', '0000-00-00 00:00:00'),
-       (61, 1, 1, '2020-07-05 21:48:14', '2020-07-05 21:48:14', '0000-00-00 00:00:00'),
-       (62, 1, 1, '2020-07-05 21:55:23', '2020-07-05 21:55:23', '0000-00-00 00:00:00'),
-       (63, 1, 1, '2020-07-05 21:56:57', '2020-07-05 21:56:57', '0000-00-00 00:00:00'),
-       (64, 1, 1, '2020-07-05 21:57:01', '2020-07-05 21:57:01', '0000-00-00 00:00:00'),
-       (65, 1, 1, '2020-07-06 20:34:15', '2020-07-06 20:34:15', '0000-00-00 00:00:00'),
-       (66, 1, 1, '2020-07-06 20:47:01', '2020-07-06 20:47:01', '0000-00-00 00:00:00'),
-       (67, 1, 1, '2020-07-06 20:47:42', '2020-07-06 20:47:42', '0000-00-00 00:00:00'),
-       (68, 1, 1, '2020-07-07 07:16:36', '2020-07-07 07:16:36', '0000-00-00 00:00:00'),
-       (69, 51, 1, '2020-07-07 07:21:00', '2020-07-07 07:21:00', '0000-00-00 00:00:00'),
-       (70, 1, 1, '2020-07-07 23:14:14', '2020-07-07 23:14:14', '0000-00-00 00:00:00'),
-       (71, 1, 1, '2020-07-09 15:17:59', '2020-07-09 15:17:59', '0000-00-00 00:00:00'),
-       (72, 1, 1, '2020-07-09 22:16:10', '2020-07-09 22:16:10', '0000-00-00 00:00:00'),
-       (73, 43, 1, '2020-07-09 22:16:38', '2020-07-09 22:16:38', '0000-00-00 00:00:00'),
-       (74, 1, 1, '2020-07-10 09:04:00', '2020-07-10 09:04:00', '0000-00-00 00:00:00'),
-       (75, 43, 1, '2020-07-10 09:04:18', '2020-07-10 09:04:18', '0000-00-00 00:00:00'),
-       (76, 1, 1, '2020-07-10 09:17:34', '2020-07-10 09:17:34', '0000-00-00 00:00:00'),
-       (77, 52, 2, '2020-07-10 09:45:18', '2020-07-10 09:45:18', '0000-00-00 00:00:00'),
-       (78, 52, 2, '2020-07-10 09:53:03', '2020-07-10 09:53:03', '0000-00-00 00:00:00'),
-       (79, 1, 1, '2020-07-10 10:55:22', '2020-07-10 10:55:22', '0000-00-00 00:00:00'),
-       (80, 52, 2, '2020-07-10 11:09:29', '2020-07-10 11:09:29', '0000-00-00 00:00:00'),
-       (81, 1, 1, '2020-07-10 12:00:12', '2020-07-10 12:00:12', '0000-00-00 00:00:00'),
-       (82, 43, 1, '2020-07-10 12:53:54', '2020-07-10 12:53:54', '0000-00-00 00:00:00'),
-       (83, 52, 2, '2020-07-10 12:54:53', '2020-07-10 12:54:53', '0000-00-00 00:00:00'),
-       (84, 55, 2, '2020-07-10 13:18:41', '2020-07-10 13:18:41', '0000-00-00 00:00:00'),
-       (85, 52, 2, '2020-07-10 14:02:46', '2020-07-10 14:02:46', '0000-00-00 00:00:00'),
-       (86, 52, 2, '2020-07-10 14:08:01', '2020-07-10 14:08:01', '0000-00-00 00:00:00'),
-       (87, 1, 1, '2020-07-10 15:10:36', '2020-07-10 15:10:36', '0000-00-00 00:00:00'),
-       (88, 52, 2, '2020-07-10 15:19:14', '2020-07-10 15:19:14', '0000-00-00 00:00:00'),
-       (89, 52, 2, '2020-07-10 16:22:05', '2020-07-10 16:22:05', '0000-00-00 00:00:00'),
-       (90, 52, 2, '2020-07-10 17:21:41', '2020-07-10 17:21:41', '0000-00-00 00:00:00'),
-       (91, 1, 1, '2020-07-11 10:51:55', '2020-07-11 10:51:55', '0000-00-00 00:00:00'),
-       (92, 35, 1, '2020-07-11 10:57:46', '2020-07-11 10:57:46', '0000-00-00 00:00:00'),
-       (93, 43, 1, '2020-07-11 11:36:18', '2020-07-11 11:36:18', '0000-00-00 00:00:00'),
-       (94, 35, 1, '2020-07-11 11:46:25', '2020-07-11 11:46:25', '0000-00-00 00:00:00'),
-       (95, 36, 1, '2020-07-11 11:47:17', '2020-07-11 11:47:17', '0000-00-00 00:00:00'),
-       (96, 43, 1, '2020-07-11 11:56:47', '2020-07-11 11:56:47', '0000-00-00 00:00:00'),
-       (97, 1, 1, '2020-07-11 12:08:10', '2020-07-11 12:08:10', '0000-00-00 00:00:00'),
-       (98, 1, 1, '2020-07-11 13:10:43', '2020-07-11 13:10:43', '0000-00-00 00:00:00'),
-       (99, 1, 1, '2020-07-11 14:14:51', '2020-07-11 14:14:51', '0000-00-00 00:00:00'),
-       (100, 1, 1, '2020-07-11 15:14:09', '2020-07-11 15:14:09', '0000-00-00 00:00:00'),
-       (101, 1, 1, '2020-07-11 15:19:01', '2020-07-11 15:19:01', '0000-00-00 00:00:00'),
-       (102, 1, 1, '2020-07-11 18:58:51', '2020-07-11 18:58:51', '0000-00-00 00:00:00'),
-       (103, 1, 1, '2020-07-11 20:01:32', '2020-07-11 20:01:32', '0000-00-00 00:00:00'),
-       (104, 1, 1, '2020-07-11 22:13:20', '2020-07-11 22:13:20', '0000-00-00 00:00:00'),
-       (105, 1, 1, '2020-07-12 11:12:08', '2020-07-12 11:12:08', '0000-00-00 00:00:00'),
-       (106, 1, 1, '2020-07-12 12:12:11', '2020-07-12 12:12:11', '0000-00-00 00:00:00'),
-       (107, 1, 1, '2020-07-12 12:20:04', '2020-07-12 12:20:04', '0000-00-00 00:00:00'),
-       (108, 1, 1, '2020-07-12 12:26:42', '2020-07-12 12:26:42', '0000-00-00 00:00:00'),
-       (109, 1, 1, '2020-07-12 12:28:26', '2020-07-12 12:28:26', '0000-00-00 00:00:00'),
-       (110, 1, 1, '2020-07-12 19:35:18', '2020-07-12 19:35:18', '0000-00-00 00:00:00'),
-       (111, 43, 1, '2020-07-12 20:46:49', '2020-07-12 20:46:49', '0000-00-00 00:00:00'),
-       (112, 1, 1, '2020-07-14 20:28:27', '2020-07-14 20:28:27', '0000-00-00 00:00:00'),
-       (113, 1, 1, '2020-07-14 21:07:40', '2020-07-14 21:07:40', '0000-00-00 00:00:00'),
-       (114, 43, 1, '2020-07-15 17:15:02', '2020-07-15 17:15:02', '0000-00-00 00:00:00'),
-       (115, 43, 1, '2020-07-15 18:15:11', '2020-07-15 18:15:11', '0000-00-00 00:00:00'),
-       (116, 43, 1, '2020-07-15 22:02:24', '2020-07-15 22:02:24', '0000-00-00 00:00:00'),
-       (117, 43, 1, '2020-07-17 20:06:25', '2020-07-17 20:06:25', '0000-00-00 00:00:00'),
-       (118, 1, 1, '2020-07-17 20:24:41', '2020-07-17 20:24:41', '0000-00-00 00:00:00'),
-       (119, 43, 1, '2020-07-18 20:04:30', '2020-07-18 20:04:30', '0000-00-00 00:00:00'),
-       (120, 43, 1, '2020-07-19 09:18:44', '2020-07-19 09:18:44', '0000-00-00 00:00:00'),
-       (121, 43, 1, '2020-07-19 09:20:07', '2020-07-19 09:20:07', '0000-00-00 00:00:00'),
-       (122, 56, 3, '2020-07-19 09:21:11', '2020-07-19 09:21:11', '0000-00-00 00:00:00'),
-       (123, 1, 1, '2020-07-19 11:10:17', '2020-07-19 11:10:17', '0000-00-00 00:00:00'),
-       (124, 43, 1, '2020-07-19 13:43:21', '2020-07-19 13:43:21', '0000-00-00 00:00:00'),
-       (125, 43, 1, '2020-07-19 17:38:39', '2020-07-19 17:38:39', '0000-00-00 00:00:00'),
-       (126, 43, 1, '2020-07-19 19:05:13', '2020-07-19 19:05:13', '0000-00-00 00:00:00'),
-       (127, 43, 1, '2020-07-19 19:32:44', '2020-07-19 19:32:44', '0000-00-00 00:00:00'),
-       (128, 43, 1, '2020-07-19 21:09:48', '2020-07-19 21:09:48', '0000-00-00 00:00:00'),
-       (129, 43, 1, '2020-07-19 22:05:52', '2020-07-19 22:05:52', '0000-00-00 00:00:00'),
-       (130, 43, 1, '2020-07-19 22:10:00', '2020-07-19 22:10:00', '0000-00-00 00:00:00'),
-       (131, 1, 1, '2020-07-21 03:06:16', '2020-07-21 03:06:16', '0000-00-00 00:00:00'),
-       (132, 1, 1, '2020-07-21 09:46:41', '2020-07-21 09:46:41', '0000-00-00 00:00:00'),
-       (133, 43, 1, '2020-07-21 10:54:06', '2020-07-21 10:54:06', '0000-00-00 00:00:00'),
-       (134, 43, 1, '2020-07-21 10:57:49', '2020-07-21 10:57:49', '0000-00-00 00:00:00'),
-       (135, 43, 1, '2020-07-21 12:12:25', '2020-07-21 12:12:25', '0000-00-00 00:00:00'),
-       (136, 43, 1, '2020-07-21 13:45:12', '2020-07-21 13:45:12', '0000-00-00 00:00:00'),
-       (137, 57, 1, '2020-07-21 13:55:03', '2020-07-21 13:55:03', '0000-00-00 00:00:00'),
-       (138, 58, 4, '2020-07-21 14:03:23', '2020-07-21 14:03:23', '0000-00-00 00:00:00'),
-       (139, 58, 4, '2020-07-21 14:05:17', '2020-07-21 14:05:17', '0000-00-00 00:00:00'),
-       (140, 57, 1, '2020-07-21 14:07:11', '2020-07-21 14:07:11', '0000-00-00 00:00:00'),
-       (141, 58, 4, '2020-07-21 14:08:34', '2020-07-21 14:08:34', '0000-00-00 00:00:00'),
-       (142, 58, 4, '2020-07-21 14:13:22', '2020-07-21 14:13:22', '0000-00-00 00:00:00'),
-       (144, 58, 4, '2020-07-21 14:36:00', '2020-07-21 14:36:00', '0000-00-00 00:00:00'),
-       (145, 58, 4, '2020-07-21 15:43:10', '2020-07-21 15:43:10', '0000-00-00 00:00:00'),
-       (146, 43, 1, '2020-07-21 15:50:50', '2020-07-21 15:50:50', '0000-00-00 00:00:00'),
-       (147, 43, 1, '2020-07-21 16:52:42', '2020-07-21 16:52:42', '0000-00-00 00:00:00'),
-       (148, 1, 1, '2020-07-21 17:53:37', '2020-07-21 17:53:37', '0000-00-00 00:00:00'),
-       (149, 43, 1, '2020-07-21 18:03:32', '2020-07-21 18:03:32', '0000-00-00 00:00:00'),
-       (150, 58, 4, '2020-07-21 18:04:13', '2020-07-21 18:04:13', '0000-00-00 00:00:00'),
-       (151, 58, 4, '2020-07-21 18:06:14', '2020-07-21 18:06:14', '0000-00-00 00:00:00'),
-       (152, 57, 1, '2020-07-21 18:27:11', '2020-07-21 18:27:11', '0000-00-00 00:00:00'),
-       (153, 1, 1, '2020-07-21 20:29:37', '2020-07-21 20:29:37', '0000-00-00 00:00:00'),
-       (154, 43, 1, '2020-07-21 20:46:02', '2020-07-21 20:46:02', '0000-00-00 00:00:00'),
-       (155, 61, 4, '2020-07-21 21:17:16', '2020-07-21 21:17:16', '0000-00-00 00:00:00'),
-       (156, 58, 4, '2020-07-21 22:35:30', '2020-07-21 22:35:30', '0000-00-00 00:00:00'),
-       (157, 58, 4, '2020-07-22 09:02:46', '2020-07-22 09:02:46', '0000-00-00 00:00:00'),
-       (158, 58, 4, '2020-07-22 16:29:07', '2020-07-22 16:29:07', '0000-00-00 00:00:00'),
-       (159, 58, 4, '2020-07-22 20:43:43', '2020-07-22 20:43:43', '0000-00-00 00:00:00'),
-       (160, 43, 1, '2020-07-22 20:57:03', '2020-07-22 20:57:03', '0000-00-00 00:00:00'),
-       (161, 57, 1, '2020-07-22 21:27:36', '2020-07-22 21:27:36', '0000-00-00 00:00:00'),
-       (162, 58, 4, '2020-07-22 21:30:14', '2020-07-22 21:30:14', '0000-00-00 00:00:00'),
-       (163, 58, 4, '2020-07-22 21:31:27', '2020-07-22 21:31:27', '0000-00-00 00:00:00'),
-       (164, 57, 1, '2020-07-22 21:35:24', '2020-07-22 21:35:24', '0000-00-00 00:00:00'),
-       (165, 43, 1, '2020-07-22 21:36:13', '2020-07-22 21:36:13', '0000-00-00 00:00:00'),
-       (166, 1, 1, '2020-07-22 22:20:20', '2020-07-22 22:20:20', '0000-00-00 00:00:00'),
-       (167, 43, 1, '2020-07-22 22:20:45', '2020-07-22 22:20:45', '0000-00-00 00:00:00'),
-       (168, 43, 1, '2020-07-22 22:45:09', '2020-07-22 22:45:09', '0000-00-00 00:00:00'),
-       (169, 1, 1, '2020-07-23 07:25:25', '2020-07-23 07:25:25', '0000-00-00 00:00:00'),
-       (170, 43, 1, '2020-07-23 09:49:35', '2020-07-23 09:49:35', '0000-00-00 00:00:00'),
-       (171, 1, 1, '2020-07-23 21:09:06', '2020-07-23 21:09:06', '0000-00-00 00:00:00'),
-       (172, 1, 1, '2020-07-23 22:13:33', '2020-07-23 22:13:33', '0000-00-00 00:00:00'),
-       (173, 43, 1, '2020-07-23 22:33:56', '2020-07-23 22:33:56', '0000-00-00 00:00:00'),
-       (174, 43, 1, '2020-07-24 09:24:15', '2020-07-24 09:24:15', '0000-00-00 00:00:00'),
-       (175, 43, 1, '2020-07-24 20:57:55', '2020-07-24 20:57:55', '0000-00-00 00:00:00'),
-       (176, 2, 1, '2020-07-24 21:26:14', '2020-07-24 21:26:14', '0000-00-00 00:00:00'),
-       (177, 58, 4, '2020-07-25 10:14:31', '2020-07-25 10:14:31', '0000-00-00 00:00:00'),
-       (178, 58, 4, '2020-07-25 10:22:02', '2020-07-25 10:22:02', '0000-00-00 00:00:00'),
-       (179, 1, 1, '2020-07-25 10:35:44', '2020-07-25 10:35:44', '0000-00-00 00:00:00'),
-       (180, 1, 1, '2020-07-25 13:14:33', '2020-07-25 13:14:33', '0000-00-00 00:00:00'),
-       (181, 1, 1, '2020-07-25 19:23:17', '2020-07-25 19:23:17', '0000-00-00 00:00:00'),
-       (182, 1, 1, '2020-07-25 23:08:45', '2020-07-25 23:08:45', '0000-00-00 00:00:00'),
-       (183, 1, 1, '2020-07-26 01:29:42', '2020-07-26 01:29:42', '0000-00-00 00:00:00'),
-       (184, 1, 1, '2020-07-26 11:38:30', '2020-07-26 11:38:30', '0000-00-00 00:00:00'),
-       (185, 1, 1, '2020-07-26 12:57:22', '2020-07-26 12:57:22', '0000-00-00 00:00:00'),
-       (186, 1, 1, '2020-07-26 13:55:22', '2020-07-26 13:55:22', '0000-00-00 00:00:00'),
-       (187, 1, 1, '2020-07-26 14:41:10', '2020-07-26 14:41:10', '0000-00-00 00:00:00'),
-       (188, 1, 1, '2020-07-26 14:43:29', '2020-07-26 14:43:29', '0000-00-00 00:00:00'),
-       (189, 1, 1, '2020-07-26 14:48:47', '2020-07-26 14:48:47', '0000-00-00 00:00:00'),
-       (190, 1, 1, '2020-07-27 09:52:55', '2020-07-27 09:52:55', '0000-00-00 00:00:00'),
-       (191, 1, 1, '2020-07-28 22:22:56', '2020-07-28 22:22:56', '0000-00-00 00:00:00'),
-       (192, 1, 1, '2020-07-29 09:11:20', '2020-07-29 09:11:20', '0000-00-00 00:00:00'),
-       (193, 1, 1, '2020-07-30 05:18:10', '2020-07-30 05:18:10', '0000-00-00 00:00:00'),
-       (194, 1, 1, '2020-07-30 16:12:16', '2020-07-30 16:12:16', '0000-00-00 00:00:00'),
-       (195, 1, 1, '2020-07-30 17:16:24', '2020-07-30 17:16:24', '0000-00-00 00:00:00'),
-       (196, 1, 1, '2020-07-30 18:16:51', '2020-07-30 18:16:51', '0000-00-00 00:00:00'),
-       (197, 1, 1, '2020-07-30 19:39:50', '2020-07-30 19:39:50', '0000-00-00 00:00:00'),
-       (198, 1, 1, '2020-07-31 17:28:58', '2020-07-31 17:28:58', '0000-00-00 00:00:00'),
-       (199, 1, 1, '2020-07-31 19:23:54', '2020-07-31 19:23:54', '0000-00-00 00:00:00'),
-       (200, 1, 1, '2020-07-31 21:25:43', '2020-07-31 21:25:43', '0000-00-00 00:00:00'),
-       (201, 1, 1, '2020-07-31 22:30:26', '2020-07-31 22:30:26', '0000-00-00 00:00:00'),
-       (202, 1, 1, '2020-07-31 23:31:13', '2020-07-31 23:31:13', '0000-00-00 00:00:00'),
-       (203, 1, 1, '2020-08-01 00:36:07', '2020-08-01 00:36:07', '0000-00-00 00:00:00'),
-       (204, 1, 1, '2020-08-01 12:13:33', '2020-08-01 12:13:33', '0000-00-00 00:00:00'),
-       (205, 1, 1, '2020-08-01 14:12:34', '2020-08-01 14:12:34', '0000-00-00 00:00:00'),
-       (206, 1, 1, '2020-08-02 01:05:02', '2020-08-02 01:05:02', '0000-00-00 00:00:00'),
-       (207, 1, 1, '2020-08-03 20:37:33', '2020-08-03 20:37:33', '0000-00-00 00:00:00'),
-       (208, 1, 1, '2020-08-03 21:37:53', '2020-08-03 21:37:53', '0000-00-00 00:00:00'),
-       (209, 1, 1, '2020-08-04 16:58:00', '2020-08-04 16:58:00', '0000-00-00 00:00:00'),
-       (210, 1, 1, '2020-08-04 17:48:54', '2020-08-04 17:48:54', '0000-00-00 00:00:00'),
-       (211, 1, 1, '2020-08-04 22:06:23', '2020-08-04 22:06:23', '0000-00-00 00:00:00'),
-       (212, 1, 1, '2020-08-05 09:12:27', '2020-08-05 09:12:27', '0000-00-00 00:00:00'),
-       (213, 1, 1, '2020-08-05 10:24:03', '2020-08-05 10:24:03', '0000-00-00 00:00:00'),
-       (214, 1, 1, '2020-08-05 11:24:33', '2020-08-05 11:24:33', '0000-00-00 00:00:00'),
-       (215, 1, 1, '2020-08-05 20:17:41', '2020-08-05 20:17:41', '0000-00-00 00:00:00'),
-       (216, 1, 1, '2020-08-05 21:24:43', '2020-08-05 21:24:43', '0000-00-00 00:00:00'),
-       (217, 1, 1, '2020-08-06 08:51:13', '2020-08-06 08:51:13', '0000-00-00 00:00:00'),
-       (218, 1, 1, '2020-08-06 09:26:18', '2020-08-06 09:26:18', '0000-00-00 00:00:00'),
-       (219, 1, 1, '2020-08-06 10:27:49', '2020-08-06 10:27:49', '0000-00-00 00:00:00'),
-       (220, 1, 1, '2020-08-06 12:49:16', '2020-08-06 12:49:16', '0000-00-00 00:00:00'),
-       (221, 1, 1, '2020-08-08 11:50:52', '2020-08-08 11:50:52', '0000-00-00 00:00:00'),
-       (222, 1, 1, '2020-08-08 23:32:38', '2020-08-08 23:32:38', '0000-00-00 00:00:00'),
-       (223, 1, 1, '2020-08-09 00:46:25', '2020-08-09 00:46:25', '0000-00-00 00:00:00'),
-       (224, 1, 1, '2020-08-09 09:36:19', '2020-08-09 09:36:19', '0000-00-00 00:00:00'),
-       (225, 1, 1, '2020-08-09 10:42:56', '2020-08-09 10:42:56', '0000-00-00 00:00:00'),
-       (226, 1, 1, '2020-08-13 15:38:02', '2020-08-13 15:38:02', '0000-00-00 00:00:00'),
-       (227, 1, 1, '2020-08-13 16:39:00', '2020-08-13 16:39:00', '0000-00-00 00:00:00'),
-       (228, 1, 1, '2020-08-13 17:42:58', '2020-08-13 17:42:58', '0000-00-00 00:00:00'),
-       (229, 57, 1, '2020-08-14 16:20:47', '2020-08-14 16:20:47', '0000-00-00 00:00:00'),
-       (230, 57, 1, '2020-08-14 16:45:51', '2020-08-14 16:45:51', '0000-00-00 00:00:00'),
-       (231, 57, 1, '2020-08-14 16:46:12', '2020-08-14 16:46:12', '0000-00-00 00:00:00'),
-       (232, 57, 1, '2020-08-14 18:26:11', '2020-08-14 18:26:11', '0000-00-00 00:00:00'),
-       (233, 1, 1, '2020-08-14 20:10:29', '2020-08-14 20:10:29', '0000-00-00 00:00:00'),
-       (234, 1, 1, '2020-08-14 20:26:23', '2020-08-14 20:26:23', '0000-00-00 00:00:00'),
-       (235, 57, 1, '2020-08-14 20:47:43', '2020-08-14 20:47:43', '0000-00-00 00:00:00'),
-       (236, 36, 1, '2020-08-14 20:57:14', '2020-08-14 20:57:14', '0000-00-00 00:00:00'),
-       (237, 1, 1, '2020-08-14 20:59:03', '2020-08-14 20:59:03', '0000-00-00 00:00:00'),
-       (238, 36, 1, '2020-08-14 20:59:26', '2020-08-14 20:59:26', '0000-00-00 00:00:00'),
-       (239, 1, 1, '2020-08-14 20:59:57', '2020-08-14 20:59:57', '0000-00-00 00:00:00'),
-       (240, 57, 1, '2020-08-14 21:17:22', '2020-08-14 21:17:22', '0000-00-00 00:00:00'),
-       (241, 57, 1, '2020-08-14 21:46:26', '2020-08-14 21:46:26', '0000-00-00 00:00:00'),
-       (242, 1, 1, '2020-08-16 13:39:47', '2020-08-16 13:39:47', '0000-00-00 00:00:00'),
-       (243, 43, 1, '2020-08-16 13:42:18', '2020-08-16 13:42:18', '0000-00-00 00:00:00'),
-       (244, 43, 1, '2020-08-16 13:43:04', '2020-08-16 13:43:04', '0000-00-00 00:00:00'),
-       (245, 43, 1, '2020-08-16 13:44:42', '2020-08-16 13:44:42', '0000-00-00 00:00:00'),
-       (246, 1, 1, '2020-08-17 08:17:39', '2020-08-17 08:17:39', '0000-00-00 00:00:00'),
-       (247, 1, 1, '2020-08-18 11:03:56', '2020-08-18 11:03:56', '0000-00-00 00:00:00'),
-       (248, 36, 1, '2020-08-18 11:07:16', '2020-08-18 11:07:16', '0000-00-00 00:00:00'),
-       (249, 1, 1, '2020-08-18 11:08:38', '2020-08-18 11:08:38', '0000-00-00 00:00:00'),
-       (250, 1, 1, '2020-08-18 17:27:32', '2020-08-18 17:27:32', '0000-00-00 00:00:00'),
-       (251, 1, 1, '2020-08-18 18:27:59', '2020-08-18 18:27:59', '0000-00-00 00:00:00'),
-       (252, 1, 1, '2020-08-19 09:05:31', '2020-08-19 09:05:31', '0000-00-00 00:00:00'),
-       (253, 1, 1, '2020-08-19 09:08:23', '2020-08-19 09:08:23', '0000-00-00 00:00:00'),
-       (254, 1, 1, '2020-08-19 15:51:27', '2020-08-19 15:51:27', '0000-00-00 00:00:00'),
-       (255, 1, 1, '2020-08-19 16:52:17', '2020-08-19 16:52:17', '0000-00-00 00:00:00'),
-       (256, 1, 1, '2020-08-19 19:51:37', '2020-08-19 19:51:37', '0000-00-00 00:00:00'),
-       (257, 57, 1, '2020-08-19 20:12:24', '2020-08-19 20:12:24', '0000-00-00 00:00:00'),
-       (258, 1, 1, '2020-08-20 14:09:25', '2020-08-20 14:09:25', '0000-00-00 00:00:00'),
-       (259, 1, 1, '2020-08-20 17:11:43', '2020-08-20 17:11:43', '0000-00-00 00:00:00'),
-       (260, 1, 1, '2020-08-20 18:23:35', '2020-08-20 18:23:35', '0000-00-00 00:00:00'),
-       (261, 1, 1, '2020-08-21 15:10:14', '2020-08-21 15:10:14', '0000-00-00 00:00:00'),
-       (262, 1, 1, '2020-08-21 15:24:40', '2020-08-21 15:24:40', '0000-00-00 00:00:00'),
-       (263, 1, 1, '2020-08-21 15:27:21', '2020-08-21 15:27:21', '0000-00-00 00:00:00'),
-       (264, 1, 1, '2020-08-21 15:51:20', '2020-08-21 15:51:20', '0000-00-00 00:00:00'),
-       (265, 1, 1, '2020-08-21 15:54:02', '2020-08-21 15:54:02', '0000-00-00 00:00:00'),
-       (266, 1, 1, '2020-08-21 15:55:49', '2020-08-21 15:55:49', '0000-00-00 00:00:00'),
-       (267, 1, 1, '2020-08-21 15:56:25', '2020-08-21 15:56:25', '0000-00-00 00:00:00'),
-       (268, 1, 1, '2020-08-21 15:59:29', '2020-08-21 15:59:29', '0000-00-00 00:00:00'),
-       (269, 1, 1, '2020-08-21 16:03:04', '2020-08-21 16:03:04', '0000-00-00 00:00:00'),
-       (270, 1, 1, '2020-08-21 16:10:05', '2020-08-21 16:10:05', '0000-00-00 00:00:00'),
-       (271, 1, 1, '2020-08-21 16:12:30', '2020-08-21 16:12:30', '0000-00-00 00:00:00'),
-       (272, 1, 1, '2020-08-21 16:15:22', '2020-08-21 16:15:22', '0000-00-00 00:00:00'),
-       (273, 1, 1, '2020-08-21 17:21:54', '2020-08-21 17:21:54', '0000-00-00 00:00:00'),
-       (274, 1, 1, '2020-08-21 17:26:10', '2020-08-21 17:26:10', '0000-00-00 00:00:00'),
-       (275, 1, 1, '2020-08-21 17:55:24', '2020-08-21 17:55:24', '0000-00-00 00:00:00'),
-       (276, 1, 1, '2020-08-21 17:56:34', '2020-08-21 17:56:34', '0000-00-00 00:00:00'),
-       (277, 1, 1, '2020-08-21 22:31:08', '2020-08-21 22:31:08', '0000-00-00 00:00:00'),
-       (278, 1, 1, '2020-08-21 22:48:18', '2020-08-21 22:48:18', '0000-00-00 00:00:00'),
-       (279, 1, 1, '2020-08-21 22:51:42', '2020-08-21 22:51:42', '0000-00-00 00:00:00'),
-       (280, 1, 1, '2020-08-21 23:01:44', '2020-08-21 23:01:44', '0000-00-00 00:00:00'),
-       (281, 1, 1, '2020-08-21 23:10:33', '2020-08-21 23:10:33', '0000-00-00 00:00:00'),
-       (282, 1, 1, '2020-08-21 23:11:39', '2020-08-21 23:11:39', '0000-00-00 00:00:00'),
-       (283, 1, 1, '2020-08-21 23:16:35', '2020-08-21 23:16:35', '0000-00-00 00:00:00'),
-       (284, 1, 1, '2020-08-21 23:17:39', '2020-08-21 23:17:39', '0000-00-00 00:00:00'),
-       (285, 1, 1, '2020-08-21 23:20:00', '2020-08-21 23:20:00', '0000-00-00 00:00:00'),
-       (286, 1, 1, '2020-08-21 23:20:21', '2020-08-21 23:20:21', '0000-00-00 00:00:00'),
-       (287, 1, 1, '2020-08-21 23:25:28', '2020-08-21 23:25:28', '0000-00-00 00:00:00'),
-       (288, 1, 1, '2020-08-21 23:26:17', '2020-08-21 23:26:17', '0000-00-00 00:00:00'),
-       (289, 1, 1, '2020-08-21 23:28:04', '2020-08-21 23:28:04', '0000-00-00 00:00:00'),
-       (290, 1, 1, '2020-08-21 23:31:40', '2020-08-21 23:31:40', '0000-00-00 00:00:00'),
-       (291, 1, 1, '2020-08-21 23:35:13', '2020-08-21 23:35:13', '0000-00-00 00:00:00'),
-       (292, 1, 1, '2020-08-21 23:39:44', '2020-08-21 23:39:44', '0000-00-00 00:00:00'),
-       (293, 1, 1, '2020-08-23 00:51:23', '2020-08-23 00:51:23', '0000-00-00 00:00:00'),
-       (294, 1, 1, '2020-08-24 09:44:24', '2020-08-24 09:44:24', '0000-00-00 00:00:00'),
-       (295, 57, 1, '2020-08-24 18:36:26', '2020-08-24 18:36:26', '0000-00-00 00:00:00'),
-       (296, 57, 1, '2020-08-26 20:28:10', '2020-08-26 20:28:10', '0000-00-00 00:00:00'),
-       (297, 1, 1, '2020-08-29 01:40:57', '2020-08-29 01:40:57', '0000-00-00 00:00:00'),
-       (298, 1, 1, '2020-09-01 09:13:33', '2020-09-01 09:13:33', '0000-00-00 00:00:00'),
-       (299, 1, 1, '2020-09-01 13:52:34', '2020-09-01 13:52:34', '0000-00-00 00:00:00'),
-       (300, 1, 1, '2020-09-02 14:35:55', '2020-09-02 14:35:55', '0000-00-00 00:00:00'),
-       (301, 1, 1, '2020-09-02 14:48:10', '2020-09-02 14:48:10', '0000-00-00 00:00:00'),
-       (302, 1, 1, '2020-09-02 15:37:52', '2020-09-02 15:37:52', '0000-00-00 00:00:00'),
-       (303, 57, 1, '2020-09-02 20:18:25', '2020-09-02 20:18:25', '0000-00-00 00:00:00'),
-       (304, 1, 1, '2020-09-03 15:04:14', '2020-09-03 15:04:14', '0000-00-00 00:00:00'),
-       (305, 1, 1, '2020-09-03 16:05:00', '2020-09-03 16:05:00', '0000-00-00 00:00:00'),
-       (306, 1, 1, '2020-09-04 09:55:22', '2020-09-04 09:55:22', '0000-00-00 00:00:00'),
-       (307, 1, 1, '2020-09-04 11:03:51', '2020-09-04 11:03:51', '0000-00-00 00:00:00'),
-       (308, 1, 1, '2020-09-04 11:22:15', '2020-09-04 11:22:15', '0000-00-00 00:00:00'),
-       (309, 1, 1, '2020-09-04 14:14:49', '2020-09-04 14:14:49', '0000-00-00 00:00:00'),
-       (310, 1, 1, '2020-09-04 15:47:23', '2020-09-04 15:47:23', '0000-00-00 00:00:00'),
-       (311, 1, 1, '2020-09-04 16:48:38', '2020-09-04 16:48:38', '0000-00-00 00:00:00'),
-       (312, 1, 1, '2020-09-04 17:50:51', '2020-09-04 17:50:51', '0000-00-00 00:00:00'),
-       (313, 57, 1, '2020-09-04 19:59:15', '2020-09-04 19:59:15', '0000-00-00 00:00:00'),
-       (314, 1, 1, '2020-09-05 13:03:46', '2020-09-05 13:03:46', '0000-00-00 00:00:00'),
-       (315, 1, 1, '2020-09-18 15:51:31', '2020-09-18 15:51:31', '0000-00-00 00:00:00'),
-       (316, 1, 1, '2020-09-18 19:45:21', '2020-09-18 19:45:21', '0000-00-00 00:00:00'),
-       (317, 1, 1, '2020-09-19 11:30:16', '2020-09-19 11:30:16', '0000-00-00 00:00:00'),
-       (318, 35, 1, '2020-09-19 11:30:59', '2020-09-19 11:30:59', '0000-00-00 00:00:00'),
-       (319, 1, 1, '2020-09-21 17:30:11', '2020-09-21 17:30:11', '0000-00-00 00:00:00'),
-       (320, 1, 1, '2020-09-22 09:41:44', '2020-09-22 09:41:44', '0000-00-00 00:00:00'),
-       (321, 57, 1, '2020-09-22 14:00:03', '2020-09-22 14:00:03', '0000-00-00 00:00:00'),
-       (322, 1, 1, '2020-09-24 13:32:17', '2020-09-24 13:32:17', '0000-00-00 00:00:00'),
-       (323, 1, 1, '2020-09-24 14:34:14', '2020-09-24 14:34:14', '0000-00-00 00:00:00'),
-       (324, 1, 1, '2020-09-25 10:47:23', '2020-09-25 10:47:23', '0000-00-00 00:00:00'),
-       (325, 1, 1, '2020-10-01 16:18:00', '2020-10-01 16:18:00', '0000-00-00 00:00:00'),
-       (326, 1, 1, '2020-10-01 17:29:41', '2020-10-01 17:29:41', '0000-00-00 00:00:00'),
-       (327, 1, 1, '2020-10-13 14:27:36', '2020-10-13 14:27:36', '0000-00-00 00:00:00'),
-       (328, 1, 1, '2020-10-13 15:34:14', '2020-10-13 15:34:14', '0000-00-00 00:00:00'),
-       (329, 1, 1, '2020-10-15 11:51:10', '2020-10-15 11:51:10', '0000-00-00 00:00:00'),
-       (330, 1, 1, '2020-10-15 11:53:35', '2020-10-15 11:53:35', '0000-00-00 00:00:00'),
-       (331, 1, 1, '2020-10-15 13:40:39', '2020-10-15 13:40:39', '0000-00-00 00:00:00'),
-       (332, 1, 1, '2020-10-15 13:40:35', '2020-10-15 13:40:35', '0000-00-00 00:00:00'),
-       (333, 1, 1, '2020-10-15 14:34:10', '2020-10-15 14:34:10', '0000-00-00 00:00:00'),
-       (334, 1, 1, '2020-10-17 09:43:22', '2020-10-17 09:43:22', '0000-00-00 00:00:00'),
-       (335, 1, 1, '2020-10-17 10:11:09', '2020-10-17 10:11:09', '0000-00-00 00:00:00'),
-       (336, 1, 1, '2020-10-21 10:05:56', '2020-10-21 10:05:56', '0000-00-00 00:00:00'),
-       (337, 57, 1, '2020-10-25 20:14:58', '2020-10-25 20:14:58', '0000-00-00 00:00:00'),
-       (338, 1, 1, '2020-10-25 20:17:03', '2020-10-25 20:17:03', '0000-00-00 00:00:00'),
-       (339, 1, 1, '2020-10-25 20:52:54', '2020-10-25 20:52:54', '0000-00-00 00:00:00'),
-       (340, 1, 1, '2020-10-25 21:19:31', '2020-10-25 21:19:31', '0000-00-00 00:00:00'),
-       (341, 57, 1, '2020-10-25 21:22:18', '2020-10-25 21:22:18', '0000-00-00 00:00:00'),
-       (342, 1, 1, '2020-10-29 13:13:53', '2020-10-29 13:13:53', '0000-00-00 00:00:00'),
-       (343, 1, 1, '2020-10-29 14:38:03', '2020-10-29 14:38:03', '0000-00-00 00:00:00'),
-       (344, 1, 1, '2020-10-30 00:27:43', '2020-10-30 00:27:43', '0000-00-00 00:00:00'),
-       (345, 1, 1, '2020-10-30 00:40:49', '2020-10-30 00:40:49', '0000-00-00 00:00:00'),
-       (346, 1, 1, '2020-10-31 14:53:40', '2020-10-31 14:53:40', '0000-00-00 00:00:00'),
-       (347, 1, 1, '2020-10-31 14:59:49', '2020-10-31 14:59:49', '0000-00-00 00:00:00'),
-       (348, 1, 1, '2020-11-03 17:01:05', '2020-11-03 17:01:05', '0000-00-00 00:00:00'),
-       (349, 1, 1, '2020-11-03 17:02:29', '2020-11-03 17:02:29', '0000-00-00 00:00:00'),
-       (350, 1, 1, '2020-11-03 20:31:17', '2020-11-03 20:31:17', '0000-00-00 00:00:00'),
-       (351, 1, 1, '2020-11-03 21:41:50', '2020-11-03 21:41:50', '0000-00-00 00:00:00'),
-       (352, 1, 1, '2020-11-04 15:13:14', '2020-11-04 15:13:14', '0000-00-00 00:00:00'),
-       (353, 1, 1, '2020-11-04 16:20:51', '2020-11-04 16:20:51', '0000-00-00 00:00:00'),
-       (354, 1, 1, '2020-11-04 17:21:31', '2020-11-04 17:21:31', '0000-00-00 00:00:00'),
-       (355, 1, 1, '2020-11-04 21:29:19', '2020-11-04 21:29:19', '0000-00-00 00:00:00'),
-       (356, 1, 1, '2020-11-04 22:29:44', '2020-11-04 22:29:44', '0000-00-00 00:00:00'),
-       (357, 1, 1, '2020-11-05 18:17:28', '2020-11-05 18:17:28', '0000-00-00 00:00:00'),
-       (358, 1, 1, '2020-11-05 19:18:25', '2020-11-05 19:18:25', '0000-00-00 00:00:00'),
-       (359, 1, 1, '2020-11-05 20:20:59', '2020-11-05 20:20:59', '0000-00-00 00:00:00'),
-       (360, 1, 1, '2020-11-05 21:21:44', '2020-11-05 21:21:44', '0000-00-00 00:00:00'),
-       (361, 1, 1, '2020-11-05 22:22:06', '2020-11-05 22:22:06', '0000-00-00 00:00:00'),
-       (362, 1, 1, '2020-11-05 23:01:42', '2020-11-05 23:01:42', '0000-00-00 00:00:00'),
-       (363, 1, 1, '2020-11-05 23:23:35', '2020-11-05 23:23:35', '0000-00-00 00:00:00'),
-       (364, 1, 1, '2020-11-06 08:39:48', '2020-11-06 08:39:48', '0000-00-00 00:00:00'),
-       (365, 1, 1, '2020-11-06 09:37:23', '2020-11-06 09:37:23', '0000-00-00 00:00:00'),
-       (366, 1, 1, '2020-11-06 13:54:22', '2020-11-06 13:54:22', '0000-00-00 00:00:00'),
-       (367, 1, 1, '2020-11-06 14:44:46', '2020-11-06 14:44:46', '0000-00-00 00:00:00'),
-       (368, 1, 1, '2020-11-06 14:56:27', '2020-11-06 14:56:27', '0000-00-00 00:00:00'),
-       (369, 1, 1, '2020-11-06 18:51:18', '2020-11-06 18:51:18', '0000-00-00 00:00:00'),
-       (370, 1, 1, '2020-11-06 20:02:41', '2020-11-06 20:02:41', '0000-00-00 00:00:00'),
-       (371, 1, 1, '2020-11-06 21:31:50', '2020-11-06 21:31:50', '0000-00-00 00:00:00'),
-       (372, 1, 1, '2020-11-06 22:31:35', '2020-11-06 22:31:35', '0000-00-00 00:00:00'),
-       (373, 1, 1, '2020-11-06 22:32:24', '2020-11-06 22:32:24', '0000-00-00 00:00:00'),
-       (374, 57, 1, '2020-11-06 22:44:06', '2020-11-06 22:44:06', '0000-00-00 00:00:00'),
-       (375, 1, 1, '2020-11-06 22:59:10', '2020-11-06 22:59:10', '0000-00-00 00:00:00'),
-       (376, 1, 1, '2020-11-07 00:20:02', '2020-11-07 00:20:02', '0000-00-00 00:00:00'),
-       (377, 1, 1, '2020-11-07 00:35:55', '2020-11-07 00:35:55', '0000-00-00 00:00:00'),
-       (378, 1, 1, '2020-11-07 01:31:20', '2020-11-07 01:31:20', '0000-00-00 00:00:00'),
-       (379, 1, 1, '2020-11-07 01:48:47', '2020-11-07 01:48:47', '0000-00-00 00:00:00'),
-       (380, 1, 1, '2020-11-07 01:57:54', '2020-11-07 01:57:54', '0000-00-00 00:00:00'),
-       (381, 1, 1, '2020-11-07 11:06:47', '2020-11-07 11:06:47', '0000-00-00 00:00:00'),
-       (382, 1, 1, '2020-11-07 11:17:21', '2020-11-07 11:17:21', '0000-00-00 00:00:00'),
-       (383, 1, 1, '2020-11-07 12:07:54', '2020-11-07 12:07:54', '0000-00-00 00:00:00'),
-       (384, 1, 1, '2020-11-07 12:18:33', '2020-11-07 12:18:33', '0000-00-00 00:00:00'),
-       (385, 1, 1, '2020-11-07 19:53:47', '2020-11-07 19:53:47', '0000-00-00 00:00:00'),
-       (386, 1, 1, '2020-11-07 20:27:36', '2020-11-07 20:27:36', '0000-00-00 00:00:00'),
-       (387, 1, 1, '2020-11-07 20:33:50', '2020-11-07 20:33:50', '0000-00-00 00:00:00'),
-       (388, 1, 1, '2020-11-08 09:57:05', '2020-11-08 09:57:05', '0000-00-00 00:00:00'),
-       (389, 1, 1, '2020-11-08 09:59:38', '2020-11-08 09:59:38', '0000-00-00 00:00:00'),
-       (390, 36, 1, '2020-11-08 10:00:23', '2020-11-08 10:00:23', '0000-00-00 00:00:00'),
-       (391, 1, 1, '2020-11-08 10:59:43', '2020-11-08 10:59:43', '0000-00-00 00:00:00'),
-       (392, 57, 1, '2020-11-08 19:17:42', '2020-11-08 19:17:42', '0000-00-00 00:00:00'),
-       (393, 1, 1, '2020-11-08 21:23:07', '2020-11-08 21:23:07', '0000-00-00 00:00:00'),
-       (394, 35, 1, '2020-11-08 21:24:58', '2020-11-08 21:24:58', '0000-00-00 00:00:00'),
-       (395, 1, 1, '2020-11-08 22:00:42', '2020-11-08 22:00:42', '0000-00-00 00:00:00'),
-       (396, 1, 1, '2020-11-08 22:16:08', '2020-11-08 22:16:08', '0000-00-00 00:00:00'),
-       (397, 1, 1, '2020-11-09 09:19:19', '2020-11-09 09:19:19', '0000-00-00 00:00:00'),
-       (398, 47, 1, '2020-11-09 09:50:54', '2020-11-09 09:50:54', '0000-00-00 00:00:00'),
-       (399, 1, 1, '2020-11-09 11:28:32', '2020-11-09 11:28:32', '0000-00-00 00:00:00'),
-       (400, 1, 1, '2020-11-09 13:36:36', '2020-11-09 13:36:36', '0000-00-00 00:00:00'),
-       (401, 43, 1, '2020-11-09 14:13:16', '2020-11-09 14:13:16', '0000-00-00 00:00:00'),
-       (402, 62, 5, '2020-11-09 14:15:46', '2020-11-09 14:15:46', '0000-00-00 00:00:00'),
-       (403, 62, 5, '2020-11-09 14:29:44', '2020-11-09 14:29:44', '0000-00-00 00:00:00'),
-       (404, 1, 1, '2020-11-09 14:57:37', '2020-11-09 14:57:37', '0000-00-00 00:00:00'),
-       (405, 1, 1, '2020-11-09 20:01:54', '2020-11-09 20:01:54', '0000-00-00 00:00:00'),
-       (406, 1, 1, '2020-11-09 20:03:26', '2020-11-09 20:03:26', '0000-00-00 00:00:00'),
-       (407, 57, 1, '2020-11-09 21:02:21', '2020-11-09 21:02:21', '0000-00-00 00:00:00'),
-       (408, 62, 5, '2020-11-09 23:37:46', '2020-11-09 23:37:46', '0000-00-00 00:00:00'),
-       (409, 1, 1, '2020-11-09 23:45:33', '2020-11-09 23:45:33', '0000-00-00 00:00:00'),
-       (410, 1, 1, '2020-11-09 23:48:45', '2020-11-09 23:48:45', '0000-00-00 00:00:00'),
-       (411, 62, 5, '2020-11-10 12:30:45', '2020-11-10 12:30:45', '0000-00-00 00:00:00'),
-       (412, 1, 1, '2020-11-10 18:08:41', '2020-11-10 18:08:41', '0000-00-00 00:00:00'),
-       (413, 1, 1, '2020-11-10 19:43:34', '2020-11-10 19:43:34', '0000-00-00 00:00:00'),
-       (414, 1, 1, '2020-11-10 20:24:18', '2020-11-10 20:24:18', '0000-00-00 00:00:00'),
-       (415, 1, 1, '2020-11-10 20:45:52', '2020-11-10 20:45:52', '0000-00-00 00:00:00'),
-       (416, 62, 5, '2020-11-10 21:15:52', '2020-11-10 21:15:52', '0000-00-00 00:00:00'),
-       (417, 1, 1, '2020-11-11 12:18:38', '2020-11-11 12:18:38', '0000-00-00 00:00:00'),
-       (418, 1, 1, '2020-11-11 23:28:47', '2020-11-11 23:28:47', '0000-00-00 00:00:00'),
-       (419, 1, 1, '2020-11-12 12:15:26', '2020-11-12 12:15:26', '0000-00-00 00:00:00'),
-       (420, 1, 1, '2020-11-12 13:16:12', '2020-11-12 13:16:12', '0000-00-00 00:00:00'),
-       (421, 1, 1, '2020-11-12 13:39:47', '2020-11-12 13:39:47', '0000-00-00 00:00:00'),
-       (422, 43, 1, '2020-11-12 14:33:50', '2020-11-12 14:33:50', '0000-00-00 00:00:00'),
-       (423, 43, 1, '2020-11-12 14:35:58', '2020-11-12 14:35:58', '0000-00-00 00:00:00'),
-       (424, 1, 1, '2020-11-12 14:59:58', '2020-11-12 14:59:58', '0000-00-00 00:00:00'),
-       (425, 2, 1, '2020-11-12 15:02:13', '2020-11-12 15:02:13', '0000-00-00 00:00:00'),
-       (426, 36, 1, '2020-11-12 15:03:00', '2020-11-12 15:03:00', '0000-00-00 00:00:00'),
-       (427, 1, 1, '2020-11-12 15:03:29', '2020-11-12 15:03:29', '0000-00-00 00:00:00'),
-       (428, 35, 1, '2020-11-12 15:03:49', '2020-11-12 15:03:49', '0000-00-00 00:00:00'),
-       (429, 1, 1, '2020-11-12 15:04:12', '2020-11-12 15:04:12', '0000-00-00 00:00:00'),
-       (430, 1, 1, '2020-11-12 15:47:11', '2020-11-12 15:47:11', '0000-00-00 00:00:00'),
-       (431, 1, 1, '2020-11-12 17:22:59', '2020-11-12 17:22:59', '0000-00-00 00:00:00'),
-       (432, 1, 1, '2020-11-12 18:42:41', '2020-11-12 18:42:41', '0000-00-00 00:00:00'),
-       (433, 1, 1, '2020-11-12 18:43:06', '2020-11-12 18:43:06', '0000-00-00 00:00:00'),
-       (434, 62, 5, '2020-11-12 18:48:43', '2020-11-12 18:48:43', '0000-00-00 00:00:00'),
-       (435, 63, 5, '2020-11-12 18:50:53', '2020-11-12 18:50:53', '0000-00-00 00:00:00'),
-       (436, 1, 1, '2020-11-12 18:59:37', '2020-11-12 18:59:37', '0000-00-00 00:00:00'),
-       (437, 1, 1, '2020-11-12 19:49:55', '2020-11-12 19:49:55', '0000-00-00 00:00:00'),
-       (438, 1, 1, '2020-11-12 19:51:21', '2020-11-12 19:51:21', '0000-00-00 00:00:00'),
-       (439, 62, 5, '2020-11-12 19:51:48', '2020-11-12 19:51:48', '0000-00-00 00:00:00'),
-       (440, 64, 1, '2020-11-12 19:55:18', '2020-11-12 19:55:18', '0000-00-00 00:00:00'),
-       (441, 1, 1, '2020-11-12 19:55:52', '2020-11-12 19:55:52', '0000-00-00 00:00:00'),
-       (442, 1, 1, '2020-11-12 20:14:56', '2020-11-12 20:14:56', '0000-00-00 00:00:00'),
-       (443, 1, 1, '2020-11-12 21:46:28', '2020-11-12 21:46:28', '0000-00-00 00:00:00'),
-       (444, 62, 5, '2020-11-12 21:46:48', '2020-11-12 21:46:48', '0000-00-00 00:00:00'),
-       (445, 1, 1, '2020-11-12 22:59:59', '2020-11-12 22:59:59', '0000-00-00 00:00:00'),
-       (446, 1, 1, '2020-11-12 23:35:26', '2020-11-12 23:35:26', '0000-00-00 00:00:00'),
-       (447, 62, 5, '2020-11-12 23:48:01', '2020-11-12 23:48:01', '0000-00-00 00:00:00'),
-       (448, 1, 1, '2020-11-13 10:44:22', '2020-11-13 10:44:22', '0000-00-00 00:00:00'),
-       (449, 1, 1, '2020-11-13 13:35:43', '2020-11-13 13:35:43', '0000-00-00 00:00:00'),
-       (450, 62, 5, '2020-11-13 13:35:59', '2020-11-13 13:35:59', '0000-00-00 00:00:00'),
-       (451, 63, 5, '2020-11-13 14:16:06', '2020-11-13 14:16:06', '0000-00-00 00:00:00'),
-       (452, 1, 1, '2020-11-13 20:35:21', '2020-11-13 20:35:21', '0000-00-00 00:00:00'),
-       (453, 57, 1, '2020-11-13 21:45:48', '2020-11-13 21:45:48', '0000-00-00 00:00:00'),
-       (454, 57, 1, '2020-11-13 22:47:57', '2020-11-13 22:47:57', '0000-00-00 00:00:00'),
-       (455, 62, 5, '2020-11-14 10:25:16', '2020-11-14 10:25:16', '0000-00-00 00:00:00'),
-       (456, 65, 5, '2020-11-14 10:28:27', '2020-11-14 10:28:27', '0000-00-00 00:00:00'),
-       (457, 62, 5, '2020-11-14 10:30:28', '2020-11-14 10:30:28', '0000-00-00 00:00:00'),
-       (458, 43, 1, '2020-11-14 10:31:22', '2020-11-14 10:31:22', '0000-00-00 00:00:00'),
-       (459, 62, 5, '2020-11-14 12:16:25', '2020-11-14 12:16:25', '0000-00-00 00:00:00'),
-       (460, 1, 1, '2020-11-14 12:57:39', '2020-11-14 12:57:39', '0000-00-00 00:00:00'),
-       (461, 1, 1, '2020-11-14 13:58:13', '2020-11-14 13:58:13', '0000-00-00 00:00:00'),
-       (462, 1, 1, '2020-11-14 14:15:43', '2020-11-14 14:15:43', '0000-00-00 00:00:00'),
-       (463, 1, 1, '2020-11-14 14:18:36', '2020-11-14 14:18:36', '0000-00-00 00:00:00'),
-       (464, 1, 1, '2020-11-14 15:19:27', '2020-11-14 15:19:27', '0000-00-00 00:00:00'),
-       (465, 1, 1, '2020-11-14 15:20:46', '2020-11-14 15:20:46', '0000-00-00 00:00:00'),
-       (466, 43, 1, '2020-11-14 15:31:08', '2020-11-14 15:31:08', '0000-00-00 00:00:00'),
-       (467, 1, 1, '2020-11-14 15:40:32', '2020-11-14 15:40:32', '0000-00-00 00:00:00'),
-       (468, 1, 1, '2020-11-14 19:00:16', '2020-11-14 19:00:16', '0000-00-00 00:00:00'),
-       (469, 1, 1, '2020-11-15 10:43:10', '2020-11-15 10:43:10', '0000-00-00 00:00:00'),
-       (470, 1, 1, '2020-11-15 12:45:12', '2020-11-15 12:45:12', '0000-00-00 00:00:00'),
-       (471, 1, 1, '2020-11-15 13:07:52', '2020-11-15 13:07:52', '0000-00-00 00:00:00'),
-       (472, 1, 1, '2020-11-16 13:36:22', '2020-11-16 13:36:22', '0000-00-00 00:00:00'),
-       (473, 62, 5, '2020-11-16 23:34:21', '2020-11-16 23:34:21', '0000-00-00 00:00:00'),
-       (474, 1, 1, '2020-11-17 20:29:53', '2020-11-17 20:29:53', '0000-00-00 00:00:00'),
-       (475, 1, 1, '2020-11-17 20:33:30', '2020-11-17 20:33:30', '0000-00-00 00:00:00'),
-       (476, 1, 1, '2020-11-17 22:20:25', '2020-11-17 22:20:25', '0000-00-00 00:00:00'),
-       (477, 1, 1, '2020-11-17 22:28:02', '2020-11-17 22:28:02', '0000-00-00 00:00:00'),
-       (478, 1, 1, '2020-11-18 01:09:29', '2020-11-18 01:09:29', '0000-00-00 00:00:00'),
-       (479, 1, 1, '2020-11-18 09:39:38', '2020-11-18 09:39:38', '0000-00-00 00:00:00'),
-       (480, 1, 1, '2020-11-18 17:47:32', '2020-11-18 17:47:32', '0000-00-00 00:00:00'),
-       (481, 1, 1, '2020-11-18 17:48:11', '2020-11-18 17:48:11', '0000-00-00 00:00:00'),
-       (482, 1, 1, '2020-11-19 21:48:50', '2020-11-19 21:48:50', '0000-00-00 00:00:00'),
-       (483, 1, 1, '2020-11-19 21:48:58', '2020-11-19 21:48:58', '0000-00-00 00:00:00'),
-       (484, 1, 1, '2020-11-19 22:48:28', '2020-11-19 22:48:28', '0000-00-00 00:00:00'),
-       (485, 1, 1, '2020-11-19 22:54:58', '2020-11-19 22:54:58', '0000-00-00 00:00:00'),
-       (486, 1, 1, '2020-11-19 22:57:42', '2020-11-19 22:57:42', '0000-00-00 00:00:00'),
-       (487, 57, 1, '2020-11-20 15:53:13', '2020-11-20 15:53:13', '0000-00-00 00:00:00'),
-       (488, 1, 1, '2020-11-20 23:18:50', '2020-11-20 23:18:50', '0000-00-00 00:00:00'),
-       (489, 1, 1, '2020-11-20 23:25:24', '2020-11-20 23:25:24', '0000-00-00 00:00:00'),
-       (490, 1, 1, '2020-11-21 00:27:44', '2020-11-21 00:27:44', '0000-00-00 00:00:00'),
-       (491, 1, 1, '2020-11-21 00:29:24', '2020-11-21 00:29:24', '0000-00-00 00:00:00'),
-       (492, 63, 5, '2020-11-21 16:17:24', '2020-11-21 16:17:24', '0000-00-00 00:00:00'),
-       (493, 1, 1, '2020-11-22 15:17:23', '2020-11-22 15:17:23', '0000-00-00 00:00:00'),
-       (494, 1, 1, '2020-11-22 16:32:00', '2020-11-22 16:32:00', '0000-00-00 00:00:00'),
-       (495, 1, 1, '2020-11-22 16:49:38', '2020-11-22 16:49:38', '0000-00-00 00:00:00'),
-       (496, 1, 1, '2020-11-25 00:52:02', '2020-11-25 00:52:02', '0000-00-00 00:00:00'),
-       (497, 57, 1, '2020-11-26 18:36:51', '2020-11-26 18:36:51', '0000-00-00 00:00:00'),
-       (498, 57, 1, '2020-11-26 18:44:33', '2020-11-26 18:44:33', '0000-00-00 00:00:00'),
-       (499, 1, 1, '2020-11-26 22:13:49', '2020-11-26 22:13:49', '0000-00-00 00:00:00'),
-       (500, 43, 1, '2020-11-26 22:17:08', '2020-11-26 22:17:08', '0000-00-00 00:00:00');
-/*!40000 ALTER TABLE `log_acessos`
-    ENABLE KEYS */;
+-- Copiando dados para a tabela zig.log_acessos: ~230 rows (aproximadamente)
+/*!40000 ALTER TABLE `log_acessos` DISABLE KEYS */;
+INSERT INTO `log_acessos` (`id`, `id_usuario`, `id_empresa`, `created_at`, `updated_at`, `deleted_at`) VALUES
+	(516, 1, 1, '2020-11-28 14:41:01', '2020-11-28 14:41:01', '0000-00-00 00:00:00'),
+	(517, 1, 1, '2020-11-28 14:45:10', '2020-11-28 14:45:10', '0000-00-00 00:00:00'),
+	(518, 1, 1, '2020-11-28 14:59:11', '2020-11-28 14:59:11', '0000-00-00 00:00:00'),
+	(519, 1, 1, '2020-11-28 20:51:11', '2020-11-28 20:51:11', '0000-00-00 00:00:00'),
+	(520, 1, 1, '2020-11-28 21:33:39', '2020-11-28 21:33:39', '0000-00-00 00:00:00'),
+	(521, 1, 1, '2020-11-29 01:25:14', '2020-11-29 01:25:14', '0000-00-00 00:00:00'),
+	(522, 1, 1, '2020-11-29 02:25:35', '2020-11-29 02:25:35', '0000-00-00 00:00:00'),
+	(523, 1, 1, '2020-11-29 10:00:40', '2020-11-29 10:00:40', '0000-00-00 00:00:00'),
+	(524, 67, 1, '2020-11-29 10:10:48', '2020-11-29 10:10:48', '0000-00-00 00:00:00'),
+	(525, 1, 1, '2020-11-29 10:37:13', '2020-11-29 10:37:13', '0000-00-00 00:00:00'),
+	(526, 1, 1, '2020-11-30 17:43:56', '2020-11-30 17:43:56', '0000-00-00 00:00:00'),
+	(527, 1, 1, '2020-11-30 18:10:02', '2020-11-30 18:10:02', '0000-00-00 00:00:00'),
+	(528, 1, 1, '2020-12-02 07:03:29', '2020-12-02 07:03:29', '0000-00-00 00:00:00'),
+	(529, 1, 1, '2020-12-04 14:26:40', '2020-12-04 14:26:40', '0000-00-00 00:00:00'),
+	(530, 1, 1, '2020-12-04 14:43:32', '2020-12-04 14:43:32', '0000-00-00 00:00:00'),
+	(531, 1, 1, '2020-12-04 15:15:30', '2020-12-04 15:15:30', '0000-00-00 00:00:00'),
+	(532, 58, 4, '2020-12-04 15:45:39', '2020-12-04 15:45:39', '0000-00-00 00:00:00'),
+	(536, 67, 1, '2020-12-04 19:00:56', '2020-12-04 19:00:56', '0000-00-00 00:00:00'),
+	(537, 1, 1, '2020-12-04 19:01:27', '2020-12-04 19:01:27', '0000-00-00 00:00:00'),
+	(538, 58, 4, '2020-12-04 19:02:23', '2020-12-04 19:02:23', '0000-00-00 00:00:00'),
+	(539, 1, 1, '2020-12-04 19:19:52', '2020-12-04 19:19:52', '0000-00-00 00:00:00'),
+	(540, 1, 1, '2020-12-04 20:13:57', '2020-12-04 20:13:57', '0000-00-00 00:00:00'),
+	(543, 1, 1, '2020-12-04 21:26:58', '2020-12-04 21:26:58', '0000-00-00 00:00:00'),
+	(545, 1, 1, '2020-12-05 17:09:20', '2020-12-05 17:09:20', '0000-00-00 00:00:00'),
+	(547, 67, 1, '2020-12-05 17:48:52', '2020-12-05 17:48:52', '0000-00-00 00:00:00'),
+	(548, 1, 1, '2020-12-07 19:57:43', '2020-12-07 19:57:43', '0000-00-00 00:00:00'),
+	(549, 58, 4, '2020-12-09 08:35:18', '2020-12-09 08:35:18', '0000-00-00 00:00:00'),
+	(550, 58, 4, '2020-12-09 13:55:55', '2020-12-09 13:55:55', '0000-00-00 00:00:00'),
+	(551, 58, 4, '2020-12-09 14:01:44', '2020-12-09 14:01:44', '0000-00-00 00:00:00'),
+	(552, 58, 4, '2020-12-09 14:16:13', '2020-12-09 14:16:13', '0000-00-00 00:00:00'),
+	(553, 58, 4, '2020-12-09 22:00:01', '2020-12-09 22:00:01', '0000-00-00 00:00:00'),
+	(554, 1, 1, '2020-12-14 17:27:10', '2020-12-14 17:27:10', '0000-00-00 00:00:00'),
+	(555, 1, 1, '2020-12-16 09:33:27', '2020-12-16 09:33:27', '0000-00-00 00:00:00'),
+	(556, 1, 1, '2020-12-17 17:33:48', '2020-12-17 17:33:48', '0000-00-00 00:00:00'),
+	(557, 1, 1, '2020-12-21 17:21:40', '2020-12-21 17:21:40', '0000-00-00 00:00:00'),
+	(558, 1, 1, '2020-12-25 21:52:45', '2020-12-25 21:52:45', '0000-00-00 00:00:00'),
+	(559, 1, 1, '2020-12-31 00:08:09', '2020-12-31 00:08:09', '0000-00-00 00:00:00'),
+	(560, 1, 1, '2021-01-05 16:59:23', '2021-01-05 16:59:23', '0000-00-00 00:00:00'),
+	(561, 68, 5, '2021-01-05 17:00:48', '2021-01-05 17:00:48', '0000-00-00 00:00:00'),
+	(562, 68, 5, '2021-01-05 17:31:19', '2021-01-05 17:31:19', '0000-00-00 00:00:00'),
+	(563, 1, 1, '2021-01-09 10:48:53', '2021-01-09 10:48:53', '0000-00-00 00:00:00'),
+	(564, 1, 1, '2021-01-09 11:15:10', '2021-01-09 11:15:10', '0000-00-00 00:00:00'),
+	(565, 1, 1, '2021-01-09 17:35:15', '2021-01-09 17:35:15', '0000-00-00 00:00:00'),
+	(566, 1, 1, '2021-01-11 17:40:38', '2021-01-11 17:40:38', '0000-00-00 00:00:00'),
+	(567, 1, 1, '2021-01-12 21:32:53', '2021-01-12 21:32:53', '0000-00-00 00:00:00'),
+	(568, 1, 1, '2021-01-13 17:18:50', '2021-01-13 17:18:50', '0000-00-00 00:00:00'),
+	(569, 68, 5, '2021-01-13 17:23:54', '2021-01-13 17:23:54', '0000-00-00 00:00:00'),
+	(570, 1, 1, '2021-01-13 17:24:51', '2021-01-13 17:24:51', '0000-00-00 00:00:00'),
+	(571, 68, 5, '2021-01-13 17:38:10', '2021-01-13 17:38:10', '0000-00-00 00:00:00'),
+	(572, 1, 1, '2021-01-13 17:40:19', '2021-01-13 17:40:19', '0000-00-00 00:00:00'),
+	(573, 1, 1, '2021-01-13 17:41:22', '2021-01-13 17:41:22', '0000-00-00 00:00:00'),
+	(574, 68, 5, '2021-01-13 17:48:40', '2021-01-13 17:48:40', '0000-00-00 00:00:00'),
+	(575, 1, 1, '2021-01-13 17:47:33', '2021-01-13 17:47:33', '0000-00-00 00:00:00'),
+	(576, 68, 5, '2021-01-13 17:52:35', '2021-01-13 17:52:35', '0000-00-00 00:00:00'),
+	(577, 68, 5, '2021-01-13 17:55:01', '2021-01-13 17:55:01', '0000-00-00 00:00:00'),
+	(578, 68, 5, '2021-01-13 18:00:55', '2021-01-13 18:00:55', '0000-00-00 00:00:00'),
+	(579, 68, 5, '2021-01-13 18:44:21', '2021-01-13 18:44:21', '0000-00-00 00:00:00'),
+	(580, 68, 5, '2021-01-13 20:29:11', '2021-01-13 20:29:11', '0000-00-00 00:00:00'),
+	(581, 68, 5, '2021-01-13 23:38:38', '2021-01-13 23:38:38', '0000-00-00 00:00:00'),
+	(582, 68, 5, '2021-01-14 11:42:45', '2021-01-14 11:42:45', '0000-00-00 00:00:00'),
+	(583, 68, 5, '2021-01-14 11:54:15', '2021-01-14 11:54:15', '0000-00-00 00:00:00'),
+	(584, 1, 1, '2021-01-14 11:56:28', '2021-01-14 11:56:28', '0000-00-00 00:00:00'),
+	(585, 68, 5, '2021-01-14 14:13:38', '2021-01-14 14:13:38', '0000-00-00 00:00:00'),
+	(586, 1, 1, '2021-01-14 15:13:23', '2021-01-14 15:13:23', '0000-00-00 00:00:00'),
+	(587, 68, 5, '2021-01-14 15:41:33', '2021-01-14 15:41:33', '0000-00-00 00:00:00'),
+	(588, 68, 5, '2021-01-14 17:09:06', '2021-01-14 17:09:06', '0000-00-00 00:00:00'),
+	(589, 68, 5, '2021-01-14 17:09:27', '2021-01-14 17:09:27', '0000-00-00 00:00:00'),
+	(590, 68, 5, '2021-01-14 17:13:27', '2021-01-14 17:13:27', '0000-00-00 00:00:00'),
+	(591, 68, 5, '2021-01-14 17:29:17', '2021-01-14 17:29:17', '0000-00-00 00:00:00'),
+	(592, 68, 5, '2021-01-14 17:37:18', '2021-01-14 17:37:18', '0000-00-00 00:00:00'),
+	(593, 68, 5, '2021-01-14 18:30:07', '2021-01-14 18:30:07', '0000-00-00 00:00:00'),
+	(594, 68, 5, '2021-01-14 18:32:40', '2021-01-14 18:32:40', '0000-00-00 00:00:00'),
+	(595, 68, 5, '2021-01-14 20:19:07', '2021-01-14 20:19:07', '0000-00-00 00:00:00'),
+	(596, 68, 5, '2021-01-14 20:25:50', '2021-01-14 20:25:50', '0000-00-00 00:00:00'),
+	(597, 68, 5, '2021-01-14 20:32:35', '2021-01-14 20:32:35', '0000-00-00 00:00:00'),
+	(598, 68, 5, '2021-01-14 20:39:46', '2021-01-14 20:39:46', '0000-00-00 00:00:00'),
+	(599, 1, 1, '2021-01-14 22:18:21', '2021-01-14 22:18:21', '0000-00-00 00:00:00'),
+	(600, 1, 1, '2021-01-14 22:54:16', '2021-01-14 22:54:16', '0000-00-00 00:00:00'),
+	(601, 1, 1, '2021-01-14 23:55:35', '2021-01-14 23:55:35', '0000-00-00 00:00:00'),
+	(602, 1, 1, '2021-01-15 00:07:52', '2021-01-15 00:07:52', '0000-00-00 00:00:00'),
+	(603, 68, 5, '2021-01-15 00:28:25', '2021-01-15 00:28:25', '0000-00-00 00:00:00'),
+	(604, 68, 5, '2021-01-15 10:53:08', '2021-01-15 10:53:08', '0000-00-00 00:00:00'),
+	(605, 68, 5, '2021-01-15 10:55:16', '2021-01-15 10:55:16', '0000-00-00 00:00:00'),
+	(606, 68, 5, '2021-01-15 10:55:55', '2021-01-15 10:55:55', '0000-00-00 00:00:00'),
+	(607, 1, 1, '2021-01-15 11:33:15', '2021-01-15 11:33:15', '0000-00-00 00:00:00'),
+	(608, 68, 5, '2021-01-15 11:42:09', '2021-01-15 11:42:09', '0000-00-00 00:00:00'),
+	(609, 68, 5, '2021-01-15 11:42:21', '2021-01-15 11:42:21', '0000-00-00 00:00:00'),
+	(610, 68, 5, '2021-01-15 12:27:18', '2021-01-15 12:27:18', '0000-00-00 00:00:00'),
+	(611, 1, 1, '2021-01-15 12:56:37', '2021-01-15 12:56:37', '0000-00-00 00:00:00'),
+	(612, 68, 5, '2021-01-15 17:28:33', '2021-01-15 17:28:33', '0000-00-00 00:00:00'),
+	(613, 1, 1, '2021-01-15 18:16:39', '2021-01-15 18:16:39', '0000-00-00 00:00:00'),
+	(614, 68, 5, '2021-01-15 18:47:58', '2021-01-15 18:47:58', '0000-00-00 00:00:00'),
+	(615, 68, 5, '2021-01-15 18:48:53', '2021-01-15 18:48:53', '0000-00-00 00:00:00'),
+	(616, 68, 5, '2021-01-15 19:53:52', '2021-01-15 19:53:52', '0000-00-00 00:00:00'),
+	(617, 68, 5, '2021-01-15 22:33:46', '2021-01-15 22:33:46', '0000-00-00 00:00:00'),
+	(618, 68, 5, '2021-01-15 22:33:48', '2021-01-15 22:33:48', '0000-00-00 00:00:00'),
+	(619, 68, 5, '2021-01-15 23:01:54', '2021-01-15 23:01:54', '0000-00-00 00:00:00'),
+	(620, 68, 5, '2021-01-16 12:02:54', '2021-01-16 12:02:54', '0000-00-00 00:00:00'),
+	(621, 68, 5, '2021-01-16 19:12:32', '2021-01-16 19:12:32', '0000-00-00 00:00:00'),
+	(622, 68, 5, '2021-01-17 13:07:37', '2021-01-17 13:07:37', '0000-00-00 00:00:00'),
+	(623, 68, 5, '2021-01-17 13:13:00', '2021-01-17 13:13:00', '0000-00-00 00:00:00'),
+	(624, 68, 5, '2021-01-17 15:10:00', '2021-01-17 15:10:00', '0000-00-00 00:00:00'),
+	(625, 68, 5, '2021-01-17 16:04:04', '2021-01-17 16:04:04', '0000-00-00 00:00:00'),
+	(626, 1, 1, '2021-01-17 16:04:14', '2021-01-17 16:04:14', '0000-00-00 00:00:00'),
+	(627, 1, 1, '2021-01-17 16:44:24', '2021-01-17 16:44:24', '0000-00-00 00:00:00'),
+	(628, 68, 5, '2021-01-17 16:44:39', '2021-01-17 16:44:39', '0000-00-00 00:00:00'),
+	(629, 68, 5, '2021-01-17 17:01:37', '2021-01-17 17:01:37', '0000-00-00 00:00:00'),
+	(630, 68, 5, '2021-01-17 18:01:34', '2021-01-17 18:01:34', '0000-00-00 00:00:00'),
+	(631, 68, 5, '2021-01-17 23:12:49', '2021-01-17 23:12:49', '0000-00-00 00:00:00'),
+	(632, 68, 5, '2021-01-18 00:26:28', '2021-01-18 00:26:28', '0000-00-00 00:00:00'),
+	(633, 68, 5, '2021-01-18 00:43:44', '2021-01-18 00:43:44', '0000-00-00 00:00:00'),
+	(634, 68, 5, '2021-01-18 00:47:10', '2021-01-18 00:47:10', '0000-00-00 00:00:00'),
+	(635, 68, 5, '2021-01-18 11:04:05', '2021-01-18 11:04:05', '0000-00-00 00:00:00'),
+	(636, 68, 5, '2021-01-18 11:48:08', '2021-01-18 11:48:08', '0000-00-00 00:00:00'),
+	(637, 68, 5, '2021-01-18 13:17:40', '2021-01-18 13:17:40', '0000-00-00 00:00:00'),
+	(638, 68, 5, '2021-01-18 17:30:25', '2021-01-18 17:30:25', '0000-00-00 00:00:00'),
+	(639, 1, 1, '2021-01-18 17:31:05', '2021-01-18 17:31:05', '0000-00-00 00:00:00'),
+	(640, 71, 6, '2021-01-18 17:32:59', '2021-01-18 17:32:59', '0000-00-00 00:00:00'),
+	(641, 71, 6, '2021-01-18 17:34:52', '2021-01-18 17:34:52', '0000-00-00 00:00:00'),
+	(642, 68, 5, '2021-01-19 08:50:35', '2021-01-19 08:50:35', '0000-00-00 00:00:00'),
+	(643, 71, 6, '2021-01-19 09:07:25', '2021-01-19 09:07:25', '0000-00-00 00:00:00'),
+	(644, 68, 5, '2021-01-19 09:07:41', '2021-01-19 09:07:41', '0000-00-00 00:00:00'),
+	(645, 68, 5, '2021-01-19 17:05:16', '2021-01-19 17:05:16', '0000-00-00 00:00:00'),
+	(646, 68, 5, '2021-01-19 18:26:42', '2021-01-19 18:26:42', '0000-00-00 00:00:00'),
+	(647, 68, 5, '2021-01-20 09:03:58', '2021-01-20 09:03:58', '0000-00-00 00:00:00'),
+	(648, 1, 1, '2021-01-20 09:08:41', '2021-01-20 09:08:41', '0000-00-00 00:00:00'),
+	(649, 68, 5, '2021-01-20 18:38:59', '2021-01-20 18:38:59', '0000-00-00 00:00:00'),
+	(650, 68, 5, '2021-01-20 20:37:34', '2021-01-20 20:37:34', '0000-00-00 00:00:00'),
+	(651, 68, 5, '2021-01-20 22:48:55', '2021-01-20 22:48:55', '0000-00-00 00:00:00'),
+	(652, 1, 1, '2021-01-20 22:49:20', '2021-01-20 22:49:20', '0000-00-00 00:00:00'),
+	(653, 68, 5, '2021-01-20 23:15:05', '2021-01-20 23:15:05', '0000-00-00 00:00:00'),
+	(654, 68, 5, '2021-01-20 23:15:46', '2021-01-20 23:15:46', '0000-00-00 00:00:00'),
+	(655, 68, 5, '2021-01-21 09:13:57', '2021-01-21 09:13:57', '0000-00-00 00:00:00'),
+	(656, 68, 5, '2021-01-21 10:01:45', '2021-01-21 10:01:45', '0000-00-00 00:00:00'),
+	(657, 68, 5, '2021-01-21 16:05:15', '2021-01-21 16:05:15', '0000-00-00 00:00:00'),
+	(658, 68, 5, '2021-01-22 12:57:32', '2021-01-22 12:57:32', '0000-00-00 00:00:00'),
+	(659, 68, 5, '2021-01-22 14:09:19', '2021-01-22 14:09:19', '0000-00-00 00:00:00'),
+	(660, 68, 5, '2021-01-26 15:46:22', '2021-01-26 15:46:22', '0000-00-00 00:00:00'),
+	(661, 1, 1, '2021-01-26 22:12:12', '2021-01-26 22:12:12', '0000-00-00 00:00:00'),
+	(662, 68, 5, '2021-01-26 22:12:30', '2021-01-26 22:12:30', '0000-00-00 00:00:00'),
+	(663, 68, 5, '2021-01-27 19:11:13', '2021-01-27 19:11:13', '0000-00-00 00:00:00'),
+	(664, 1, 1, '2021-01-29 19:03:30', '2021-01-29 19:03:30', '0000-00-00 00:00:00'),
+	(665, 68, 5, '2021-01-29 19:03:51', '2021-01-29 19:03:51', '0000-00-00 00:00:00'),
+	(666, 68, 5, '2021-01-29 22:01:50', '2021-01-29 22:01:50', '0000-00-00 00:00:00'),
+	(667, 68, 5, '2021-01-30 19:49:00', '2021-01-30 19:49:00', '0000-00-00 00:00:00'),
+	(668, 68, 5, '2021-01-31 20:53:03', '2021-01-31 20:53:03', '0000-00-00 00:00:00'),
+	(669, 68, 5, '2021-01-31 23:06:51', '2021-01-31 23:06:51', '0000-00-00 00:00:00'),
+	(670, 68, 5, '2021-02-01 08:32:14', '2021-02-01 08:32:14', '0000-00-00 00:00:00'),
+	(671, 68, 5, '2021-02-02 22:11:03', '2021-02-02 22:11:03', '0000-00-00 00:00:00'),
+	(672, 68, 5, '2021-02-02 22:11:25', '2021-02-02 22:11:25', '0000-00-00 00:00:00'),
+	(673, 68, 5, '2021-02-02 22:11:50', '2021-02-02 22:11:50', '0000-00-00 00:00:00'),
+	(674, 1, 1, '2021-02-04 17:57:17', '2021-02-04 17:57:17', '0000-00-00 00:00:00'),
+	(675, 1, 1, '2021-02-06 17:02:16', '2021-02-06 17:02:16', '0000-00-00 00:00:00'),
+	(676, 68, 5, '2021-02-06 17:02:43', '2021-02-06 17:02:43', '0000-00-00 00:00:00'),
+	(677, 68, 5, '2021-02-08 12:04:08', '2021-02-08 12:04:08', '0000-00-00 00:00:00'),
+	(678, 68, 5, '2021-02-09 08:53:50', '2021-02-09 08:53:50', '0000-00-00 00:00:00'),
+	(679, 68, 5, '2021-02-09 12:41:24', '2021-02-09 12:41:24', '0000-00-00 00:00:00'),
+	(680, 68, 5, '2021-02-09 12:47:24', '2021-02-09 12:47:24', '0000-00-00 00:00:00'),
+	(681, 1, 1, '2021-02-10 14:02:12', '2021-02-10 14:02:12', '0000-00-00 00:00:00'),
+	(682, 68, 5, '2021-02-10 14:04:19', '2021-02-10 14:04:19', '0000-00-00 00:00:00'),
+	(683, 68, 5, '2021-02-12 10:07:41', '2021-02-12 10:07:41', '0000-00-00 00:00:00'),
+	(684, 68, 5, '2021-02-16 18:53:19', '2021-02-16 18:53:19', '0000-00-00 00:00:00'),
+	(685, 68, 5, '2021-02-19 11:01:14', '2021-02-19 11:01:14', '0000-00-00 00:00:00'),
+	(686, 1, 1, '2021-02-19 11:21:22', '2021-02-19 11:21:22', '0000-00-00 00:00:00'),
+	(687, 1, 1, '2021-02-24 14:07:34', '2021-02-24 14:07:34', '0000-00-00 00:00:00'),
+	(688, 68, 5, '2021-02-24 14:07:55', '2021-02-24 14:07:55', '0000-00-00 00:00:00'),
+	(689, 68, 5, '2021-02-24 14:07:59', '2021-02-24 14:07:59', '0000-00-00 00:00:00'),
+	(690, 1, 1, '2021-02-24 21:50:17', '2021-02-24 21:50:17', '0000-00-00 00:00:00'),
+	(691, 68, 5, '2021-02-24 22:46:49', '2021-02-24 22:46:49', '0000-00-00 00:00:00'),
+	(692, 1, 1, '2021-02-24 22:47:05', '2021-02-24 22:47:05', '0000-00-00 00:00:00'),
+	(693, 72, 1, '2021-02-24 22:48:37', '2021-02-24 22:48:37', '0000-00-00 00:00:00'),
+	(694, 1, 1, '2021-02-24 22:48:54', '2021-02-24 22:48:54', '0000-00-00 00:00:00'),
+	(695, 72, 1, '2021-02-24 22:52:10', '2021-02-24 22:52:10', '0000-00-00 00:00:00'),
+	(696, 72, 1, '2021-02-24 23:00:05', '2021-02-24 23:00:05', '0000-00-00 00:00:00'),
+	(697, 1, 1, '2021-02-25 09:11:50', '2021-02-25 09:11:50', '0000-00-00 00:00:00'),
+	(698, 1, 1, '2021-02-26 14:38:39', '2021-02-26 14:38:39', '0000-00-00 00:00:00'),
+	(699, 1, 1, '2021-03-01 15:06:26', '2021-03-01 15:06:26', '0000-00-00 00:00:00'),
+	(700, 1, 1, '2021-03-01 18:08:39', '2021-03-01 18:08:39', '0000-00-00 00:00:00'),
+	(701, 1, 1, '2021-03-01 18:09:31', '2021-03-01 18:09:31', '0000-00-00 00:00:00'),
+	(702, 1, 1, '2021-03-01 18:36:23', '2021-03-01 18:36:23', '0000-00-00 00:00:00'),
+	(703, 57, 1, '2021-03-01 18:48:17', '2021-03-01 18:48:17', '0000-00-00 00:00:00'),
+	(704, 1, 1, '2021-03-01 20:05:33', '2021-03-01 20:05:33', '0000-00-00 00:00:00'),
+	(705, 73, 1, '2021-03-01 20:47:52', '2021-03-01 20:47:52', '0000-00-00 00:00:00'),
+	(706, 57, 1, '2021-03-01 21:31:49', '2021-03-01 21:31:49', '0000-00-00 00:00:00'),
+	(707, 1, 1, '2021-03-02 08:23:52', '2021-03-02 08:23:52', '0000-00-00 00:00:00'),
+	(708, 74, 7, '2021-03-02 08:26:23', '2021-03-02 08:26:23', '0000-00-00 00:00:00'),
+	(709, 74, 7, '2021-03-02 08:27:29', '2021-03-02 08:27:29', '0000-00-00 00:00:00'),
+	(710, 51, 1, '2021-03-02 15:41:22', '2021-03-02 15:41:22', '0000-00-00 00:00:00'),
+	(711, 74, 7, '2021-03-03 21:28:24', '2021-03-03 21:28:24', '0000-00-00 00:00:00'),
+	(712, 1, 1, '2021-03-04 09:13:53', '2021-03-04 09:13:53', '0000-00-00 00:00:00'),
+	(713, 1, 1, '2021-03-04 19:02:44', '2021-03-04 19:02:44', '0000-00-00 00:00:00'),
+	(714, 68, 5, '2021-03-04 22:16:07', '2021-03-04 22:16:07', '0000-00-00 00:00:00'),
+	(715, 1, 1, '2021-03-06 17:42:38', '2021-03-06 17:42:38', '0000-00-00 00:00:00'),
+	(716, 57, 1, '2021-03-11 19:17:30', '2021-03-11 19:17:30', '0000-00-00 00:00:00'),
+	(717, 57, 1, '2021-03-11 19:17:53', '2021-03-11 19:17:53', '0000-00-00 00:00:00'),
+	(718, 57, 1, '2021-03-11 19:18:13', '2021-03-11 19:18:13', '0000-00-00 00:00:00'),
+	(719, 57, 1, '2021-03-11 19:18:28', '2021-03-11 19:18:28', '0000-00-00 00:00:00'),
+	(720, 68, 5, '2021-03-13 13:45:34', '2021-03-13 13:45:34', '0000-00-00 00:00:00'),
+	(721, 1, 1, '2021-03-31 14:54:52', '2021-03-31 14:54:52', '0000-00-00 00:00:00'),
+	(722, 68, 5, '2021-04-06 08:45:15', '2021-04-06 08:45:15', '0000-00-00 00:00:00'),
+	(723, 1, 1, '2021-04-24 01:37:14', '2021-04-24 01:37:14', '0000-00-00 00:00:00'),
+	(724, 68, 5, '2021-04-24 01:37:34', '2021-04-24 01:37:34', '0000-00-00 00:00:00'),
+	(725, 1, 1, '2021-04-24 01:39:01', '2021-04-24 01:39:01', '0000-00-00 00:00:00'),
+	(726, 68, 5, '2021-04-24 10:23:56', '2021-04-24 10:23:56', '0000-00-00 00:00:00'),
+	(727, 68, 5, '2021-04-24 14:05:03', '2021-04-24 14:05:03', '0000-00-00 00:00:00'),
+	(728, 1, 1, '2021-04-24 14:06:00', '2021-04-24 14:06:00', '0000-00-00 00:00:00'),
+	(729, 68, 5, '2021-04-24 14:06:38', '2021-04-24 14:06:38', '0000-00-00 00:00:00'),
+	(730, 68, 5, '2021-04-24 15:50:30', '2021-04-24 15:50:30', '0000-00-00 00:00:00'),
+	(731, 68, 5, '2021-04-25 16:16:03', '2021-04-25 16:16:03', '0000-00-00 00:00:00'),
+	(732, 1, 1, '2021-04-30 11:03:33', '2021-04-30 11:03:33', '0000-00-00 00:00:00'),
+	(733, 1, 1, '2021-04-30 13:37:29', '2021-04-30 13:37:29', '0000-00-00 00:00:00'),
+	(734, 68, 5, '2021-05-03 11:39:15', '2021-05-03 11:39:15', '0000-00-00 00:00:00'),
+	(735, 68, 5, '2021-05-03 13:17:56', '2021-05-03 13:17:56', '0000-00-00 00:00:00'),
+	(736, 68, 5, '2021-05-03 13:18:06', '2021-05-03 13:18:06', '0000-00-00 00:00:00'),
+	(737, 68, 5, '2021-05-03 13:49:34', '2021-05-03 13:49:34', '0000-00-00 00:00:00'),
+	(738, 68, 5, '2021-05-04 08:42:58', '2021-05-04 08:42:58', '0000-00-00 00:00:00'),
+	(739, 1, 1, '2021-05-07 22:46:41', '2021-05-07 22:46:41', '0000-00-00 00:00:00'),
+	(740, 1, 1, '2021-05-07 22:46:42', '2021-05-07 22:46:42', '0000-00-00 00:00:00'),
+	(741, 68, 5, '2021-05-07 22:47:20', '2021-05-07 22:47:20', '0000-00-00 00:00:00'),
+	(742, 68, 5, '2021-05-18 23:52:34', '2021-05-18 23:52:34', '0000-00-00 00:00:00'),
+	(743, 68, 5, '2021-05-18 23:53:09', '2021-05-18 23:53:09', '0000-00-00 00:00:00'),
+	(744, 68, 5, '2021-05-18 23:53:47', '2021-05-18 23:53:47', '0000-00-00 00:00:00'),
+	(745, 1, 1, '2021-06-22 07:16:35', '2021-06-22 07:16:35', '0000-00-00 00:00:00'),
+	(746, 1, 1, '2021-06-22 18:44:50', '2021-06-22 18:44:50', '0000-00-00 00:00:00'),
+	(747, 1, 1, '2021-06-22 19:07:12', '2021-06-22 19:07:12', '0000-00-00 00:00:00'),
+	(748, 1, 1, '2021-07-03 16:42:43', '2021-07-03 16:42:43', '0000-00-00 00:00:00'),
+	(749, 1, 1, '2021-08-02 18:48:21', '2021-08-02 18:48:21', '0000-00-00 00:00:00'),
+	(750, 1, 1, '2021-08-06 08:45:11', '2021-08-06 08:45:11', '0000-00-00 00:00:00'),
+	(751, 1, 1, '2021-08-21 22:41:35', '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+	(752, 1, 1, '2021-09-01 21:02:32', '0000-00-00 00:00:00', '0000-00-00 00:00:00');
+/*!40000 ALTER TABLE `log_acessos` ENABLE KEYS */;
 
--- Copiando estrutura para tabela realbi53_tonie.meios_pagamentos
-CREATE TABLE IF NOT EXISTS `meios_pagamentos`
-(
-    `id`         int(11)     NOT NULL AUTO_INCREMENT,
-    `legenda`    varchar(50) NOT NULL,
-    `created_at` timestamp   NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-    `updated_at` timestamp   NOT NULL DEFAULT '0000-00-00 00:00:00',
-    PRIMARY KEY (`id`)
-) ENGINE = InnoDB
-  AUTO_INCREMENT = 4
-  DEFAULT CHARSET = latin1;
+-- Copiando estrutura para tabela zig.meios_pagamentos
+CREATE TABLE IF NOT EXISTS `meios_pagamentos` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `legenda` varchar(50) NOT NULL,
+  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
 
--- Copiando dados para a tabela realbi53_tonie.meios_pagamentos: ~3 rows (aproximadamente)
-/*!40000 ALTER TABLE `meios_pagamentos`
-    DISABLE KEYS */;
-INSERT INTO `meios_pagamentos` (`id`, `legenda`, `created_at`, `updated_at`)
-VALUES (1, 'Dinheiro', '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
-       (2, 'Crédito', '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
-       (3, 'Débito', '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
-       (4, 'Boleto', '0000-00-00 00:00:00', '0000-00-00 00:00:00');
-/*!40000 ALTER TABLE `meios_pagamentos`
-    ENABLE KEYS */;
+-- Copiando dados para a tabela zig.meios_pagamentos: ~4 rows (aproximadamente)
+/*!40000 ALTER TABLE `meios_pagamentos` DISABLE KEYS */;
+INSERT INTO `meios_pagamentos` (`id`, `legenda`, `created_at`, `updated_at`) VALUES
+	(1, 'Dinheiro', '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+	(2, 'Crédito', '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+	(3, 'Débito', '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+	(4, 'Boleto', '2021-01-14 12:03:35', '0000-00-00 00:00:00');
+/*!40000 ALTER TABLE `meios_pagamentos` ENABLE KEYS */;
 
--- Copiando estrutura para tabela realbi53_tonie.migrations
-CREATE TABLE IF NOT EXISTS `migrations`
-(
-    `id`          int(11)      NOT NULL AUTO_INCREMENT,
-    `code`        varchar(10)  NOT NULL,
-    `description` varchar(150) NOT NULL,
-    `created_at`  timestamp    NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    `updated_at`  timestamp    NULL     DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP,
-    PRIMARY KEY (`id`)
-) ENGINE = InnoDB
-  AUTO_INCREMENT = 22
-  DEFAULT CHARSET = utf8;
+-- Copiando estrutura para tabela zig.migrations
+CREATE TABLE IF NOT EXISTS `migrations` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `code` varchar(10) NOT NULL,
+  `description` varchar(150) NOT NULL,
+  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `updated_at` timestamp NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=34 DEFAULT CHARSET=utf8;
 
--- Copiando dados para a tabela realbi53_tonie.migrations: ~21 rows (aproximadamente)
-/*!40000 ALTER TABLE `migrations`
-    DISABLE KEYS */;
-INSERT INTO `migrations` (`id`, `code`, `description`, `created_at`, `updated_at`)
-VALUES (1, '1593604775', 'cria tabela migrations', '2020-07-01 09:33:40', NULL),
-       (2, '1593605007', 'cria tabela de clientes segmentos', '2020-07-01 09:33:40', NULL),
-       (3, '1593605094', 'cria tabela de clientes tipos', '2020-07-01 09:33:40', NULL),
-       (4, '1593605143', 'cria tabela de empresas', '2020-07-01 09:33:40', NULL),
-       (5, '1593605239', 'cria tabela de clientes', '2020-07-01 09:33:40', NULL),
-       (6, '1593605328', 'cria tabela de meios de pagamento', '2020-07-01 09:33:40', NULL),
-       (7, '1593605367', 'cria tabela de tipos pdv', '2020-07-01 09:33:40', NULL),
-       (8, '1593605428', 'cria tabela de clientes enderecos', '2020-07-01 09:33:40', NULL),
-       (9, '1593605466', 'cria tabela de config pdv', '2020-07-01 09:33:40', NULL),
-       (10, '1593605510', 'cria tabela de modulos', '2020-07-01 09:33:40', NULL),
-       (11, '1593605548', 'cria tabela de perfis', '2020-07-01 09:33:40', NULL),
-       (12, '1593605570', 'cria tabela de produtos', '2020-07-01 09:33:40', NULL),
-       (13, '1593605592', 'cria tabela de sexos', '2020-07-01 09:33:40', NULL),
-       (14, '1593605596', 'cria tabela de usuarios', '2020-07-01 09:33:40', NULL),
-       (15, '1593605654', 'cria tabela de modulos de usuarios', '2020-07-01 09:33:40', NULL),
-       (16, '1593605683', 'cria tabela de vendas', '2020-07-01 09:33:40', NULL),
-       (17, '1593608384', 'cria tabela de logs', '2020-07-01 09:33:40', NULL),
-       (18, '1593618822', 'campo email', '2020-07-26 13:40:40', NULL),
-       (19, '1593619560', 'acriar campo id segmento em empresas', '2020-07-26 13:40:40', NULL),
-       (20, '1593620377', 'chave estrageira de id segmento em tabela empresas', '2020-07-26 13:40:40', NULL),
-       (21, '1595762432', 'cria tabela de recuperacao de senha', '2020-07-26 13:40:41', NULL);
-/*!40000 ALTER TABLE `migrations`
-    ENABLE KEYS */;
+-- Copiando dados para a tabela zig.migrations: ~32 rows (aproximadamente)
+/*!40000 ALTER TABLE `migrations` DISABLE KEYS */;
+INSERT INTO `migrations` (`id`, `code`, `description`, `created_at`, `updated_at`) VALUES
+	(1, '1593604775', 'cria tabela migrations', '2020-07-01 09:33:40', NULL),
+	(2, '1593605007', 'cria tabela de clientes segmentos', '2020-07-01 09:33:40', NULL),
+	(3, '1593605094', 'cria tabela de clientes tipos', '2020-07-01 09:33:40', NULL),
+	(4, '1593605143', 'cria tabela de empresas', '2020-07-01 09:33:40', NULL),
+	(5, '1593605239', 'cria tabela de clientes', '2020-07-01 09:33:40', NULL),
+	(6, '1593605328', 'cria tabela de meios de pagamento', '2020-07-01 09:33:40', NULL),
+	(7, '1593605367', 'cria tabela de tipos pdv', '2020-07-01 09:33:40', NULL),
+	(8, '1593605428', 'cria tabela de clientes enderecos', '2020-07-01 09:33:40', NULL),
+	(9, '1593605466', 'cria tabela de config pdv', '2020-07-01 09:33:40', NULL),
+	(10, '1593605510', 'cria tabela de modulos', '2020-07-01 09:33:40', NULL),
+	(11, '1593605548', 'cria tabela de perfis', '2020-07-01 09:33:40', NULL),
+	(12, '1593605570', 'cria tabela de produtos', '2020-07-01 09:33:40', NULL),
+	(13, '1593605592', 'cria tabela de sexos', '2020-07-01 09:33:40', NULL),
+	(14, '1593605596', 'cria tabela de usuarios', '2020-07-01 09:33:40', NULL),
+	(15, '1593605654', 'cria tabela de modulos de usuarios', '2020-07-01 09:33:40', NULL),
+	(16, '1593605683', 'cria tabela de vendas', '2020-07-01 09:33:40', NULL),
+	(17, '1593608384', 'cria tabela de logs', '2020-07-01 09:33:40', NULL),
+	(18, '1593618822', 'campo email', '2020-07-26 13:40:40', NULL),
+	(19, '1593619560', 'acriar campo id segmento em empresas', '2020-07-26 13:40:40', NULL),
+	(20, '1593620377', 'chave estrageira de id segmento em tabela empresas', '2020-07-26 13:40:40', NULL),
+	(21, '1595762432', 'cria tabela de recuperacao de senha', '2020-07-26 13:40:41', NULL),
+	(22, '1605128613', 'adiciona coluna remember token na tabela usuarios', '2020-12-31 00:09:47', NULL),
+	(23, '1605128710', 'adiciona coluna remember expire date na tabela usuarios', '2020-12-31 00:09:47', NULL),
+	(24, '1609101088', 'cria tabela de pedidos', '2020-12-31 00:09:47', NULL),
+	(25, '1609101547', 'cria tabela de produtos pedidos', '2020-12-31 00:09:48', NULL),
+	(26, '1609101745', 'cria tabela situacoes pedidos', '2020-12-31 00:09:48', NULL),
+	(27, '1609103876', 'adiciona coluna deleted at a tabela produtos', '2020-12-31 00:09:48', NULL),
+	(29, '1610391011', 'lista de clientes segmentos', '2021-01-11 16:10:16', NULL),
+	(30, '1610623759', 'adiciona boleto aos meios de pagamento', '2021-01-14 12:03:35', NULL),
+	(31, '1610626072', 'adiciona data compensacao a tabela de vendas', '2021-01-14 12:03:35', NULL),
+	(32, '1610674406', 'created at em vendas', '2021-01-14 22:35:26', NULL),
+	(33, '1629596801', '[descreva as mudanã§as]', '2021-08-21 22:48:05', NULL);
+/*!40000 ALTER TABLE `migrations` ENABLE KEYS */;
 
--- Copiando estrutura para tabela realbi53_tonie.modulos
-CREATE TABLE IF NOT EXISTS `modulos`
-(
-    `id`         int(11)     NOT NULL AUTO_INCREMENT,
-    `descricao`  varchar(50) NOT NULL,
-    `created_at` timestamp   NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-    `updated_at` timestamp   NOT NULL DEFAULT '0000-00-00 00:00:00',
-    `deleted_at` timestamp   NULL     DEFAULT NULL,
-    PRIMARY KEY (`id`)
-) ENGINE = InnoDB
-  AUTO_INCREMENT = 12
-  DEFAULT CHARSET = latin1;
+-- Copiando estrutura para tabela zig.modulos
+CREATE TABLE IF NOT EXISTS `modulos` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `descricao` varchar(50) NOT NULL,
+  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
+  `deleted_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=latin1;
 
--- Copiando dados para a tabela realbi53_tonie.modulos: ~10 rows (aproximadamente)
-/*!40000 ALTER TABLE `modulos`
-    DISABLE KEYS */;
-INSERT INTO `modulos` (`id`, `descricao`, `created_at`, `updated_at`, `deleted_at`)
-VALUES (2, 'Inicio', '2020-06-24 06:55:45', '2020-06-24 06:55:46', NULL),
-       (3, 'Empresas', '0000-00-00 00:00:00', '0000-00-00 00:00:00', NULL),
-       (4, 'Usuarios', '0000-00-00 00:00:00', '0000-00-00 00:00:00', NULL),
-       (5, 'PDV padrão', '0000-00-00 00:00:00', '0000-00-00 00:00:00', NULL),
-       (6, 'PDV diferencial', '0000-00-00 00:00:00', '0000-00-00 00:00:00', NULL),
-       (7, 'Clientes', '0000-00-00 00:00:00', '0000-00-00 00:00:00', NULL),
-       (8, 'Produtos', '0000-00-00 00:00:00', '0000-00-00 00:00:00', NULL),
-       (9, 'Pedidos', '0000-00-00 00:00:00', '0000-00-00 00:00:00', NULL),
-       (10, 'Relatorios', '0000-00-00 00:00:00', '0000-00-00 00:00:00', NULL),
-       (11, 'Configurações', '0000-00-00 00:00:00', '0000-00-00 00:00:00', NULL);
-/*!40000 ALTER TABLE `modulos`
-    ENABLE KEYS */;
+-- Copiando dados para a tabela zig.modulos: ~10 rows (aproximadamente)
+/*!40000 ALTER TABLE `modulos` DISABLE KEYS */;
+INSERT INTO `modulos` (`id`, `descricao`, `created_at`, `updated_at`, `deleted_at`) VALUES
+	(2, 'Inicio', '2020-06-24 06:55:45', '2020-06-24 06:55:46', NULL),
+	(3, 'Empresas', '0000-00-00 00:00:00', '0000-00-00 00:00:00', NULL),
+	(4, 'Usuarios', '0000-00-00 00:00:00', '0000-00-00 00:00:00', NULL),
+	(5, 'PDV padrão', '0000-00-00 00:00:00', '0000-00-00 00:00:00', NULL),
+	(6, 'PDV diferencial', '0000-00-00 00:00:00', '0000-00-00 00:00:00', NULL),
+	(7, 'Clientes', '0000-00-00 00:00:00', '0000-00-00 00:00:00', NULL),
+	(8, 'Produtos', '0000-00-00 00:00:00', '0000-00-00 00:00:00', NULL),
+	(9, 'Pedidos', '0000-00-00 00:00:00', '0000-00-00 00:00:00', NULL),
+	(10, 'Relatorios', '0000-00-00 00:00:00', '0000-00-00 00:00:00', NULL),
+	(11, 'Configurações', '0000-00-00 00:00:00', '0000-00-00 00:00:00', NULL);
+/*!40000 ALTER TABLE `modulos` ENABLE KEYS */;
 
--- Copiando estrutura para tabela realbi53_tonie.pedidos
-CREATE TABLE IF NOT EXISTS `pedidos`
-(
-    `id`                  int(11)   NOT NULL AUTO_INCREMENT,
-    `id_empresa`          int(11)   NOT NULL DEFAULT '0',
-    `id_vendedor`         int(11)   NOT NULL DEFAULT '0',
-    `id_cliente`          int(11)   NOT NULL DEFAULT '0',
-    `id_meio_pagamento`   int(11)            DEFAULT NULL,
-    `id_situacao_pedido`  int(11)   NOT NULL,
-    `id_cliente_endereco` int(11)   NOT NULL,
-    `valor_desconto`      double    NOT NULL DEFAULT '0',
-    `valor_frete`         double    NOT NULL DEFAULT '0',
-    `previsao_entrega`    date      NOT NULL DEFAULT '0000-00-00',
-    `total`               double    NOT NULL,
-    `created_at`          timestamp NULL     DEFAULT NULL,
-    `updated_at`          timestamp NULL     DEFAULT NULL,
-    PRIMARY KEY (`id`),
-    KEY `FK_empresas_pedidos` (`id_empresa`),
-    KEY `FK_usuarios_pedidos` (`id_vendedor`),
-    KEY `FK_clientes_pedidos` (`id_cliente`),
-    KEY `FK_meio_pagamentos_pedidos` (`id_meio_pagamento`),
-    KEY `FK_cliente_endereco_pedidos` (`id_cliente_endereco`),
-    KEY `FK_situacao_pedidos` (`id_situacao_pedido`)
-) ENGINE = MyISAM
-  AUTO_INCREMENT = 182
-  DEFAULT CHARSET = utf8
-  COLLATE = utf8_unicode_ci;
+-- Copiando estrutura para tabela zig.pedidos
+CREATE TABLE IF NOT EXISTS `pedidos` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `id_empresa` int NOT NULL DEFAULT '0',
+  `id_vendedor` int NOT NULL DEFAULT '0',
+  `id_cliente` int NOT NULL DEFAULT '0',
+  `id_meio_pagamento` int DEFAULT NULL,
+  `id_situacao_pedido` int NOT NULL,
+  `id_cliente_endereco` int NOT NULL,
+  `valor_desconto` double NOT NULL DEFAULT '0',
+  `valor_frete` double NOT NULL DEFAULT '0',
+  `previsao_entrega` date NOT NULL DEFAULT '0000-00-00',
+  `total` double NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `FK_empresas_pedidos` (`id_empresa`),
+  KEY `FK_usuarios_pedidos` (`id_vendedor`),
+  KEY `FK_clientes_pedidos` (`id_cliente`),
+  KEY `FK_meio_pagamentos_pedidos` (`id_meio_pagamento`),
+  KEY `FK_cliente_endereco_pedidos` (`id_cliente_endereco`),
+  KEY `FK_situacao_pedidos` (`id_situacao_pedido`)
+) ENGINE=MyISAM AUTO_INCREMENT=189 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
--- Copiando dados para a tabela realbi53_tonie.pedidos: 48 rows
-/*!40000 ALTER TABLE `pedidos`
-    DISABLE KEYS */;
-INSERT INTO `pedidos` (`id`, `id_empresa`, `id_vendedor`, `id_cliente`, `id_meio_pagamento`, `id_situacao_pedido`,
-                       `id_cliente_endereco`, `valor_desconto`, `valor_frete`, `previsao_entrega`, `total`,
-                       `created_at`, `updated_at`)
-VALUES (134, 0, 1, 2, 1, 1, 24, 0, 5, '2020-11-14', 0, '2020-11-07 00:59:19', '2020-11-19 22:07:04'),
-       (135, 0, 1, 5, NULL, 7, 23, 0, 0, '0000-00-00', 0, '2020-11-07 01:13:15', '2020-11-10 20:47:21'),
-       (136, 0, 1, 4, NULL, 7, 3, 0, 0, '0000-00-00', 0, '2020-11-07 01:52:29', '2020-11-07 01:52:29'),
-       (137, 0, 1, 18, 1, 1, 21, 0, 0, '2020-11-07', 0, '2020-11-07 01:54:57', '2020-11-07 12:11:37'),
-       (138, 0, 1, 18, NULL, 7, 19, 0, 0, '0000-00-00', 0, '2020-11-07 01:56:01', '2020-11-07 01:56:01'),
-       (139, 0, 1, 2, 1, 7, 24, 80, 0, '2020-11-28', 0, '2020-11-07 01:58:41', '2020-11-10 20:35:23'),
-       (140, 0, 1, 2, NULL, 7, 24, 0, 0, '0000-00-00', 0, '2020-11-07 11:17:40', '2020-11-07 11:17:40'),
-       (141, 0, 1, 2, NULL, 7, 24, 0, 0, '0000-00-00', 0, '2020-11-07 11:18:44', '2020-11-07 11:18:44'),
-       (142, 0, 1, 2, 1, 1, 24, 1, 0, '2020-11-14', 0, '2020-11-07 11:20:48', '2020-11-07 11:21:20'),
-       (143, 0, 1, 2, NULL, 7, 24, 0, 0, '0000-00-00', 0, '2020-11-07 12:18:59', '2020-11-07 12:18:59'),
-       (144, 0, 1, 5, 2, 1, 23, 10, 2.77, '2020-11-21', 0, '2020-11-07 20:29:21', '2020-11-07 20:30:09'),
-       (145, 0, 1, 2, 1, 1, 24, 0, 0, '2020-11-10', 0, '2020-11-08 21:23:20', '2020-11-08 21:23:51'),
-       (146, 0, 35, 2, 2, 1, 24, 0, 0, '2020-11-10', 0, '2020-11-08 21:25:08', '2020-11-08 21:25:37'),
-       (147, 0, 35, 4, 1, 1, 3, 0, 4, '2020-11-08', 0, '2020-11-08 21:36:31', '2020-11-08 21:37:04'),
-       (148, 0, 1, 5, 2, 1, 23, 0, 0, '2020-11-17', 0, '2020-11-08 22:16:22', '2020-11-08 22:16:41'),
-       (149, 0, 47, 5, 2, 1, 23, 10, 15, '2020-11-11', 0, '2020-11-09 09:51:08', '2020-11-09 09:51:58'),
-       (150, 0, 1, 2, 1, 1, 24, 0, 0, '2020-11-09', 0, '2020-11-09 14:04:04', '2020-11-09 14:04:17'),
-       (151, 0, 62, 23, 2, 1, 25, 0, 4, '2020-11-11', 0, '2020-11-09 14:37:29', '2020-11-12 20:09:23'),
-       (152, 0, 57, 2, 0, 2, 24, 23.33, 300, '2020-11-23', 0, '2020-11-09 21:02:51', '2020-11-13 22:19:12'),
-       (153, 0, 1, 5, NULL, 3, 23, 0, 0, '0000-00-00', 0, '2020-11-09 23:45:44', '2020-11-11 23:29:32'),
-       (154, 0, 1, 2, NULL, 7, 24, 0, 0, '0000-00-00', 0, '2020-11-09 23:49:05', '2020-11-09 23:49:05'),
-       (155, 0, 1, 2, NULL, 2, 24, 0, 0, '0000-00-00', 0, '2020-11-09 23:54:32', '2020-11-11 23:31:16'),
-       (156, 0, 1, 5, NULL, 5, 23, 0, 0, '0000-00-00', 0, '2020-11-09 23:56:50', '2020-11-11 23:31:57'),
-       (157, 0, 1, 2, NULL, 7, 24, 0, 0, '0000-00-00', 0, '2020-11-09 23:59:17', '2020-11-09 23:59:17'),
-       (158, 0, 1, 2, NULL, 7, 24, 0, 0, '0000-00-00', 0, '2020-11-10 00:02:53', '2020-11-10 00:02:53'),
-       (159, 0, 1, 2, NULL, 7, 24, 0, 0, '0000-00-00', 0, '2020-11-10 18:23:49', '2020-11-10 18:23:49'),
-       (160, 0, 1, 2, 2, 1, 24, 0, 4, '2020-11-12', 0, '2020-11-11 23:32:51', '2020-11-11 23:33:27'),
-       (161, 0, 1, 0, NULL, 7, 4, 0, 0, '0000-00-00', 0, '2020-11-12 19:03:03', '2020-11-12 19:03:03'),
-       (162, 0, 1, 0, 2, 1, 3, 0, 0, '2020-11-19', 0, '2020-11-12 19:04:08', '2020-11-12 19:04:22'),
-       (163, 0, 62, 0, 2, 1, 25, 0, 4, '2020-11-16', 0, '2020-11-12 19:07:11', '2020-11-12 19:07:53'),
-       (164, 0, 1, 0, 2, 1, 24, 0, 4, '2020-11-16', 0, '2020-11-12 19:13:27', '2020-11-12 19:13:44'),
-       (165, 0, 1, 0, 2, 1, 3, 0, 4, '2020-11-16', 0, '2020-11-12 19:14:41', '2020-11-12 19:15:18'),
-       (166, 0, 1, 0, 3, 1, 24, 0, 4, '2020-11-30', 0, '2020-11-12 19:16:12', '2020-11-12 19:16:53'),
-       (167, 0, 1, 0, 2, 1, 24, 0, 4, '2020-11-16', 0, '2020-11-12 19:18:34', '2020-11-12 19:18:54'),
-       (168, 0, 1, 0, 2, 1, 21, 0, 4, '2020-11-16', 0, '2020-11-12 19:19:55', '2020-11-12 19:20:18'),
-       (169, 0, 1, 0, 3, 1, 19, 0, 4, '2020-11-16', 0, '2020-11-12 19:23:16', '2020-11-12 19:26:26'),
-       (170, 0, 1, 0, 2, 1, 24, 0, 4, '2020-11-16', 0, '2020-11-12 19:33:47', '2020-11-12 19:34:01'),
-       (171, 0, 1, 4, 2, 7, 3, 0, 4, '2020-11-16', 0, '2020-11-12 19:36:39', '2020-11-14 19:00:39'),
-       (172, 0, 62, 23, 2, 1, 25, 0, 4, '2020-11-16', 0, '2020-11-12 19:38:24', '2020-11-12 19:38:42'),
-       (173, 0, 57, 18, NULL, 5, 19, 0, 0, '0000-00-00', 0, '2020-11-13 21:58:56', '2020-11-13 22:07:39'),
-       (174, 0, 1, 5, 2, 1, 23, 0, 5, '2020-11-16', 0, '2020-11-15 11:03:50', '2020-11-15 11:04:54'),
-       (175, 0, 1, 5, NULL, 7, 23, 0, 0, '0000-00-00', 0, '2020-11-19 22:16:41', '2020-11-19 22:16:41'),
-       (176, 0, 1, 4, NULL, 7, 18, 0, 0, '0000-00-00', 0, '2020-11-19 22:17:10', '2020-11-19 22:17:10'),
-       (177, 0, 1, 5, NULL, 7, 23, 0, 0, '0000-00-00', 0, '2020-11-19 22:18:21', '2020-11-19 22:18:21'),
-       (178, 0, 1, 5, NULL, 7, 23, 0, 0, '0000-00-00', 0, '2020-11-20 23:21:31', '2020-11-20 23:21:31'),
-       (179, 0, 57, 2, 1, 1, 24, 300, 20, '2020-11-26', 0, '2020-11-26 18:41:05', '2020-11-26 18:41:44'),
-       (180, 0, 57, 2, NULL, 7, 24, 0, 0, '0000-00-00', 0, '2020-11-26 18:44:51', '2020-11-26 18:44:51'),
-       (181, 0, 57, 2, NULL, 2, 24, 0, 0, '0000-00-00', 0, '2020-11-26 18:53:13', '2020-11-26 19:07:44');
-/*!40000 ALTER TABLE `pedidos`
-    ENABLE KEYS */;
+-- Copiando dados para a tabela zig.pedidos: 7 rows
+/*!40000 ALTER TABLE `pedidos` DISABLE KEYS */;
+INSERT INTO `pedidos` (`id`, `id_empresa`, `id_vendedor`, `id_cliente`, `id_meio_pagamento`, `id_situacao_pedido`, `id_cliente_endereco`, `valor_desconto`, `valor_frete`, `previsao_entrega`, `total`, `created_at`, `updated_at`) VALUES
+	(182, 0, 58, 24, NULL, 7, 26, 0, 0, '0000-00-00', 0, '2020-11-27 19:23:39', '2020-11-27 19:23:39'),
+	(183, 0, 58, 24, NULL, 7, 27, 0, 0, '0000-00-00', 0, '2020-11-27 19:26:22', '2020-11-27 19:26:22'),
+	(184, 0, 58, 26, 1, 3, 28, 0, 0, '2020-12-16', 0, '2020-12-09 14:21:06', '2020-12-09 14:31:35'),
+	(185, 0, 1, 25, NULL, 7, 29, 0, 0, '0000-00-00', 0, '2021-01-09 10:50:06', '2021-01-09 10:50:06'),
+	(186, 0, 1, 25, 1, 1, 29, 0, 0, '2021-01-16', 0, '2021-01-09 17:05:36', '2021-01-09 17:06:13'),
+	(187, 0, 1, 25, 1, 1, 29, 5, 5, '2021-01-30', 0, '2021-01-12 21:49:48', '2021-02-19 11:28:37'),
+	(188, 0, 73, 27, 1, 1, 30, 0, 0, '0000-00-00', 0, '2021-03-01 20:50:22', '2021-03-01 20:51:04');
+/*!40000 ALTER TABLE `pedidos` ENABLE KEYS */;
 
--- Copiando estrutura para tabela realbi53_tonie.perfis
-CREATE TABLE IF NOT EXISTS `perfis`
-(
-    `id`         int(11)     NOT NULL AUTO_INCREMENT,
-    `descricao`  varchar(50) NOT NULL DEFAULT '0',
-    `created_at` timestamp   NOT NULL DEFAULT '0000-00-00 00:00:00' ON UPDATE CURRENT_TIMESTAMP,
-    `updated_at` timestamp   NOT NULL DEFAULT '0000-00-00 00:00:00',
-    PRIMARY KEY (`id`)
-) ENGINE = InnoDB
-  AUTO_INCREMENT = 6
-  DEFAULT CHARSET = latin1;
+-- Copiando estrutura para tabela zig.perfis
+CREATE TABLE IF NOT EXISTS `perfis` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `descricao` varchar(50) NOT NULL DEFAULT '0',
+  `created_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00' ON UPDATE CURRENT_TIMESTAMP,
+  `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=latin1;
 
--- Copiando dados para a tabela realbi53_tonie.perfis: ~5 rows (aproximadamente)
-/*!40000 ALTER TABLE `perfis`
-    DISABLE KEYS */;
-INSERT INTO `perfis` (`id`, `descricao`, `created_at`, `updated_at`)
-VALUES (1, 'Super Admin', '2020-06-21 13:00:15', '0000-00-00 00:00:00'),
-       (2, 'Administrador', '2020-07-10 09:07:34', '0000-00-00 00:00:00'),
-       (4, 'Vendedor', '2020-04-25 00:53:32', '0000-00-00 00:00:00'),
-       (5, 'Gerente', '0000-00-00 00:00:00', '0000-00-00 00:00:00');
-/*!40000 ALTER TABLE `perfis`
-    ENABLE KEYS */;
+-- Copiando dados para a tabela zig.perfis: ~4 rows (aproximadamente)
+/*!40000 ALTER TABLE `perfis` DISABLE KEYS */;
+INSERT INTO `perfis` (`id`, `descricao`, `created_at`, `updated_at`) VALUES
+	(1, 'Super Admin', '2020-06-21 13:00:15', '0000-00-00 00:00:00'),
+	(2, 'Administrador', '2020-07-10 09:07:34', '0000-00-00 00:00:00'),
+	(4, 'Vendedor', '2020-04-25 00:53:32', '0000-00-00 00:00:00'),
+	(5, 'Gerente', '0000-00-00 00:00:00', '0000-00-00 00:00:00');
+/*!40000 ALTER TABLE `perfis` ENABLE KEYS */;
 
--- Copiando estrutura para tabela realbi53_tonie.produtos
-CREATE TABLE IF NOT EXISTS `produtos`
-(
-    `id`         int(11)     NOT NULL AUTO_INCREMENT,
-    `id_empresa` int(11)     NOT NULL,
-    `nome`       varchar(50) NOT NULL,
-    `preco`      double      NOT NULL DEFAULT '0',
-    `descricao`  text,
-    `imagem`     text,
-    `created_at` timestamp   NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-    `updated_at` timestamp   NOT NULL DEFAULT '0000-00-00 00:00:00',
-    PRIMARY KEY (`id`),
-    KEY `FK_produtos_clientes` (`id_empresa`),
-    CONSTRAINT `FK_produtos_clientes` FOREIGN KEY (`id_empresa`) REFERENCES `empresas` (`id`)
-) ENGINE = InnoDB
-  AUTO_INCREMENT = 47
-  DEFAULT CHARSET = latin1;
+-- Copiando estrutura para tabela zig.produtos
+CREATE TABLE IF NOT EXISTS `produtos` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `id_empresa` int NOT NULL,
+  `nome` varchar(50) NOT NULL,
+  `preco` double NOT NULL DEFAULT '0',
+  `descricao` mediumtext,
+  `imagem` mediumtext,
+  `codigo` int DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT '0000-00-00 00:00:00',
+  `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
+  `deleted_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `FK_produtos_clientes` (`id_empresa`),
+  CONSTRAINT `FK_produtos_clientes` FOREIGN KEY (`id_empresa`) REFERENCES `empresas` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=169 DEFAULT CHARSET=utf8;
 
--- Copiando dados para a tabela realbi53_tonie.produtos: ~39 rows (aproximadamente)
-/*!40000 ALTER TABLE `produtos`
-    DISABLE KEYS */;
-INSERT INTO `produtos` (`id`, `id_empresa`, `nome`, `preco`, `descricao`, `imagem`, `created_at`, `updated_at`)
-VALUES (1, 1, 'Açái Tradicional', 10.5, 'Tigela de Açaí tradicional!', 'public/imagem/produtos/1589923097.jpg',
-        '2020-08-16 13:47:02', '2020-08-16 13:47:02'),
-       (2, 1, 'Açaí de Banana', 13, 'bghghg', 'public/imagem/produtos/1589919313.jpg', '2020-05-19 17:15:13',
-        '2020-05-19 17:15:13'),
-       (3, 1, 'Dell Vale de Uva', 18, 'Néctar de Uva Del Valle 1 Litro', 'public/imagem/produtos/1589923950.jpg',
-        '2020-07-11 13:25:25', '2020-07-11 13:25:24'),
-       (4, 1, 'Guaraná Antárctica', 3.49, '', 'public/imagem/produtos/1590197371.jpg', '2020-05-22 22:29:31',
-        '2020-05-22 22:29:31'),
-       (5, 1, 'Refrigerante zero coca-cola', 3.99, '', 'public/imagem/produtos/1590197622.jpg', '2020-05-22 22:33:42',
-        '2020-05-22 22:33:42'),
-       (6, 1, 'HAMBÚRGUER', 30, '', 'public/imagem/produtos/1590197749.jpg', '2020-05-22 22:35:49',
-        '2020-05-22 22:35:49'),
-       (7, 1, 'ESTROGONOFE', 25, '', 'public/imagem/produtos/1590197916.jpg', '2020-05-22 22:38:36',
-        '2020-05-22 22:38:36'),
-       (8, 1, 'Computador completo', 1500, '', 'public/imagem/produtos/1591662766.png', '2020-06-08 21:32:46',
-        '2020-06-08 21:32:46'),
-       (9, 1, 'Notebook Samsung ', 2580, 'Notebook Samsung Intel Core i3 4GB 1TB Tela 15,6" Windows 10 Home ',
-        '../public/imagem/produtos/1593886149.png', '2020-07-04 15:09:09', '2020-07-04 15:09:09'),
-       (10, 1, 'HAMBÚRGUER ARTESANAL', 26, NULL, '../public/imagem/produtos/1593913667.png', '2020-07-04 22:47:47',
-        '2020-07-04 22:47:47'),
-       (11, 4, 'Salsicha Viena Tradicional - 1 kg', 32, '', '../public/imagem/produtos/1595365885.png',
-        '2020-07-21 18:11:25', '2020-07-21 18:11:25'),
-       (12, 4, 'Salsicha Viena c/Queijo - 1 kg', 32, '', '../public/imagem/produtos/1595366081.png',
-        '2020-07-21 18:14:41', '2020-07-21 18:14:41'),
-       (13, 4, 'Salsicha Viena c/Ervas Finas - 1 kg', 32, '', '../public/imagem/produtos/1595366191.png',
-        '2020-07-21 18:16:31', '2020-07-21 18:16:31'),
-       (14, 4, 'Salsicha Bock c/Queijo - 1 kg', 30, '', '../public/imagem/produtos/1595366210.png',
-        '2020-07-21 18:16:50', '2020-07-21 18:16:50'),
-       (15, 4, 'Salsicha Bock Tradicional - 1 kg', 27, '', '../public/imagem/produtos/1595366241.png',
-        '2020-07-21 18:17:21', '2020-07-21 18:17:21'),
-       (16, 4, 'Salame Bovino - 1 unidade', 27, '', '../public/imagem/produtos/1595366264.png', '2020-07-21 18:17:44',
-        '2020-07-21 18:17:44'),
-       (17, 4, 'Salame Italiano - 1 unidade', 33.75, '', '../public/imagem/produtos/1595366298.png',
-        '2020-07-21 18:18:18', '2020-07-21 18:18:18'),
-       (18, 4, 'Queijo Suino Branco/Escuro - 1 unidade', 18, '', '../public/imagem/produtos/1595366330.png',
-        '2020-07-21 18:18:50', '2020-07-21 18:18:50'),
-       (19, 4, 'Pernil Suino Defumado', 30, '', '../public/imagem/produtos/1595366366.png', '2020-07-21 18:19:26',
-        '2020-07-21 18:19:26'),
-       (20, 4, 'Morcilia Branca/Escura', 16.5, '', '../public/imagem/produtos/1595366383.png', '2020-07-21 18:19:43',
-        '2020-07-21 18:19:43'),
-       (21, 4, 'Morcilia Branca/Escura', 16.5, '', '../public/imagem/produtos/1595366395.png', '2020-07-21 18:19:55',
-        '2020-07-21 18:19:55'),
-       (22, 4, 'Lombo Suino Defumado', 33, '', '../public/imagem/produtos/1595366408.png', '2020-07-21 18:20:08',
-        '2020-07-21 18:20:08'),
-       (23, 4, 'Linguiça Pate', 31.5, '', '../public/imagem/produtos/1595366427.png', '2020-07-21 18:20:27',
-        '2020-07-21 18:20:27'),
-       (24, 4, 'Linguiça Mista Defumada', 27, '', '../public/imagem/produtos/1595366469.png', '2020-07-21 18:21:09',
-        '2020-07-21 18:21:09'),
-       (25, 4, 'Galantina Inteira', 28.5, '', '../public/imagem/produtos/1595366492.png', '2020-07-21 18:21:32',
-        '2020-07-21 18:21:32'),
-       (26, 4, 'Luinguiça Espeto Pura', 25.5, '', '../public/imagem/produtos/1595366557.png', '2020-07-21 18:22:37',
-        '2020-07-21 18:22:37'),
-       (27, 4, 'Linguiça Calabresa (Blumenal)', 31.5, '', '../public/imagem/produtos/1595366626.png',
-        '2020-07-21 18:23:46', '2020-07-21 18:23:46'),
-       (28, 4, 'Geleia Suina', 18, '', '../public/imagem/produtos/1595366711.png', '2020-07-21 18:25:11',
-        '2020-07-21 18:25:11'),
-       (29, 4, 'Galantina  Fatiada', 7.5, '', '../public/imagem/produtos/1595366727.png', '2020-07-21 18:25:27',
-        '2020-07-21 18:25:27'),
-       (30, 4, 'Banha Suína', 15, '', '../public/imagem/produtos/1595366776.png', '2020-07-21 18:26:16',
-        '2020-07-21 18:26:16'),
-       (31, 1, 'teste', 10, '', NULL, '2020-07-21 20:30:21', '2020-07-21 20:30:21'),
-       (32, 1, 'Processador Intel Pentium G5400 Coffee Lake', 501.06,
-        'Processador Intel Pentium G5400 Coffee Lake, 8a Geração, Cache 4MB, 3.7Ghz, LGA 1151 - BX80684G5400',
-        '../public/imagem/produtos/1595854630.png', '2020-07-27 09:57:10', '2020-07-27 09:57:10'),
-       (33, 1, 'Placa-Mãe Gigabyte GA-AB350M-DS3H V2', 623.41,
-        'Placa-Mãe Gigabyte GA-AB350M-DS3H V2, AMD AM4, mATX, DDR4', '../public/imagem/produtos/1595854902.png',
-        '2020-07-27 10:01:42', '2020-07-27 10:01:42'),
-       (34, 1, 'Acarajé', 5, 'Acarajé completo!', '../public/imagem/produtos/1604882172.jpg', '2020-11-08 21:36:12',
-        '2020-11-08 21:36:12'),
-       (35, 5, 'Camisa Lacost-Branca', 40, 'Camisa da Lacost branca!', '../public/imagem/produtos/1604942294.jpg',
-        '2020-11-09 14:18:14', '2020-11-09 14:18:14'),
-       (36, 5, 'Camisa Reserva-Branca', 40, 'Camisa Reserva branca!', '../public/imagem/produtos/1604942433.jpg',
-        '2020-11-09 14:20:33', '2020-11-09 14:20:33'),
-       (37, 5, 'Camisa Quiksilver-Preta', 40, 'Camisa Quiksilver preta!', '../public/imagem/produtos/1604942624.jfif',
-        '2020-11-09 14:23:44', '2020-11-09 14:23:44'),
-       (38, 5, 'Camisa Adidas-Preta', 40, 'Camisa Adidas preta!', '../public/imagem/produtos/1604942726.jfif',
-        '2020-11-09 14:25:26', '2020-11-09 14:25:26'),
-       (39, 5, 'Camisa Nike -Listrada', 40, 'Camisa Nike listrada!', '../public/imagem/produtos/1604942876.jpg',
-        '2020-11-09 14:27:56', '2020-11-09 14:27:56'),
-       (41, 1, 'Fandangos', 3, NULL, '../public/imagem/produtos/1605733231.jpg', '2020-11-18 18:01:15',
-        '2020-11-18 18:01:15'),
-       (42, 1, 'b thbyhy', 10.1, '', '1604945188.jpg', '2020-11-09 15:06:28', '2020-11-09 15:06:28'),
-       (43, 1, 'byybnu', 41, '', 'public/imagem/produtos/1604945780.jpg', '2020-11-09 15:16:20', '2020-11-09 15:16:20'),
-       (44, 1, 'ytytyty', 41, NULL, 'public/imagem/produtos/1604946897.jpg', '2020-11-09 15:34:58',
-        '2020-11-09 15:34:57'),
-       (45, 1, 'teste', 40, NULL, '../public/imagem/produtos/1604963176.jpg', '2020-11-09 20:06:16',
-        '2020-11-09 20:06:16'),
-       (46, 5, 'Boné Lacoste', 30, 'Boné da Lacoste Preto! ', '../public/imagem/produtos/1605022592.jpg',
-        '2020-11-10 12:36:32', '2020-11-10 12:36:32');
-/*!40000 ALTER TABLE `produtos`
-    ENABLE KEYS */;
+-- Copiando dados para a tabela zig.produtos: ~8 rows (aproximadamente)
+/*!40000 ALTER TABLE `produtos` DISABLE KEYS */;
+INSERT INTO `produtos` (`id`, `id_empresa`, `nome`, `preco`, `descricao`, `imagem`, `codigo`, `created_at`, `updated_at`, `deleted_at`) VALUES
+	(161, 1, 'Camisa de Algodão', 60, NULL, 'public/imagem/produtos/1628472442.png', 1612021, '2021-08-10 21:22:37', '2021-09-01 21:08:31', NULL),
+	(162, 1, 'Ventilador', 150, '', 'public/imagem/produtos/1628472516.png', 1622021, '2021-08-10 21:22:57', '2021-08-10 21:22:57', NULL),
+	(163, 1, 'Anilhas', 35.55, '', 'public/imagem/produtos/1628476271.jpg', 1632021, '2021-08-10 21:23:28', '2021-08-10 21:23:28', NULL),
+	(164, 1, 'Microfone', 300, NULL, 'public/imagem/produtos/1628723260.jpg', 1642021, '2021-08-11 20:30:51', '2021-08-12 22:32:30', NULL),
+	(165, 1, 'Microfone Knup', 76, '', 'public/imagem/produtos/1628819011.png', 1652021, '2021-08-12 22:43:31', '2021-08-12 22:46:57', NULL),
+	(166, 1, 'Caixa Itaipava Latinha', 28, '', 'public/imagem/produtos/1628876142.jpg', 1662021, '2021-08-13 14:35:42', '2021-08-13 14:35:42', NULL),
+	(167, 1, 'Caixa Budweiser ', 6.5, '', 'public/imagem/produtos/1628876402.jpeg', 1672021, '2021-08-13 14:40:02', '2021-09-01 21:02:49', NULL),
+	(168, 1, 'MICROFONE SUPERLUX TM-58 DINAMICO', 150, 'Marca‎Vocal<br>Fabricante‎Vocal<br>Tipo Do Produto‎Eletrônicos<br>EAN‎4710423845961', 'public/imagem/produtos/1630544006.jpg', 1682021, '2021-09-01 21:53:26', '2021-09-01 22:48:53', NULL);
+/*!40000 ALTER TABLE `produtos` ENABLE KEYS */;
 
--- Copiando estrutura para tabela realbi53_tonie.produtos_pedidos
-CREATE TABLE IF NOT EXISTS `produtos_pedidos`
-(
-    `id`         int(11)   NOT NULL AUTO_INCREMENT,
-    `id_pedido`  int(11)   NOT NULL,
-    `id_produto` int(11)   NOT NULL,
-    `preco`      double    NOT NULL DEFAULT '0',
-    `quantidade` int(11)   NOT NULL,
-    `subtotal`   double    NOT NULL DEFAULT '0',
-    `created_at` timestamp NULL     DEFAULT NULL,
-    `updated_at` timestamp NULL     DEFAULT NULL,
-    PRIMARY KEY (`id`),
-    KEY `id_pedido` (`id_pedido`),
-    KEY `id_produto` (`id_produto`)
-) ENGINE = MyISAM
-  AUTO_INCREMENT = 326
-  DEFAULT CHARSET = utf8
-  COLLATE = utf8_unicode_ci;
+-- Copiando estrutura para tabela zig.produtos_pedidos
+CREATE TABLE IF NOT EXISTS `produtos_pedidos` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `id_pedido` int NOT NULL,
+  `id_produto` int NOT NULL,
+  `preco` double NOT NULL DEFAULT '0',
+  `quantidade` int NOT NULL,
+  `subtotal` double NOT NULL DEFAULT '0',
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `id_pedido` (`id_pedido`),
+  KEY `id_produto` (`id_produto`)
+) ENGINE=MyISAM AUTO_INCREMENT=336 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
--- Copiando dados para a tabela realbi53_tonie.produtos_pedidos: 87 rows
-/*!40000 ALTER TABLE `produtos_pedidos`
-    DISABLE KEYS */;
-INSERT INTO `produtos_pedidos` (`id`, `id_pedido`, `id_produto`, `preco`, `quantidade`, `subtotal`, `created_at`,
-                                `updated_at`)
-VALUES (193, 134, 1, 10.5, 1, 10.5, '2020-11-07 00:59:24', '2020-11-17 22:29:41'),
-       (194, 136, 3, 18, 1, 18, '2020-11-07 01:52:37', '2020-11-07 01:52:37'),
-       (227, 143, 4, 3.49, 1, 3.49, '2020-11-07 12:19:11', '2020-11-07 12:19:11'),
-       (196, 138, 7, 25, 2, 50, '2020-11-07 01:56:08', '2020-11-07 01:56:16'),
-       (228, 144, 7, 25, 1, 25, '2020-11-07 20:29:27', '2020-11-07 20:29:27'),
-       (199, 142, 2, 13, 1, 13, '2020-11-07 11:20:52', '2020-11-07 11:20:52'),
-       (200, 142, 4, 3.49, 2, 6.98, '2020-11-07 11:20:57', '2020-11-07 11:21:02'),
-       (201, 0, 4, 3.49, 2, 6.98, '2020-11-07 11:55:53', '2020-11-07 11:55:53'),
-       (202, 0, 4, 3.49, 2, 6.98, '2020-11-07 11:56:19', '2020-11-07 11:56:19'),
-       (203, 140, 1, 10.5, 1, 10.5, '2020-11-07 11:56:58', '2020-11-07 11:56:58'),
-       (231, 0, 3, 18, 3, 54, '2020-11-08 19:20:03', '2020-11-08 19:20:03'),
-       (205, 0, 4, 3.49, 1, 3.49, '2020-11-07 11:57:34', '2020-11-07 11:57:34'),
-       (206, 0, 2, 13, 1, 13, '2020-11-07 12:02:36', '2020-11-07 12:02:36'),
-       (207, 0, 2, 13, 1, 13, '2020-11-07 12:05:06', '2020-11-07 12:05:06'),
-       (221, 137, 10, 26, 1, 26, '2020-11-07 12:11:15', '2020-11-07 12:11:15'),
-       (229, 144, 32, 501.06, 1, 501.06, '2020-11-07 20:29:37', '2020-11-07 20:29:37'),
-       (226, 143, 1, 10.5, 1, 10.5, '2020-11-07 12:19:06', '2020-11-07 12:19:06'),
-       (232, 0, 4, 3.49, 1, 3.49, '2020-11-08 19:20:46', '2020-11-08 19:20:46'),
-       (233, 145, 1, 10.5, 1, 10.5, '2020-11-08 21:23:23', '2020-11-08 21:23:23'),
-       (234, 145, 7, 25, 1, 25, '2020-11-08 21:23:27', '2020-11-08 21:23:27'),
-       (235, 145, 10, 26, 1, 26, '2020-11-08 21:23:33', '2020-11-08 21:23:33'),
-       (236, 146, 3, 18, 3, 54, '2020-11-08 21:25:19', '2020-11-08 21:25:19'),
-       (237, 146, 6, 30, 3, 90, '2020-11-08 21:25:30', '2020-11-08 21:25:30'),
-       (238, 147, 34, 5, 1, 5, '2020-11-08 21:36:36', '2020-11-08 21:36:36'),
-       (239, 147, 3, 18, 1, 18, '2020-11-08 21:36:41', '2020-11-08 21:36:41'),
-       (240, 147, 8, 1500, 1, 1500, '2020-11-08 21:51:13', '2020-11-08 21:51:13'),
-       (241, 148, 1, 10.5, 1, 10.5, '2020-11-08 22:16:24', '2020-11-08 22:16:24'),
-       (242, 148, 4, 3.49, 1, 3.49, '2020-11-08 22:16:28', '2020-11-08 22:16:28'),
-       (243, 148, 6, 30, 1, 30, '2020-11-08 22:16:32', '2020-11-08 22:16:32'),
-       (244, 149, 7, 25, 1, 25, '2020-11-09 09:51:13', '2020-11-09 09:51:13'),
-       (245, 149, 9, 2580, 1, 2580, '2020-11-09 09:51:21', '2020-11-09 09:51:29'),
-       (246, 150, 2, 13, 1, 13, '2020-11-09 14:04:08', '2020-11-09 14:04:08'),
-       (247, 151, 35, 40, 1, 40, '2020-11-09 14:37:34', '2020-11-09 14:37:34'),
-       (248, 151, 37, 40, 2, 80, '2020-11-09 14:37:40', '2020-11-09 14:37:40'),
-       (301, 174, 7, 25, 2, 50, '2020-11-15 11:04:08', '2020-11-15 11:04:10'),
-       (302, 174, 33, 623.41, 2, 1246.82, '2020-11-15 11:04:19', '2020-11-15 11:04:26'),
-       (253, 153, 4, 3.49, 1, 3.49, '2020-11-09 23:45:51', '2020-11-09 23:45:51'),
-       (254, 153, 8, 1500, 1, 1500, '2020-11-09 23:45:59', '2020-11-09 23:48:33'),
-       (256, 154, 4, 3.49, 2, 6.98, '2020-11-09 23:49:58', '2020-11-09 23:49:58'),
-       (258, 156, 1, 10.5, 10, 105, '2020-11-09 23:56:55', '2020-11-09 23:57:12'),
-       (259, 157, 1, 10.5, 4, 42, '2020-11-09 23:59:22', '2020-11-09 23:59:45'),
-       (260, 157, 7, 25, 3, 75, '2020-11-09 23:59:50', '2020-11-09 23:59:50'),
-       (261, 158, 1, 10.5, 4, 42, '2020-11-10 00:03:00', '2020-11-10 00:03:48'),
-       (262, 158, 3, 18, 7, 126, '2020-11-10 00:03:07', '2020-11-10 00:04:56'),
-       (263, 160, 3, 18, 5, 90, '2020-11-11 23:32:57', '2020-11-11 23:33:09'),
-       (264, 134, 4, 3.49, 1, 3.49, '2020-11-12 15:06:15', '2020-11-12 15:06:15'),
-       (265, 134, 8, 1500, 1, 1500, '2020-11-12 15:06:43', '2020-11-12 15:06:43'),
-       (266, 134, 6, 30, 2, 60, '2020-11-12 15:07:03', '2020-11-12 15:07:03'),
-       (267, 134, 3, 18, 1, 18, '2020-11-12 18:42:58', '2020-11-12 18:42:58'),
-       (306, 134, 4, 3.49, 1, 3.49, '2020-11-17 23:01:33', '2020-11-17 23:01:33'),
-       (307, 0, 0, 0, 1, 0, '2020-11-19 21:49:44', '2020-11-19 21:49:44'),
-       (313, 134, 2, 13, 1, 13, '2020-11-19 21:58:38', '2020-11-19 21:58:38'),
-       (312, 134, 1, 10.5, 1, 10.5, '2020-11-19 21:56:33', '2020-11-19 21:56:33'),
-       (311, 0, 8, 1500, 2, 3000, '2020-11-19 21:51:44', '2020-11-19 21:51:44'),
-       (310, 0, 8, 1500, 2, 3000, '2020-11-19 21:51:07', '2020-11-19 21:51:07'),
-       (300, 174, 3, 18, 1, 18, '2020-11-15 11:03:54', '2020-11-15 11:04:28'),
-       (299, 152, 33, 623.41, 1, 623.41, '2020-11-13 22:51:21', '2020-11-13 22:51:23'),
-       (297, 0, 32, 501.06, 2, 1002.12, '2020-11-13 22:49:39', '2020-11-13 22:50:07'),
-       (277, 162, 4, 3.49, 1, 3.49, '2020-11-12 19:04:14', '2020-11-12 19:04:14'),
-       (278, 163, 36, 40, 5, 200, '2020-11-12 19:07:19', '2020-11-12 19:07:19'),
-       (279, 163, 38, 40, 5, 200, '2020-11-12 19:07:32', '2020-11-12 19:07:32'),
-       (280, 164, 1, 10.5, 1, 10.5, '2020-11-12 19:13:31', '2020-11-12 19:13:31'),
-       (281, 165, 2, 13, 1, 13, '2020-11-12 19:14:49', '2020-11-12 19:14:49'),
-       (282, 166, 3, 18, 1, 18, '2020-11-12 19:16:27', '2020-11-12 19:16:27'),
-       (283, 167, 2, 13, 1, 13, '2020-11-12 19:18:42', '2020-11-12 19:18:42'),
-       (284, 168, 2, 13, 1, 13, '2020-11-12 19:20:05', '2020-11-12 19:20:05'),
-       (285, 169, 2, 13, 1, 13, '2020-11-12 19:23:20', '2020-11-12 19:23:20'),
-       (286, 170, 2, 13, 1, 13, '2020-11-12 19:33:51', '2020-11-12 19:33:51'),
-       (287, 171, 3, 18, 1, 18, '2020-11-12 19:36:42', '2020-11-12 19:36:42'),
-       (288, 172, 36, 40, 5, 200, '2020-11-12 19:38:30', '2020-11-12 19:38:30'),
-       (289, 172, 38, 40, 5, 200, '2020-11-12 19:38:33', '2020-11-12 19:38:33'),
-       (290, 172, 46, 30, 1, 30, '2020-11-12 23:49:58', '2020-11-12 23:50:53'),
-       (298, 152, 7, 25, 3, 75, '2020-11-13 22:50:45', '2020-11-13 22:51:18'),
-       (303, 174, 34, 5, 1, 5, '2020-11-15 11:04:38', '2020-11-15 11:04:38'),
-       (309, 0, 3, 18, 2, 36, '2020-11-19 21:50:58', '2020-11-19 21:50:58'),
-       (308, 0, 2, 13, 1, 13, '2020-11-19 21:50:52', '2020-11-19 21:50:52'),
-       (314, 134, 2, 13, 2, 26, '2020-11-19 22:03:45', '2020-11-19 22:03:45'),
-       (315, 177, 2, 13, 1, 13, '2020-11-19 22:18:39', '2020-11-19 22:18:39'),
-       (316, 134, 3, 18, 1, 18, '2020-11-19 22:26:05', '2020-11-19 22:26:05'),
-       (318, 178, 9, 2580, 1, 2580, '2020-11-20 23:22:18', '2020-11-20 23:22:18'),
-       (319, 179, 9, 2580, 2, 5160, '2020-11-26 18:41:17', '2020-11-26 18:41:17'),
-       (320, 179, 1, 10.5, 1, 10.5, '2020-11-26 18:41:22', '2020-11-26 18:41:22'),
-       (321, 180, 34, 5, 3, 15, '2020-11-26 18:44:59', '2020-11-26 18:44:59'),
-       (322, 181, 1, 10.5, 1, 10.5, '2020-11-26 18:53:17', '2020-11-26 18:53:17'),
-       (323, 181, 1, 10.5, 1, 10.5, '2020-11-26 18:53:34', '2020-11-26 18:53:34'),
-       (324, 181, 1, 10.5, 1, 12.6, '2020-11-26 18:53:50', '2020-11-26 18:53:50'),
-       (325, 181, 1, 10.5, 2, 15.75, '2020-11-26 18:54:11', '2020-11-26 18:54:11');
-/*!40000 ALTER TABLE `produtos_pedidos`
-    ENABLE KEYS */;
+-- Copiando dados para a tabela zig.produtos_pedidos: 6 rows
+/*!40000 ALTER TABLE `produtos_pedidos` DISABLE KEYS */;
+INSERT INTO `produtos_pedidos` (`id`, `id_pedido`, `id_produto`, `preco`, `quantidade`, `subtotal`, `created_at`, `updated_at`) VALUES
+	(330, 184, 47, 22.8, 2, 34.2, '2020-12-09 14:28:43', '2020-12-09 14:29:15'),
+	(331, 186, 51, 145.24, 3, 435.72, '2021-01-09 17:05:47', '2021-01-10 00:32:32'),
+	(332, 186, 53, 12.12, 1, 12.12, '2021-01-09 17:05:55', '2021-01-09 17:05:55'),
+	(333, 187, 51, 145.24, 1, 145.24, '2021-01-12 21:49:58', '2021-01-12 21:49:58'),
+	(334, 187, 52, 4.58, 2, 9.16, '2021-01-12 21:50:11', '2021-01-12 21:50:11'),
+	(335, 188, 52, 98, 1, 98, '2021-03-01 20:50:35', '2021-03-01 20:50:35');
+/*!40000 ALTER TABLE `produtos_pedidos` ENABLE KEYS */;
 
--- Copiando estrutura para tabela realbi53_tonie.recuperacao_de_senha
-CREATE TABLE IF NOT EXISTS `recuperacao_de_senha`
-(
-    `id`         int(11)      NOT NULL AUTO_INCREMENT,
-    `user_id`    int(11)      NOT NULL,
-    `hash`       varchar(100) NOT NULL,
-    `created_at` timestamp    NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    `updated_at` timestamp    NULL     DEFAULT NULL,
-    PRIMARY KEY (`id`)
-) ENGINE = InnoDB
-  DEFAULT CHARSET = utf8;
+-- Copiando estrutura para tabela zig.recuperacao_de_senha
+CREATE TABLE IF NOT EXISTS `recuperacao_de_senha` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `user_id` int NOT NULL,
+  `hash` varchar(100) NOT NULL,
+  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
--- Copiando dados para a tabela realbi53_tonie.recuperacao_de_senha: ~0 rows (aproximadamente)
-/*!40000 ALTER TABLE `recuperacao_de_senha`
-    DISABLE KEYS */;
-/*!40000 ALTER TABLE `recuperacao_de_senha`
-    ENABLE KEYS */;
+-- Copiando dados para a tabela zig.recuperacao_de_senha: ~0 rows (aproximadamente)
+/*!40000 ALTER TABLE `recuperacao_de_senha` DISABLE KEYS */;
+/*!40000 ALTER TABLE `recuperacao_de_senha` ENABLE KEYS */;
 
--- Copiando estrutura para tabela realbi53_tonie.sexos
-CREATE TABLE IF NOT EXISTS `sexos`
-(
-    `id`         int(11)     NOT NULL AUTO_INCREMENT,
-    `descricao`  varchar(50) NOT NULL,
-    `created_at` timestamp   NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-    `updated_at` timestamp   NOT NULL DEFAULT '0000-00-00 00:00:00',
-    PRIMARY KEY (`id`)
-) ENGINE = InnoDB
-  AUTO_INCREMENT = 3
-  DEFAULT CHARSET = latin1;
+-- Copiando estrutura para tabela zig.sexos
+CREATE TABLE IF NOT EXISTS `sexos` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `descricao` varchar(50) NOT NULL,
+  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
 
--- Copiando dados para a tabela realbi53_tonie.sexos: ~2 rows (aproximadamente)
-/*!40000 ALTER TABLE `sexos`
-    DISABLE KEYS */;
-INSERT INTO `sexos` (`id`, `descricao`, `created_at`, `updated_at`)
-VALUES (1, 'Masculino', '2020-02-21 14:08:58', '0000-00-00 00:00:00'),
-       (2, 'Feminino', '2020-02-21 14:09:09', '0000-00-00 00:00:00');
-/*!40000 ALTER TABLE `sexos`
-    ENABLE KEYS */;
+-- Copiando dados para a tabela zig.sexos: ~2 rows (aproximadamente)
+/*!40000 ALTER TABLE `sexos` DISABLE KEYS */;
+INSERT INTO `sexos` (`id`, `descricao`, `created_at`, `updated_at`) VALUES
+	(1, 'Masculino', '2020-02-21 14:08:58', '0000-00-00 00:00:00'),
+	(2, 'Feminino', '2020-02-21 14:09:09', '0000-00-00 00:00:00');
+/*!40000 ALTER TABLE `sexos` ENABLE KEYS */;
 
--- Copiando estrutura para tabela realbi53_tonie.situacoes_pedidos
-CREATE TABLE IF NOT EXISTS `situacoes_pedidos`
-(
-    `id`         int(11)                             NOT NULL AUTO_INCREMENT,
-    `legenda`    varchar(50) COLLATE utf8_unicode_ci NOT NULL DEFAULT '',
-    `created_at` timestamp                           NULL     DEFAULT '0000-00-00 00:00:00' ON UPDATE CURRENT_TIMESTAMP,
-    `updated_at` timestamp                           NULL     DEFAULT '0000-00-00 00:00:00',
-    PRIMARY KEY (`id`)
-) ENGINE = MyISAM
-  AUTO_INCREMENT = 8
-  DEFAULT CHARSET = utf8
-  COLLATE = utf8_unicode_ci;
+-- Copiando estrutura para tabela zig.situacoes_pedidos
+CREATE TABLE IF NOT EXISTS `situacoes_pedidos` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `legenda` varchar(50) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL DEFAULT '',
+  `created_at` timestamp NULL DEFAULT '0000-00-00 00:00:00' ON UPDATE CURRENT_TIMESTAMP,
+  `updated_at` timestamp NULL DEFAULT '0000-00-00 00:00:00',
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM AUTO_INCREMENT=8 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
--- Copiando dados para a tabela realbi53_tonie.situacoes_pedidos: 5 rows
-/*!40000 ALTER TABLE `situacoes_pedidos`
-    DISABLE KEYS */;
-INSERT INTO `situacoes_pedidos` (`id`, `legenda`, `created_at`, `updated_at`)
-VALUES (1, 'Realizado', '2020-08-06 11:01:25', '0000-00-00 00:00:00'),
-       (2, 'Em preparação', '2020-08-06 11:01:45', '0000-00-00 00:00:00'),
-       (3, 'Enviado', '2020-08-06 11:01:55', '0000-00-00 00:00:00'),
-       (5, 'Recebido', '2020-08-06 11:02:00', '0000-00-00 00:00:00'),
-       (7, 'Incompleto', '0000-00-00 00:00:00', '0000-00-00 00:00:00');
-/*!40000 ALTER TABLE `situacoes_pedidos`
-    ENABLE KEYS */;
+-- Copiando dados para a tabela zig.situacoes_pedidos: 5 rows
+/*!40000 ALTER TABLE `situacoes_pedidos` DISABLE KEYS */;
+INSERT INTO `situacoes_pedidos` (`id`, `legenda`, `created_at`, `updated_at`) VALUES
+	(1, 'Realizado', '2020-08-06 11:01:25', '0000-00-00 00:00:00'),
+	(2, 'Em preparação', '2020-08-06 11:01:45', '0000-00-00 00:00:00'),
+	(3, 'Enviado', '2020-08-06 11:01:55', '0000-00-00 00:00:00'),
+	(5, 'Recebido', '2020-08-06 11:02:00', '0000-00-00 00:00:00'),
+	(7, 'Incompleto', '0000-00-00 00:00:00', '0000-00-00 00:00:00');
+/*!40000 ALTER TABLE `situacoes_pedidos` ENABLE KEYS */;
 
--- Copiando estrutura para tabela realbi53_tonie.tipos_pdv
-CREATE TABLE IF NOT EXISTS `tipos_pdv`
-(
-    `id`         int(11)     NOT NULL AUTO_INCREMENT,
-    `descricao`  varchar(50) NOT NULL,
-    `created_at` timestamp   NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-    `updated_at` timestamp   NOT NULL DEFAULT '0000-00-00 00:00:00',
-    PRIMARY KEY (`id`)
-) ENGINE = InnoDB
-  AUTO_INCREMENT = 3
-  DEFAULT CHARSET = latin1;
+-- Copiando estrutura para tabela zig.tipos_pdv
+CREATE TABLE IF NOT EXISTS `tipos_pdv` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `descricao` varchar(50) NOT NULL,
+  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
 
--- Copiando dados para a tabela realbi53_tonie.tipos_pdv: ~2 rows (aproximadamente)
-/*!40000 ALTER TABLE `tipos_pdv`
-    DISABLE KEYS */;
-INSERT INTO `tipos_pdv` (`id`, `descricao`, `created_at`, `updated_at`)
-VALUES (1, 'Padrão', '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
-       (2, 'Diferencial', '2020-05-23 17:02:09', '2020-05-23 17:02:09');
-/*!40000 ALTER TABLE `tipos_pdv`
-    ENABLE KEYS */;
+-- Copiando dados para a tabela zig.tipos_pdv: ~2 rows (aproximadamente)
+/*!40000 ALTER TABLE `tipos_pdv` DISABLE KEYS */;
+INSERT INTO `tipos_pdv` (`id`, `descricao`, `created_at`, `updated_at`) VALUES
+	(1, 'Padrão', '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+	(2, 'Diferencial', '2020-05-23 17:02:09', '2020-05-23 17:02:09');
+/*!40000 ALTER TABLE `tipos_pdv` ENABLE KEYS */;
 
--- Copiando estrutura para tabela realbi53_tonie.usuarios
-CREATE TABLE IF NOT EXISTS `usuarios`
-(
-    `id`         int(11)     NOT NULL AUTO_INCREMENT,
-    `id_empresa` int(11)     NOT NULL DEFAULT '0',
-    `nome`       varchar(50) NOT NULL,
-    `email`      varchar(50) NOT NULL,
-    `password`   varchar(50) NOT NULL,
-    `id_sexo`    int(11)              DEFAULT NULL,
-    `id_perfil`  int(11)              DEFAULT NULL,
-    `imagem`     text,
-    `created_at` timestamp   NOT NULL DEFAULT '0000-00-00 00:00:00' ON UPDATE CURRENT_TIMESTAMP,
-    `updated_at` timestamp   NOT NULL DEFAULT '0000-00-00 00:00:00',
-    PRIMARY KEY (`id`),
-    KEY `FK_usuarios_sexo` (`id_sexo`),
-    KEY `FK_usuarios_perfis` (`id_perfil`),
-    KEY `FK_usuarios_clientes` (`id_empresa`),
-    CONSTRAINT `FK_usuarios_clientes` FOREIGN KEY (`id_empresa`) REFERENCES `empresas` (`id`),
-    CONSTRAINT `FK_usuarios_perfis` FOREIGN KEY (`id_perfil`) REFERENCES `perfis` (`id`),
-    CONSTRAINT `FK_usuarios_sexo` FOREIGN KEY (`id_sexo`) REFERENCES `sexos` (`id`)
-) ENGINE = InnoDB
-  AUTO_INCREMENT = 67
-  DEFAULT CHARSET = latin1;
+-- Copiando estrutura para tabela zig.usuarios
+CREATE TABLE IF NOT EXISTS `usuarios` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `id_empresa` int NOT NULL DEFAULT '0',
+  `nome` varchar(50) NOT NULL,
+  `email` varchar(50) NOT NULL,
+  `password` varchar(50) NOT NULL,
+  `remember_token` varchar(60) DEFAULT NULL,
+  `remember_expire_date` timestamp NULL DEFAULT NULL,
+  `id_sexo` int DEFAULT NULL,
+  `id_perfil` int DEFAULT NULL,
+  `imagem` text,
+  `status` int DEFAULT '1',
+  `created_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00' ON UPDATE CURRENT_TIMESTAMP,
+  `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
+  PRIMARY KEY (`id`),
+  KEY `FK_usuarios_sexo` (`id_sexo`),
+  KEY `FK_usuarios_perfis` (`id_perfil`),
+  KEY `FK_usuarios_clientes` (`id_empresa`),
+  CONSTRAINT `FK_usuarios_clientes` FOREIGN KEY (`id_empresa`) REFERENCES `empresas` (`id`),
+  CONSTRAINT `FK_usuarios_perfis` FOREIGN KEY (`id_perfil`) REFERENCES `perfis` (`id`),
+  CONSTRAINT `FK_usuarios_sexo` FOREIGN KEY (`id_sexo`) REFERENCES `sexos` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=76 DEFAULT CHARSET=latin1;
 
--- Copiando dados para a tabela realbi53_tonie.usuarios: ~18 rows (aproximadamente)
-/*!40000 ALTER TABLE `usuarios`
-    DISABLE KEYS */;
-INSERT INTO `usuarios` (`id`, `id_empresa`, `nome`, `email`, `password`, `id_sexo`, `id_perfil`, `imagem`, `created_at`,
-                        `updated_at`)
-VALUES (1, 1, 'Valdiney França', 'admin@admin.com', '4860b8a986a92086885755ecc8c9480d1c1b98b0', 1, 2,
-        'public/imagem/perfil_usuarios/1585493352.jpg', '2020-07-26 14:43:29', '2020-07-26 14:43:28'),
-       (2, 1, 'Renata de Jesus Lima', 'renata@hotmail.com', '3b5df72898847f008454f4ed60280d6bdffc890d', 2, 4,
-        '../public/imagem/perfil_usuarios/1593884290.jpg', '2020-07-04 14:38:10', '2020-07-04 14:38:10'),
-       (35, 1, 'João de Jesus', 'joao@gmail.com', '3b5df72898847f008454f4ed60280d6bdffc890d', 1, 5,
-        'public/imagem/perfil_usuarios/1585493875.png', '2020-09-19 11:30:47', '2020-09-19 11:30:47'),
-       (36, 1, 'Mariana Pinheiro', 'mariana@gmail.com', '3b5df72898847f008454f4ed60280d6bdffc890d', 2, 4,
-        'public/imagem/perfil_usuarios/1585494012.png', '2020-04-25 00:54:55', '2020-03-29 15:00:12'),
-       (38, 1, 'Margarida Dantas', 'margarida@hotmail.com', '3b5df72898847f008454f4ed60280d6bdffc890d', 2, 4,
-        'public/imagem/perfil_usuarios/1585493941.png', '2020-04-25 22:03:29', '2020-03-29 14:59:01'),
-       (42, 1, 'Leonardo Dodge', 'leonardo@gmail.com', '3b5df72898847f008454f4ed60280d6bdffc890d', 1, 4,
-        'public/imagem/perfil_usuarios/1585494107.png', '2020-04-25 00:54:48', '2020-03-29 15:01:47'),
-       (43, 1, 'Testador', 'testador@gmail.com', '3b5df72898847f008454f4ed60280d6bdffc890d', 1, 1,
-        'public/imagem/perfil_usuarios/1587774607.jpg', '2020-04-25 00:55:18', '2020-04-25 00:30:07'),
-       (46, 1, 'Lucas Amorin', 'lucas@hotmail.com', '3b5df72898847f008454f4ed60280d6bdffc890d', 1, 4,
-        '../public/imagem/perfil_usuarios/1593870418.jpg', '2020-07-04 10:46:58', '2020-07-04 10:46:58'),
-       (47, 1, 'Leonardo Souza', 'leonardo@hotmail.com', '3b5df72898847f008454f4ed60280d6bdffc890d', 1, 4,
-        '../public/imagem/perfil_usuarios/1593883631.jpg', '2020-07-04 14:27:11', '2020-07-04 14:27:11'),
-       (49, 1, 'Anderson Oliveira', 'andersonoliver480@gmail.com', '3b5df72898847f008454f4ed60280d6bdffc890d', 1, 2,
-        'public/imagem/perfil_usuarios/1592172985.png', '2020-06-14 22:16:25', '2020-06-14 19:16:25'),
-       (50, 1, 'Pedro Almeida da Silva', 'pedro@gmail.com', '3b5df72898847f008454f4ed60280d6bdffc890d', 1, 4,
-        '../public/imagem/perfil_usuarios/1593883657.jpg', '2020-07-04 14:27:37', '2020-07-04 14:27:37'),
-       (51, 1, 'Tadeu', 'tadeu@email.com', '35842af82da9d4eaabe843c590eee229a2d9bff3', 1, 1,
-        '../public/imagem/perfil_usuarios/1594117183.jpg', '2020-07-21 13:49:59', '2020-07-21 13:49:59'),
-       (52, 2, 'Elvis', 'elvis@gmail.com', '3b5df72898847f008454f4ed60280d6bdffc890d', 1, 4, NULL,
-        '2020-07-10 13:19:36', '2020-07-10 13:19:35'),
-       (55, 2, 'Antonio', 'antonio@gmail.com', '3b5df72898847f008454f4ed60280d6bdffc890d', 1, 2, NULL,
-        '2020-07-10 13:16:51', '2020-07-10 13:16:51'),
-       (56, 3, 'Sabor Açaí', 'saboracai@gmail.com', '3b5df72898847f008454f4ed60280d6bdffc890d', 1, 5, NULL,
-        '2020-07-19 09:20:53', '2020-07-19 09:20:53'),
-       (57, 1, 'Enrique', 'enriquegeorg@gmail.com', '3b5df72898847f008454f4ed60280d6bdffc890d', 1, 1,
-        '../public/imagem/perfil_usuarios/1595349951.png', '2020-07-21 13:46:06', '2020-07-21 13:46:06'),
-       (58, 4, 'BOUTHINHA', 'adm@bouthin.com.br', '3b5df72898847f008454f4ed60280d6bdffc890d', 1, 2, NULL,
-        '2020-07-25 10:21:27', '2020-07-25 10:21:27'),
-       (61, 4, 'Fernando', 'fernando@bouthin.com.br', '3b5df72898847f008454f4ed60280d6bdffc890d', 1, 2, NULL,
-        '2020-07-21 18:09:11', '2020-07-21 18:09:11'),
-       (62, 5, 'Ghetto Modas', 'ghettomodas@hotmail.com', '3b5df72898847f008454f4ed60280d6bdffc890d', 1, 2,
-        '../public/imagem/perfil_usuarios/1604942971.png', '2020-11-09 14:29:31', '2020-11-09 14:29:31'),
-       (63, 5, 'Diogo Lincoln', 'cliffgodburton@gmail.com', '1721e91990172b1f1c0fa13376168c8e6b29245a', 1, 2, NULL,
-        '2020-11-12 18:49:23', '2020-11-12 18:49:23'),
-       (64, 1, 'testando aqui', 'testandoaqui.2@hotmail.com', '3b5df72898847f008454f4ed60280d6bdffc890d', 1, 4, NULL,
-        '2020-11-12 19:54:57', '2020-11-12 19:54:57'),
-       (65, 5, 'Domingos Luíz', 'domingosjoaquimluis@hotmail.com', '1721e91990172b1f1c0fa13376168c8e6b29245a', 1, 2,
-        '../public/imagem/perfil_usuarios/1605360453.png', '2020-11-14 10:27:33', '2020-11-14 10:27:33'),
-       (66, 1, 'vamos testar', 'vamos2@hotmail.com', '3b5df72898847f008454f4ed60280d6bdffc890d', 1, 5,
-        'public/imagem/perfil_usuarios/1605379121.jpg', '2020-11-14 15:38:41', '2020-11-14 15:38:41');
-/*!40000 ALTER TABLE `usuarios`
-    ENABLE KEYS */;
+-- Copiando dados para a tabela zig.usuarios: ~13 rows (aproximadamente)
+/*!40000 ALTER TABLE `usuarios` DISABLE KEYS */;
+INSERT INTO `usuarios` (`id`, `id_empresa`, `nome`, `email`, `password`, `remember_token`, `remember_expire_date`, `id_sexo`, `id_perfil`, `imagem`, `status`, `created_at`, `updated_at`) VALUES
+	(1, 1, 'Valdiney França', 'valdiney.2@hotmail.com', '4860b8a986a92086885755ecc8c9480d1c1b98b0', '84719d18cf44097816a636daf032d64a91b5a3a3', '2021-10-01 21:02:32', 1, 1, 'public/imagem/perfil_usuarios/1585493352.jpg', 1, '2021-09-01 21:02:32', '2021-09-01 21:02:32'),
+	(51, 1, 'Tadeu', 'tadeu@email.com', '35842af82da9d4eaabe843c590eee229a2d9bff3', '66c93e3802dfa00d3dc3b5c6669773adb647c35e', '2021-04-02 15:41:22', 1, 1, '../public/imagem/perfil_usuarios/1594117183.jpg', 1, '2021-03-02 15:41:22', '2021-03-02 15:41:22'),
+	(57, 1, 'Enrique', 'enriquegeorg@gmail.com', '3b5df72898847f008454f4ed60280d6bdffc890d', '205877e232f40c2431cf8c1df6dce451ef35572f', '2021-04-11 19:18:28', 1, 1, '../public/imagem/perfil_usuarios/1595349951.png', 1, '2021-03-11 19:18:28', '2021-03-11 19:18:28'),
+	(58, 4, 'Super User Bouthin', 'adm@bouthin.com.br', '3b5df72898847f008454f4ed60280d6bdffc890d', NULL, NULL, 1, 2, NULL, 1, '2020-11-27 19:16:25', '2020-11-27 19:16:25'),
+	(67, 1, 'Teste', 'teste@hotmail.com', '3b5df72898847f008454f4ed60280d6bdffc890d', NULL, NULL, 1, 4, NULL, 1, '2020-12-05 17:48:34', '2020-12-05 17:48:33'),
+	(68, 5, 'Majukids', 'jeane.2@hotmail.com', '3b5df72898847f008454f4ed60280d6bdffc890d', '2ee7aa66f54c079d8a4e55ef3fa2e73e6b4abef0', '2021-06-18 23:53:47', 1, 2, '../public/imagem/perfil_usuarios/1609878660.jfif', 1, '2021-05-18 23:53:47', '2021-05-18 23:53:47'),
+	(69, 1, 'teste', 'teste.2@hotmail.com', '4860b8a986a92086885755ecc8c9480d1c1b98b0', NULL, NULL, 1, 5, NULL, 1, '2021-01-15 17:46:06', '2021-01-15 17:46:06'),
+	(70, 1, 'vai teste', 'vaiteste@hotmail.com', '4860b8a986a92086885755ecc8c9480d1c1b98b0', NULL, NULL, 1, 2, NULL, 1, '2021-01-15 17:46:38', '2021-01-15 17:46:38'),
+	(71, 6, 'Açaí dos meus Sonhos', 'santosalvin@hotmail.com', '3b5df72898847f008454f4ed60280d6bdffc890d', NULL, NULL, 1, 2, '../public/imagem/perfil_usuarios/1611002082.png', 1, '2021-01-19 09:07:33', '2021-01-19 09:07:33'),
+	(72, 1, 'Marcos', 'marcuscogo19@gmail.com', '3b5df72898847f008454f4ed60280d6bdffc890d', '1bee46d0629e14221dd3e104fd61cc69e882dc4a', '2021-03-24 23:00:05', 1, 1, NULL, 1, '2021-02-24 23:00:05', '2021-02-24 23:00:05'),
+	(73, 1, 'Fernando Lira', 'fernandollira@gmail.com', '3b5df72898847f008454f4ed60280d6bdffc890d', NULL, NULL, 1, 2, NULL, 1, '2021-03-01 22:04:27', '2021-03-01 22:04:27'),
+	(74, 7, 'Fashion Star ', 'aninha.cc8@gmail.com ', '4ed69ea95b9bb3e4e2f7c87235592ae3f070cf40', '2b9ec02362eef0368bcdccf1f61a03813fa5d60c', '2021-04-03 21:28:24', 1, 2, NULL, 1, '2021-03-03 21:31:32', '2021-03-03 21:31:32'),
+	(75, 1, 'Admin', 'admin@admin.com', '3b5df72898847f008454f4ed60280d6bdffc890d', NULL, NULL, 1, 1, NULL, 1, '2021-09-01 21:57:20', '0000-00-00 00:00:00');
+/*!40000 ALTER TABLE `usuarios` ENABLE KEYS */;
 
--- Copiando estrutura para tabela realbi53_tonie.usuarios_modulos
-CREATE TABLE IF NOT EXISTS `usuarios_modulos`
-(
-    `id`         int(11)   NOT NULL AUTO_INCREMENT,
-    `id_usuario` int(11)   NOT NULL,
-    `id_empresa` int(11)   NOT NULL,
-    `id_modulo`  int(11)   NOT NULL,
-    `consultar`  int(11)   NOT NULL DEFAULT '1',
-    `criar`      int(11)   NOT NULL DEFAULT '1',
-    `editar`     int(11)   NOT NULL DEFAULT '1',
-    `excluir`    int(11)   NOT NULL DEFAULT '1',
-    `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-    `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
-    `deleted_at` timestamp NULL     DEFAULT NULL,
-    PRIMARY KEY (`id`),
-    KEY `FK_usuarios_modulos_usuarios` (`id_usuario`),
-    KEY `FK_usuarios_modulos_empresas` (`id_empresa`),
-    KEY `FK_usuarios_modulos_modulos_permissoes` (`id_modulo`),
-    CONSTRAINT `FK_usuarios_modulos_empresas` FOREIGN KEY (`id_empresa`) REFERENCES `empresas` (`id`),
-    CONSTRAINT `FK_usuarios_modulos_modulos_permissoes` FOREIGN KEY (`id_modulo`) REFERENCES `modulos` (`id`),
-    CONSTRAINT `FK_usuarios_modulos_usuarios` FOREIGN KEY (`id_usuario`) REFERENCES `usuarios` (`id`)
-) ENGINE = InnoDB
-  AUTO_INCREMENT = 94
-  DEFAULT CHARSET = latin1;
+-- Copiando estrutura para tabela zig.vendas
+CREATE TABLE IF NOT EXISTS `vendas` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `id_usuario` int NOT NULL,
+  `id_meio_pagamento` int NOT NULL,
+  `id_empresa` int NOT NULL,
+  `id_produto` int DEFAULT NULL,
+  `preco` double DEFAULT '0',
+  `quantidade` int DEFAULT NULL,
+  `valor` double NOT NULL DEFAULT '0',
+  `data_compensacao` date DEFAULT NULL,
+  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
+  `deleted_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `FK_vendas_meios_de_pagamento` (`id_meio_pagamento`),
+  KEY `FK_vendas_usuarios` (`id_usuario`),
+  KEY `FK_vendas_clientes` (`id_empresa`),
+  CONSTRAINT `FK_vendas_clientes` FOREIGN KEY (`id_empresa`) REFERENCES `empresas` (`id`),
+  CONSTRAINT `FK_vendas_meios_de_pagamento` FOREIGN KEY (`id_meio_pagamento`) REFERENCES `meios_pagamentos` (`id`),
+  CONSTRAINT `FK_vendas_usuarios` FOREIGN KEY (`id_usuario`) REFERENCES `usuarios` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=88 DEFAULT CHARSET=latin1;
 
--- Copiando dados para a tabela realbi53_tonie.usuarios_modulos: ~68 rows (aproximadamente)
-/*!40000 ALTER TABLE `usuarios_modulos`
-    DISABLE KEYS */;
-INSERT INTO `usuarios_modulos` (`id`, `id_usuario`, `id_empresa`, `id_modulo`, `consultar`, `criar`, `editar`,
-                                `excluir`, `created_at`, `updated_at`, `deleted_at`)
-VALUES (4, 1, 1, 7, 1, 1, 1, 1, '2020-06-27 22:23:38', '2020-06-27 22:23:38', NULL),
-       (5, 1, 1, 11, 1, 1, 1, 1, '2020-06-24 08:05:06', '2020-06-24 08:05:07', NULL),
-       (6, 1, 1, 3, 1, 1, 1, 1, '2020-06-27 22:24:29', '2020-06-27 22:24:29', NULL),
-       (7, 1, 1, 2, 1, 1, 1, 1, '0000-00-00 00:00:00', '0000-00-00 00:00:00', NULL),
-       (8, 1, 1, 6, 1, 1, 1, 1, '2020-06-24 08:07:02', '2020-06-24 08:07:02', NULL),
-       (9, 1, 1, 5, 1, 1, 1, 1, '0000-00-00 00:00:00', '0000-00-00 00:00:00', NULL),
-       (10, 1, 1, 9, 1, 1, 1, 1, '2020-06-24 08:08:22', '2020-06-24 08:08:23', NULL),
-       (11, 1, 1, 8, 1, 1, 1, 1, '2020-06-28 18:38:50', '2020-06-28 18:38:50', NULL),
-       (12, 1, 1, 10, 1, 1, 1, 1, '2019-06-24 08:08:52', '2020-06-24 08:08:53', NULL),
-       (13, 1, 1, 4, 1, 1, 1, 1, '2020-06-27 22:23:37', '2020-06-27 22:23:37', NULL),
-       (14, 38, 1, 2, 1, 1, 1, 1, '2020-06-28 18:39:42', '2020-06-28 18:39:42', NULL),
-       (15, 38, 1, 3, 0, 0, 0, 0, '2020-06-28 18:42:25', '2020-06-28 18:42:25', NULL),
-       (16, 38, 1, 4, 1, 1, 1, 1, '2020-06-28 18:39:42', '2020-06-28 18:39:42', NULL),
-       (17, 38, 1, 5, 0, 1, 1, 1, '2020-06-28 18:42:29', '2020-06-28 18:42:29', NULL),
-       (18, 38, 1, 6, 1, 1, 1, 1, '2020-06-28 18:39:42', '2020-06-28 18:39:42', NULL),
-       (19, 38, 1, 7, 1, 1, 1, 1, '2020-06-28 18:39:42', '2020-06-28 18:39:42', NULL),
-       (20, 38, 1, 8, 1, 1, 1, 1, '2020-06-28 18:39:42', '2020-06-28 18:39:42', NULL),
-       (21, 38, 1, 9, 1, 1, 1, 1, '2020-06-28 18:39:42', '2020-06-28 18:39:42', NULL),
-       (22, 38, 1, 10, 1, 1, 1, 1, '2020-06-28 18:39:42', '2020-06-28 18:39:42', NULL),
-       (23, 38, 1, 11, 1, 1, 1, 1, '2020-06-28 18:39:42', '2020-06-28 18:39:42', NULL),
-       (24, 50, 1, 2, 1, 1, 1, 1, '2020-07-04 00:32:42', '2020-07-04 00:32:42', NULL),
-       (25, 50, 1, 3, 1, 1, 1, 1, '2020-07-04 00:32:42', '2020-07-04 00:32:42', NULL),
-       (26, 50, 1, 4, 1, 1, 1, 1, '2020-07-04 00:32:42', '2020-07-04 00:32:42', NULL),
-       (27, 50, 1, 5, 1, 1, 1, 1, '2020-07-04 00:32:42', '2020-07-04 00:32:42', NULL),
-       (28, 50, 1, 6, 1, 1, 1, 1, '2020-07-04 00:32:42', '2020-07-04 00:32:42', NULL),
-       (29, 50, 1, 7, 1, 1, 1, 1, '2020-07-04 00:32:42', '2020-07-04 00:32:42', NULL),
-       (30, 50, 1, 8, 1, 1, 1, 1, '2020-07-04 00:32:42', '2020-07-04 00:32:42', NULL),
-       (31, 50, 1, 9, 1, 1, 1, 1, '2020-07-04 00:32:42', '2020-07-04 00:32:42', NULL),
-       (32, 50, 1, 10, 1, 1, 1, 1, '2020-07-04 00:32:42', '2020-07-04 00:32:42', NULL),
-       (33, 50, 1, 11, 1, 1, 1, 1, '2020-07-04 00:32:42', '2020-07-04 00:32:42', NULL),
-       (34, 51, 1, 2, 1, 1, 1, 1, '2020-07-07 07:19:25', '2020-07-07 07:19:25', NULL),
-       (35, 51, 1, 3, 1, 1, 1, 1, '2020-07-07 07:19:25', '2020-07-07 07:19:25', NULL),
-       (36, 51, 1, 4, 1, 1, 1, 1, '2020-07-07 07:19:25', '2020-07-07 07:19:25', NULL),
-       (37, 51, 1, 5, 1, 1, 1, 1, '2020-07-07 07:19:25', '2020-07-07 07:19:25', NULL),
-       (38, 51, 1, 6, 1, 1, 1, 1, '2020-07-07 07:19:25', '2020-07-07 07:19:25', NULL),
-       (39, 51, 1, 7, 1, 1, 1, 1, '2020-07-07 07:19:25', '2020-07-07 07:19:25', NULL),
-       (40, 51, 1, 8, 1, 1, 1, 1, '2020-07-07 07:19:25', '2020-07-07 07:19:25', NULL),
-       (41, 51, 1, 9, 1, 1, 1, 1, '2020-07-07 07:19:25', '2020-07-07 07:19:25', NULL),
-       (42, 51, 1, 10, 1, 1, 1, 1, '2020-07-07 07:19:25', '2020-07-07 07:19:25', NULL),
-       (43, 51, 1, 11, 1, 1, 1, 1, '2020-07-07 07:19:25', '2020-07-07 07:19:25', NULL),
-       (44, 43, 1, 2, 1, 1, 1, 1, '2020-07-09 22:16:38', '2020-07-09 22:16:38', NULL),
-       (45, 43, 1, 3, 1, 1, 1, 1, '2020-07-09 22:16:38', '2020-07-09 22:16:38', NULL),
-       (46, 43, 1, 4, 1, 1, 1, 1, '2020-07-09 22:16:38', '2020-07-09 22:16:38', NULL),
-       (47, 43, 1, 5, 1, 1, 1, 1, '2020-07-09 22:16:38', '2020-07-09 22:16:38', NULL),
-       (48, 43, 1, 6, 1, 1, 1, 1, '2020-07-09 22:16:38', '2020-07-09 22:16:38', NULL),
-       (49, 43, 1, 7, 1, 1, 1, 1, '2020-07-09 22:16:38', '2020-07-09 22:16:38', NULL),
-       (50, 43, 1, 8, 1, 1, 1, 1, '2020-07-09 22:16:38', '2020-07-09 22:16:38', NULL),
-       (51, 43, 1, 9, 1, 1, 1, 1, '2020-07-09 22:16:38', '2020-07-09 22:16:38', NULL),
-       (52, 43, 1, 10, 1, 1, 1, 1, '2020-07-09 22:16:38', '2020-07-09 22:16:38', NULL),
-       (53, 43, 1, 11, 1, 1, 1, 1, '2020-07-09 22:16:38', '2020-07-09 22:16:38', NULL),
-       (54, 52, 2, 2, 1, 1, 1, 1, '2020-07-10 09:44:28', '2020-07-10 09:44:28', NULL),
-       (55, 52, 2, 3, 1, 1, 1, 1, '2020-07-10 09:44:28', '2020-07-10 09:44:28', NULL),
-       (56, 52, 2, 4, 0, 0, 0, 0, '2020-07-10 14:06:29', '2020-07-10 14:06:28', NULL),
-       (57, 52, 2, 5, 1, 1, 1, 1, '2020-07-10 09:44:29', '2020-07-10 09:44:29', NULL),
-       (58, 52, 2, 6, 1, 1, 1, 1, '2020-07-10 09:44:29', '2020-07-10 09:44:29', NULL),
-       (59, 52, 2, 7, 1, 1, 1, 0, '2020-07-10 14:07:35', '2020-07-10 14:07:34', NULL),
-       (60, 52, 2, 8, 0, 1, 1, 1, '2020-07-10 14:06:08', '2020-07-10 14:06:06', NULL),
-       (61, 52, 2, 9, 1, 1, 1, 1, '2020-07-10 09:44:29', '2020-07-10 09:44:29', NULL),
-       (62, 52, 2, 10, 0, 1, 1, 1, '2020-07-10 14:05:48', '2020-07-10 14:05:47', NULL),
-       (63, 52, 2, 11, 0, 0, 0, 0, '2020-07-10 14:06:33', '2020-07-10 14:06:31', NULL),
-       (84, 55, 2, 2, 1, 1, 1, 1, '2020-07-10 13:17:02', '2020-07-10 13:17:02', NULL),
-       (85, 55, 2, 3, 1, 1, 1, 1, '2020-07-10 13:17:02', '2020-07-10 13:17:02', NULL),
-       (86, 55, 2, 4, 1, 1, 1, 1, '2020-07-10 13:17:02', '2020-07-10 13:17:02', NULL),
-       (87, 55, 2, 5, 1, 1, 1, 1, '2020-07-10 13:17:02', '2020-07-10 13:17:02', NULL),
-       (88, 55, 2, 6, 1, 1, 1, 1, '2020-07-10 13:17:02', '2020-07-10 13:17:02', NULL),
-       (89, 55, 2, 7, 1, 1, 1, 1, '2020-07-10 13:17:03', '2020-07-10 13:17:03', NULL),
-       (90, 55, 2, 8, 1, 1, 1, 1, '2020-07-10 13:17:03', '2020-07-10 13:17:03', NULL),
-       (91, 55, 2, 9, 1, 1, 1, 1, '2020-07-10 13:17:03', '2020-07-10 13:17:03', NULL),
-       (92, 55, 2, 10, 1, 1, 1, 1, '2020-07-10 13:17:03', '2020-07-10 13:17:03', NULL),
-       (93, 55, 2, 11, 1, 1, 1, 1, '2020-07-10 13:17:03', '2020-07-10 13:17:03', NULL);
-/*!40000 ALTER TABLE `usuarios_modulos`
-    ENABLE KEYS */;
+-- Copiando dados para a tabela zig.vendas: ~21 rows (aproximadamente)
+/*!40000 ALTER TABLE `vendas` DISABLE KEYS */;
+INSERT INTO `vendas` (`id`, `id_usuario`, `id_meio_pagamento`, `id_empresa`, `id_produto`, `preco`, `quantidade`, `valor`, `data_compensacao`, `created_at`, `updated_at`, `deleted_at`) VALUES
+	(67, 1, 2, 1, 161, 60, 2, 120, '0000-00-00', '2021-08-08 22:35:15', '2021-08-08 22:35:15', NULL),
+	(68, 1, 1, 1, 162, 150, 1, 150, '0000-00-00', '2021-08-08 22:47:30', '2021-08-08 22:47:30', NULL),
+	(69, 1, 3, 1, 162, 150, 1, 150, '0000-00-00', '2021-08-08 23:12:21', '2021-08-08 23:12:21', NULL),
+	(70, 1, 4, 1, 161, 60, 1, 60, '2021-08-10', '2021-08-08 23:13:03', '2021-08-08 23:13:03', NULL),
+	(71, 1, 1, 1, 161, 60, 1, 60, '0000-00-00', '2021-08-08 23:26:16', '2021-08-08 23:26:16', NULL),
+	(72, 1, 1, 1, 163, 35.55, 1, 35.55, '0000-00-00', '2021-08-10 21:14:52', '2021-08-10 21:14:52', NULL),
+	(73, 1, 1, 1, 161, 60, 6, 360, '0000-00-00', '2021-08-10 21:22:37', '2021-08-10 21:22:37', NULL),
+	(74, 1, 3, 1, 162, 150, 2, 300, '0000-00-00', '2021-08-10 21:22:57', '2021-08-10 21:22:57', NULL),
+	(75, 1, 2, 1, 163, 35.55, 19, 675.45, '0000-00-00', '2021-08-10 21:23:28', '2021-08-10 21:23:28', NULL),
+	(76, 1, 1, 1, 164, 300, 1, 300, '0000-00-00', '2021-08-12 10:09:14', '0000-00-00 00:00:00', NULL),
+	(77, 1, 2, 1, 164, 300, 1, 300, '0000-00-00', '2021-08-12 22:21:19', '0000-00-00 00:00:00', NULL),
+	(78, 1, 2, 1, 164, 300, 8, 2400, '0000-00-00', '2021-08-12 22:27:20', '0000-00-00 00:00:00', NULL),
+	(79, 1, 1, 1, 164, 300, 1, 300, '0000-00-00', '2021-08-12 22:30:02', '0000-00-00 00:00:00', NULL),
+	(80, 1, 3, 1, 165, 76, 1, 76, '0000-00-00', '2021-08-12 22:46:57', '0000-00-00 00:00:00', NULL),
+	(81, 1, 1, 1, 167, 6.5, 1, 6.5, '0000-00-00', '2021-08-21 22:41:51', '0000-00-00 00:00:00', NULL),
+	(82, 1, 1, 1, 167, 6.5, 1, 6.5, '0000-00-00', '2021-09-01 21:02:49', '0000-00-00 00:00:00', NULL),
+	(83, 1, 1, 1, 161, 60, 1, 60, '0000-00-00', '2021-09-01 21:08:31', '0000-00-00 00:00:00', NULL),
+	(84, 1, 3, 1, NULL, 0, NULL, 100, NULL, '2021-09-01 21:18:10', '0000-00-00 00:00:00', NULL),
+	(85, 1, 1, 1, 167, 6.5, 1, 6.5, '0000-00-00', '2021-09-01 21:39:14', '0000-00-00 00:00:00', NULL),
+	(86, 1, 2, 1, 168, 150, 1, 150, '0000-00-00', '2021-09-01 21:53:55', '0000-00-00 00:00:00', NULL),
+	(87, 1, 2, 1, 168, 150, 1, 150, '0000-00-00', '2021-09-01 22:02:41', '0000-00-00 00:00:00', NULL);
+/*!40000 ALTER TABLE `vendas` ENABLE KEYS */;
 
--- Copiando estrutura para tabela realbi53_tonie.vendas
-CREATE TABLE IF NOT EXISTS `vendas`
-(
-    `id`                int(11)   NOT NULL AUTO_INCREMENT,
-    `id_usuario`        int(11)   NOT NULL,
-    `id_meio_pagamento` int(11)   NOT NULL,
-    `id_empresa`        int(11)   NOT NULL,
-    `id_produto`        int(11)            DEFAULT NULL,
-    `preco`             double             DEFAULT '0',
-    `quantidade`        int(11)            DEFAULT NULL,
-    `valor`             double    NOT NULL DEFAULT '0',
-    `created_at`        timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-    `updated_at`        timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
-    PRIMARY KEY (`id`),
-    KEY `FK_vendas_meios_de_pagamento` (`id_meio_pagamento`),
-    KEY `FK_vendas_usuarios` (`id_usuario`),
-    KEY `FK_vendas_clientes` (`id_empresa`),
-    CONSTRAINT `FK_vendas_clientes` FOREIGN KEY (`id_empresa`) REFERENCES `empresas` (`id`),
-    CONSTRAINT `FK_vendas_meios_de_pagamento` FOREIGN KEY (`id_meio_pagamento`) REFERENCES `meios_pagamentos` (`id`),
-    CONSTRAINT `FK_vendas_usuarios` FOREIGN KEY (`id_usuario`) REFERENCES `usuarios` (`id`)
-) ENGINE = InnoDB
-  AUTO_INCREMENT = 423
-  DEFAULT CHARSET = latin1;
-
--- Copiando dados para a tabela realbi53_tonie.vendas: ~210 rows (aproximadamente)
-/*!40000 ALTER TABLE `vendas`
-    DISABLE KEYS */;
-INSERT INTO `vendas` (`id`, `id_usuario`, `id_meio_pagamento`, `id_empresa`, `id_produto`, `preco`, `quantidade`,
-                      `valor`, `created_at`, `updated_at`)
-VALUES (1, 1, 1, 1, 0, 0, 0, 11, '2020-04-25 01:58:13', '2020-04-25 01:58:13'),
-       (2, 1, 3, 1, 0, 0, 0, 12, '2020-04-25 01:58:43', '2020-04-25 01:58:43'),
-       (3, 1, 2, 1, 0, 0, 0, 50, '2020-04-25 01:59:08', '2020-04-25 01:59:08'),
-       (6, 38, 2, 1, 0, 0, 0, 40, '2020-04-25 19:22:24', '2020-04-25 19:22:24'),
-       (8, 38, 3, 1, 0, 0, 0, 20, '2020-04-25 20:35:46', '2020-04-25 20:35:46'),
-       (9, 38, 1, 1, 0, 0, 0, 12, '2020-04-25 21:38:50', '2020-04-25 21:38:50'),
-       (10, 1, 1, 1, 0, 0, 0, 10, '2020-04-25 21:47:54', '2020-04-25 21:47:54'),
-       (11, 38, 1, 1, 0, 0, 0, 15, '2020-04-26 09:26:22', '2020-04-26 09:26:22'),
-       (12, 38, 2, 1, 0, 0, 0, 30, '2020-04-26 09:28:52', '2020-04-26 09:28:52'),
-       (15, 38, 1, 1, 0, 0, 0, 15, '2020-04-26 09:49:29', '2020-04-26 09:49:29'),
-       (16, 38, 3, 1, 0, 0, 0, 16, '2020-04-26 09:49:55', '2020-04-26 09:49:55'),
-       (17, 1, 1, 1, 0, 0, 0, 25, '2020-04-27 23:08:22', '2020-04-27 23:08:22'),
-       (18, 1, 2, 1, 0, 0, 0, 20, '2020-04-27 23:09:58', '2020-04-27 23:09:58'),
-       (19, 38, 3, 1, 0, 0, 0, 15, '2020-04-27 23:10:28', '2020-04-27 23:10:28'),
-       (20, 36, 1, 1, 0, 0, 0, 15, '2020-04-27 23:11:56', '2020-04-27 23:11:56'),
-       (21, 1, 1, 1, 0, 0, 0, 15, '2020-04-28 16:03:18', '2020-04-28 16:03:18'),
-       (22, 35, 2, 1, 0, 0, 0, 50, '2020-04-28 16:04:06', '2020-04-28 16:04:06'),
-       (23, 36, 3, 1, 0, 0, 0, 12, '2020-04-28 16:04:24', '2020-04-28 16:04:24'),
-       (24, 2, 1, 1, 0, 0, 0, 12, '2020-04-28 17:20:26', '2020-04-28 17:20:26'),
-       (25, 1, 1, 1, 0, 0, 0, 15, '2020-04-28 17:45:52', '2020-04-28 17:45:52'),
-       (26, 1, 1, 1, 0, 0, 0, 15, '2020-05-01 20:02:12', '2020-05-01 20:02:12'),
-       (27, 35, 3, 1, 0, 0, 0, 25, '2020-05-01 20:02:36', '2020-05-01 20:02:36'),
-       (28, 36, 2, 1, 0, 0, 0, 50, '2020-05-01 20:03:39', '2020-05-01 20:03:39'),
-       (29, 36, 1, 1, 0, 0, 0, 12, '2020-05-01 20:52:10', '2020-05-01 20:52:10'),
-       (33, 1, 1, 1, 0, 0, 0, 25, '2020-05-03 13:53:42', '2020-05-03 13:53:42'),
-       (34, 1, 1, 1, 0, 0, 0, 50, '2020-05-05 21:35:54', '2020-05-05 21:35:54'),
-       (35, 1, 3, 1, 0, 0, 0, 15, '2020-05-05 21:36:48', '2020-05-05 21:36:48'),
-       (36, 35, 2, 1, 0, 0, 0, 12, '2020-05-05 21:55:46', '2020-05-05 21:55:46'),
-       (37, 38, 2, 1, 0, 0, 0, 50, '2020-05-05 21:57:05', '2020-05-05 21:57:05'),
-       (38, 1, 1, 1, 0, 0, 0, 15, '2020-05-16 03:05:30', '2020-05-16 03:05:30'),
-       (39, 36, 3, 1, 0, 0, 0, 10, '2020-05-16 03:06:11', '2020-05-16 03:06:11'),
-       (40, 1, 2, 1, 0, 0, 0, 25, '2020-05-16 18:26:12', '2020-05-16 18:26:12'),
-       (41, 1, 3, 1, 0, 0, 0, 12, '2020-05-17 18:41:09', '2020-05-17 18:41:09'),
-       (53, 1, 1, 1, 0, 0, 0, 2445, '2020-05-18 22:09:49', '2020-05-18 22:09:49'),
-       (54, 1, 1, 1, 0, 0, 0, 2445, '2020-05-18 22:10:36', '2020-05-18 22:10:36'),
-       (55, 1, 1, 1, 0, 0, 0, 2445.85, '2020-05-18 22:15:01', '2020-05-18 22:15:01'),
-       (56, 1, 1, 1, 0, 0, 0, 2440.8, '2020-05-18 22:16:09', '2020-05-18 22:16:09'),
-       (57, 1, 1, 1, 0, 0, 0, 25, '2020-05-18 22:16:28', '2020-05-18 22:16:28'),
-       (58, 1, 1, 1, 0, 0, 0, 15.45, '2020-05-18 22:17:17', '2020-05-18 22:17:17'),
-       (59, 1, 2, 1, 0, 0, 0, 1000, '2020-05-18 22:23:19', '2020-05-18 22:23:19'),
-       (60, 1, 1, 1, 0, 0, 0, 1500, '2020-05-18 22:25:07', '2020-05-18 22:25:07'),
-       (61, 36, 3, 1, 0, 0, 0, 1250, '2020-05-18 22:28:53', '2020-05-18 22:28:53'),
-       (125, 1, 1, 1, 6, 30, 2, 60, '2020-05-23 01:32:46', '2020-05-23 01:32:46'),
-       (126, 1, 1, 1, 5, 3.99, 2, 7.98, '2020-05-23 01:32:47', '2020-05-23 01:32:47'),
-       (127, 1, 1, 1, 2, 13, 1, 13, '2020-05-23 18:50:07', '2020-05-23 18:50:07'),
-       (128, 1, 1, 1, NULL, 0, NULL, 5, '2020-05-23 18:52:59', '2020-05-23 18:52:59'),
-       (129, 1, 1, 1, NULL, 0, NULL, 15, '2020-05-24 14:20:28', '2020-05-24 14:20:28'),
-       (130, 2, 3, 1, NULL, 0, NULL, 25, '2020-05-24 14:22:36', '2020-05-24 14:22:36'),
-       (132, 36, 2, 1, NULL, 0, NULL, 203.5, '2020-05-24 14:25:15', '2020-05-24 14:25:15'),
-       (133, 1, 1, 1, 6, 30, 2, 60, '2020-05-25 08:56:17', '2020-05-25 08:56:17'),
-       (134, 1, 1, 1, 5, 3.99, 1, 3.99, '2020-05-25 08:56:18', '2020-05-25 08:56:18'),
-       (135, 1, 1, 1, 4, 3.49, 1, 3.49, '2020-05-25 08:56:19', '2020-05-25 08:56:19'),
-       (136, 1, 1, 1, 7, 25, 1, 25, '2020-05-25 08:56:19', '2020-05-25 08:56:19'),
-       (137, 1, 1, 1, NULL, 0, NULL, 0.1, '2020-05-25 16:52:15', '2020-05-25 16:52:15'),
-       (138, 1, 2, 1, NULL, 0, NULL, 50, '2020-05-25 16:54:22', '2020-05-25 16:54:22'),
-       (139, 1, 1, 1, NULL, 0, NULL, 25.2, '2020-05-25 23:14:09', '2020-05-25 23:14:09'),
-       (140, 1, 3, 1, 6, 30, 1, 30, '2020-05-25 23:16:01', '2020-05-25 23:16:01'),
-       (141, 1, 3, 1, 4, 3.49, 1, 3.49, '2020-05-25 23:16:02', '2020-05-25 23:16:02'),
-       (142, 1, 2, 1, 6, 30, 1, 30, '2020-05-26 15:14:51', '2020-05-26 15:14:51'),
-       (143, 1, 1, 1, 2, 13, 1, 13, '2020-05-27 05:24:56', '2020-05-27 05:24:56'),
-       (144, 1, 1, 1, 5, 3.99, 1, 3.99, '2020-05-27 05:24:56', '2020-05-27 05:24:56'),
-       (145, 1, 1, 1, 1, 10.5, 1, 10.5, '2020-05-27 05:24:57', '2020-05-27 05:24:57'),
-       (146, 1, 2, 1, 3, 18, 1, 18, '2020-05-27 15:30:00', '2020-05-27 15:30:00'),
-       (147, 1, 2, 1, 2, 13, 1, 13, '2020-05-27 15:30:04', '2020-05-27 15:30:04'),
-       (148, 1, 2, 1, 5, 3.99, 2, 7.98, '2020-05-27 15:30:05', '2020-05-27 15:30:05'),
-       (149, 1, 2, 1, 6, 30, 1, 30, '2020-05-27 15:30:07', '2020-05-27 15:30:07'),
-       (150, 36, 3, 1, NULL, 0, NULL, 17, '2020-05-27 15:33:16', '2020-05-27 15:33:16'),
-       (151, 1, 1, 1, 7, 25, 1, 25, '2020-05-28 22:14:06', '2020-05-28 22:14:06'),
-       (152, 1, 1, 1, 4, 3.49, 2, 6.98, '2020-05-30 03:07:19', '2020-05-30 03:07:19'),
-       (153, 1, 1, 1, 2, 13, 1, 13, '2020-06-06 01:59:38', '2020-06-06 01:59:38'),
-       (154, 1, 1, 1, 1, 10.5, 5, 52.5, '2020-06-06 01:59:39', '2020-06-06 01:59:39'),
-       (155, 1, 2, 1, 3, 18, 1, 18, '2020-06-06 20:45:01', '2020-06-06 20:45:01'),
-       (156, 1, 2, 1, 4, 3.49, 1, 3.49, '2020-06-06 20:45:01', '2020-06-06 20:45:01'),
-       (157, 35, 3, 1, NULL, 0, NULL, 25, '2020-06-06 20:45:48', '2020-06-06 20:45:48'),
-       (158, 1, 1, 1, NULL, 0, NULL, 15, '2020-06-07 09:47:32', '2020-06-07 09:47:32'),
-       (159, 38, 3, 1, NULL, 0, NULL, 38, '2020-06-08 10:38:15', '2020-06-08 10:38:15'),
-       (160, 38, 2, 1, NULL, 0, NULL, 250, '2020-06-08 11:26:59', '2020-06-08 11:26:59'),
-       (161, 1, 2, 1, 8, 1500, 1, 1500, '2020-06-08 21:35:16', '2020-06-08 21:35:16'),
-       (162, 1, 2, 1, 9, 2580, 1, 2580, '2020-06-08 21:43:41', '2020-06-08 21:43:41'),
-       (163, 1, 2, 1, 8, 1500, 1, 1500, '2020-06-08 21:43:42', '2020-06-08 21:43:42'),
-       (164, 1, 1, 1, 2, 13, 1, 13, '2020-06-10 14:23:51', '2020-06-10 14:23:51'),
-       (165, 47, 2, 1, 9, 2580, 1, 2580, '2020-06-10 15:18:17', '2020-06-10 15:18:17'),
-       (166, 1, 3, 1, 7, 25, 1, 25, '2020-06-10 19:42:33', '2020-06-10 19:42:33'),
-       (167, 1, 3, 1, 5, 3.99, 1, 3.99, '2020-06-10 19:42:33', '2020-06-10 19:42:33'),
-       (168, 1, 1, 1, 2, 13, 1, 13, '2020-06-11 20:29:11', '2020-06-11 20:29:11'),
-       (169, 1, 1, 1, 6, 30, 1, 30, '2020-06-12 11:53:21', '2020-06-12 11:53:21'),
-       (170, 1, 1, 1, 5, 3.99, 2, 7.98, '2020-06-12 11:53:21', '2020-06-12 11:53:21'),
-       (171, 1, 1, 1, 5, 3.99, 1, 3.99, '2020-06-13 20:21:33', '2020-06-13 20:21:33'),
-       (172, 49, 1, 1, 4, 3.49, 1, 3.49, '2020-06-14 20:32:40', '2020-06-14 20:32:40'),
-       (173, 49, 2, 1, 6, 30, 2, 60, '2020-06-14 20:36:48', '2020-06-14 20:36:48'),
-       (174, 49, 2, 1, 4, 3.49, 2, 6.98, '2020-06-14 20:36:49', '2020-06-14 20:36:49'),
-       (175, 49, 1, 1, 3, 18, 1, 18, '2020-06-14 20:51:45', '2020-06-14 20:51:45'),
-       (176, 1, 3, 1, 1, 10.5, 2, 21, '2020-06-14 20:52:21', '2020-06-14 20:52:21'),
-       (177, 36, 2, 1, NULL, 0, NULL, 85, '2020-06-15 13:23:35', '2020-06-15 13:23:35'),
-       (178, 1, 1, 1, NULL, 0, NULL, 50, '2020-06-15 18:10:38', '2020-06-15 18:10:38'),
-       (179, 1, 1, 1, 3, 18, 1, 18, '2020-06-15 18:12:39', '2020-06-15 18:12:39'),
-       (180, 1, 1, 1, 1, 10.5, 1, 10.5, '2020-06-15 18:12:40', '2020-06-15 18:12:40'),
-       (181, 1, 2, 1, NULL, 0, NULL, 75, '2020-06-15 18:15:56', '2020-06-15 18:15:56'),
-       (182, 1, 3, 1, NULL, 0, NULL, 25.5, '2020-06-15 18:49:01', '2020-06-15 18:49:01'),
-       (183, 35, 2, 1, NULL, 0, NULL, 47, '2020-06-15 20:48:36', '2020-06-15 20:48:36'),
-       (184, 46, 2, 1, NULL, 0, NULL, 150, '2020-06-15 21:07:21', '2020-06-15 21:07:21'),
-       (185, 2, 1, 1, NULL, 0, NULL, 15, '2020-06-15 21:10:44', '2020-06-15 21:10:44'),
-       (187, 1, 1, 1, NULL, 12, NULL, 12, '2020-08-14 20:46:41', '2020-06-16 08:42:39'),
-       (188, 1, 1, 1, NULL, 0, NULL, 17.5, '2020-06-16 08:42:47', '2020-06-16 08:42:47'),
-       (189, 46, 1, 1, NULL, 0, NULL, 25, '2020-06-17 07:31:22', '2020-06-17 07:31:22'),
-       (190, 38, 3, 1, NULL, 0, NULL, 115, '2020-06-17 18:22:28', '2020-06-17 18:22:28'),
-       (191, 1, 1, 1, NULL, 0, NULL, 4, '2020-06-19 06:32:51', '2020-06-19 06:32:51'),
-       (192, 1, 1, 1, NULL, 0, NULL, 42, '2020-06-19 06:33:06', '2020-06-19 06:33:06'),
-       (193, 46, 2, 1, NULL, 0, NULL, 15, '2020-06-19 07:38:52', '2020-06-19 07:38:52'),
-       (194, 38, 2, 1, NULL, 0, NULL, 175, '2020-06-19 07:39:20', '2020-06-19 07:39:20'),
-       (195, 1, 1, 1, NULL, 0, NULL, 15, '2020-06-19 08:20:21', '2020-06-19 08:20:21'),
-       (196, 1, 3, 1, NULL, 0, NULL, 7, '2020-06-19 08:32:59', '2020-06-19 08:32:59'),
-       (197, 36, 3, 1, NULL, 0, NULL, 70, '2020-06-19 10:20:31', '2020-06-19 10:20:31'),
-       (198, 1, 2, 1, NULL, 0, NULL, 1000, '2020-06-19 21:00:20', '2020-06-19 21:00:20'),
-       (199, 35, 2, 1, NULL, 0, NULL, 150, '2020-06-20 09:23:51', '2020-06-20 09:23:51'),
-       (200, 1, 1, 1, NULL, 0, NULL, 16, '2020-06-20 15:33:34', '2020-06-20 15:33:34'),
-       (201, 1, 1, 1, NULL, 0, NULL, 16.5, '2020-06-21 05:53:36', '2020-06-21 05:53:36'),
-       (202, 1, 2, 1, NULL, 0, NULL, 17, '2020-06-22 13:29:36', '2020-06-22 13:29:36'),
-       (203, 1, 1, 1, 2, 13, 2, 26, '2020-06-22 13:30:25', '2020-06-22 13:30:25'),
-       (204, 1, 1, 1, 1, 10.5, 1, 10.5, '2020-06-22 13:30:25', '2020-06-22 13:30:25'),
-       (205, 1, 2, 1, 3, 18, 1, 18, '2020-06-22 20:57:46', '2020-06-22 20:57:46'),
-       (206, 1, 2, 1, 6, 30, 1, 30, '2020-06-22 20:57:47', '2020-06-22 20:57:47'),
-       (207, 1, 2, 1, 10, 26, 1, 26, '2020-06-23 18:16:39', '2020-06-23 18:16:39'),
-       (208, 1, 2, 1, 4, 3.49, 1, 3.49, '2020-06-23 18:16:39', '2020-06-23 18:16:39'),
-       (209, 1, 1, 1, 3, 18, 1, 18, '2020-06-24 11:50:24', '2020-06-24 11:50:24'),
-       (210, 36, 3, 1, NULL, 0, NULL, 17, '2020-06-24 12:01:47', '2020-06-24 12:01:47'),
-       (211, 1, 1, 1, 3, 18, 1, 18, '2020-06-24 20:15:14', '2020-06-24 20:15:14'),
-       (212, 1, 2, 1, 2, 13, 1, 13, '2020-06-24 20:20:25', '2020-06-24 20:20:25'),
-       (213, 1, 2, 1, 6, 30, 1, 30, '2020-06-24 20:20:25', '2020-06-24 20:20:25'),
-       (214, 1, 2, 1, 9, 2580, 1, 2580, '2020-06-24 20:24:14', '2020-06-24 20:24:14'),
-       (215, 1, 2, 1, 9, 2580, 1, 2580, '2020-06-25 06:42:43', '2020-06-25 06:42:43'),
-       (216, 1, 2, 1, 9, 2580, 1, 2580, '2020-06-26 13:31:40', '2020-06-26 13:31:40'),
-       (217, 1, 3, 1, 2, 13, 1, 13, '2020-06-26 13:31:59', '2020-06-26 13:31:59'),
-       (218, 1, 1, 1, 6, 30, 1, 30, '2020-06-26 13:32:22', '2020-06-26 13:32:22'),
-       (219, 1, 1, 1, 5, 3.99, 1, 3.99, '2020-06-26 13:32:23', '2020-06-26 13:32:23'),
-       (220, 1, 1, 1, 1, 10.5, 3, 31.5, '2020-06-26 13:34:18', '2020-06-26 13:34:18'),
-       (221, 1, 3, 1, 6, 30, 1, 30, '2020-06-26 22:32:52', '2020-06-26 22:32:52'),
-       (222, 1, 3, 1, 5, 3.99, 2, 7.98, '2020-06-26 22:32:52', '2020-06-26 22:32:52'),
-       (223, 1, 1, 1, NULL, 0, NULL, 45, '2020-06-26 22:33:25', '2020-06-26 22:33:25'),
-       (224, 46, 1, 1, NULL, 0, NULL, 15.5, '2020-06-27 07:56:43', '2020-06-27 07:56:43'),
-       (225, 38, 1, 1, NULL, 0, NULL, 28.1, '2020-06-27 07:57:55', '2020-06-27 07:57:55'),
-       (226, 1, 2, 1, 6, 30, 1, 30, '2020-06-27 15:40:20', '2020-06-27 15:40:20'),
-       (227, 1, 2, 1, 4, 3.49, 2, 6.98, '2020-06-27 15:40:20', '2020-06-27 15:40:20'),
-       (228, 1, 1, 1, NULL, 0, NULL, 52, '2020-06-27 15:41:13', '2020-06-27 15:41:13'),
-       (229, 38, 2, 1, NULL, 0, NULL, 7.84, '2020-06-28 08:46:58', '2020-06-28 08:46:58'),
-       (230, 1, 1, 1, NULL, 0, NULL, 10, '2020-06-28 10:17:29', '2020-06-28 10:17:29'),
-       (231, 1, 1, 1, 6, 30, 2, 60, '2020-06-28 10:19:07', '2020-06-28 10:19:07'),
-       (232, 1, 1, 1, 5, 3.99, 2, 7.98, '2020-06-28 10:19:07', '2020-06-28 10:19:07'),
-       (233, 1, 2, 1, 7, 25, 2, 50, '2020-06-29 13:03:22', '2020-06-29 13:03:22'),
-       (234, 1, 2, 1, 4, 3.49, 2, 6.98, '2020-06-29 13:03:22', '2020-06-29 13:03:22'),
-       (235, 1, 1, 1, 10, 26, 1, 26, '2020-06-29 13:39:17', '2020-06-29 13:39:17'),
-       (236, 1, 2, 1, 8, 1500, 1, 1500, '2020-06-30 11:14:08', '2020-06-30 11:14:08'),
-       (237, 1, 1, 1, 3, 18, 1, 18, '2020-07-01 21:41:09', '2020-07-01 21:41:09'),
-       (238, 1, 2, 1, 10, 26, 2, 52, '2020-07-01 22:08:45', '2020-07-01 22:08:45'),
-       (239, 1, 2, 1, 4, 3.49, 2, 6.98, '2020-07-01 22:08:45', '2020-07-01 22:08:45'),
-       (240, 1, 1, 1, 2, 13, 1, 13, '2020-07-02 08:26:18', '2020-07-02 08:26:18'),
-       (241, 1, 1, 1, 5, 3.99, 1, 3.99, '2020-07-03 12:39:51', '2020-07-03 12:39:51'),
-       (242, 1, 3, 1, 2, 13, 2, 26, '2020-07-04 00:02:35', '2020-07-04 00:02:35'),
-       (243, 1, 3, 1, 5, 3.99, 2, 7.98, '2020-07-04 00:02:35', '2020-07-04 00:02:35'),
-       (244, 1, 1, 1, 3, 18, 1, 18, '2020-07-04 22:56:36', '2020-07-04 22:56:36'),
-       (245, 1, 1, 1, 1, 10.5, 1, 10.5, '2020-07-04 22:56:36', '2020-07-04 22:56:36'),
-       (246, 1, 1, 1, 3, 18, 1, 18, '2020-07-07 23:14:34', '2020-07-07 23:14:34'),
-       (247, 1, 1, 1, 6, 30, 1, 30, '2020-07-07 23:14:34', '2020-07-07 23:14:34'),
-       (248, 1, 2, 1, 9, 2580, 1, 2580, '2020-07-09 15:18:27', '2020-07-09 15:18:27'),
-       (249, 43, 3, 1, 7, 25, 2, 50, '2020-07-09 22:19:25', '2020-07-09 22:19:25'),
-       (250, 43, 3, 1, 3, 18, 1, 18, '2020-07-09 22:19:25', '2020-07-09 22:19:25'),
-       (251, 1, 1, 1, 3, 18, 1, 18, '2020-07-12 19:35:38', '2020-07-12 19:35:38'),
-       (252, 1, 1, 1, 3, 18, 1, 18, '2020-07-14 21:11:51', '2020-07-14 21:11:51'),
-       (253, 1, 1, 1, 8, 1500, 2, 3000, '2020-07-14 21:13:02', '2020-07-14 21:13:02'),
-       (254, 36, 3, 1, NULL, 0, NULL, 47, '2020-07-14 21:14:11', '2020-07-14 21:14:11'),
-       (255, 43, 1, 1, NULL, 0, NULL, 47, '2020-07-17 20:09:48', '2020-07-17 20:09:48'),
-       (256, 43, 2, 1, 3, 18, 1, 18, '2020-07-17 20:10:23', '2020-07-17 20:10:23'),
-       (257, 43, 2, 1, 5, 3.99, 1, 3.99, '2020-07-17 20:10:23', '2020-07-17 20:10:23'),
-       (258, 43, 3, 1, 2, 13, 1, 13, '2020-07-18 20:04:54', '2020-07-18 20:04:54'),
-       (259, 1, 1, 1, 1, 10.5, 1, 10.5, '2020-07-19 11:10:31', '2020-07-19 11:10:31'),
-       (260, 1, 1, 1, 2, 13, 1, 13, '2020-07-19 11:10:31', '2020-07-19 11:10:31'),
-       (261, 1, 1, 1, 3, 18, 1, 18, '2020-07-19 11:10:31', '2020-07-19 11:10:31'),
-       (262, 1, 1, 1, 4, 3.49, 1, 3.49, '2020-07-19 11:10:31', '2020-07-19 11:10:31'),
-       (263, 1, 1, 1, 5, 3.99, 1, 3.99, '2020-07-19 11:10:31', '2020-07-19 11:10:31'),
-       (264, 1, 1, 1, 6, 30, 1, 30, '2020-07-19 11:10:31', '2020-07-19 11:10:31'),
-       (265, 35, 1, 1, NULL, 0, NULL, 75, '2020-07-19 22:14:28', '2020-07-19 22:14:28'),
-       (266, 1, 1, 1, NULL, 0, NULL, 7.4, '2020-07-21 03:07:59', '2020-07-21 03:07:59'),
-       (267, 43, 1, 1, NULL, 0, NULL, 75, '2020-07-23 09:50:09', '2020-07-23 09:50:09'),
-       (268, 43, 1, 1, NULL, 0, NULL, 7.4, '2020-07-24 21:24:12', '2020-07-24 21:24:12'),
-       (269, 1, 3, 1, NULL, 0, NULL, 30, '2020-07-25 19:24:08', '2020-07-25 19:24:08'),
-       (270, 1, 2, 1, NULL, 0, NULL, 50, '2020-07-25 19:30:09', '2020-07-25 19:30:09'),
-       (271, 1, 2, 1, 10, 26, 1, 26, '2020-07-26 14:55:56', '2020-07-26 14:55:56'),
-       (272, 1, 2, 1, 8, 1500, 1, 1500, '2020-07-26 14:55:56', '2020-07-26 14:55:56'),
-       (273, 1, 1, 1, 4, 3.49, 2, 6.98, '2020-07-26 14:58:03', '2020-07-26 14:58:03'),
-       (274, 1, 1, 1, 2, 13, 1, 13, '2020-07-26 14:58:03', '2020-07-26 14:58:03'),
-       (275, 1, 2, 1, 32, 501.06, 1, 501.06, '2020-07-27 10:02:20', '2020-07-27 10:02:20'),
-       (276, 1, 2, 1, 33, 623.41, 1, 623.41, '2020-07-27 10:02:20', '2020-07-27 10:02:20'),
-       (277, 1, 1, 1, 2, 13, 1, 13, '2020-07-30 05:18:33', '2020-07-30 05:18:33'),
-       (278, 1, 1, 1, 6, 30, 1, 30, '2020-07-30 05:18:33', '2020-07-30 05:18:33'),
-       (279, 1, 1, 1, 2, 13, 2, 26, '2020-07-30 19:47:30', '2020-07-30 19:47:30'),
-       (280, 35, 2, 1, NULL, 0, NULL, 70, '2020-08-08 12:16:57', '2020-08-08 12:16:57'),
-       (281, 46, 3, 1, NULL, 0, NULL, 78, '2020-08-09 00:55:35', '2020-08-09 00:55:35'),
-       (282, 1, 1, 1, NULL, 0, NULL, 40, '2020-08-13 15:38:31', '2020-08-13 15:38:31'),
-       (283, 36, 2, 1, NULL, 0, NULL, 150, '2020-08-14 20:11:42', '2020-08-14 20:11:42'),
-       (290, 1, 2, 1, 0, 150, 1, 150, '2020-08-14 20:42:34', '2020-08-01 00:00:00'),
-       (291, 1, 2, 1, 0, 110, 1, 110, '2020-08-14 20:42:31', '2020-08-01 00:00:00'),
-       (292, 2, 2, 1, 0, 110, 1, 110, '2020-08-14 20:42:28', '2020-08-02 00:00:00'),
-       (293, 1, 2, 1, 0, 40, 1, 40, '2020-08-14 20:42:24', '2020-08-02 00:00:00'),
-       (300, 57, 2, 1, 0, 21, 1, 21, '2020-08-14 20:41:29', '2020-08-02 00:00:00'),
-       (301, 1, 2, 1, 2, 13, 1, 13, '2020-08-14 20:44:39', '2020-08-14 20:44:39'),
-       (302, 1, 2, 1, 4, 3.49, 1, 3.49, '2020-08-14 20:44:39', '2020-08-14 20:44:39'),
-       (303, 1, 3, 1, 9, 2580, 1, 2580, '2020-08-14 20:45:02', '2020-08-14 20:45:02'),
-       (304, 36, 3, 1, 1, 10.5, 1, 10.5, '2020-08-14 20:57:28', '2020-08-14 20:57:28'),
-       (305, 36, 3, 1, 5, 3.99, 1, 3.99, '2020-08-14 20:57:28', '2020-08-14 20:57:28'),
-       (306, 36, 3, 1, 6, 30, 1, 30, '2020-08-14 20:57:28', '2020-08-14 20:57:28'),
-       (307, 36, 3, 1, 6, 30, 1, 30, '2020-08-14 20:57:51', '2020-08-14 20:57:51'),
-       (308, 36, 3, 1, 10, 26, 1, 26, '2020-08-14 20:57:51', '2020-08-14 20:57:51'),
-       (309, 36, 3, 1, 7, 25, 1, 25, '2020-08-14 20:58:18', '2020-08-14 20:58:18'),
-       (310, 36, 3, 1, 2, 13, 1, 13, '2020-08-14 20:58:45', '2020-08-14 20:58:45'),
-       (311, 36, 3, 1, NULL, 0, NULL, 16.5, '2020-08-14 20:59:40', '2020-08-14 20:59:40'),
-       (312, 1, 1, 1, 2, 13, 1, 13, '2020-08-16 13:39:58', '2020-08-16 13:39:58'),
-       (313, 1, 1, 1, 4, 3.49, 1, 3.49, '2020-08-16 13:39:58', '2020-08-16 13:39:58'),
-       (314, 43, 2, 1, 6, 30, 1, 30, '2020-08-16 13:54:09', '2020-08-16 13:54:09'),
-       (315, 43, 2, 1, 5, 3.99, 1, 3.99, '2020-08-16 13:54:09', '2020-08-16 13:54:09'),
-       (316, 43, 2, 1, 1, 10.5, 1, 10.5, '2020-08-16 13:54:09', '2020-08-16 13:54:09'),
-       (317, 43, 2, 1, 2, 13, 3444, 44772, '2020-08-16 13:54:09', '2020-08-16 13:54:09'),
-       (318, 43, 2, 1, 3, 18, 1, 18, '2020-08-16 13:54:09', '2020-08-16 13:54:09'),
-       (319, 1, 3, 1, 3, 18, 1, 18, '2020-08-18 11:04:11', '2020-08-18 11:04:11'),
-       (320, 1, 3, 1, 1, 10.5, 1, 10.5, '2020-08-18 11:04:11', '2020-08-18 11:04:11'),
-       (321, 1, 3, 1, 6, 30, 1, 30, '2020-08-18 11:04:11', '2020-08-18 11:04:11'),
-       (322, 36, 2, 1, NULL, 0, NULL, 850, '2020-08-18 11:07:29', '2020-08-18 11:07:29'),
-       (323, 36, 1, 1, NULL, 0, NULL, 150, '2020-08-18 11:07:43', '2020-08-18 11:07:43'),
-       (324, 1, 3, 1, NULL, 0, NULL, 18.3, '2020-08-19 09:07:34', '2020-08-19 09:07:34'),
-       (325, 1, 2, 1, 1, 10.5, 1, 10.5, '2020-08-21 16:15:28', '2020-08-21 16:15:28'),
-       (326, 1, 2, 1, 1, 10.5, 1, 10.5, '2020-08-21 17:21:59', '2020-08-21 17:21:59'),
-       (327, 1, 2, 1, 1, 10.5, 1, 10.5, '2020-08-21 17:26:15', '2020-08-21 17:26:15'),
-       (328, 1, 2, 1, 1, 10.5, 1, 10.5, '2020-08-21 17:55:30', '2020-08-21 17:55:30'),
-       (329, 1, 2, 1, 1, 10.5, 1, 10.5, '2020-08-21 17:56:50', '2020-08-21 17:56:50'),
-       (330, 1, 1, 1, 2, 13, 1, 13, '2020-08-21 22:31:27', '2020-08-21 22:31:27'),
-       (331, 1, 3, 1, 1, 10.5, 1, 10.5, '2020-08-21 22:48:29', '2020-08-21 22:48:29'),
-       (332, 1, 3, 1, 1, 10.5, 1, 10.5, '2020-08-21 22:51:56', '2020-08-21 22:51:56'),
-       (333, 1, 3, 1, 1, 10.5, 1, 10.5, '2020-08-21 23:01:58', '2020-08-21 23:01:58'),
-       (334, 1, 3, 1, 1, 10.5, 1, 10.5, '2020-08-21 23:10:46', '2020-08-21 23:10:46'),
-       (335, 1, 3, 1, 1, 10.5, 1, 10.5, '2020-08-21 23:11:56', '2020-08-21 23:11:56'),
-       (336, 1, 3, 1, 1, 10.5, 1, 10.5, '2020-08-21 23:16:48', '2020-08-21 23:16:48'),
-       (337, 1, 3, 1, 1, 10.5, 1, 10.5, '2020-08-21 23:17:50', '2020-08-21 23:17:50'),
-       (338, 1, 3, 1, 1, 10.5, 1, 10.5, '2020-08-21 23:20:32', '2020-08-21 23:20:32'),
-       (339, 1, 1, 1, 2, 13, 1, 13, '2020-08-21 23:20:55', '2020-08-21 23:20:55'),
-       (340, 1, 3, 1, 1, 10.5, 1, 10.5, '2020-08-21 23:25:40', '2020-08-21 23:25:40'),
-       (341, 1, 3, 1, 1, 10.5, 1, 10.5, '2020-08-21 23:26:30', '2020-08-21 23:26:30'),
-       (342, 1, 3, 1, 1, 10.5, 1, 10.5, '2020-08-21 23:28:17', '2020-08-21 23:28:17'),
-       (343, 1, 3, 1, 1, 10.5, 1, 10.5, '2020-08-21 23:35:27', '2020-08-21 23:35:27'),
-       (344, 1, 3, 1, 1, 10.5, 1, 10.5, '2020-08-21 23:39:57', '2020-08-21 23:39:57'),
-       (345, 1, 3, 1, 1, 10.5, 1, 10.5, '2020-08-23 00:51:33', '2020-08-23 00:51:33'),
-       (346, 1, 3, 1, 1, 10.5, 1, 10.5, '2020-08-24 09:44:35', '2020-08-24 09:44:35'),
-       (347, 1, 3, 1, 2, 13, 1, 13, '2020-08-29 01:41:11', '2020-08-29 01:41:11'),
-       (348, 1, 3, 1, 4, 3.49, 1, 3.49, '2020-08-29 01:41:11', '2020-08-29 01:41:11'),
-       (349, 1, 1, 1, 2, 13, 1, 13, '2020-09-01 09:13:41', '2020-09-01 09:13:41'),
-       (350, 1, 2, 1, 9, 2580, 1, 2580, '2020-09-02 14:48:24', '2020-09-02 14:48:24'),
-       (351, 1, 2, 1, 3, 18, 1, 18, '2020-09-03 16:10:43', '2020-09-03 16:10:43'),
-       (352, 1, 2, 1, 5, 3.99, 1, 3.99, '2020-09-03 16:10:44', '2020-09-03 16:10:44'),
-       (353, 1, 2, 1, 8, 1500, 1, 1500, '2020-09-04 11:22:28', '2020-09-04 11:22:28'),
-       (354, 1, 1, 1, 8, 1500, 1, 1500, '2020-09-05 13:08:56', '2020-09-05 13:08:56'),
-       (355, 35, 2, 1, 9, 2580, 1, 2580, '2020-09-19 11:32:37', '2020-09-19 11:32:37'),
-       (356, 35, 1, 1, 1, 10.5, 1, 10.5, '2020-09-19 11:34:12', '2020-09-19 11:34:12'),
-       (357, 35, 1, 1, 4, 3.49, 1, 3.49, '2020-09-19 11:34:12', '2020-09-19 11:34:12'),
-       (358, 1, 3, 1, 2, 13, 1, 13, '2020-10-01 16:18:45', '2020-10-01 16:18:45'),
-       (359, 1, 3, 1, 5, 3.99, 1, 3.99, '2020-10-01 16:18:45', '2020-10-01 16:18:45'),
-       (360, 1, 3, 1, 1, 10.5, 1, 10.5, '2020-10-01 16:18:46', '2020-10-01 16:18:46'),
-       (361, 1, 1, 1, 2, 13, 1, 13, '2020-10-15 11:54:01', '2020-10-15 11:54:01'),
-       (362, 1, 1, 1, 3, 18, 1, 18, '2020-10-15 11:54:01', '2020-10-15 11:54:01'),
-       (363, 1, 1, 1, 6, 30, 1, 30, '2020-10-15 11:54:01', '2020-10-15 11:54:01'),
-       (364, 1, 3, 1, 4, 3.49, 1, 3.49, '2020-10-21 10:06:22', '2020-10-21 10:06:22'),
-       (365, 1, 3, 1, 6, 30, 1, 30, '2020-10-21 10:06:22', '2020-10-21 10:06:22'),
-       (366, 1, 1, 1, NULL, 0, NULL, 40, '2020-10-25 21:31:09', '2020-10-25 21:31:09'),
-       (367, 1, 2, 1, NULL, 0, NULL, 150, '2020-11-06 08:40:06', '2020-11-06 08:40:06'),
-       (368, 1, 1, 1, 6, 30, 1, 30, '2020-11-07 11:54:59', '2020-11-07 11:54:59'),
-       (369, 1, 1, 1, 3, 18, 2, 36, '2020-11-07 19:54:02', '2020-11-07 19:54:02'),
-       (370, 1, 2, 1, 2, 13, 1, 13, '2020-11-08 09:57:30', '2020-11-08 09:57:30'),
-       (371, 1, 2, 1, 6, 30, 1, 30, '2020-11-08 09:57:30', '2020-11-08 09:57:30'),
-       (372, 36, 2, 1, 1, 10.5, 1, 10.5, '2020-11-08 10:00:47', '2020-11-08 10:00:47'),
-       (373, 36, 2, 1, 4, 3.49, 1, 3.49, '2020-11-08 10:00:47', '2020-11-08 10:00:47'),
-       (374, 1, 3, 1, 4, 3.49, 1, 3.49, '2020-11-09 09:19:33', '2020-11-09 09:19:33'),
-       (375, 1, 3, 1, 2, 13, 1, 13, '2020-11-09 09:19:33', '2020-11-09 09:19:33'),
-       (376, 1, 1, 1, 4, 3.49, 1, 3.49, '2020-11-09 09:20:07', '2020-11-09 09:20:07'),
-       (377, 1, 1, 1, 3, 18, 1, 18, '2020-11-09 09:20:07', '2020-11-09 09:20:07'),
-       (378, 1, 1, 1, 7, 25, 1, 25, '2020-11-09 13:37:20', '2020-11-09 13:37:20'),
-       (379, 62, 2, 5, 35, 40, 1, 40, '2020-11-09 14:42:42', '2020-11-09 14:42:42'),
-       (380, 62, 2, 5, 37, 40, 1, 40, '2020-11-09 14:42:42', '2020-11-09 14:42:42'),
-       (381, 62, 2, 5, 39, 40, 1, 40, '2020-11-09 14:42:42', '2020-11-09 14:42:42'),
-       (382, 62, 2, 5, 35, 40, 1, 40, '2020-11-09 23:40:21', '2020-11-09 23:40:21'),
-       (383, 62, 2, 5, 37, 40, 1, 40, '2020-11-09 23:40:21', '2020-11-09 23:40:21'),
-       (384, 62, 2, 5, 39, 40, 1, 40, '2020-11-10 12:31:01', '2020-11-10 12:31:01'),
-       (385, 62, 2, 5, 35, 40, 1, 40, '2020-11-10 12:31:01', '2020-11-10 12:31:01'),
-       (386, 62, 3, 5, 46, 30, 1, 30, '2020-11-10 12:37:04', '2020-11-10 12:37:04'),
-       (387, 62, 1, 5, 37, 40, 1, 40, '2020-11-10 21:16:11', '2020-11-10 21:16:11'),
-       (388, 1, 3, 1, 2, 13, 1, 13, '2020-11-11 12:19:36', '2020-11-11 12:19:36'),
-       (389, 1, 3, 1, 6, 30, 1, 30, '2020-11-11 12:19:36', '2020-11-11 12:19:36'),
-       (390, 1, 3, 1, 1, 10.5, 1, 10.5, '2020-11-11 12:19:36', '2020-11-11 12:19:36'),
-       (391, 1, 1, 1, NULL, 0, NULL, 10.5, '2020-11-12 15:01:28', '2020-11-12 15:01:28'),
-       (392, 1, 3, 1, NULL, 0, NULL, 20, '2020-11-12 15:01:46', '2020-11-12 15:01:46'),
-       (393, 2, 2, 1, NULL, 0, NULL, 185.5, '2020-11-12 15:02:28', '2020-11-12 15:02:28'),
-       (394, 36, 2, 1, NULL, 0, NULL, 400, '2020-11-12 15:03:19', '2020-11-12 15:03:19'),
-       (395, 35, 1, 1, NULL, 0, NULL, 85, '2020-11-12 15:03:59', '2020-11-12 15:03:59'),
-       (396, 62, 1, 5, 36, 40, 1, 40, '2020-11-12 18:51:55', '2020-11-12 18:51:55'),
-       (397, 62, 1, 5, 38, 40, 1, 40, '2020-11-12 18:51:55', '2020-11-12 18:51:55'),
-       (398, 63, 2, 5, 38, 40, 1, 40, '2020-11-12 18:52:00', '2020-11-12 18:52:00'),
-       (399, 63, 1, 5, 35, 40, 1, 40, '2020-11-12 18:52:10', '2020-11-12 18:52:10'),
-       (400, 64, 1, 1, 1, 10.5, 1, 10.5, '2020-11-12 19:55:42', '2020-11-12 19:55:42'),
-       (401, 62, 1, 5, 36, 40, 1, 40, '2020-11-13 13:36:28', '2020-11-13 13:36:28'),
-       (402, 62, 1, 5, 39, 40, 1, 40, '2020-11-13 13:36:28', '2020-11-13 13:36:28'),
-       (403, 1, 1, 1, 34, 5, 2, 10, '2020-11-13 20:37:01', '2020-11-13 20:37:01'),
-       (404, 1, 1, 1, 10, 26, 1, 26, '2020-11-13 20:37:01', '2020-11-13 20:37:01'),
-       (405, 62, 3, 5, 37, 40, 1, 40, '2020-11-14 10:30:58', '2020-11-14 10:30:58'),
-       (406, 62, 3, 5, 39, 40, 1, 40, '2020-11-14 10:30:58', '2020-11-14 10:30:58'),
-       (407, 62, 3, 5, 46, 30, 1, 30, '2020-11-14 10:30:58', '2020-11-14 10:30:58'),
-       (408, 1, 2, 1, 45, 40, 1, 40, '2020-11-14 14:50:07', '2020-11-14 14:50:07'),
-       (409, 1, 1, 1, 3, 18, 1, 18, '2020-11-18 01:11:08', '2020-11-18 01:11:08'),
-       (410, 1, 1, 1, 5, 3.99, 1, 3.99, '2020-11-18 01:11:09', '2020-11-18 01:11:09'),
-       (411, 1, 1, 1, 3, 18, 1, 18, '2020-11-18 17:48:23', '2020-11-18 17:48:23'),
-       (412, 1, 1, 1, 6, 30, 1, 30, '2020-11-18 17:48:23', '2020-11-18 17:48:23'),
-       (413, 1, 1, 1, 41, 3, 1, 3, '2020-11-18 18:01:42', '2020-11-18 18:01:42'),
-       (414, 1, 1, 1, 34, 5, 1, 5, '2020-11-19 22:55:14', '2020-11-19 22:55:14'),
-       (415, 1, 1, 1, 34, 5, 1, 5, '2020-11-19 22:58:29', '2020-11-19 22:58:29'),
-       (416, 1, 1, 1, 41, 3, 1, 3, '2020-11-19 22:58:29', '2020-11-19 22:58:29'),
-       (417, 1, 3, 1, 2, 13, 1, 13, '2020-11-19 23:00:56', '2020-11-19 23:00:56'),
-       (418, 1, 2, 1, 1, 10.5, 1, 10.5, '2020-11-25 00:53:54', '2020-11-25 00:53:54'),
-       (419, 1, 2, 1, 2, 13, 1, 13, '2020-11-25 00:53:54', '2020-11-25 00:53:54'),
-       (420, 57, 1, 1, 10, 26, 2, 52, '2020-11-26 18:37:48', '2020-11-26 18:37:48'),
-       (421, 57, 1, 1, 9, 2580, 2, 5160, '2020-11-26 18:37:48', '2020-11-26 18:37:48'),
-       (422, 57, 1, 1, NULL, 0, NULL, 300, '2020-11-26 18:38:27', '2020-11-26 18:38:27');
-/*!40000 ALTER TABLE `vendas`
-    ENABLE KEYS */;
-
-/*!40101 SET SQL_MODE = IFNULL(@OLD_SQL_MODE, '') */;
-/*!40014 SET FOREIGN_KEY_CHECKS = IF(@OLD_FOREIGN_KEY_CHECKS IS NULL, 1, @OLD_FOREIGN_KEY_CHECKS) */;
-/*!40101 SET CHARACTER_SET_CLIENT = @OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;
+/*!40014 SET FOREIGN_KEY_CHECKS=IFNULL(@OLD_FOREIGN_KEY_CHECKS, 1) */;
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40111 SET SQL_NOTES=IFNULL(@OLD_SQL_NOTES, 1) */;

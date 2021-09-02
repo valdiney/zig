@@ -36,4 +36,20 @@ class Produto extends Model
             'inativos' => $inativos->quantidade
         ];
     }
+
+    public function valorInvestidoEmCompraDeProdutos($idEmpresa)
+    {
+        return $this->query(
+            "SELECT SUM(preco_compra) AS valorInvestido FROM produtos
+            WHERE id_empresa = {$idEmpresa}
+            AND deleted_at IS NULL"
+        )[0];
+    }
+
+    public function lucroAtual($idEmpresa)
+    {
+        return $this->queryGetOne(
+            "SELECT SUM(valor) AS lucro FROM vendas WHERE id_empresa = {$idEmpresa} AND deleted_at IS NULL"
+        )->lucro;
+    }
 }

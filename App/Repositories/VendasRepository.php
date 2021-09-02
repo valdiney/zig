@@ -37,16 +37,16 @@ class VendasRepository
 
     public function percentualMeiosDePagamento($idEmpresa)
     {
-        $query = $this->venda->query("
-		  SELECT mpg.legenda, SUM(vendas.valor) AS total,
-			ROUND((COUNT(*) / (SELECT COUNT(*) FROM vendas WHERE id_empresa = {$idEmpresa} AND vendas.created_at BETWEEN DATE_ADD(CURRENT_DATE(), INTERVAL -30 DAY) AND CURRENT_DATE())),2) * 100 AS media
-			FROM vendas
-			INNER JOIN meios_pagamentos AS mpg ON vendas.id_meio_pagamento = mpg.id
+        $query = $this->venda->query(
+            "SELECT mpg.legenda, SUM(vendas.valor) AS total,
+			ROUND((COUNT(*) / (SELECT COUNT(*) FROM vendas WHERE id_empresa = {$idEmpresa} AND
+            DATE(vendas.created_at) BETWEEN NOW() - INTERVAL 30 DAY AND NOW())), 2) * 100 AS media
+            FROM vendas INNER JOIN meios_pagamentos AS mpg ON vendas.id_meio_pagamento = mpg.id
 			WHERE DATE(vendas.created_at) BETWEEN NOW() - INTERVAL 30 DAY AND NOW()
             AND vendas.id_empresa = {$idEmpresa}
             AND vendas.deleted_at IS NULL
-			GROUP BY vendas.id_meio_pagamento
-		");
+			GROUP BY vendas.id_meio_pagamento"
+        );
 
         $legendas = [];
         $medias = [];
@@ -62,9 +62,9 @@ class VendasRepository
     {
         $query = $this->venda->query(
             "SELECT DATE_FORMAT(created_at, '%d/%m') AS data, COUNT(*) AS quantidade FROM vendas
-      WHERE DATE(created_at) BETWEEN NOW() - INTERVAL 30 DAY AND NOW()
-      AND id_empresa = {$idEmpresa} AND vendas.deleted_at IS NULL
-      GROUP BY DAY(created_at) ORDER BY DATE_FORMAT(created_at, '%d/%m') DESC
+            WHERE DATE(created_at) BETWEEN NOW() - INTERVAL 30 DAY AND NOW()
+            AND id_empresa = {$idEmpresa} AND vendas.deleted_at IS NULL
+            GROUP BY DAY(created_at) ORDER BY DATE_FORMAT(created_at, '%d/%m') DESC
 		");
 
         return $query;
@@ -127,7 +127,7 @@ class VendasRepository
         return $this->venda->query(
             "SELECT produtos.imagem, produtos.nome, SUM(vendas.quantidade) AS quantidade FROM vendas
             INNER JOIN produtos ON vendas.id_produto = produtos.id
-            WHERE vendas.id_empresa = {$idEmpresa} AND vendas.deleted_at IS NULL
+            WHERE vendas.id_empresa = {$idEmpresa} AND MONTH(vendas.created_at) = '{$mes}' AND vendas.deleted_at IS NULL
             AND produtos.deleted_at IS NULL
             GROUP BY vendas.id_produto ORDER BY quantidade DESC LIMIT {$quantidade}
         ");

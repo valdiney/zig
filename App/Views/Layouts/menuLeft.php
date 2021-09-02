@@ -55,13 +55,13 @@ use System\Session\Session;
         </li>
 
 
-        <li class="">
-            <a href="<?php echo BASEURL; ?>/pedido"
-               class="<?php currentRouteFromMenu('pedido', 'pedidoBorder'); ?>">
+        <!--<li class="">
+            <a href="<?php //echo BASEURL; ?>/pedido"
+               class="<?php //currentRouteFromMenu('pedido', 'pedidoBorder'); ?>">
                 <i class="fas fa-shopping-basket"></i>
                 <p>Pedidos</p>
             </a>
-        </li>
+        </li>-->
 
         <?php if (Session::get('idPerfil') != ConfigPerfil::vendedor()): ?>
             <li class="">
@@ -74,7 +74,7 @@ use System\Session\Session;
             </li>
         <?php endif; ?>
 
-        <div class="dropdown">
+        <!--<div class="dropdown">
             <li class="active-pro dropdown-toggle dropdown-toggle dropdown-toggle-split" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 <a>
                     <i class="fas fa-cogs" style="color:#6e6e6d"></i>
@@ -86,7 +86,7 @@ use System\Session\Session;
                     <a class="dropdown-item" href="#"><i class="fas fa-file-signature" style="color:#212120"></i> Logs de acessos</a>
                 </div>
             </li>
-        </div><!--end dropdown-->
+        </div>-->
 
     </ul>
 </div>

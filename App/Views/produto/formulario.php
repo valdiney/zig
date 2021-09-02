@@ -1,3 +1,17 @@
+<link rel="stylesheet" type="text/css" href="<?php echo BASEURL; ?>/public/css/jquery-te-1.4.0.css">
+
+<?php if (isset($produto->id)): ?>
+    <div class="row">
+        <div class="col-md-12" style="opacity:0.80;background:#fffcf5">
+            <span>
+                Código: <?php echo isset($produto->id) ? $produto->codigo : false;?>
+            </span>
+        </div>
+    </div>
+
+    <hr>
+<?php endif; ?>
+
 <form method="post"
       action="<?php echo isset($produto->id) ? BASEURL . '/produto/update' : BASEURL . '/produto/save'; ?>"
       enctype='multipart/form-data'>
@@ -11,7 +25,7 @@
 
         <input type="hidden" name="id_empresa" value="1">
 
-        <div class="col-md-4">
+        <div class="col-md-6">
             <div class="form-group">
                 <label for="nome">Nome *</label>
                 <input type="text" class="form-control nome" name="nome" id="nome"
@@ -54,7 +68,7 @@
         <div class="col-md-12">
             <div class="form-group" style="background:#fffcf5">
                 <label for="ativo">
-                    Ativo: <small style="opacity:0.80">Mostrar produto no PDV</small>
+                    Ativo: <small style="opacity:0.80">Mostrar em vendas</small>
                     <input
                         id="ativo"
                         name="deleted_at"
@@ -75,9 +89,41 @@
     </button>
 </form>
 
+<br>
+<br>
+
+<script src="<?php echo BASEURL; ?>/public/js/jquery-te-1.4.0.min.js"></script>
 <script>
     // Anula duplo click em salvar
     anulaDuploClick($('form'));
+    $("#descricao").jqte({
+        format: false,
+        ul: false,
+        ol: false,
+        rule: false,
+        link: false,
+        remove: false,
+        outdent: false,
+        underline: false,
+        u: false,
+        title: false,
+        sup: false,
+        sub: false,
+        source: false,
+        right: false,
+        left: false,
+        color:false,
+        bold: false,
+        remove: false,
+        p: false,
+        fsize: false,
+        center: false,
+        indent: false,
+        unlink: false,
+        strike: false,
+        i: false,
+        b: false
+    });
 
     $(function () {
         jQuery('.campo-moeda')

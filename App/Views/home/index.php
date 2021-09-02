@@ -8,6 +8,9 @@
         object-position: center;
         border-radius: 50%;
     }
+    .card-category {
+
+    }
 </style>
 
 <div class="row">
@@ -18,7 +21,7 @@
                 <div class="row">
                     <div class="col-5 col-md-4">
                         <div class="icon-big text-center icon-warning">
-                            <i class="fas fa-coins" style="color:#00cc99"></i>
+                            <i class="fas fa-coins" style="color:#212120"></i>
                         </div>
                     </div>
                     <div class="col-7 col-md-8">
@@ -50,7 +53,7 @@
                 <div class="row">
                     <div class="col-5 col-md-4">
                         <div class="icon-big text-center icon-warning">
-                            <i class="fas fa-coins" style="color:#ff9966"></i>
+                            <i class="fas fa-coins" style="color:#212120"></i>
                         </div>
                     </div>
                     <div class="col-7 col-md-8">
@@ -69,7 +72,7 @@
             <div class="card-footer ">
                 <hr>
                 <div class="stats">
-                    <i class="fas fa-coins" style="color:#cf7474"></i>
+                    <i class="fas fa-coins" style="color:#048e6d"></i>
                     <small>Dia anterior <b>R$ <?php echo real($faturamentoDeVandasNoDiaAnterior); ?></b></small>
                 </div>
             </div>
@@ -82,14 +85,14 @@
                 <div class="row">
                     <div class="col-5 col-md-4">
                         <div class="icon-big text-center icon-warning">
-                            <i class="fas fa-box-open" style="color:#99ccff"></i>
+                            <i class="fas fa-user-tie" style="color:#212120"></i>
                         </div>
                     </div>
                     <div class="col-7 col-md-8">
                         <div class="numbers">
-                            <p class="card-category" style="font-size:12px">Produtos a venda</p>
+                            <p class="card-category" style="font-size:12px;">Clientes</p>
                             <p class="card-title" style="font-size:15px">
-                                Ativos <?php echo $produtosCadastrados->ativos; ?><p>
+                            Ativos: <?php echo $clientesCadastrados->ativos; ?><p>
                         </div>
                     </div>
                 </div>
@@ -97,8 +100,9 @@
             <div class="card-footer ">
                 <hr>
                 <div class="stats">
-                    <i class="fas fa-box-open" style="color:#84b6e9"></i>
-                    <small>Produtos inativos <b><?php echo $produtosCadastrados->inativos; ?></b></small>
+                    <i class="fas fa-user-tie" style="color:#048e6d"></i>
+                    <small>Clientes inativos <b><?php echo $clientesCadastrados->inativos; ?></b></small>
+                    </b></small>
                 </div>
             </div>
         </div>
@@ -110,14 +114,14 @@
                 <div class="row">
                     <div class="col-5 col-md-4">
                         <div class="icon-big text-center icon-warning">
-                            <i class="fas fa-user-tie" style="color:#ad54da"></i>
+                            <i class="fas fa-box-open" style="color:#212120"></i>
                         </div>
                     </div>
                     <div class="col-7 col-md-8">
                         <div class="numbers">
-                            <p class="card-category" style="font-size:12px">Clientes</p>
+                            <p class="card-category" style="font-size:12px">Produtos</p>
                             <p class="card-title" style="font-size:15px">
-                                Ativos <?php echo $clientesCadastrados->ativos; ?><p>
+                                Ativos: <?php echo $produtosCadastrados->ativos; ?><p>
                         </div>
                     </div>
                 </div>
@@ -125,14 +129,14 @@
             <div class="card-footer ">
                 <hr>
                 <div class="stats">
-                    <i class="fas fa-user-tie" style="color:#ad54da"></i>
-                    <small>Clientes inativos <b><?php echo $clientesCadastrados->inativos; ?></b></small>
-
-
+                    <i class="fas fa-box-open" style="color:#048e6d"></i>
+                    <small>Produtos inativos <b><?php echo $produtosCadastrados->inativos; ?></b></small>
                 </div>
             </div>
         </div>
     </div>
+
+
 
 
 </div>

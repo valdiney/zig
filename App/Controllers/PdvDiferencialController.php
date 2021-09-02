@@ -65,15 +65,15 @@ class PdvDiferencialController extends Controller
         }
 
         $status = false;
+        $meioDePagamento = $this->post->data()->id_meio_pagamento;
+        $dataCompensacao = '0000-00-00';
+
+        # só adiciona caso seja um boleto
+        if ($meioDePagamento == 4) {
+            $dataCompensacao = $this->post->data()->data_compensacao;
+        }
+
         foreach ($_SESSION['venda'] as $produto) {
-            $meioDePagamento = $this->post->data()->id_meio_pagamento;
-            $dataCompensacao = null;
-
-            // só adiciona caso seja um boleto
-            if ($meioDePagamento == 4) {
-                $dataCompensacao = $this->post->data()->data_compensacao;
-            }
-
             $dados = [
                 'id_usuario' => $this->idUsuario,
                 'id_meio_pagamento' => $meioDePagamento,

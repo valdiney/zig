@@ -150,6 +150,10 @@ use System\HtmlComponents\Modal\Modal;
             modalValidacao('Validação', 'Campo (Nome) deve ser preenchido!');
             return false;
 
+        } else if ($('#preco_compra').val() == '') {
+            modalValidacao('Validação', 'Campo (Preço de Compra) deve ser preenchido!');
+            return false;
+
         } else if ($('#preco').val() == '') {
             modalValidacao('Validação', 'Campo (Preço) deve ser preenchido!');
             return false;

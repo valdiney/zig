@@ -3,7 +3,6 @@
         background: #f7f7f7;
         border: 1px solid #51cbce;
     }
-
     .icon-sale {
         font-size: 50px;
         display: block;

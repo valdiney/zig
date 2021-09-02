@@ -37,7 +37,7 @@
     <table class="table tabela-ajustada table-striped">
         <thead>
         <tr>
-            <th>#</th>
+            <th class="hidden-when-mobile">#</th>
             <!--<th>Preço</th>-->
             <th>Qtd</th>
             <th>Total</th>
@@ -49,7 +49,7 @@
         <tbody>
         <?php foreach ($vendas as $venda): ?>
             <tr>
-                <td>
+                <td class="hidden-when-mobile">
                     <?php if (!is_null($venda->imagem) || $venda->imagem != ''): ?>
                         <img class="imagem-perfil" src="<?php echo BASEURL . '/' . $venda->imagem; ?>"
                              alt="Imagem do perfil"
@@ -59,19 +59,13 @@
                     <?php endif; ?>
                 </td>
 
-                <?php //if ($venda->preco != 0):?>
-                <!--<td>R$ <?php //echo number_format($venda->preco, 2,',','.');?></td>-->
-                <?php //else:?>
-                <!--<td><small>Não consta produto</small></td>-->
-                <?php //endif;?>
-
                 <?php if (!is_null($venda->quantidade)): ?>
                     <td><?php echo $venda->quantidade; ?></td>
                 <?php else: ?>
                     <td><small>Não consta</small></td>
                 <?php endif; ?>
 
-                <td>R$ <?php echo number_format($venda->valor, 2, ',', '.'); ?></td>
+                <td><b style="opacity:0.60">R$</b> <?php echo real($venda->valor); ?></td>
                 <td><?php echo $venda->legenda; ?></td>
                 <td>
                     <?php echo $venda->data; ?>

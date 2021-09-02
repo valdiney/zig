@@ -11,6 +11,16 @@
         background: #1da1f2;
         color: white !important;
     }
+    @media only screen and (max-width: 600px) {
+        .imagem-perfil {
+            width: 20px;
+            height: 20px;
+            object-fit: cover;
+            object-position: center;
+            border-radius: 50%;
+
+        }
+    }
 </style>
 
 <div class="row">

@@ -10,7 +10,6 @@ use System\Get\Get;
 use System\Post\Post;
 use System\Session\Session;
 
-
 ini_set('display_errors',1);
 ini_set('display_startup_erros',1);
 error_reporting(E_ALL);

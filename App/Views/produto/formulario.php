@@ -3,12 +3,12 @@
 <?php if (isset($produto->id)): ?>
     <div class="row">
         <div class="col-md-12" style="opacity:0.80;background:#fffcf5">
-            <span>
+            <span style="margin-right:20px">
                 Código: <?php echo isset($produto->id) ? $produto->codigo : false;?>
             </span>
+           Código de Barras:  <img src="<?php gerarCodigoDeBarrasEmPng($produto->codigo);?>" width="100">
         </div>
     </div>
-
     <hr>
 <?php endif; ?>
 

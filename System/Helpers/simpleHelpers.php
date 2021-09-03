@@ -172,3 +172,10 @@ if (function_exists("sanitizeMany") === false)
         return array_map("sanitize", $data);
     }
 }
+
+function gerarCodigoDeBarrasEmPng($codigo)
+{
+    $gerador = new \Picqer\Barcode\BarcodeGeneratorPNG();
+    $barCode = $gerador->getBarcode($codigo, $gerador::TYPE_CODE_128);
+    echo "data:image/png;base64,".base64_encode($barCode);
+}

@@ -55,7 +55,7 @@ $configPdv = $configPdv->configPdv(Session::get('idEmpresa'));
         <meta property="og:site_name" content="<?php echo getenv('APPLICATION_NAME'); ?>">
     <?php else: ?>
         <meta property="og:title" content="ZigMoney">
-        <meta property="og:site_name" content="ZigMoney>
+        <meta property="og:site_name" content="ZigMoney">
     <?php endif; ?>
 
     <meta property="og:description" content="Tentativa de criar um Chat simples usando Firebase">
@@ -130,7 +130,12 @@ $configPdv = $configPdv->configPdv(Session::get('idEmpresa'));
             </a>
             <a href="<?php echo BASEURL; ?>/pdvDiferencial" class="simple-text logo-normal">
           <span style="color:#00cc66;">&nbsp;&nbsp;&nbsp;
-            <b style="opacity:0.70">TONIE</b>
+            <?php if (getenv('APPLICATION_NAME')): ?>
+                <?php echo getenv('APPLICATION_NAME'); ?>
+            <?php else: ?>
+                <b style="opacity:0.70">ZigMoney</b>
+            <?php endif; ?>
+
           </span>
                 <!--<span>Zig</span>
                 <span>Money</span>-->

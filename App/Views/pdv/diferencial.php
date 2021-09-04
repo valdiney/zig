@@ -130,7 +130,7 @@
 
     <div class="card col-lg-12 content-div">
         <div class="card-body">
-            <h5 class="card-title"><i class="fas fa-cart-arrow-down"></i> Produtos</h5>
+            <h5 class="card-title"><i class="fas fa-box-open"></i> Produtos</h5>
 
             <div class="row div-inter-produtos">
                 <?php foreach ($produtos as $key => $produto): ?>
@@ -162,7 +162,7 @@
         <div class="card-body" style="overflow-x:auto!important;">
             <h5 class="card-title">
                 <i class="fas fa-cart-arrow-down"></i>
-                Selecionados
+                Itens selecionados
             </h5>
 
             <table class="table tabela-ajustada tabela-de-produto" style="width:100%;">

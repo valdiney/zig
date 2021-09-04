@@ -21,7 +21,7 @@
             </thead>
             <tbody>
             <tr>
-                <td>Tipo PDV (Ponto de venda)</td>
+                <td>Módulo de Vendas</td>
                 <td>
                     <?php foreach ($tiposPdv as $tipoPdv): ?>
                         <label for="id_<?php echo $tipoPdv->id; ?>" class="radio-options"

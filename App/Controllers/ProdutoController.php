@@ -175,4 +175,41 @@ class ProdutoController extends Controller
 
         $this->view('produto/formulario', null, compact('produto'));
     }
+
+
+    function desativarProduto($idProduto)
+    {
+        $produto = new Produto();
+        $dados['deleted_at'] = date('Y-m-d H:i:s');
+
+        try {
+            $produto->update($dados, $idProduto);
+            echo json_encode(['status' => true]);
+
+        } catch (Exception $e) {
+            dd($e->getMessage());
+        }
+    }
+
+    function ativarProduto($idProduto)
+    {
+        $produto = new Produto();
+        $dados['deleted_at'] = null;
+
+        try {
+            $produto->update($dados, $idProduto);
+            echo json_encode(['status' => true]);
+
+        } catch (Exception $e) {
+            dd($e->getMessage());
+        }
+    }
+
+
+
+
+
+
+
+
 }

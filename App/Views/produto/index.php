@@ -26,6 +26,9 @@ use System\HtmlComponents\Modal\Modal;
         border:1px solid #009966;
         cursor:pointer;
     }
+    .desativado {
+        color: #cc0033;
+    }
 </style>
 
 <div class="row">
@@ -70,11 +73,11 @@ use System\HtmlComponents\Modal\Modal;
                         <?php endif; ?>
                     </td>
                     <td><?php echo $produto->nome; ?></td>
-                    <?php if (is_null($produto->deleted_at)):?>
-                        <td>Sim</td>
-                    <?php else:?>
-                        <td class="with_deleted_at">Não</td>
-                    <?php endif;?>
+                    
+                    <td class="<?php echo (is_null($produto->deleted_at)) ? 'ativo' : 'desativado'; ?>">
+                            <?php echo (is_null($produto->deleted_at)) ? 'Sim' : 'Não'; ?>
+                        </td>
+
 
                     <td><?php echo real($produto->preco); ?></td>
 
@@ -90,10 +93,22 @@ use System\HtmlComponents\Modal\Modal;
                                         onclick="modalFormularioProdutos('<?php echo $rota; ?>', '<?php echo $produto->id; ?>')">
                                     <i class="fas fa-edit"></i> Editar
                                 </button>
+                                <?php if (is_null($produto->deleted_at)): ?>
+                                <button class="dropdown-item" href="#"
+                                                onclick="modalAtivarEdesativarProduto('<?php echo $produto->id; ?>', '<?php echo $produto->nome; ?>', 'desativar')">
+                                            <i class="fas fa-window-close"></i> Desativar
+                                        </button>
 
-                                <!--<a class="dropdown-item" href="#">
+                                    <?php else: ?>
+
+                                <button class="dropdown-item" href="#"
+                                                onclick="modalAtivarEdesativarProduto('<?php echo $produto->id; ?>', '<?php echo $produto->nome; ?>', 'ativar')">
+                                            <i class="fas fa-square"></i> Ativar
+                                </button>
+                                <?php endif; ?>
+                                <!-- <a class="dropdown-item" href="#">
                                     <i class="fas fa-trash-alt" style="color:#cc6666"></i> Excluir
-                                </a>-->
+                                </a> -->
 
                             </div>
                         </div>
@@ -114,6 +129,29 @@ use System\HtmlComponents\Modal\Modal;
     'width' => 'modal-lg',
     'title' => 'Cadastrar Produtos'
 ]); ?>
+
+<div id="formulario"></div>
+<?php Modal::stop(); ?>
+<!--Modal Desativar e ativar Clientes-->
+<?php Modal::start([
+    'id' => 'modalDesativarProduto',
+    'width' => 'modal-lg',
+    'title' => 'Imagem do Produto'
+    // 'title' => '<i class="fas fa-user-tie" style="color:#ad54da"></i>'
+]); ?>
+<div id="modalConteudo">
+    <p id="nomeProduto"></p>
+
+    <center>
+        <set-modal-button class="set-modal-button"></set-modal-button>
+        <button class="btn btn-sm btn-default" data-dismiss="modal">
+            <i class="fas fa-window-close"></i> Não
+        </button>
+    </center>
+</div>
+<?php Modal::stop(); ?>
+
+
 
 <div id="formulario"></div>
 
@@ -144,6 +182,62 @@ use System\HtmlComponents\Modal\Modal;
 
         $("#formulario").load(url);
     }
+
+
+//Desativar produto
+
+    function modalAtivarEdesativarProduto(id, produto, operacao) {
+        if (operacao == 'desativar') {
+            $("#nomeProduto").html('Tem certeza que deseja desativar o produto ' + produto + '?');
+            $("set-modal-button").html('<button class="btn btn-sm btn-success" id="buttonDesativarProduto" data-id-produto="" onclick="desativarProduto(this)"><i class="far fa-check-circle"></i> Sim</button>');
+
+        } else if (operacao == 'ativar') {
+            $("set-modal-button").html('<button class="btn btn-sm btn-success" id="buttonDesativarProduto" data-id-produto="" onclick="ativarProduto(this)"><i class="far fa-check-circle"></i> Sim</button>');
+            $("#nomeProduto").html('Você deseja ativar o produto ' + produto + '?');
+        }
+
+        $("#modalDesativarProduto").modal({backdrop: 'static'});
+        document.querySelector("#buttonDesativarProduto").dataset.idProduto = id;
+    }
+
+    function desativarProduto(elemento) {
+        modalValidacao('Validação', 'Desativando Produto...');
+        id = elemento.dataset.idProduto;
+
+        var rota = getDomain() + "/produto/desativarProduto/" + id;
+        $.get(rota, function (data, status) {
+            var dados = JSON.parse(data);
+            if (dados.status == true) {
+                location.reload();
+                //$("#modalDesativarCliente .close").click();
+            }
+        });
+    }
+
+    function ativarProduto(elemento) {
+        modalValidacao('Validação', 'Ativando Produto...');
+        id = elemento.dataset.idProduto;
+
+        var rota = getDomain() + "/produto/ativarProduto/" + id;
+        $.get(rota, function (data, status) {
+            var dados = JSON.parse(data);
+            if (dados.status == true) {
+                location.reload();
+                //$("#modalDesativarCliente .close").click();
+            }
+        });
+    }
+
+
+
+
+
+
+
+
+
+
+
 
     function salvarProduto() {
         if ($('#nome').val() == '') {

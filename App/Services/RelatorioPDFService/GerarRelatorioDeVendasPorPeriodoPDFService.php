@@ -58,7 +58,8 @@ class GerarRelatorioDeVendasPorPeriodoPDFService
         $titulo = "Relatório de vendas por período. {$this->periodo['de']} à {$this->periodo['ate']}";
         $head = [
             'Usuário',
-            'preço',
+            'Produto',
+            'Preço',
             'Quantidade',
             'Total',
             'Meio Pagamento',
@@ -69,6 +70,7 @@ class GerarRelatorioDeVendasPorPeriodoPDFService
         foreach ($vendas as $venda) {
             $dados[] = [
                 $venda->nomeUsuario,
+                $venda->produtoNome,
                 ($venda->preco != 0) ? 'R$ ' . number_format($venda->preco, 2, ',', '.') : 'Não consta',
                 (!is_null($venda->quantidade)) ? $venda->quantidade : 'Não consta',
                 'R$ ' . number_format($venda->valor, 2, ',', '.'),

@@ -37,8 +37,8 @@
     <table class="table tabela-ajustada table-striped">
         <thead>
         <tr>
-            <th>#</th>
-            <!--<th>Preço</th>-->
+            <th class="hidden-when-mobile">#</th>
+            <th class="hidden-when-mobile">Produto</th>
             <th>Qtd</th>
             <th>Total</th>
             <th>Venda</th>
@@ -49,7 +49,7 @@
         <tbody>
         <?php foreach ($vendas as $venda): ?>
             <tr>
-                <td>
+                <td class="hidden-when-mobile">
                     <?php if (!is_null($venda->imagem) || $venda->imagem != ''): ?>
                         <img class="imagem-perfil" src="<?php echo BASEURL . '/' . $venda->imagem; ?>"
                              alt="Imagem do perfil"
@@ -59,11 +59,18 @@
                     <?php endif; ?>
                 </td>
 
-                <?php //if ($venda->preco != 0):?>
-                <!--<td>R$ <?php //echo number_format($venda->preco, 2,',','.');?></td>-->
-                <?php //else:?>
-                <!--<td><small>Não consta produto</small></td>-->
-                <?php //endif;?>
+                <td class="hidden-when-mobile">
+                    <?php if (!is_null($venda->produtoImagem) || $venda->produtoImagem != ''): ?>
+                        <img class="imagem-perfil" style="border:1px solid silver" src="<?php echo BASEURL . '/' . $venda->produtoImagem; ?>"
+                             alt="Imagem do perfil"
+                             title="<?php echo $venda->produtoNome . ' | R$:' . real($venda->preco); ?>">
+                        <?php echo $venda->produtoNome; ?>     
+                    <?php elseif (!is_null($venda->quantidade)): ?>
+                        <i class="fas fa-box-open" style="font-size:20px"></i>
+                    <?php else: ?>
+                        <small>Não consta</small>
+                    <?php endif; ?>
+                </td>
 
                 <?php if (!is_null($venda->quantidade)): ?>
                     <td><?php echo $venda->quantidade; ?></td>
@@ -71,7 +78,7 @@
                     <td><small>Não consta</small></td>
                 <?php endif; ?>
 
-                <td>R$ <?php echo number_format($venda->valor, 2, ',', '.'); ?></td>
+                <td><b style="opacity:0.60">R$</b> <?php echo real($venda->valor); ?></td>
                 <td><?php echo $venda->legenda; ?></td>
                 <td>
                     <?php echo $venda->data; ?>

@@ -10,7 +10,6 @@ use System\Get\Get;
 use System\Post\Post;
 use System\Session\Session;
 
-
 ini_set('display_errors',1);
 ini_set('display_startup_erros',1);
 error_reporting(E_ALL);
@@ -91,7 +90,12 @@ class ProdutoController extends Controller
             }
 
             try {
-                $produto->save($dados);
+                $idProduto = $produto->save($dados);
+
+                # Para gerar o código do produto, pega-se o proprio id e concatena com o ano atual
+                $produto = new Produto();
+                $produto = $produto->update(['codigo' => $idProduto.date('Y')], $idProduto);
+
                 return $this->get->redirectTo("produto");
 
             } catch (Exception $e) {
@@ -109,6 +113,8 @@ class ProdutoController extends Controller
             $dados = (array)$this->post->only([
                 'nome', 'preco', 'descricao'
             ]);
+
+            $dados['descricao'] = nl2br($dados['descricao']);
 
             if ( ! isset($this->post->data()->deleted_at)) {
                 $dados['deleted_at'] = timestamp();
@@ -169,4 +175,41 @@ class ProdutoController extends Controller
 
         $this->view('produto/formulario', null, compact('produto'));
     }
+
+
+    function desativarProduto($idProduto)
+    {
+        $produto = new Produto();
+        $dados['deleted_at'] = date('Y-m-d H:i:s');
+
+        try {
+            $produto->update($dados, $idProduto);
+            echo json_encode(['status' => true]);
+
+        } catch (Exception $e) {
+            dd($e->getMessage());
+        }
+    }
+
+    function ativarProduto($idProduto)
+    {
+        $produto = new Produto();
+        $dados['deleted_at'] = null;
+
+        try {
+            $produto->update($dados, $idProduto);
+            echo json_encode(['status' => true]);
+
+        } catch (Exception $e) {
+            dd($e->getMessage());
+        }
+    }
+
+
+
+
+
+
+
+
 }

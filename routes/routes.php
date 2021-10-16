@@ -41,6 +41,8 @@ $route->get('produto', 'ProdutoController@index');
 $route->get('produto/modalFormulario/{idProduto?}', 'ProdutoController@modalFormulario');
 $route->post('produto/save', 'ProdutoController@save');
 $route->post('produto/update', 'ProdutoController@update');
+$route->get('produto/desativarProduto/{idProduto}', 'ProdutoController@desativarProduto');
+$route->get('produto/ativarProduto/{idProduto}', 'ProdutoController@ativarProduto');
 
 # ----- ConfiguracaoController --------------------------------
 $route->get('configuracao', 'ConfiguracaoController@index');

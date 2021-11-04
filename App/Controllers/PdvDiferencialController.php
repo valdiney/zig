@@ -5,6 +5,7 @@ namespace App\Controllers;
 use App\Models\MeioPagamento;
 use App\Models\Produto;
 use App\Models\Venda;
+use App\Models\AgrupadorVenda;
 use App\Repositories\VendasEmSessaoRepository;
 use App\Rules\AcessoAoTipoDePdv;
 use App\Rules\Logged;
@@ -86,8 +87,17 @@ class PdvDiferencialController extends Controller
             ];
 
             $venda = new Venda();
+            $agrupadorVenda = new AgrupadorVenda();
             try {
-                $venda->save($dados);
+                $venda = $venda->save($dados);
+
+                # Realiza o cadastro do agrupador das vendas
+                $agrupadorVenda->save([
+                    'id_venda' => $venda,
+                    'id_empresa' => $this->idEmpresa,
+                    'id_usuario' => $this->idPerfilUsuarioLogado,
+                ]);
+
                 $status = true;
 
                 unset($_SESSION['venda']);

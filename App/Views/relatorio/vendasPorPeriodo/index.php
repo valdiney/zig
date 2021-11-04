@@ -42,7 +42,7 @@
                 <div class="col-md-4">
                     <div class="form-group">
                         <label for="periodo_de">Período de</label>
-                        <input type="date" class="form-control" name="de" id="periodo_de"
+                        <input type="date" class="form-control busca-sem-codigo" name="de" id="periodo_de"
                                value="<?php echo date('Y') . '-' . date('m') . '-' . '01' ?>">
                         <small style="color:#999999">Primeira Venda: <?php echo $periodoDisponivelParaConsulta->primeiraVenda?></small>
                     </div>
@@ -51,7 +51,7 @@
                 <div class="col-md-4">
                     <div class="form-group">
                         <label for="periodo_ate">Período até</label>
-                        <input type="date" class="form-control" name="ate" id="periodo_ate"
+                        <input type="date" class="form-control busca-sem-codigo" name="ate" id="periodo_ate"
                                value="<?php echo date('Y-m-d') ?>">
                         <small style="color:#999999">Ultima Venda: <?php echo $periodoDisponivelParaConsulta->ultimaVenda?></small>
                     </div>
@@ -60,7 +60,7 @@
                 <div class="col-md-4">
                     <div class="form-group">
                         <label for="id_usuario">Vendedor *</label>
-                        <select class="form-control js-example-basic-single" name="id_usuario" id="id_usuario">
+                        <select class="form-control js-example-basic-single busca-sem-codigo" name="id_usuario" id="id_usuario">
                             <option value="todos">Todos</option>
                             <?php foreach ($usuarios as $usuario) : ?>
                                 <option value="<?php echo $usuario->id; ?>">
@@ -140,5 +140,4 @@
 
         window.location.href = rota;
     }
-
 </script>

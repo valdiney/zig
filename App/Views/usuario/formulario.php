@@ -42,7 +42,7 @@
             <div class="form-group">
                 <label for="password">Sexo *</label>
                 <select class="form-control" name="id_sexo" id="id_sexo">
-                    <option>Selecione...</option>
+                    <option value="selecione">Selecione...</option>
                     <?php foreach ($sexos as $sexo) : ?>
                         <?php if (isset($usuario->id) && $usuario->id_sexo == $sexo->id) : ?>
                             <option value="<?php echo $usuario->id_sexo; ?>"
@@ -65,7 +65,7 @@
             <div class="form-group">
                 <label for="password">Perfis *</label>
                 <select class="form-control" name="id_perfil" id="id_perfil">
-                    <option>Selecione...</option>
+                    <option value="selecione">Selecione...</option>
                     <?php foreach ($perfis as $perfil) : ?>
                         <?php if (isset($usuario->id) && $usuario->id_perfil == $perfil->id) : ?>
                             <option value="<?php echo $usuario->id_perfil; ?>"
@@ -95,7 +95,8 @@
     </div>
     <!--end row-->
 
-    <button type="submit" class="btn btn-success btn-sm button-salvar-usuario" style="float:right">
+    <button type="submit" class="btn btn-success btn-sm button-salvar-usuario" style="float:right"
+    onclick="return salvarUsuario()">
         <i class="fas fa-save"></i> Salvar
     </button>
 </form>
@@ -104,6 +105,31 @@
 <script>
     // Anula duplo click em salvar
     anulaDuploClick($('form'));
+
+    function salvarUsuario() {
+        if ($("#nome").val() == "") {
+            modalValidacao('Validação', 'Campo (Nome) deve ser preenchido!');
+            return false;
+
+        } else if ($("#email").val() == "") {
+            modalValidacao('Validação', 'Campo (E-mail) deve ser preenchido!');
+            return false;
+
+        } else if ($("#password").val() == "") {
+            modalValidacao('Validação', 'Campo (Senha) deve ser preenchido!');
+            return false;
+
+        } else if ($("#id_sexo").val() == "selecione") {
+            modalValidacao('Validação', 'Campo (Sexo) deve ser preenchido!');
+            return false;
+
+        } else if ($("#id_perfil").val() == "selecione") {
+            modalValidacao('Validação', 'Campo (Perfil) deve ser preenchido!');
+            return false;
+        }
+
+        return true;
+    }
 
     function verificaSeEmailExiste(email, id) {
         var rota = getDomain() + "/usuario/verificaSeEmailExiste";

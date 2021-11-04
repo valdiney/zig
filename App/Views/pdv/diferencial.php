@@ -127,7 +127,6 @@
 </style>
 
 <div class="row">
-
     <div class="card col-lg-12 content-div">
         <div class="card-body">
             <h5 class="card-title"><i class="fas fa-box-open"></i> Produtos</h5>

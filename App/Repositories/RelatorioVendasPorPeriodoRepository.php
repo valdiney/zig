@@ -130,7 +130,7 @@ class RelatorioVendasPorPeriodoRepository
 
     public function periodoDisponivelParaConsulta($idEmpresa)
     {
-        return $this->venda->queryGetOne(
+        $query = $this->venda->queryGetOne(
             "SELECT DATE_FORMAT(created_at, '%d/%m/%Y') AS primeiraVenda,
             (SELECT DATE_FORMAT(created_at, '%d/%m/%Y') FROM vendas WHERE
             id_empresa = {$idEmpresa}
@@ -138,5 +138,11 @@ class RelatorioVendasPorPeriodoRepository
             FROM vendas WHERE id_empresa = {$idEmpresa}
             AND deleted_at IS NULL ORDER BY created_at ASC LIMIT 1
         ");
+
+        if ( ! isset($query->primeiraVenda) || ! isset($query->ultimaVenda)) {
+            return (object) ['primeiraVenda' => null, 'ultimaVenda' => null];
+        }
+
+        return $query;
     }
 }

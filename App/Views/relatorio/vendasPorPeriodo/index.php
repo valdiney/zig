@@ -44,7 +44,7 @@
                         <label for="periodo_de">Período de</label>
                         <input type="date" class="form-control busca-sem-codigo" name="de" id="periodo_de"
                                value="<?php echo date('Y') . '-' . date('m') . '-' . '01' ?>">
-                        <small style="color:#999999">Primeira Venda: <?php echo $periodoDisponivelParaConsulta->primeiraVenda?></small>
+                        <small style="color:#999999">Primeira Venda: <?php echo ( ! is_null($periodoDisponivelParaConsulta->primeiraVenda) ? $periodoDisponivelParaConsulta->primeiraVenda : 'Não realizada!');?></small>
                     </div>
                 </div>
 
@@ -53,7 +53,8 @@
                         <label for="periodo_ate">Período até</label>
                         <input type="date" class="form-control busca-sem-codigo" name="ate" id="periodo_ate"
                                value="<?php echo date('Y-m-d') ?>">
-                        <small style="color:#999999">Ultima Venda: <?php echo $periodoDisponivelParaConsulta->ultimaVenda?></small>
+                        <small style="color:#999999">Ultima Venda:
+                        <?php echo ( ! is_null($periodoDisponivelParaConsulta->ultimaVenda) ? $periodoDisponivelParaConsulta->ultimaVenda : 'Não realizada!');?></small>
                     </div>
                 </div>
 

@@ -47,8 +47,6 @@ class RelatorioController extends Controller
         $relatorioVendas = new RelatorioVendasPorPeriodoRepository();
         $periodoDisponivelParaConsulta = $relatorioVendas->periodoDisponivelParaConsulta($this->idEmpresa);
 
-        //dd($periodoDisponivelParaConsulta);
-
         $this->view('relatorio/vendasPorPeriodo/index', $this->layout,
         compact(
             'usuarios',

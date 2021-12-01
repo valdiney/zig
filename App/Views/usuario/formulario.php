@@ -114,12 +114,16 @@
         } else if ($("#email").val() == "") {
             modalValidacao('Validação', 'Campo (E-mail) deve ser preenchido!');
             return false;
+        }
+        // Apenas pede para informar a senha, caso não seja uma edição
+        <?php if ( ! isset($usuario->id)):?>
+            else if ($("#password").val() == "") {
+                modalValidacao('Validação', 'Campo (Senha) deve ser preenchido!');
+                return false;
 
-        } else if ($("#password").val() == "") {
-            modalValidacao('Validação', 'Campo (Senha) deve ser preenchido!');
-            return false;
-
-        } else if ($("#id_sexo").val() == "selecione") {
+            }
+        <?php endif;?>
+        else if ($("#id_sexo").val() == "selecione") {
             modalValidacao('Validação', 'Campo (Sexo) deve ser preenchido!');
             return false;
 

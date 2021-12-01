@@ -127,6 +127,7 @@ use System\Session\Session;
             url = rota;
         }
 
+        $("#formulario").html("<center><h3>Carregando...</h3></center>");
         $("#modalUsuarios").modal({backdrop: 'static'});
         $("#formulario").load(url);
     }

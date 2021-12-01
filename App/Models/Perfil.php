@@ -39,6 +39,13 @@ class Perfil extends Model
             return $this->query("SELECT * FROM perfis WHERE id NOT IN({$superAdmin},{$administrador},{$gerente})");
         }
 
+        /**
+         * Se o usuário logado for um super admin, traz todos os perfis
+         */
+        if ($superAdmin == $idPerfilUsuarioLogado) {
+            return $this->query("SELECT * FROM perfis");
+        }
+
         return $this->query("SELECT * FROM perfis WHERE id != 1");
     }
 }

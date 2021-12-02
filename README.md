@@ -11,7 +11,7 @@ de vendas totalmente online.
 🚀 Estamos trabalhando em algumas implementações bem legais, como por exemplo, valor investido em produtos e lucro estimado.
 <hr>
 
-Simpatizou com o projeto? Quer fazer uma doação via Pix? Não seja tímido, leia o QRcode! <br> <br>
+Simpatizou com o projeto? Quer fazer uma doação via Pix? Não seja tímido, leia o QRcode e ajude o nosso projeto! <br> <br>
 <img width="150" src="https://raw.githubusercontent.com/valdiney/zig/master/docs/qrcodePix.png">
 
 <hr>

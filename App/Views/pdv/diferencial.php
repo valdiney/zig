@@ -15,7 +15,7 @@
     }
     @media only screen and (max-width: 600px) {
         .card-produtos {
-            width:160px;
+            width:50%;
             padding-bottom:10px!important;
         }
         .div-realizar-pagamento {

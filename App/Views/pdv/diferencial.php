@@ -13,6 +13,23 @@
             margin-top: 25px;
         }
     }
+    @media only screen and (max-width: 600px) {
+        .card-produtos {
+            width:160px;
+            padding-bottom:10px!important;
+        }
+        .div-realizar-pagamento {
+            background:white!important;
+            box-shadow:none;
+            padding-right:0;
+        }
+        .div-card-body-realizar-pagamento {
+            background:white;
+            border-radius:none!important;
+            box-shadow:none!important;
+            border:none!important;
+        }
+    }
     .card-two {
         margin-top: 10px;
         border-radius: 3px;
@@ -124,6 +141,16 @@
         opacity: 1;
         height: auto;
     }
+    .div-realizar-pagamento {
+        background:transparent;
+        box-shadow:none;
+        padding-right:0;
+    }
+    .div-card-body-realizar-pagamento {
+        background:white;
+        border-radius:10px;
+        box-shadow:#deddd9 1px 2px 10px;
+    }
 </style>
 
 <div class="row">
@@ -181,8 +208,8 @@
         </div>
     </div>
 
-    <div class="card col-lg-3 content-div" style="background:transparent;box-shadow:none;padding-right:0">
-        <div class="card-body" style="background:white;border-radius:10px;box-shadow:#deddd9 1px 2px 10px">
+    <div class="card col-lg-3 content-div div-realizar-pagamento" style="">
+        <div class="card-body div-card-body-realizar-pagamento">
             <center>
                 <span>Total:</span> <br>
                 <span><b class="b-mostra-valor-total">R$ 00,00</b></span>

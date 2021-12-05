@@ -86,7 +86,8 @@ class RelatorioVendasPorPeriodoRepository
         }
 
         $query = $this->venda->query(
-            "SELECT produtos.imagem AS produtoImagem, produtos.nome AS produtoNome, vendas.id AS idVenda, vendas.valor, DATE_FORMAT(vendas.created_at, '%H:%i') AS hora,
+            "SELECT produtos.imagem AS produtoImagem, produtos.nome AS produtoNome,
+            vendas.id AS idVenda, vendas.valor, DATE_FORMAT(vendas.created_at, '%H:%i') AS hora,
 			DATE_FORMAT(vendas.created_at, '%d/%m/%Y') AS data,
             meios_pagamentos.legenda, usuarios.id, usuarios.nome AS nomeUsuario, usuarios.imagem,
             vendas.preco, vendas.quantidade, vendas.data_compensacao,

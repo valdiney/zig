@@ -179,3 +179,9 @@ function gerarCodigoDeBarrasEmPng($codigo)
     $barCode = $gerador->getBarcode($codigo, $gerador::TYPE_CODE_128);
     echo "data:image/png;base64,".base64_encode($barCode);
 }
+
+function stringAbreviation($string, $length, $end)
+{
+    $output = str_split($string, $length);
+    return $output[0].$end;
+}

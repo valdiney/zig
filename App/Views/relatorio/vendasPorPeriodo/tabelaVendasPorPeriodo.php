@@ -39,9 +39,9 @@
         <tr>
             <th class="hidden-when-mobile">#</th>
             <th class="hidden-when-mobile">Produto</th>
-            <th>Qtd</th>
+            <th title="Quantidade do Produto Vendido">Qtd</th>
             <th>Total</th>
-            <th>Venda</th>
+            <th title="Tipo de Pagamento">Pag</th>
             <th>Data</th>
             <th style="text-align:right">Ação</th>
         </tr>
@@ -65,7 +65,10 @@
                              alt="Imagem do perfil"
                              title="<?php echo $venda->produtoNome . ' | R$:' . real($venda->preco); ?>">
                     <?php elseif (!is_null($venda->quantidade)): ?>
-                        <i class="fas fa-box-open" style="font-size:20px"></i>
+                        <!--<i class="fas fa-box-open" style="font-size:20px"></i>-->
+                        <i title="<?php echo ucfirst($venda->produtoNome);?>">
+                            <?php echo stringAbreviation(ucfirst($venda->produtoNome), 15, '...');?>
+                        </i>
                     <?php else: ?>
                         <small>Não consta</small>
                     <?php endif; ?>

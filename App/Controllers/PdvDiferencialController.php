@@ -134,4 +134,12 @@ class PdvDiferencialController extends Controller
     {
         echo $this->vendasEmSessaoRepository->obterValorTotalDosProdutosNaMesa();
     }
+
+    public function pesquisarProdutoPorNome($nome = false)
+    {
+        $produto = new Produto();
+        $produtos = $produto->produtos($this->idEmpresa, $nome);
+
+        $this->view('pdv/produtosAvenda', null, compact('produtos'));
+    }
 }

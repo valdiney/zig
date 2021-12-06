@@ -153,33 +153,28 @@
     }
 </style>
 
+<!--Caixa de pesquisa-->
+<div class="row">
+    <div class="card col-lg-12 content-div">
+        <div class="card-body">
+            <div class="row">
+                <div class="col-md-6">
+                    <input type="text" class="form-control" placeholder="Pesquise por nome..."
+                    onkeyup="pesquisarProdutoPorNome($(this).val())">
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Carrega os produtos-->
 <div class="row">
     <div class="card col-lg-12 content-div">
         <div class="card-body">
             <h5 class="card-title"><i class="fas fa-box-open"></i> Produtos</h5>
-
-            <div class="row div-inter-produtos">
-                <?php foreach ($produtos as $key => $produto): ?>
-                    <div class="col-lg-2 card-produtos">
-                        <?php if (!is_null($produto->imagem) && $produto->imagem != ''): ?>
-                            <img src="<?php echo BASEURL . '/' . $produto->imagem; ?>" title="Adicionar!"
-                             onclick="colocarProdutosNaMesa('<?php echo $produto->id; ?>', this)">
-                             <?php else: ?>
-                            <i class="fas fa-box-open icone-produtos" style="font-size:50px"
-                            onclick="colocarProdutosNaMesa('<?php echo $produto->id; ?>', this)" title="Adicionar!"></i>
-                        <?php endif; ?>
-
-                        <center>
-                            <span class="produto-titulo"><?php echo mb_strtoupper($produto->nome); ?></span>
-                        </center>
-                        <center><span class="produto-valor">R$ <?php echo real($produto->preco); ?></span></center>
-                    </div>
-                <?php endforeach; ?>
-            </div><!--div-inter-produtos-->
-
+            <div id="carregar-produtos"></div>
         </div>
     </div>
-
 </div>
 
 <div class="row">
@@ -241,3 +236,15 @@
 <script src="<?php echo BASEURL; ?>/public/assets/js/core/jquery.min.js"></script>
 <script defer src="<?php echo BASEURL; ?>/public/js/helpers.js"></script>
 <script defer src="<?php echo BASEURL; ?>/public/js/venda/funcoesPdvAvancado.js"></script>
+
+<script>
+    pesquisarProdutoPorNome(false);
+    function pesquisarProdutoPorNome(nome) {
+        $("#carregar-produtos").html("<center><h3>Carregando...</h3></center>");
+        if (nome != '' || nome != false) {
+            $("#carregar-produtos").load("pesquisarProdutoPorNome/"+nome);
+        } else {
+            $("#carregar-produtos").load("pesquisarProdutoPorNome");
+        }
+    }
+</script>

@@ -14,10 +14,16 @@ class Produto extends Model
         parent::__construct();
     }
 
-    public function produtos($idEmpresa)
+    public function produtos($idEmpresa, $nome = false)
     {
+        $querypesquisaPorNome = false;
+        if ($nome) {
+            $querypesquisaPorNome = "AND nome LIKE '%{$nome}%'";
+        }
+
         return $this->query(
-            "SELECT * FROM produtos WHERE id_empresa = {$idEmpresa} AND deleted_at IS NULL"
+            "SELECT * FROM produtos WHERE id_empresa = {$idEmpresa}
+            AND deleted_at IS NULL {$querypesquisaPorNome}"
         );
     }
 

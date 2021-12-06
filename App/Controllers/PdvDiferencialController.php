@@ -137,6 +137,8 @@ class PdvDiferencialController extends Controller
 
     public function pesquisarProdutoPorNome($nome = false)
     {
+        $nome = utf8_encode(out64($nome));
+
         $produto = new Produto();
         $produtos = $produto->produtos($this->idEmpresa, $nome);
 

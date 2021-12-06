@@ -242,7 +242,7 @@
     function pesquisarProdutoPorNome(nome) {
         $("#carregar-produtos").html("<center><h3>Carregando...</h3></center>");
         if (nome != '' || nome != false) {
-            $("#carregar-produtos").load("pesquisarProdutoPorNome/"+nome);
+            $("#carregar-produtos").load("pesquisarProdutoPorNome/"+in64(nome));
         } else {
             $("#carregar-produtos").load("pesquisarProdutoPorNome");
         }

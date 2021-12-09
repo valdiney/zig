@@ -183,6 +183,6 @@ class ProdutoController extends Controller
         $produto = new Produto();
         $produtos = $produto->produtos($this->idEmpresa, $nome);
 
-        $this->view('produto/produtos', null, compact('produtos'));
+        $this->view('produto/produtos', null, compact('produtos','nome'));
     }
 }

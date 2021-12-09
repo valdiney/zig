@@ -55,9 +55,7 @@ use System\HtmlComponents\Modal\Modal;
 
         <hr>
 
-        <div id="carregar-produtos">
-
-        </div>
+        <div id="carregar-produtos"></div>
 
         <br>
 
@@ -83,7 +81,9 @@ use System\HtmlComponents\Modal\Modal;
 <div id="containerModalImagemProduto"></div>
 
 <?php Modal::stop(); ?>
+
 <script src="<?php echo BASEURL; ?>/public/assets/js/core/jquery.min.js"></script>
+
 <script>
     pesquisarProdutoPorNome(false);
     function pesquisarProdutoPorNome(nome) {

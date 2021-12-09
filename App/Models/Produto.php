@@ -58,4 +58,12 @@ class Produto extends Model
             "SELECT SUM(valor) AS lucro FROM vendas WHERE id_empresa = {$idEmpresa} AND deleted_at IS NULL"
         )->lucro;
     }
+
+    public function informacaoesGeraisDosProdutos($idEmpresa)
+    {
+        return $this->query(
+            "SELECT MAX(preco) AS maisCaro, MIN(preco) AS maisBarato
+            FROM produtos WHERE id_empresa = {$idEmpresa} AND deleted_at IS NULL"
+        )[0];
+    }
 }

@@ -1,9 +1,7 @@
 <!--Usando o Html Components-->
 <?php
-
 use System\HtmlComponents\FlashMessage\FlashMessage;
 use System\HtmlComponents\Modal\Modal;
-
 ?>
 
 <style type="text/css">
@@ -29,6 +27,19 @@ use System\HtmlComponents\Modal\Modal;
 </style>
 
 <div class="row">
+    <div class="card col-lg-12 content-div">
+        <div class="card-body">
+            <div class="row">
+                <div class="col-md-6">
+                    <input type="text" class="form-control" placeholder="Pesquise por nome..."
+                    onkeyup="pesquisarProdutoPorNome($(this).val())">
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
 
     <div class="card col-lg-12 content-div">
         <div class="card-body">
@@ -37,72 +48,16 @@ use System\HtmlComponents\Modal\Modal;
         <!-- Mostra as mensagens de erro-->
         <?php FlashMessage::show(); ?>
 
-        <table class="table tabela-ajustada table-striped" style="width:100%">
-            <thead>
-            <tr>
-                <th>#</th>
-                <th>Nome</th>
-                <th>Ativo</th>
-                <th>R$ Preço</th>
-                <th style="text-align:right;padding-right:0">
-                    <?php $rota = BASEURL . '/produto/modalFormulario'; ?>
-                    <button onclick="modalFormularioProdutos('<?php echo $rota; ?>', false);"
-                            class="btn btn-sm btn-success" title="Novo Produto!">
-                        <i class="fas fa-plus"></i>
-                    </button>
-                </th>
-            </tr>
-            </thead>
-            <tbody>
+        <div style="padding-left:20px;color:#999999">
+            <small>Produto mais caro: R$ <?php echo real($informacoes->maisCaro);?></small> |
+            <small>Produto mais barato: R$ <?php echo real($informacoes->maisBarato);?></small>
+        </div>
 
-            <?php foreach ($produtos as $produto): ?>
-                <tr>
-                    <td>
-                        <?php if (!is_null($produto->imagem) && $produto->imagem != ''): ?>
-                            <center>
-                                <?php $imagem = BASEURL . '/' . $produto->imagem; ?>
-                                <img src="<?php echo $imagem; ?>" width="40"
-                                    class="imagem-produto" title="Visualizar Imagem!"
-                                    onclick="modalImagemDoProduto('<?php echo $imagem;?>', '<?php echo $produto->nome;?>')">
-                            </center>
-                        <?php else: ?>
-                            <center><i class="fas fa-box-open" style="font-size:25px"></i></center>
-                        <?php endif; ?>
-                    </td>
-                    <td><?php echo $produto->nome; ?></td>
-                    <?php if (is_null($produto->deleted_at)):?>
-                        <td>Sim</td>
-                    <?php else:?>
-                        <td class="with_deleted_at">Não</td>
-                    <?php endif;?>
+        <hr>
 
-                    <td><?php echo real($produto->preco); ?></td>
+        <div id="carregar-produtos">
 
-                    <td style="text-align:right">
-                        <div class="btn-group" role="group">
-                            <button id="btnGroupDrop1" type="button" class="btn btn-sm btn-secondary dropdown-toggle"
-                                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <i class="fas fa-cogs"></i>
-                            </button>
-                            <div class="dropdown-menu" aria-labelledby="btnGroupDrop1">
-
-                                <button class="dropdown-item" href="#"
-                                        onclick="modalFormularioProdutos('<?php echo $rota; ?>', '<?php echo $produto->id; ?>')">
-                                    <i class="fas fa-edit"></i> Editar
-                                </button>
-
-                                <!--<a class="dropdown-item" href="#">
-                                    <i class="fas fa-trash-alt" style="color:#cc6666"></i> Excluir
-                                </a>-->
-
-                            </div>
-                        </div>
-                    </td>
-                </tr>
-            <?php endforeach; ?>
-
-            <tfoot></tfoot>
-        </table>
+        </div>
 
         <br>
 
@@ -128,8 +83,18 @@ use System\HtmlComponents\Modal\Modal;
 <div id="containerModalImagemProduto"></div>
 
 <?php Modal::stop(); ?>
-
+<script src="<?php echo BASEURL; ?>/public/assets/js/core/jquery.min.js"></script>
 <script>
+    pesquisarProdutoPorNome(false);
+    function pesquisarProdutoPorNome(nome) {
+        $("#carregar-produtos").html("<center><h3>Carregando...</h3></center>");
+        if (nome != '' || nome != false) {
+            $("#carregar-produtos").load("produto/pesquisarProdutoPorNome/"+in64(nome));
+        } else {
+            $("#carregar-produtos").load("produto/pesquisarProdutoPorNome");
+        }
+    }
+
     function modalFormularioProdutos(rota, id) {
         var url = "";
 

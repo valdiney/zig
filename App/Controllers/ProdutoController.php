@@ -43,9 +43,9 @@ class ProdutoController extends Controller
     public function index()
     {
         $produto = new Produto();
-        $produtos = $produto->produtos($this->idEmpresa);
+        $informacoes = $produto->informacaoesGeraisDosProdutos($this->idEmpresa);
 
-        $this->view('produto/index', $this->layout, compact('produtos'));
+        $this->view('produto/index', $this->layout,compact('informacoes'));
     }
 
     public function save()
@@ -174,5 +174,15 @@ class ProdutoController extends Controller
         }
 
         $this->view('produto/formulario', null, compact('produto'));
+    }
+
+    public function pesquisarProdutoPorNome($nome = false)
+    {
+        $nome = utf8_encode(out64($nome));
+
+        $produto = new Produto();
+        $produtos = $produto->produtos($this->idEmpresa, $nome);
+
+        $this->view('produto/produtos', null, compact('produtos'));
     }
 }

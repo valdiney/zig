@@ -58,23 +58,23 @@ class GerarRelatorioDeVendasPorPeriodoPDFService
         $titulo = "Relatório de vendas por período. {$this->periodo['de']} à {$this->periodo['ate']}";
         $head = [
             'Usuário',
-            'preço',
-            'Quantidade',
+            'Produto',
+            'Preço',
+            'QTD',
             'Total',
-            'Meio Pagamento',
-            'Hora',
+            'PAG',
             'Data'
         ];
         $dados = [];
         foreach ($vendas as $venda) {
             $dados[] = [
-                $venda->nomeUsuario,
+                stringAbreviation(ucfirst($venda->nomeUsuario), 10, '...'),
+                stringAbreviation(ucfirst($venda->produtoNome), 10, '...'),
                 ($venda->preco != 0) ? 'R$ ' . number_format($venda->preco, 2, ',', '.') : 'Não consta',
                 (!is_null($venda->quantidade)) ? $venda->quantidade : 'Não consta',
                 'R$ ' . number_format($venda->valor, 2, ',', '.'),
                 $venda->legenda,
-                $venda->hora,
-                $venda->data
+                $venda->data . ' ' . $venda->hora
             ];
         }
         //

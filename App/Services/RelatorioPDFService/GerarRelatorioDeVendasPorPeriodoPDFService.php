@@ -95,9 +95,9 @@ class GerarRelatorioDeVendasPorPeriodoPDFService
         // download
         $dompdf->render();
         // renderiza no navegador
-        return $dompdf->stream($this->nomeDoArquivo, array("Attachment" => false));
+        //return $dompdf->stream($this->nomeDoArquivo, array("Attachment" => false));
         // salva arquivo
-        //return $dompdf->stream($this->nomeDoArquivo);
+        return $dompdf->stream($this->nomeDoArquivo);
         exit(0);
     }
 }

@@ -30,7 +30,7 @@
     <small style="opacity:0.50">Gerado em: <?php echo date('d/m/Y');?> às <?php echo date('H:i');?></small>
 </center>
 <hr style="border:1px dotted silver">
-<br>
+
 <center>
     <span style="opacity:0.70"><b>Total Vendido: R$ <?php echo real($this->getTotalVendas());?></b></span>
 </center>

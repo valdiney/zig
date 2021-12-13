@@ -8,9 +8,6 @@
         object-position: center;
         border-radius: 50%;
     }
-    .card-category {
-
-    }
 </style>
 
 <div class="row">
@@ -142,6 +139,44 @@
 </div>
 
 <div class="row">
+    <div class="col-lg-6 col-md-6 col-sm-6">
+        <div class="card card-stats">
+            <div class="card-body">
+                <center>
+                    Vendas por dia.
+                    <small style="opacity:0.70">Ultimos 30 dias</small>
+                </center>
+                <canvas class="grafico" id="grafi-vendas-por-dia" width="400" height="185"></canvas>
+            </div>
+            <div class="card-footer ">
+                <hr>
+                <!--<div class="stats">
+                  <i class="fa fa-refresh"></i>
+                  Update Now
+                </div>-->
+            </div>
+        </div>
+    </div>
+
+    <div class="col-lg-6 col-md-6 col-sm-6">
+        <div class="card card-stats">
+            <div class="card-body">
+                <center>
+                    Vendas por dia.
+                    <small style="opacity:0.70">Ultimos 30 dias</small>
+                </center>
+                <canvas class="grafico" id="grafi-valor-vendas-por-dia" width="400" height="185"></canvas>
+            </div>
+            <div class="card-footer ">
+                <hr>
+                <!--<div class="stats">
+                  <i class="fa fa-refresh"></i>
+                  Update Now
+                </div>-->
+            </div>
+        </div>
+    </div>
+
 
     <div class="col-lg-6 col-md-6 col-sm-6">
         <div class="card card-stats">
@@ -166,10 +201,50 @@
         <div class="card card-stats">
             <div class="card-body">
                 <center>
-                    Vendas por dia.
-                    <small style="opacity:0.70">Ultimos 30 dias</small>
+                    (6) Produtos mais vendidos.
+                    <small style="opacity:0.70">
+                        Mês de <?php echo mesesPorExtensoEnumeroDoMes(date('m')); ?>
+                    </small>
                 </center>
-                <canvas class="grafico" id="grafi-vendas-por-dia" width="400" height="185"></canvas>
+
+                <?php if (count($produtosMaisVendidosNoMes) > 0): ?>
+                    <table class="table tabela-ajustada vendas_por_vendedores table-striped">
+                        <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Produto</th>
+                            <th>QTD</th>
+                            <th>Total</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <?php foreach ($produtosMaisVendidosNoMes as $produto): ?>
+                            <tr>
+                                <td title="<?php echo $produto->nome; ?>">
+                                    <?php if (!is_null($produto->imagem) && $produto->imagem != ''): ?>
+                                        <img class="imagem-perfil" src="<?php echo BASEURL . '/' . $produto->imagem; ?>">
+                                    <?php else: ?>
+                                        <i class="fas fa-box-open" style="font-size:20px"></i>
+                                    <?php endif; ?>
+                                </td>
+
+                                <td><?php echo $produto->nome;?></td>
+                                <td><?php echo $produto->quantidade;?></td>
+                                <td><?php echo reaL($produto->total);?></td>
+
+                            </tr>
+                        <?php endforeach; ?>
+                        </tbody>
+                    </table>
+
+                <?php else: ?>
+                    <br><br><br>
+                    <center>
+                        <i class="fas fa-sad-tear" style="font-size:40px;opacity:0.70"></i>
+                        <br><br>
+                        <h6 style="opacity:0.70">Não houve vendas hoje!</h6>
+                    </center>
+                <?php endif; ?>
             </div>
             <div class="card-footer ">
                 <hr>
@@ -179,13 +254,13 @@
                 </div>-->
             </div>
         </div>
-    </div>
+    </div><!--end vendas por usuarios-->
 
     <div class="col-lg-6 col-md-6 col-sm-6">
         <div class="card card-stats">
             <div class="card-body">
                 <center>
-                    Vendas por vendedores
+                    Vendas por vendedores.
                     <small style="opacity:0.70">
                         Mês de <?php echo mesesPorExtensoEnumeroDoMes(date('m')); ?>
                     </small>
@@ -256,75 +331,8 @@
         </div>
     </div><!--end vendas por usuarios-->
 
-
-
-    <div class="col-lg-6 col-md-6 col-sm-6">
-        <div class="card card-stats">
-            <div class="card-body">
-                <center>
-                    (5) Produtos mais vendidos
-                    <small style="opacity:0.70">
-                        Mês de <?php echo mesesPorExtensoEnumeroDoMes(date('m')); ?>
-                    </small>
-                </center>
-
-                <?php if (count($produtosMaisVendidosNoMes) > 0): ?>
-                    <table class="table tabela-ajustada vendas_por_vendedores table-striped">
-                        <thead>
-                        <tr>
-                            <th>#</th>
-                            <th>Produto</th>
-                            <th>QTD</th>
-
-                        </tr>
-                        </thead>
-                        <tbody>
-                        <?php foreach ($produtosMaisVendidosNoMes as $produto): ?>
-                            <tr>
-                                <td title="<?php echo $produto->nome; ?>">
-                                    <?php if (!is_null($produto->imagem) && $produto->imagem != ''): ?>
-                                        <img class="imagem-perfil" src="<?php echo BASEURL . '/' . $produto->imagem; ?>">
-                                    <?php else: ?>
-                                        <i class="fas fa-box-open" style="font-size:20px"></i>
-                                    <?php endif; ?>
-                                </td>
-
-                                <td><?php echo $produto->nome;?></td>
-                                <td><?php echo $produto->quantidade;?></td>
-
-                            </tr>
-                        <?php endforeach; ?>
-                        </tbody>
-                    </table>
-
-                <?php else: ?>
-                    <br><br><br>
-                    <center>
-                        <i class="fas fa-sad-tear" style="font-size:40px;opacity:0.70"></i>
-                        <br><br>
-                        <h6 style="opacity:0.70">Não houve vendas hoje!</h6>
-                    </center>
-                <?php endif; ?>
-            </div>
-            <div class="card-footer ">
-                <hr>
-                <!--<div class="stats">
-                  <i class="fa fa-refresh"></i>
-                  Update Now
-                </div>-->
-            </div>
-        </div>
-    </div><!--end vendas por usuarios-->
-
-
-
-
-
-
-
-
-
 </div>
+
 <script src="<?php echo BASEURL; ?>/public/assets/js/core/jquery.min.js"></script>
 <script src="<?php echo BASEURL; ?>/public/assets/chartjs/dist/Chart.min.js"></script>
 <?php Doughnut::start(
@@ -347,7 +355,7 @@
                 <?php endforeach?>
             ],
             datasets: [{
-                label: 'Quantidade',
+                label: 'Quantidade Vendido',
                 data: [
                     <?php foreach ($quantidadeDeVendasRealizadasPorDia as $valor):?>
                     <?php echo $valor->quantidade . ',';?>
@@ -355,6 +363,48 @@
                 ],
                 backgroundColor: '#00cccc',
                 borderColor: '#255949',
+                borderWidth: 1
+            }
+            ]
+        },
+        options: {
+            responsive: true,
+            scales: {
+                xAxes: [{
+                    ticks: {
+                        maxRotation: 90,
+                        minRotation: 80
+                    }
+                }],
+                yAxes: [{
+                    ticks: {
+                        beginAtZero: false,
+                        min: 0
+                    }
+                }]
+            }
+        }
+    });
+
+    ////////////////////////////////////////////////////////
+    var ctx = document.getElementById("grafi-valor-vendas-por-dia");
+    var myChart = new Chart(ctx, {
+        type: 'line',
+        data: {
+            labels: [
+                <?php foreach ($valorDeVendasRealizadasPorDia as $valor):?>
+                <?php echo "\"{$valor->data}\",";?>
+                <?php endforeach?>
+            ],
+            datasets: [{
+                label: 'Valor Vendido',
+                data: [
+                    <?php foreach ($valorDeVendasRealizadasPorDia as $valor):?>
+                    <?php echo $valor->valor . ',';?>
+                    <?php endforeach?>
+                ],
+                backgroundColor: '#a0d2ae',
+                borderColor: '#087e5e',
                 borderWidth: 1
             }
             ]

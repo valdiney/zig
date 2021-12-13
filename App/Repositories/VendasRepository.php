@@ -75,7 +75,7 @@ class VendasRepository
         $query = $this->venda->query("SELECT DATE_FORMAT(created_at, '%d/%m') AS data, SUM(valor) AS valor FROM vendas
             WHERE MONTH(created_at) = MONTH(NOW()) AND id_empresa = {$idEmpresa}
             AND vendas.deleted_at IS NULL
-			GROUP BY DAY(created_at) ORDER BY DATE_FORMAT(created_at, '%d/%m') ASC
+			GROUP BY DAY(created_at) ORDER BY DATE_FORMAT(created_at, '%d/%m') DESC
 		");
 
         return $query;
@@ -125,9 +125,11 @@ class VendasRepository
     public function produtosMaisVendidosNoMes($idEmpresa, $mes, $quantidade)
     {
         return $this->venda->query(
-            "SELECT produtos.imagem, produtos.nome, SUM(vendas.quantidade) AS quantidade FROM vendas
+            "SELECT produtos.imagem, produtos.nome, SUM(vendas.quantidade) AS quantidade,
+            SUM(vendas.valor) AS total FROM vendas
             INNER JOIN produtos ON vendas.id_produto = produtos.id
-            WHERE vendas.id_empresa = {$idEmpresa} AND MONTH(vendas.created_at) = '{$mes}' AND vendas.deleted_at IS NULL
+            WHERE vendas.id_empresa = {$idEmpresa} AND MONTH(vendas.created_at) = '{$mes}'
+            AND vendas.deleted_at IS NULL
             AND produtos.deleted_at IS NULL
             GROUP BY vendas.id_produto ORDER BY quantidade DESC LIMIT {$quantidade}
         ");

@@ -171,7 +171,9 @@ $configPdv = $configPdv->configPdv(Session::get('idEmpresa'));
                         <?php endif; ?>
 
                         <i style="text-transform: capitalize;">
-                            <?php echo Session::get('nomeUsuario'); ?>
+                            <small title="<?php echo Session::get('nomeUsuario');?>">
+                                <?php echo stringAbreviation(ucfirst(Session::get('nomeUsuario')), 8, '...'); ?>
+                            </small>
                             <small style="font-size:11px;" class="legendaPerfil">
                                 <i class="fas fa-circle" style="color:#00cc99;font-size:8px"></i>
                                 <?php echo Session::get('legendaPerfil'); ?>

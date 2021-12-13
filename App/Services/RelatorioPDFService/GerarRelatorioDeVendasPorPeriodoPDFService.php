@@ -57,6 +57,7 @@ class GerarRelatorioDeVendasPorPeriodoPDFService
     {
         $titulo = "Relatório de vendas por período. {$this->periodo['de']} à {$this->periodo['ate']}";
         $head = [
+            '#',
             'Usuário',
             'Produto',
             'Preço',
@@ -66,10 +67,13 @@ class GerarRelatorioDeVendasPorPeriodoPDFService
             'Data'
         ];
         $dados = [];
+        $i = 0;
         foreach ($vendas as $venda) {
+            $i++;
             $dados[] = [
-                stringAbreviation(ucfirst($venda->nomeUsuario), 10, '...'),
-                stringAbreviation(ucfirst($venda->produtoNome), 10, '...'),
+                $i,
+                stringAbreviation(ucfirst($venda->nomeUsuario), 12, '...'),
+                stringAbreviation(ucfirst($venda->produtoNome), 15, '...'),
                 ($venda->preco != 0) ? 'R$ ' . number_format($venda->preco, 2, ',', '.') : 'Não consta',
                 (!is_null($venda->quantidade)) ? $venda->quantidade : 'Não consta',
                 'R$ ' . number_format($venda->valor, 2, ',', '.'),
@@ -91,9 +95,9 @@ class GerarRelatorioDeVendasPorPeriodoPDFService
         // download
         $dompdf->render();
         // renderiza no navegador
-        //return $dompdf->stream($this->nomeDoArquivo, array("Attachment" => false));
+        return $dompdf->stream($this->nomeDoArquivo, array("Attachment" => false));
         // salva arquivo
-        return $dompdf->stream($this->nomeDoArquivo);
+        //return $dompdf->stream($this->nomeDoArquivo);
         exit(0);
     }
 }

@@ -39,7 +39,7 @@ Que tal nos ajudar nesta empreitada?
 | PDV Diferencial (PDV com mais recursos)                    | ✔   |
 | Relatórios de vendas                                       | ✔   |
 | Dashboard                                                  | ✔   |
-| Pedidos (Descontinuado)                                    | x   |
+| Pedidos (Descontinuado)                                    |     |
 | Exportar relatórios para PDF                               | ✔   |
 | Exportar relatórios para Excel                             | ✔   |
 | Logs de Acessos                                            | ✔   |

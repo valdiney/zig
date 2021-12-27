@@ -69,7 +69,7 @@ class RelatorioController extends Controller
                 $idUsuario = $this->post->data()->id_usuario;
             }
 
-            $vendas = $relatorioVendas->vendasPorPeriodo(
+            $vendas = $relatorioVendas->agrupamentoDeVendasPorPeriodo(
                 ['de' => $de, 'ate' => $ate],
                 $idUsuario,
                 $this->idEmpresa
@@ -104,6 +104,17 @@ class RelatorioController extends Controller
                 'meiosDePagamento',
                 'totalDasVendas'
             ));
+    }
+
+    public function itensDaVendaChamadaAjax($codigoVenda)
+    {
+        $relatorioVendas = new RelatorioVendasPorPeriodoRepository();
+        $vendas = $relatorioVendas->itensDaVenda(
+            $this->idEmpresa,
+            out64($codigoVenda)
+        );
+
+        $this->view('relatorio/vendasPorPeriodo/tabelaItensDaVenda', false, compact('vendas'));
     }
 
     public function gerarXls($de, $ate, $opcao = false)

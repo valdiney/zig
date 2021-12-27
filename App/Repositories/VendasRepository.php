@@ -87,18 +87,26 @@ class VendasRepository
             "SELECT usuarios.id AS idUsuario, usuarios.nome, usuarios.imagem,
             usuarios.nome AS nomeUsuario,
             SUM(vendas.valor) AS valor, DATE_FORMAT(vendas.created_at, '%m'), (
-            SELECT SUM(vendas.valor) AS total FROM vendas WHERE id_meio_pagamento = 1
-            AND id_usuario = usuarios.id AND DATE_FORMAT(vendas.created_at, '%m') = {$mes}
-            AND vendas.deleted_at IS NULL
+                SELECT SUM(vendas.valor) AS total FROM vendas WHERE id_meio_pagamento = 1
+                AND id_usuario = usuarios.id AND DATE_FORMAT(vendas.created_at, '%m') = {$mes}
+                AND vendas.deleted_at IS NULL
             ) AS Dinheiro, (
-            SELECT SUM(vendas.valor) AS total FROM vendas WHERE id_meio_pagamento = 2
-            AND id_usuario = usuarios.id AND DATE_FORMAT(vendas.created_at, '%m') = {$mes}
-            AND vendas.deleted_at IS NULL
+                SELECT SUM(vendas.valor) AS total FROM vendas WHERE id_meio_pagamento = 2
+                AND id_usuario = usuarios.id AND DATE_FORMAT(vendas.created_at, '%m') = {$mes}
+                AND vendas.deleted_at IS NULL
             ) AS Credito, (
-            SELECT SUM(vendas.valor) AS total FROM vendas WHERE id_meio_pagamento = 3
-            AND id_usuario = usuarios.id AND DATE_FORMAT(vendas.created_at, '%m') = {$mes}
-            AND vendas.deleted_at IS NULL
-            ) AS Debito
+                SELECT SUM(vendas.valor) AS total FROM vendas WHERE id_meio_pagamento = 3
+                AND id_usuario = usuarios.id AND DATE_FORMAT(vendas.created_at, '%m') = {$mes}
+                AND vendas.deleted_at IS NULL
+            ) AS Debito, (
+                SELECT SUM(vendas.valor) AS total FROM vendas WHERE id_meio_pagamento = 4
+                AND id_usuario = usuarios.id AND DATE_FORMAT(vendas.created_at, '%m') = {$mes}
+                AND vendas.deleted_at IS NULL
+            ) AS Boleto, (
+                SELECT SUM(vendas.valor) AS total FROM vendas WHERE id_meio_pagamento = 5
+                AND id_usuario = usuarios.id AND DATE_FORMAT(vendas.created_at, '%m') = {$mes}
+                AND vendas.deleted_at IS NULL
+            ) AS Pix
 
             FROM vendas INNER JOIN usuarios ON vendas.id_usuario = usuarios.id
             WHERE vendas.id_empresa = {$idEmpresa} AND vendas.id_empresa = {$idEmpresa} AND

@@ -79,6 +79,11 @@ function modalValidacaoClose() {
     $("#modal-validacao .close").click();
 }
 
+function closeModal(idModal) {
+    var id = "#"+idModal;
+    $(id).modal('hide');
+}
+
 //////////////////////////////////////////////////////////////////////////////
 
 function real(valor) {

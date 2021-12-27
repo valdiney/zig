@@ -38,8 +38,6 @@
         <thead>
         <tr>
             <th class="hidden-when-mobile">#</th>
-            <th class="hidden-when-mobile">Produto</th>
-            <th title="Quantidade do Produto Vendido">Qtd</th>
             <th>Total</th>
             <th title="Tipo de Pagamento">Pag</th>
             <th>Data</th>
@@ -59,28 +57,7 @@
                     <?php endif; ?>
                 </td>
 
-                <td class="hidden-when-mobile">
-                    <?php if (!is_null($venda->produtoImagem) || $venda->produtoImagem != ''): ?>
-                        <img class="imagem-perfil" style="border:1px solid silver" src="<?php echo BASEURL . '/' . $venda->produtoImagem; ?>"
-                             alt="Imagem do perfil"
-                             title="<?php echo $venda->produtoNome . ' | R$:' . real($venda->preco); ?>">
-                    <?php elseif (!is_null($venda->quantidade)): ?>
-                        <!--<i class="fas fa-box-open" style="font-size:20px"></i>-->
-                        <i title="<?php echo ucfirst($venda->produtoNome);?>">
-                            <?php echo stringAbreviation(ucfirst($venda->produtoNome), 15, '...');?>
-                        </i>
-                    <?php else: ?>
-                        <small>Não consta</small>
-                    <?php endif; ?>
-                </td>
-
-                <?php if (!is_null($venda->quantidade)): ?>
-                    <td><?php echo $venda->quantidade; ?></td>
-                <?php else: ?>
-                    <td><small>Não consta</small></td>
-                <?php endif; ?>
-
-                <td><b style="opacity:0.60">R$</b> <?php echo real($venda->valor); ?></td>
+                <td><b style="opacity:0.60">R$</b> <?php echo real($venda->total); ?></td>
                 <td><?php echo $venda->legenda; ?></td>
                 <td>
                     <?php echo $venda->data; ?>
@@ -96,14 +73,9 @@
                         <div class="dropdown-menu" aria-labelledby="btnGroupDrop1">
 
                             <button class="dropdown-item" href="#"
-                            onclick="modalAtivarEdesativarVenda('<?php echo $venda->idVenda; ?>')">
-                                <i class="fas fa-window-close"></i> Excluir esta Venda
+                            onclick="modalAItensDaVenda('<?php echo $venda->codigoVenda; ?>')">
+                                <i class="fas fa-aye"></i> Detalhes
                             </button>
-
-                            <!--<a class="dropdown-item" href="#">
-                                <i class="fas fa-trash-alt" style="color:#cc6666"></i> Excluir
-                            </a>-->
-
                         </div>
                     </div>
                 </td>
@@ -124,26 +96,17 @@
 
 <!--Modal Desativar e ativar Clientes-->
 <?php Modal::start([
-    'id' => 'modalDesativarVenda',
-    'width' => 'modal-sm',
-    'title' => '<i class="fas fa-cart-arrow-down"></i>'
+    'id' => 'modalItensDaVenda',
+    'width' => 'modal-lg',
+    'title' => '<i class="fas fa-cart-arrow-down"></i> Itens da venda'
 ]); ?>
-<div id="modalConteudo">
-    <p id="nomeCliente">Tem certeza que deseja Excluir esta venda?</p>
-
-    <center>
-        <set-modal-button class="set-modal-button"></set-modal-button>
-        <button class="btn btn-sm btn-default" data-dismiss="modal">
-            <i class="fas fa-window-close"></i> Não
-        </button>
-    </center>
-</div>
+    <div id="modalConteudo" class="div-itens-da-venda"></div>
 <?php Modal::stop(); ?>
 
 <script>
-function modalAtivarEdesativarVenda(id) {
-    $("set-modal-button").html('<button class="btn btn-sm btn-success" id="buttonDesativarVenda" data-id-venda="'+id+'" onclick="desativarVenda(this)"><i class="far fa-check-circle"></i> Sim</button>');
-    $("#modalDesativarVenda").modal({backdrop: 'static'});
+function modalAItensDaVenda(codigoVenda) {
+    $(".div-itens-da-venda").load("relatorio/itensDaVenda/"+in64(codigoVenda));
+    $("#modalItensDaVenda").modal({backdrop: 'static'});
 }
 
 function desativarVenda(elemento) {
@@ -155,7 +118,6 @@ function desativarVenda(elemento) {
             var dados = JSON.parse(data);
             if (dados.status == true) {
                 location.reload();
-                //$("#modalDesativarCliente .close").click();
             }
         });
     }

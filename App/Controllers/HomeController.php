@@ -67,7 +67,6 @@ class HomeController extends Controller
             [], $this->idEmpresa
         );
 
-
         $totalVendasPorUsuariosNoMes = $vendasRepository->totalVendasPorUsuariosNoMes($this->idEmpresa, date('m'));
 
         $cliente = new Cliente();

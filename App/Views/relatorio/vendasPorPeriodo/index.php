@@ -21,6 +21,18 @@
 
         }
     }
+    .div-agrupamento-de-vendas {
+        border:1px solid #e5e5e5;
+        padding:10px;
+        border-radius:10px;
+        margin-bottom:5px;
+    }
+    .sub-div {
+        background:#e5e5e5;
+        padding:10px;
+        border-radius:10px;
+        margin-right:10px;
+    }
 </style>
 
 <div class="row">

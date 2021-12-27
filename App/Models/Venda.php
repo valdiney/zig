@@ -13,4 +13,14 @@ class Venda extends Model
     {
         parent::__construct();
     }
+
+    public function seJaExisteCodigoDeVenda($codigo, $idEmpresa)
+    {
+        $query = $this->query("SELECT * FROM vendas WHERE codigo_venda = '{$codigo}' AND id_empresa = {$idEmpresa}");
+        if (count($query) > 0) {
+            return true;
+        }
+
+        return false;
+    }
 }

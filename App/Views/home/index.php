@@ -8,6 +8,39 @@
         object-position: center;
         border-radius: 50%;
     }
+    .tbody-totalVendasPorUsuariosNoMes tr td {
+        font-size:10px!important;
+    }
+    .produtos-mais-vendidos {
+        overflow-y: scroll;
+        height:258px;
+    }
+    .produtos-mais-vendidos::-webkit-scrollbar-track {
+        background-color: white;
+    }
+    .produtos-mais-vendidos::-webkit-scrollbar {
+        width: 10px;
+        background: #8d8d96;
+    }
+    .produtos-mais-vendidos::-webkit-scrollbar-thumb {
+        background: #8d8d96;
+        border-radius:5px;
+    }
+    .produtos-mais-vendidos::-webkit-input-placeholder {
+        color: #8198ac;
+    }
+    @media only screen and (max-width: 600px) {
+        .totalVendasPorUsuariosNoMes {
+            overflow-x: scroll;
+        }
+        .imagem-perfil {
+            width: 20px;
+            height: 20px;
+            object-fit: cover;
+            object-position: center;
+            border-radius: 50%;
+        }
+    }
 </style>
 
 <div class="row">
@@ -132,10 +165,6 @@
             </div>
         </div>
     </div>
-
-
-
-
 </div>
 
 <div class="row">
@@ -199,7 +228,7 @@
 
     <div class="col-lg-6 col-md-6 col-sm-6">
         <div class="card card-stats">
-            <div class="card-body">
+            <div class="card-body produtos-mais-vendidos">
                 <center>
                     (6) Produtos mais vendidos.
                     <small style="opacity:0.70">
@@ -256,9 +285,9 @@
         </div>
     </div><!--end vendas por usuarios-->
 
-    <div class="col-lg-6 col-md-6 col-sm-6">
+    <div class="col-lg-12 col-md-6 col-sm-6">
         <div class="card card-stats">
-            <div class="card-body">
+            <div class="card-body totalVendasPorUsuariosNoMes">
                 <center>
                     Vendas por vendedores.
                     <small style="opacity:0.70">
@@ -269,15 +298,17 @@
                 <?php if (count($totalVendasPorUsuariosNoMes) > 0): ?>
                     <table class="table tabela-ajustada vendas_por_vendedores table-striped">
                         <thead>
-                        <tr>
+                        <tr class="tr-header-vendas-por-usuarios">
                             <th>#</th>
                             <th>Total</th>
                             <th>Dinheiro</th>
                             <th>Crédito</th>
                             <th>Débito</th>
+                            <th>Boleto</th>
+                            <th>Pix</th>
                         </tr>
                         </thead>
-                        <tbody>
+                        <tbody class="tbody-totalVendasPorUsuariosNoMes">
                         <?php foreach ($totalVendasPorUsuariosNoMes as $venda): ?>
                             <tr>
                                 <td title="<?php echo $venda->nomeUsuario; ?>">
@@ -304,6 +335,18 @@
 
                                 <?php if (!is_null($venda->Debito)): ?>
                                     <td>R$ <?php echo real($venda->Debito); ?></td>
+                                <?php else: ?>
+                                    <td><small>Não consta</small></td>
+                                <?php endif; ?>
+
+                                <?php if (!is_null($venda->Boleto)): ?>
+                                    <td>R$ <?php echo real($venda->Boleto); ?></td>
+                                <?php else: ?>
+                                    <td><small>Não consta</small></td>
+                                <?php endif; ?>
+
+                                <?php if (!is_null($venda->Pix)): ?>
+                                    <td>R$ <?php echo real($venda->Pix); ?></td>
                                 <?php else: ?>
                                     <td><small>Não consta</small></td>
                                 <?php endif; ?>

@@ -74,6 +74,11 @@ class PdvDiferencialController extends Controller
             $dataCompensacao = $this->post->data()->data_compensacao;
         }
 
+        /**
+         * Gera um código unico de venda que será usado em todos os registros desse Loop
+        */
+        $codigoVenda = uniqid(rand(), true).date('s').date('d.m.Y');
+
         foreach ($_SESSION['venda'] as $produto) {
             $dados = [
                 'id_usuario' => $this->idUsuario,
@@ -83,7 +88,8 @@ class PdvDiferencialController extends Controller
                 'id_produto' => $produto['id'],
                 'preco' => $produto['preco'],
                 'quantidade' => $produto['quantidade'],
-                'valor' => $produto['total']
+                'valor' => $produto['total'],
+                'codigo_venda' => $codigoVenda
             ];
 
             $venda = new Venda();

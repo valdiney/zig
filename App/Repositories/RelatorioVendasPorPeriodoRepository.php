@@ -88,6 +88,7 @@ class RelatorioVendasPorPeriodoRepository
         $query = $this->venda->query(
             "SELECT produtos.imagem AS produtoImagem, produtos.nome AS produtoNome,
             vendas.id AS idVenda, vendas.valor, DATE_FORMAT(vendas.created_at, '%H:%i') AS hora,
+            vendas.codigo_venda AS codigoVenda,
 			DATE_FORMAT(vendas.created_at, '%d/%m/%Y') AS data,
             meios_pagamentos.legenda, usuarios.id, usuarios.nome AS nomeUsuario, usuarios.imagem,
             vendas.preco, vendas.quantidade, vendas.data_compensacao,
@@ -98,6 +99,58 @@ class RelatorioVendasPorPeriodoRepository
             LEFT JOIN produtos ON vendas.id_produto = produtos.id
             WHERE vendas.id_empresa = {$idEmpresa} AND DATE(vendas.created_at)
             BETWEEN '{$de}' AND '{$ate}' {$queryPorUsuario}
+            AND vendas.deleted_at IS NULL
+            ORDER BY vendas.created_at DESC");
+
+        return $query;
+    }
+
+    public function agrupamentoDeVendasPorPeriodo(array $periodo, $idUsuario = false, $idEmpresa = false)
+    {
+        $de = $periodo['de'];
+        $ate = $periodo['ate'];
+
+        $queryPorUsuario = false;
+        if ($idUsuario) {
+            $queryPorUsuario = "AND vendas.id_usuario = {$idUsuario}";
+        }
+
+        $query = $this->venda->query(
+            "SELECT COUNT(*) AS produtosNaVenda, SUM(vendas.valor) AS total,
+            vendas.id AS idVenda, vendas.valor, DATE_FORMAT(vendas.created_at, '%H:%i') AS hora,
+            vendas.codigo_venda AS codigoVenda,
+			DATE_FORMAT(vendas.created_at, '%d/%m/%Y') AS data,
+            meios_pagamentos.legenda, usuarios.id, usuarios.nome AS nomeUsuario, usuarios.imagem,
+            vendas.preco, vendas.quantidade, vendas.data_compensacao
+            FROM vendas INNER JOIN usuarios
+            ON vendas.id_usuario = usuarios.id
+            INNER JOIN meios_pagamentos ON vendas.id_meio_pagamento = meios_pagamentos.id
+
+            WHERE vendas.id_empresa = {$idEmpresa} AND DATE(vendas.created_at)
+            BETWEEN '{$de}' AND '{$ate}' {$queryPorUsuario}
+            AND vendas.deleted_at IS NULL
+            GROUP BY vendas.codigo_venda
+            ORDER BY vendas.created_at DESC");
+
+        return $query;
+    }
+
+    public function itensDaVenda($idEmpresa = false, $codigoVenda)
+    {
+        $query = $this->venda->query(
+            "SELECT produtos.imagem AS produtoImagem, produtos.nome AS produtoNome,
+            vendas.id AS idVenda, vendas.valor, DATE_FORMAT(vendas.created_at, '%H:%i') AS hora,
+            vendas.codigo_venda AS codigoVenda,
+			DATE_FORMAT(vendas.created_at, '%d/%m/%Y') AS data,
+            meios_pagamentos.legenda, usuarios.id, usuarios.nome AS nomeUsuario, usuarios.imagem,
+            vendas.preco, vendas.quantidade, vendas.data_compensacao,
+            produtos.id AS idProduto, produtos.nome AS nomeProduto
+            FROM vendas INNER JOIN usuarios
+            ON vendas.id_usuario = usuarios.id
+            INNER JOIN meios_pagamentos ON vendas.id_meio_pagamento = meios_pagamentos.id
+            LEFT JOIN produtos ON vendas.id_produto = produtos.id
+            WHERE vendas.id_empresa = {$idEmpresa}
+            AND vendas.codigo_venda = '{$codigoVenda}'
             AND vendas.deleted_at IS NULL
             ORDER BY vendas.created_at DESC");
 

@@ -33,8 +33,8 @@ $route->get('relatorio/vendasPorPeriodo', 'RelatorioController@vendasPorPeriodo'
 $route->post('relatorio/vendasChamadaAjax', 'RelatorioController@vendasChamadaAjax');
 $route->get('relatorio/gerarXls/{de}/{ate}/{opcao?}', 'RelatorioController@gerarXls');
 $route->get('relatorio/gerarPDF/{de}/{ate}/{opcao?}', 'RelatorioController@gerarPDF');
-
 $route->get('desativarVenda/{idVenda}', 'PdvPadraoController@desativarVenda');
+$route->get('relatorio/itensDaVenda/{codigo}', 'RelatorioController@itensDaVendaChamadaAjax');
 
 # ----- ProdutoController --------------------------------
 $route->get('produto', 'ProdutoController@index');

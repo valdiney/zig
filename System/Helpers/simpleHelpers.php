@@ -16,6 +16,25 @@ function createMessage($e)
 
 function dd($data)
 {
+    if (is_null($data) && !defined('IS_TERMINAL')) {
+        echo "<style>body {background:black;}</style>";
+        echo "<pre style='background:#f4f5f7;border:3px solid #00cc99;padding:10px'>";
+        print_r('bool(NULL)');
+        exit;
+
+    } elseif ($data === true && !defined('IS_TERMINAL')) {
+        echo "<style>body {background:black;}</style>";
+        echo "<pre style='background:#f4f5f7;border:3px solid #00cc99;padding:10px'>";
+        print_r('bool(TRUE)');
+        exit;
+
+    } elseif ($data === false && !defined('IS_TERMINAL')) {
+        echo "<style>body {background:black;}</style>";
+        echo "<pre style='background:#f4f5f7;border:3px solid #00cc99;padding:10px'>";
+        print_r('bool(FALSE)');
+        exit;
+    }
+
     if (!defined('IS_TERMINAL')) {
         echo "<style>body {background:black;}</style>";
         echo "<pre style='background:#f4f5f7;border:3px solid #00cc99;padding:10px'>";

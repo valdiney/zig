@@ -73,7 +73,7 @@ class VendasRepository
     public function valorDeVendasRealizadasPorDia(array $periodo, $idEmpresa)
     {
         $query = $this->venda->query("SELECT DATE_FORMAT(created_at, '%d/%m') AS data, SUM(valor) AS valor FROM vendas
-            WHERE MONTH(created_at) = MONTH(NOW()) AND id_empresa = {$idEmpresa}
+            WHERE DATE(created_at) BETWEEN NOW() - INTERVAL 30 DAY AND NOW() AND id_empresa = {$idEmpresa}
             AND vendas.deleted_at IS NULL
 			GROUP BY DAY(created_at) ORDER BY DATE_FORMAT(created_at, '%d/%m') DESC
 		");

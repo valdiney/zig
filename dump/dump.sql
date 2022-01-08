@@ -14,7 +14,7 @@
 
 
 -- Copiando estrutura do banco de dados para zig
-CREATE DATABASE IF NOT EXISTS `zig` /*!40100 DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci */ /*!80016 DEFAULT ENCRYPTION='N' */;
+CREATE DATABASE IF NOT EXISTS `zig` /*!40100 DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_general_ci */ /*!80016 DEFAULT ENCRYPTION='N' */;
 USE `zig`;
 
 -- Copiando estrutura para tabela zig.clientes

@@ -20,6 +20,6 @@ class BarcodePicqerAdapter extends BarcodeAdapter implements HasSvg
             throw new BarcodeSemCodigoException();
         }
         $generator = new BarcodeGeneratorSVG();
-        return $generator->getBarcode($this->code, BarcodeGeneratorSVG::TYPE_KIX);
+        return $generator->getBarcode($this->code, BarcodeGeneratorSVG::TYPE_CODE_128);
     }
 }

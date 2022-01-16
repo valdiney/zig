@@ -49,8 +49,17 @@ class HomeController extends Controller
             date('d'), date('m'), $this->idEmpresa
         );
 
+        $mesAnterior = decrementMonthtFromDate(1);
+        $ano = date('Y');
+        /** Se o mês anterior for igual a 12, significa que foi ano passado
+         * então passa o ano anterior para ser buscado na query os dados de Dezembro do ano passado
+         */
+        if ($mesAnterior == '12') {
+            $ano = date('Y', strtotime('-1 years'));
+        }
+
         $faturamentoDeVandasMesAnterior = $vendasRepository->faturamentoDeVendasNoMes(
-            decrementMonthtFromDate(1), date('Y'), $this->idEmpresa
+            decrementMonthtFromDate(1), $ano, $this->idEmpresa
         );
 
         $faturamentoDeVandasNoDiaAnterior = $vendasRepository->faturamentoDeVendasNoDia(

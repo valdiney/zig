@@ -24,7 +24,11 @@
 				      <?php echo $tipo->legenda; ?> R$ <?php echo real($tipo->totalVendas); ?>
 				 </span>
             <?php elseif ($tipo->idMeioPagamento == 4): ?>
-                <span class="badge" style="background:#98c0d5;padding:5px">
+                <span class="badge" style="background:#cfa18c;padding:5px">
+				      <?php echo $tipo->legenda; ?> R$ <?php echo real($tipo->totalVendas); ?>
+				 </span>
+            <?php elseif ($tipo->idMeioPagamento == 5): ?>
+                <span class="badge" style="background:#73b1a2;padding:5px">
 				      <?php echo $tipo->legenda; ?> R$ <?php echo real($tipo->totalVendas); ?>
 				 </span>
             <?php endif; ?>

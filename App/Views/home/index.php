@@ -382,7 +382,7 @@
     'grafico-tipo-pagamento',
     $percentualMeiosDePagamento->medias,
     $percentualMeiosDePagamento->legendas,
-    ["#83e6cd", "#9be6e6", "#dbb4dc", "#98c0d5"]
+    ["#a0d2ae", "#98c0d5", "#dbb4dc", "#d0b9ae", "#73b1a2"]
 ); ?>
 <script>
     /*$(".vendas_por_vendedores tbody td").each(function() {

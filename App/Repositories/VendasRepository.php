@@ -45,7 +45,7 @@ class VendasRepository
 			WHERE DATE(vendas.created_at) BETWEEN NOW() - INTERVAL 30 DAY AND NOW()
             AND vendas.id_empresa = {$idEmpresa}
             AND vendas.deleted_at IS NULL
-			GROUP BY vendas.id_meio_pagamento"
+			GROUP BY vendas.id_meio_pagamento ORDER BY mpg.id"
         );
 
         $legendas = [];

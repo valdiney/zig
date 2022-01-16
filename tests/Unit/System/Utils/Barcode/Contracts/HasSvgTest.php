@@ -42,6 +42,6 @@ class HasSvgTest extends TestCase
         $this->expectException(BarcodeSemCodigoException::class);
         $adapter = new BarcodeSimpleAdapter();
 
-        $svg = $adapter->toSvg();
+        $adapter->toSvg();
     }
 }

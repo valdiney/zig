@@ -8,16 +8,6 @@ use System\Utils\Barcode\BarcodeSimpleAdapter;
 
 class BarcodeAdapterTest extends TestCase
 {
-    public function testPodeRetornarUmBarcode(): void
-    {
-        $adapter = new BarcodeSimpleAdapter();
-
-        $adapter->prepare('123');
-        $result = (string) $adapter;
-
-        $this->assertEquals($result, '123');
-    }
-
     public function testGaranteQueOAdapterEhInstanciaDeBarcodeAdapter()
     {
         $adapter = new BarcodeSimpleAdapter();
@@ -25,5 +15,15 @@ class BarcodeAdapterTest extends TestCase
         $isInstanceOfBarcodeAdapter = is_a($adapter, BarcodeAdapter::class);
 
         $this->assertTrue($isInstanceOfBarcodeAdapter);
+    }
+
+    public function testPodeRetornarOCodeComoAMesmaString(): void
+    {
+        $adapter = new BarcodeSimpleAdapter();
+
+        $adapter->prepare('123');
+        $result = $adapter->getCode();
+
+        $this->assertEquals($result, '123');
     }
 }

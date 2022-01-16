@@ -115,6 +115,12 @@ $configPdv = $configPdv->configPdv(Session::get('idEmpresa'));
             max-height: 70vh;
             overflow-y: auto;
         }
+        .modal-dialog {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            margin: 0 auto;
+        }
     </style>
 </head>
 
@@ -280,6 +286,37 @@ $configPdv = $configPdv->configPdv(Session::get('idEmpresa'));
         $("#menu").click(function () {
             $(".collapse").toggle();
         })
+
+        /**
+         * Fecha o modal quando clica n parte preta
+         */
+        document.querySelectorAll('.modal').forEach(elmModal => {
+            elmModal.addEventListener('click', (event) => {
+                let target = event.target;
+                while (target.parentElement) {
+                    if (target.classList.contains('modal-content')) {
+                        return;
+                    }
+                    target = target.parentElement;
+                }
+                if (elmModal.querySelector('[data-dismiss="modal"]')) {
+                    elmModal.querySelector('[data-dismiss="modal"]').click();
+                }
+            });
+        });
+
+        document.addEventListener('keydown', (event) => {
+            // se não for a tecla esape, ignora
+            if (event.key !== 'Escape') {
+                return;
+            }
+            // verifica se existe algum modal aberto com o botão de fechar
+            const btnFecharModal = document.querySelector('.modal.show [data-dismiss="modal"]');
+            // se tiver, executa o clicar
+            if (btnFecharModal) {
+                btnFecharModal.click();
+            }
+        });
     });
 </script>
 

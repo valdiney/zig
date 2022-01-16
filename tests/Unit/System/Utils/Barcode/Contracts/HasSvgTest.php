@@ -16,4 +16,13 @@ class HasSvgTest extends TestCase
 
         $this->assertTrue($isInstance);
     }
+
+    public function testBarcodeSimplePossuiMetodoToSvg()
+    {
+        $adapter = new BarcodeSimpleAdapter();
+
+        $isInstance = method_exists($adapter, 'toSvg');
+
+        $this->assertTrue($isInstance);
+    }
 }

@@ -14,4 +14,9 @@ class BarcodeSimpleAdapter extends BarcodeAdapter implements HasSvg
     {
         $this->code = $code;
     }
+
+    public function toSvg(): string
+    {
+        return '';
+    }
 }

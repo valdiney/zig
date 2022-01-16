@@ -4,7 +4,7 @@ namespace Test\Unit\System\Utils\Barcode\Adapters;
 
 use PHPUnit\Framework\TestCase;
 use System\Utils\Barcode\Adapters\BarcodePicqerAdapter;
-use System\Utils\Barcode\BarcodeAdapter;
+use System\Utils\Barcode\Contracts\BarcodeAdapter;
 
 class BarcodePicqerAdapterTest extends TestCase
 {

@@ -3,7 +3,7 @@
 namespace Tests\Unit\System\Utils\Barcode;
 
 use PHPUnit\Framework\TestCase;
-use System\Utils\Barcode\BarcodeAdapter;
+use System\Utils\Barcode\Contracts\BarcodeAdapter;
 use System\Utils\Barcode\BarcodeSimpleAdapter;
 
 class BarcodeAdapterTest extends TestCase

@@ -2,7 +2,7 @@
 
 namespace System\Utils\Barcode\Adapters;
 
-use System\Utils\Barcode\BarcodeAdapter;
+use System\Utils\Barcode\Contracts\BarcodeAdapter;
 use Picqer\Barcode\BarcodeGeneratorSVG;
 
 class BarcodePicqerAdapter extends BarcodeAdapter

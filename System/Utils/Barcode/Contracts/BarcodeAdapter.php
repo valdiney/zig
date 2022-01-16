@@ -1,6 +1,6 @@
 <?php
 
-namespace System\Utils\Barcode;
+namespace System\Utils\Barcode\Contracts;
 
 abstract class BarcodeAdapter
 {

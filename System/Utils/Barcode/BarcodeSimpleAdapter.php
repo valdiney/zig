@@ -2,6 +2,8 @@
 
 namespace System\Utils\Barcode;
 
+use System\Utils\Barcode\Contracts\BarcodeAdapter;
+
 class BarcodeSimpleAdapter extends BarcodeAdapter
 {
     /** string */

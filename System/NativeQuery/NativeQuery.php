@@ -27,7 +27,6 @@ class NativeQuery
         $sql->execute($data);
 
         if ($return) {
-            $sql->execute();
             return $sql->fetchAll(\PDO::FETCH_OBJ);
         }
     }

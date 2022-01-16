@@ -5,6 +5,7 @@ namespace Test\Unit\System\Infra\Barcode\Contracts;
 use PHPUnit\Framework\TestCase;
 use System\Utils\Barcode\Adapters\BarcodeSimpleAdapter;
 use System\Utils\Barcode\Contracts\HasSvg;
+use System\Utils\Barcode\Exceptions\BarcodeSemCodigoException;
 
 class HasSvgTest extends TestCase
 {
@@ -36,4 +37,11 @@ class HasSvgTest extends TestCase
         $this->assertContains('<svg', $svg);
     }
 
+    public function testBarcodeSimpleThrowsSeNenhumCodeForPassado()
+    {
+        $this->expectException(BarcodeSemCodigoException::class);
+        $adapter = new BarcodeSimpleAdapter();
+
+        $svg = $adapter->toSvg();
+    }
 }

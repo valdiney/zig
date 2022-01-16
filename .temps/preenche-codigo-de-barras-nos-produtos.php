@@ -6,7 +6,7 @@ use System\NativeQuery\NativeQuery;
 function handleAdicionaCodigoNosProdutos(NativeQuery $native, array $produtosId): void
 {
     foreach ($produtosId as $produtoId) {
-        $codigo = random_int(111111111, 999999999) . $produtoId;
+        $codigo = generateRandomCodigoDeBarras(null, $produtoId);
         $payload = [
             'id' => $produtoId,
             'codigo' => $codigo,

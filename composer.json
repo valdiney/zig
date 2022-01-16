@@ -18,7 +18,8 @@
         "files": [
            "System/Helpers/simpleHelpers.php",
            "System/Helpers/dateHelper.php",
-           "System/Helpers/generateRandomCodigoDeBarras.php"
+           "System/Helpers/generateRandomCodigoDeBarras.php",
+           "System/Helpers/codigoDeBarrasParaSvg.php"
         ]
     },
     "minimum-stability": "stable",

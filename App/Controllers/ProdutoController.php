@@ -94,7 +94,12 @@ class ProdutoController extends Controller
 
                 # Para gerar o código do produto, pega-se o proprio id e concatena com o ano atual
                 $produto = new Produto();
-                $produto = $produto->update(['codigo' => $idProduto.date('Y')], $idProduto);
+                $produto->update(['codigo' => $idProduto.date('Y')], $idProduto);
+
+                # adiciona codigo de barras se nao existir
+                if (!$produto->codigo_de_barras) {
+                    $produto = $produto->update(['codigo_de_barras' => generateRandomCodigoDeBarras(null, $idProduto)], $idProduto);
+                }
 
                 return $this->get->redirectTo("produto");
 

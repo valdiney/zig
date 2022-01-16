@@ -6,6 +6,7 @@
             <th>Nome</th>
             <th>Ativo</th>
             <th>R$ Preço</th>
+            <th>Código de barras</th>
             <th style="text-align:right;padding-right:0">
                 <?php $rota = BASEURL . '/produto/modalFormulario'; ?>
                 <button onclick="modalFormularioProdutos('<?php echo $rota; ?>', false);"
@@ -39,6 +40,8 @@
                 <?php endif;?>
 
                 <td><?php echo real($produto->preco); ?></td>
+
+                <td><?php echo codigoDeBarrasParaSvg($produto->codigo_de_barras); ?></td>
 
                 <td style="text-align:right">
                     <div class="btn-group" role="group">

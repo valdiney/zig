@@ -1,4 +1,15 @@
 <link rel="stylesheet" type="text/css" href="<?php echo BASEURL; ?>/public/css/jquery-te-1.4.0.css">
+<style>
+    #codigo_de_barras::-webkit-outer-spin-button,
+    #codigo_de_barras::-webkit-inner-spin-button {
+        /* display: none; <- Crashes Chrome on hover */
+        -webkit-appearance: none;
+        margin: 0; /* <-- Apparently some margin are still there even though it's hidden */
+    }
+    #codigo_de_barras[type=number] {
+        -moz-appearance:textfield; /* Firefox */
+    }
+</style>
 
 <?php if (isset($produto->id)): ?>
     <div class="row">
@@ -49,6 +60,20 @@
                 <?php else: ?>
                     <i class="fas fa-box-open" style="font-size:40px"></i>
                 <?php endif; ?>
+            </div>
+        </div>
+
+        <div class="col-md-12 mb-2">
+            <div class="form-group">
+                <label for="nome">Código de barras</label>
+                <input type="number" class="form-control nome" name="codigo_de_barras" id="codigo_de_barras"
+                       placeholder="Número do código de barras"
+                       value="<?php echo isset($produto->codigo_de_barras) ? $produto->codigo_de_barras : '' ?>">
+                <?php if (isset($produto->codigo_de_barras) === false) { ?>
+                    <p class="text-muted">
+                        <small>Deixe vazio para ser preenchido automáticamente!</small>
+                    </p>
+                <?php } ?>
             </div>
         </div>
 

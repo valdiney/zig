@@ -190,4 +190,16 @@ class ProdutoController extends Controller
 
         $this->view('produto/produtos', null, compact('produtos','nome'));
     }
+
+    public function pesquisarProdutoPorCodigoDeBarras(string $codigo = null)
+    {
+        $codigo = $codigo? utf8_encode(out64($codigo)): null;
+
+        $produto = new Produto();
+        $produtos = $produto->getBy($this->idEmpresa, 'codigo_de_barras', $codigo);
+
+        $nome = null;
+
+        $this->view('produto/produtos', null, compact('produtos','nome','codigo'));
+    }
 }

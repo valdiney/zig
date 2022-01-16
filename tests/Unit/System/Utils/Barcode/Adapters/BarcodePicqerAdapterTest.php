@@ -22,9 +22,8 @@ class BarcodePicqerAdapterTest extends TestCase
         $adapter = new BarcodePicqerAdapter();
         $adapter->prepare('Tonie');
 
-        $svg = (string) $adapter;
-        $isSvg = strpos($svg, '<svg ') >= 0;
+        $svg = $adapter->toSvg();
 
-        $this->assertTrue($isSvg);
+        $this->assertContains('<svg', $svg);
     }
 }

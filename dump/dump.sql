@@ -1,7 +1,7 @@
 -- --------------------------------------------------------
--- Servidor:                     162.241.203.232
--- Versão do servidor:           5.7.23-23 - Percona Server (GPL), Release 23, Revision 500fcf5
--- OS do Servidor:               Linux
+-- Servidor:                     localhost
+-- Versão do servidor:           8.0.21 - MySQL Community Server - GPL
+-- OS do Servidor:               Win64
 -- HeidiSQL Versão:              11.2.0.6213
 -- --------------------------------------------------------
 
@@ -14,15 +14,15 @@
 
 
 -- Copiando estrutura do banco de dados para zig
-CREATE DATABASE IF NOT EXISTS `zig` /*!40100 DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_general_ci */ /*!80016 DEFAULT ENCRYPTION='N' */;
+CREATE DATABASE IF NOT EXISTS `zig` /*!40100 DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci */ /*!80016 DEFAULT ENCRYPTION='N' */;
 USE `zig`;
 
--- Copiando estrutura para tabela realbi53_tonie.clientes
+-- Copiando estrutura para tabela zig.clientes
 CREATE TABLE IF NOT EXISTS `clientes` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `id_empresa` int(11) NOT NULL,
-  `id_cliente_tipo` int(11) NOT NULL,
-  `id_cliente_segmento` int(11) DEFAULT NULL,
+  `id` int NOT NULL AUTO_INCREMENT,
+  `id_empresa` int NOT NULL,
+  `id_cliente_tipo` int NOT NULL,
+  `id_cliente_segmento` int DEFAULT NULL,
   `nome` varchar(50) NOT NULL,
   `email` varchar(50) NOT NULL,
   `cnpj` varchar(50) DEFAULT NULL,
@@ -41,21 +41,21 @@ CREATE TABLE IF NOT EXISTS `clientes` (
   CONSTRAINT `FK_clientes_tipos_clientes` FOREIGN KEY (`id_cliente_tipo`) REFERENCES `clientes_tipos` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
--- Copiando dados para a tabela realbi53_tonie.clientes: ~0 rows (aproximadamente)
+-- Copiando dados para a tabela zig.clientes: ~0 rows (aproximadamente)
 /*!40000 ALTER TABLE `clientes` DISABLE KEYS */;
 /*!40000 ALTER TABLE `clientes` ENABLE KEYS */;
 
--- Copiando estrutura para tabela realbi53_tonie.clientes_enderecos
+-- Copiando estrutura para tabela zig.clientes_enderecos
 CREATE TABLE IF NOT EXISTS `clientes_enderecos` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `id_empresa` int(11) NOT NULL DEFAULT '0',
-  `id_cliente` int(11) NOT NULL DEFAULT '0',
+  `id` int NOT NULL AUTO_INCREMENT,
+  `id_empresa` int NOT NULL DEFAULT '0',
+  `id_cliente` int NOT NULL DEFAULT '0',
   `cep` varchar(50) DEFAULT NULL,
   `endereco` varchar(50) NOT NULL,
   `bairro` varchar(50) NOT NULL,
   `cidade` varchar(50) DEFAULT NULL,
   `estado` varchar(50) DEFAULT NULL,
-  `numero` int(11) DEFAULT NULL,
+  `numero` int DEFAULT NULL,
   `complemento` text,
   `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
@@ -66,20 +66,20 @@ CREATE TABLE IF NOT EXISTS `clientes_enderecos` (
   CONSTRAINT `FK_clientes_enderecos_empresas` FOREIGN KEY (`id_empresa`) REFERENCES `empresas` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
--- Copiando dados para a tabela realbi53_tonie.clientes_enderecos: ~0 rows (aproximadamente)
+-- Copiando dados para a tabela zig.clientes_enderecos: ~0 rows (aproximadamente)
 /*!40000 ALTER TABLE `clientes_enderecos` DISABLE KEYS */;
 /*!40000 ALTER TABLE `clientes_enderecos` ENABLE KEYS */;
 
--- Copiando estrutura para tabela realbi53_tonie.clientes_segmentos
+-- Copiando estrutura para tabela zig.clientes_segmentos
 CREATE TABLE IF NOT EXISTS `clientes_segmentos` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `id` int NOT NULL AUTO_INCREMENT,
   `descricao` varchar(50) NOT NULL,
   `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=128 DEFAULT CHARSET=latin1;
 
--- Copiando dados para a tabela realbi53_tonie.clientes_segmentos: ~127 rows (aproximadamente)
+-- Copiando dados para a tabela zig.clientes_segmentos: ~127 rows (aproximadamente)
 /*!40000 ALTER TABLE `clientes_segmentos` DISABLE KEYS */;
 INSERT INTO `clientes_segmentos` (`id`, `descricao`, `created_at`, `updated_at`) VALUES
 	(1, 'Restaurante', '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
@@ -211,27 +211,27 @@ INSERT INTO `clientes_segmentos` (`id`, `descricao`, `created_at`, `updated_at`)
 	(127, 'Turismo', '2021-01-11 16:10:15', '0000-00-00 00:00:00');
 /*!40000 ALTER TABLE `clientes_segmentos` ENABLE KEYS */;
 
--- Copiando estrutura para tabela realbi53_tonie.clientes_tipos
+-- Copiando estrutura para tabela zig.clientes_tipos
 CREATE TABLE IF NOT EXISTS `clientes_tipos` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `id` int NOT NULL AUTO_INCREMENT,
   `descricao` varchar(50) NOT NULL,
   `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
 
--- Copiando dados para a tabela realbi53_tonie.clientes_tipos: ~2 rows (aproximadamente)
+-- Copiando dados para a tabela zig.clientes_tipos: ~2 rows (aproximadamente)
 /*!40000 ALTER TABLE `clientes_tipos` DISABLE KEYS */;
 INSERT INTO `clientes_tipos` (`id`, `descricao`, `created_at`, `updated_at`) VALUES
 	(1, 'Pessoa Fisica', '2020-05-28 10:24:51', '2020-05-28 10:24:52'),
 	(2, 'Pessoa Juridica', '2020-05-28 10:25:05', '2020-05-28 10:25:06');
 /*!40000 ALTER TABLE `clientes_tipos` ENABLE KEYS */;
 
--- Copiando estrutura para tabela realbi53_tonie.config_pdv
+-- Copiando estrutura para tabela zig.config_pdv
 CREATE TABLE IF NOT EXISTS `config_pdv` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `id_empresa` int(11) NOT NULL,
-  `id_tipo_pdv` int(11) NOT NULL DEFAULT '1',
+  `id` int NOT NULL AUTO_INCREMENT,
+  `id_empresa` int NOT NULL,
+  `id_tipo_pdv` int NOT NULL DEFAULT '1',
   `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
   PRIMARY KEY (`id`),
@@ -241,36 +241,36 @@ CREATE TABLE IF NOT EXISTS `config_pdv` (
   CONSTRAINT `FK_config_pdv_tipo_pdv` FOREIGN KEY (`id_tipo_pdv`) REFERENCES `tipos_pdv` (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
 
--- Copiando dados para a tabela realbi53_tonie.config_pdv: ~1 rows (aproximadamente)
+-- Copiando dados para a tabela zig.config_pdv: ~0 rows (aproximadamente)
 /*!40000 ALTER TABLE `config_pdv` DISABLE KEYS */;
 INSERT INTO `config_pdv` (`id`, `id_empresa`, `id_tipo_pdv`, `created_at`, `updated_at`) VALUES
-	(3, 1, 2, '2021-12-12 11:30:31', '2021-12-12 11:30:31');
+	(3, 1, 1, '2022-01-13 20:22:26', '2022-01-13 20:22:26');
 /*!40000 ALTER TABLE `config_pdv` ENABLE KEYS */;
 
--- Copiando estrutura para tabela realbi53_tonie.empresas
+-- Copiando estrutura para tabela zig.empresas
 CREATE TABLE IF NOT EXISTS `empresas` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `id` int NOT NULL AUTO_INCREMENT,
   `nome` varchar(50) NOT NULL,
   `email` varchar(50) NOT NULL,
   `telefone` varchar(50) DEFAULT NULL,
   `celular` varchar(50) DEFAULT NULL,
-  `id_segmento` int(11) NOT NULL,
+  `id_segmento` int NOT NULL,
   `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
 
--- Copiando dados para a tabela realbi53_tonie.empresas: ~1 rows (aproximadamente)
+-- Copiando dados para a tabela zig.empresas: ~0 rows (aproximadamente)
 /*!40000 ALTER TABLE `empresas` DISABLE KEYS */;
 INSERT INTO `empresas` (`id`, `nome`, `email`, `telefone`, `celular`, `id_segmento`, `created_at`, `updated_at`) VALUES
 	(1, 'Carrinho Colonial', 'carrinhocolonial@gmail.com', '(47) 9988-8581', '(47) 99988-8581', 34, '2021-12-01 21:12:46', '2021-12-01 21:12:46');
 /*!40000 ALTER TABLE `empresas` ENABLE KEYS */;
 
--- Copiando estrutura para tabela realbi53_tonie.log_acessos
+-- Copiando estrutura para tabela zig.log_acessos
 CREATE TABLE IF NOT EXISTS `log_acessos` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `id_usuario` int(11) NOT NULL DEFAULT '0',
-  `id_empresa` int(11) NOT NULL DEFAULT '0',
+  `id` int NOT NULL AUTO_INCREMENT,
+  `id_usuario` int NOT NULL DEFAULT '0',
+  `id_empresa` int NOT NULL DEFAULT '0',
   `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00' ON UPDATE CURRENT_TIMESTAMP,
   `deleted_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
@@ -279,9 +279,9 @@ CREATE TABLE IF NOT EXISTS `log_acessos` (
   KEY `FK_log_clientes` (`id_empresa`),
   CONSTRAINT `FK_log_clientes` FOREIGN KEY (`id_empresa`) REFERENCES `empresas` (`id`),
   CONSTRAINT `FK_log_usuarios` FOREIGN KEY (`id_usuario`) REFERENCES `usuarios` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=987 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=988 DEFAULT CHARSET=latin1;
 
--- Copiando dados para a tabela realbi53_tonie.log_acessos: ~20 rows (aproximadamente)
+-- Copiando dados para a tabela zig.log_acessos: ~240 rows (aproximadamente)
 /*!40000 ALTER TABLE `log_acessos` DISABLE KEYS */;
 INSERT INTO `log_acessos` (`id`, `id_usuario`, `id_empresa`, `created_at`, `updated_at`, `deleted_at`) VALUES
 	(747, 1, 1, '2021-11-30 23:15:02', '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
@@ -523,19 +523,20 @@ INSERT INTO `log_acessos` (`id`, `id_usuario`, `id_empresa`, `created_at`, `upda
 	(983, 75, 1, '2022-01-12 17:49:25', '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
 	(984, 76, 1, '2022-01-12 17:57:22', '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
 	(985, 75, 1, '2022-01-12 18:41:42', '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
-	(986, 1, 1, '2022-01-13 14:04:30', '0000-00-00 00:00:00', '0000-00-00 00:00:00');
+	(986, 1, 1, '2022-01-13 14:04:30', '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+	(987, 1, 1, '2022-01-16 11:34:54', '0000-00-00 00:00:00', '0000-00-00 00:00:00');
 /*!40000 ALTER TABLE `log_acessos` ENABLE KEYS */;
 
--- Copiando estrutura para tabela realbi53_tonie.meios_pagamentos
+-- Copiando estrutura para tabela zig.meios_pagamentos
 CREATE TABLE IF NOT EXISTS `meios_pagamentos` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `id` int NOT NULL AUTO_INCREMENT,
   `legenda` varchar(50) NOT NULL,
   `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=latin1;
 
--- Copiando dados para a tabela realbi53_tonie.meios_pagamentos: ~3 rows (aproximadamente)
+-- Copiando dados para a tabela zig.meios_pagamentos: ~5 rows (aproximadamente)
 /*!40000 ALTER TABLE `meios_pagamentos` DISABLE KEYS */;
 INSERT INTO `meios_pagamentos` (`id`, `legenda`, `created_at`, `updated_at`) VALUES
 	(1, 'Dinheiro', '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
@@ -545,9 +546,9 @@ INSERT INTO `meios_pagamentos` (`id`, `legenda`, `created_at`, `updated_at`) VAL
 	(5, 'Pix', '2021-12-27 15:06:48', '0000-00-00 00:00:00');
 /*!40000 ALTER TABLE `meios_pagamentos` ENABLE KEYS */;
 
--- Copiando estrutura para tabela realbi53_tonie.migrations
+-- Copiando estrutura para tabela zig.migrations
 CREATE TABLE IF NOT EXISTS `migrations` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `id` int NOT NULL AUTO_INCREMENT,
   `code` varchar(10) NOT NULL,
   `description` varchar(150) NOT NULL,
   `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
@@ -555,7 +556,7 @@ CREATE TABLE IF NOT EXISTS `migrations` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=33 DEFAULT CHARSET=utf8;
 
--- Copiando dados para a tabela realbi53_tonie.migrations: ~25 rows (aproximadamente)
+-- Copiando dados para a tabela zig.migrations: ~31 rows (aproximadamente)
 /*!40000 ALTER TABLE `migrations` DISABLE KEYS */;
 INSERT INTO `migrations` (`id`, `code`, `description`, `created_at`, `updated_at`) VALUES
 	(1, '1593604775', 'cria tabela migrations', '2020-07-01 09:33:40', NULL),
@@ -591,9 +592,9 @@ INSERT INTO `migrations` (`id`, `code`, `description`, `created_at`, `updated_at
 	(32, '1610674406', 'created at em vendas', '2021-01-14 22:35:26', NULL);
 /*!40000 ALTER TABLE `migrations` ENABLE KEYS */;
 
--- Copiando estrutura para tabela realbi53_tonie.modulos
+-- Copiando estrutura para tabela zig.modulos
 CREATE TABLE IF NOT EXISTS `modulos` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `id` int NOT NULL AUTO_INCREMENT,
   `descricao` varchar(50) NOT NULL,
   `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
@@ -601,7 +602,7 @@ CREATE TABLE IF NOT EXISTS `modulos` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=latin1;
 
--- Copiando dados para a tabela realbi53_tonie.modulos: ~10 rows (aproximadamente)
+-- Copiando dados para a tabela zig.modulos: ~10 rows (aproximadamente)
 /*!40000 ALTER TABLE `modulos` DISABLE KEYS */;
 INSERT INTO `modulos` (`id`, `descricao`, `created_at`, `updated_at`, `deleted_at`) VALUES
 	(2, 'Inicio', '2020-06-24 06:55:45', '2020-06-24 06:55:46', NULL),
@@ -616,15 +617,15 @@ INSERT INTO `modulos` (`id`, `descricao`, `created_at`, `updated_at`, `deleted_a
 	(11, 'Configurações', '0000-00-00 00:00:00', '0000-00-00 00:00:00', NULL);
 /*!40000 ALTER TABLE `modulos` ENABLE KEYS */;
 
--- Copiando estrutura para tabela realbi53_tonie.pedidos
+-- Copiando estrutura para tabela zig.pedidos
 CREATE TABLE IF NOT EXISTS `pedidos` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `id_empresa` int(11) NOT NULL DEFAULT '0',
-  `id_vendedor` int(11) NOT NULL DEFAULT '0',
-  `id_cliente` int(11) NOT NULL DEFAULT '0',
-  `id_meio_pagamento` int(11) DEFAULT NULL,
-  `id_situacao_pedido` int(11) NOT NULL,
-  `id_cliente_endereco` int(11) NOT NULL,
+  `id` int NOT NULL AUTO_INCREMENT,
+  `id_empresa` int NOT NULL DEFAULT '0',
+  `id_vendedor` int NOT NULL DEFAULT '0',
+  `id_cliente` int NOT NULL DEFAULT '0',
+  `id_meio_pagamento` int DEFAULT NULL,
+  `id_situacao_pedido` int NOT NULL,
+  `id_cliente_endereco` int NOT NULL,
   `valor_desconto` double NOT NULL DEFAULT '0',
   `valor_frete` double NOT NULL DEFAULT '0',
   `previsao_entrega` date NOT NULL DEFAULT '0000-00-00',
@@ -640,7 +641,7 @@ CREATE TABLE IF NOT EXISTS `pedidos` (
   KEY `FK_situacao_pedidos` (`id_situacao_pedido`)
 ) ENGINE=MyISAM AUTO_INCREMENT=189 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
--- Copiando dados para a tabela realbi53_tonie.pedidos: 7 rows
+-- Copiando dados para a tabela zig.pedidos: 7 rows
 /*!40000 ALTER TABLE `pedidos` DISABLE KEYS */;
 INSERT INTO `pedidos` (`id`, `id_empresa`, `id_vendedor`, `id_cliente`, `id_meio_pagamento`, `id_situacao_pedido`, `id_cliente_endereco`, `valor_desconto`, `valor_frete`, `previsao_entrega`, `total`, `created_at`, `updated_at`) VALUES
 	(182, 0, 58, 24, NULL, 7, 26, 0, 0, '0000-00-00', 0, '2020-11-27 19:23:39', '2020-11-27 19:23:39'),
@@ -652,16 +653,16 @@ INSERT INTO `pedidos` (`id`, `id_empresa`, `id_vendedor`, `id_cliente`, `id_meio
 	(188, 0, 73, 27, 1, 1, 30, 0, 0, '0000-00-00', 0, '2021-03-01 20:50:22', '2021-03-01 20:51:04');
 /*!40000 ALTER TABLE `pedidos` ENABLE KEYS */;
 
--- Copiando estrutura para tabela realbi53_tonie.perfis
+-- Copiando estrutura para tabela zig.perfis
 CREATE TABLE IF NOT EXISTS `perfis` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `id` int NOT NULL AUTO_INCREMENT,
   `descricao` varchar(50) NOT NULL DEFAULT '0',
   `created_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00' ON UPDATE CURRENT_TIMESTAMP,
   `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=latin1;
 
--- Copiando dados para a tabela realbi53_tonie.perfis: ~5 rows (aproximadamente)
+-- Copiando dados para a tabela zig.perfis: ~4 rows (aproximadamente)
 /*!40000 ALTER TABLE `perfis` DISABLE KEYS */;
 INSERT INTO `perfis` (`id`, `descricao`, `created_at`, `updated_at`) VALUES
 	(1, 'Super Admin', '2020-06-21 13:00:15', '0000-00-00 00:00:00'),
@@ -670,12 +671,12 @@ INSERT INTO `perfis` (`id`, `descricao`, `created_at`, `updated_at`) VALUES
 	(5, 'Gerente', '0000-00-00 00:00:00', '0000-00-00 00:00:00');
 /*!40000 ALTER TABLE `perfis` ENABLE KEYS */;
 
--- Copiando estrutura para tabela realbi53_tonie.produtos
+-- Copiando estrutura para tabela zig.produtos
 CREATE TABLE IF NOT EXISTS `produtos` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `id_empresa` int(11) NOT NULL,
+  `id` int NOT NULL AUTO_INCREMENT,
+  `id_empresa` int NOT NULL,
   `nome` varchar(50) NOT NULL,
-  `codigo` int(11) NOT NULL DEFAULT '0',
+  `codigo` int NOT NULL DEFAULT '0',
   `preco` double NOT NULL DEFAULT '0',
   `descricao` text,
   `imagem` text,
@@ -687,7 +688,7 @@ CREATE TABLE IF NOT EXISTS `produtos` (
   CONSTRAINT `FK_produtos_clientes` FOREIGN KEY (`id_empresa`) REFERENCES `empresas` (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=207 DEFAULT CHARSET=latin1;
 
--- Copiando dados para a tabela realbi53_tonie.produtos: ~45 rows (aproximadamente)
+-- Copiando dados para a tabela zig.produtos: ~54 rows (aproximadamente)
 /*!40000 ALTER TABLE `produtos` DISABLE KEYS */;
 INSERT INTO `produtos` (`id`, `id_empresa`, `nome`, `codigo`, `preco`, `descricao`, `imagem`, `created_at`, `updated_at`, `deleted_at`) VALUES
 	(153, 1, '1/2 queijo colonial (19)', 0, 19, '', NULL, '2021-12-01 21:16:58', '0000-00-00 00:00:00', NULL),
@@ -746,13 +747,13 @@ INSERT INTO `produtos` (`id`, `id_empresa`, `nome`, `codigo`, `preco`, `descrica
 	(206, 1, 'Krakóvia (22)', 2062022, 22, '', NULL, '2022-01-11 13:08:17', '2022-01-11 13:08:17', NULL);
 /*!40000 ALTER TABLE `produtos` ENABLE KEYS */;
 
--- Copiando estrutura para tabela realbi53_tonie.produtos_pedidos
+-- Copiando estrutura para tabela zig.produtos_pedidos
 CREATE TABLE IF NOT EXISTS `produtos_pedidos` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `id_pedido` int(11) NOT NULL,
-  `id_produto` int(11) NOT NULL,
+  `id` int NOT NULL AUTO_INCREMENT,
+  `id_pedido` int NOT NULL,
+  `id_produto` int NOT NULL,
   `preco` double NOT NULL DEFAULT '0',
-  `quantidade` int(11) NOT NULL,
+  `quantidade` int NOT NULL,
   `subtotal` double NOT NULL DEFAULT '0',
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
@@ -761,7 +762,7 @@ CREATE TABLE IF NOT EXISTS `produtos_pedidos` (
   KEY `id_produto` (`id_produto`)
 ) ENGINE=MyISAM AUTO_INCREMENT=336 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
--- Copiando dados para a tabela realbi53_tonie.produtos_pedidos: 6 rows
+-- Copiando dados para a tabela zig.produtos_pedidos: 6 rows
 /*!40000 ALTER TABLE `produtos_pedidos` DISABLE KEYS */;
 INSERT INTO `produtos_pedidos` (`id`, `id_pedido`, `id_produto`, `preco`, `quantidade`, `subtotal`, `created_at`, `updated_at`) VALUES
 	(330, 184, 47, 22.8, 2, 34.2, '2020-12-09 14:28:43', '2020-12-09 14:29:15'),
@@ -772,48 +773,48 @@ INSERT INTO `produtos_pedidos` (`id`, `id_pedido`, `id_produto`, `preco`, `quant
 	(335, 188, 52, 98, 1, 98, '2021-03-01 20:50:35', '2021-03-01 20:50:35');
 /*!40000 ALTER TABLE `produtos_pedidos` ENABLE KEYS */;
 
--- Copiando estrutura para tabela realbi53_tonie.recuperacao_de_senha
+-- Copiando estrutura para tabela zig.recuperacao_de_senha
 CREATE TABLE IF NOT EXISTS `recuperacao_de_senha` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `user_id` int(11) NOT NULL,
+  `id` int NOT NULL AUTO_INCREMENT,
+  `user_id` int NOT NULL,
   `hash` varchar(100) NOT NULL,
   `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=utf8;
 
--- Copiando dados para a tabela realbi53_tonie.recuperacao_de_senha: ~1 rows (aproximadamente)
+-- Copiando dados para a tabela zig.recuperacao_de_senha: ~0 rows (aproximadamente)
 /*!40000 ALTER TABLE `recuperacao_de_senha` DISABLE KEYS */;
 INSERT INTO `recuperacao_de_senha` (`id`, `user_id`, `hash`, `created_at`, `updated_at`) VALUES
 	(16, 1, 'YjM2NGRhY2UzNmVjOTk4YWIwZGU4MmViZDYwOTY4M2QwMDU5MDA4MA==', '2021-12-24 12:04:10', NULL);
 /*!40000 ALTER TABLE `recuperacao_de_senha` ENABLE KEYS */;
 
--- Copiando estrutura para tabela realbi53_tonie.sexos
+-- Copiando estrutura para tabela zig.sexos
 CREATE TABLE IF NOT EXISTS `sexos` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `id` int NOT NULL AUTO_INCREMENT,
   `descricao` varchar(50) NOT NULL,
   `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
 
--- Copiando dados para a tabela realbi53_tonie.sexos: ~2 rows (aproximadamente)
+-- Copiando dados para a tabela zig.sexos: ~2 rows (aproximadamente)
 /*!40000 ALTER TABLE `sexos` DISABLE KEYS */;
 INSERT INTO `sexos` (`id`, `descricao`, `created_at`, `updated_at`) VALUES
 	(1, 'Masculino', '2020-02-21 14:08:58', '0000-00-00 00:00:00'),
 	(2, 'Feminino', '2020-02-21 14:09:09', '0000-00-00 00:00:00');
 /*!40000 ALTER TABLE `sexos` ENABLE KEYS */;
 
--- Copiando estrutura para tabela realbi53_tonie.situacoes_pedidos
+-- Copiando estrutura para tabela zig.situacoes_pedidos
 CREATE TABLE IF NOT EXISTS `situacoes_pedidos` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `legenda` varchar(50) COLLATE utf8_unicode_ci NOT NULL DEFAULT '',
+  `id` int NOT NULL AUTO_INCREMENT,
+  `legenda` varchar(50) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL DEFAULT '',
   `created_at` timestamp NULL DEFAULT '0000-00-00 00:00:00' ON UPDATE CURRENT_TIMESTAMP,
   `updated_at` timestamp NULL DEFAULT '0000-00-00 00:00:00',
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM AUTO_INCREMENT=8 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
--- Copiando dados para a tabela realbi53_tonie.situacoes_pedidos: 5 rows
+-- Copiando dados para a tabela zig.situacoes_pedidos: 5 rows
 /*!40000 ALTER TABLE `situacoes_pedidos` DISABLE KEYS */;
 INSERT INTO `situacoes_pedidos` (`id`, `legenda`, `created_at`, `updated_at`) VALUES
 	(1, 'Realizado', '2020-08-06 11:01:25', '0000-00-00 00:00:00'),
@@ -823,16 +824,16 @@ INSERT INTO `situacoes_pedidos` (`id`, `legenda`, `created_at`, `updated_at`) VA
 	(7, 'Incompleto', '0000-00-00 00:00:00', '0000-00-00 00:00:00');
 /*!40000 ALTER TABLE `situacoes_pedidos` ENABLE KEYS */;
 
--- Copiando estrutura para tabela realbi53_tonie.teste
+-- Copiando estrutura para tabela zig.teste
 CREATE TABLE IF NOT EXISTS `teste` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `nome` varchar(50) COLLATE utf8_unicode_ci NOT NULL DEFAULT '0',
+  `id` int NOT NULL AUTO_INCREMENT,
+  `nome` varchar(50) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL DEFAULT '0',
   `peso` double NOT NULL DEFAULT '0',
   `altura` double NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
--- Copiando dados para a tabela realbi53_tonie.teste: ~3 rows (aproximadamente)
+-- Copiando dados para a tabela zig.teste: ~3 rows (aproximadamente)
 /*!40000 ALTER TABLE `teste` DISABLE KEYS */;
 INSERT INTO `teste` (`id`, `nome`, `peso`, `altura`) VALUES
 	(1, 'Joao', 104, 1.75),
@@ -840,35 +841,35 @@ INSERT INTO `teste` (`id`, `nome`, `peso`, `altura`) VALUES
 	(5, 'Renata', 100, 1.65);
 /*!40000 ALTER TABLE `teste` ENABLE KEYS */;
 
--- Copiando estrutura para tabela realbi53_tonie.tipos_pdv
+-- Copiando estrutura para tabela zig.tipos_pdv
 CREATE TABLE IF NOT EXISTS `tipos_pdv` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `id` int NOT NULL AUTO_INCREMENT,
   `descricao` varchar(50) NOT NULL,
   `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
 
--- Copiando dados para a tabela realbi53_tonie.tipos_pdv: ~2 rows (aproximadamente)
+-- Copiando dados para a tabela zig.tipos_pdv: ~2 rows (aproximadamente)
 /*!40000 ALTER TABLE `tipos_pdv` DISABLE KEYS */;
 INSERT INTO `tipos_pdv` (`id`, `descricao`, `created_at`, `updated_at`) VALUES
 	(1, 'Padrão', '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
 	(2, 'Diferencial', '2020-05-23 17:02:09', '2020-05-23 17:02:09');
 /*!40000 ALTER TABLE `tipos_pdv` ENABLE KEYS */;
 
--- Copiando estrutura para tabela realbi53_tonie.usuarios
+-- Copiando estrutura para tabela zig.usuarios
 CREATE TABLE IF NOT EXISTS `usuarios` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `id_empresa` int(11) NOT NULL DEFAULT '0',
+  `id` int NOT NULL AUTO_INCREMENT,
+  `id_empresa` int NOT NULL DEFAULT '0',
   `nome` varchar(50) NOT NULL,
   `email` varchar(50) NOT NULL,
   `password` varchar(50) NOT NULL,
   `remember_token` varchar(60) DEFAULT NULL,
   `remember_expire_date` timestamp NULL DEFAULT NULL,
-  `id_sexo` int(11) DEFAULT NULL,
-  `id_perfil` int(11) DEFAULT NULL,
+  `id_sexo` int DEFAULT NULL,
+  `id_perfil` int DEFAULT NULL,
   `imagem` text,
-  `status` int(11) DEFAULT '1',
+  `status` int DEFAULT '1',
   `created_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00' ON UPDATE CURRENT_TIMESTAMP,
   `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
   PRIMARY KEY (`id`),
@@ -880,24 +881,24 @@ CREATE TABLE IF NOT EXISTS `usuarios` (
   CONSTRAINT `FK_usuarios_sexo` FOREIGN KEY (`id_sexo`) REFERENCES `sexos` (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=77 DEFAULT CHARSET=latin1;
 
--- Copiando dados para a tabela realbi53_tonie.usuarios: ~4 rows (aproximadamente)
+-- Copiando dados para a tabela zig.usuarios: ~4 rows (aproximadamente)
 /*!40000 ALTER TABLE `usuarios` DISABLE KEYS */;
 INSERT INTO `usuarios` (`id`, `id_empresa`, `nome`, `email`, `password`, `remember_token`, `remember_expire_date`, `id_sexo`, `id_perfil`, `imagem`, `status`, `created_at`, `updated_at`) VALUES
-	(1, 1, 'Valdiney França', 'valdiney.2@hotmail.com', '4860b8a986a92086885755ecc8c9480d1c1b98b0', 'a0e5f558e8580684e94f91af9a94525c49a4e534', '2022-02-13 14:04:30', 1, 1, 'public/imagem/perfil_usuarios/1585493352.jpg', 1, '2022-01-13 14:04:30', '2022-01-13 14:04:30'),
-	(57, 1, 'Enrique', 'enriquegeorg@gmail.com', '15eb1db3e229a7acd2254992d5520a917de8ddca', NULL, NULL, 1, 1, '../public/imagem/perfil_usuarios/1638401738.png', 1, '2021-12-01 21:16:22', '2021-12-01 21:16:22'),
-	(75, 1, 'Lucas Luiz', 'lleite98@gmail.com', '446bc0b6842b471ab69ded6f9f852cfedf179de1', '3f424582d6beb22678b0f90f5d39ee3d8b995488', '2022-02-08 10:47:04', 1, 5, NULL, 1, '2022-01-08 10:47:04', '2022-01-08 10:47:04'),
-	(76, 1, 'Enrique Erbs', 'enriquegeorg@outlook.com', '15eb1db3e229a7acd2254992d5520a917de8ddca', 'eed16a11d267b7df2aeede63b277c62f746fb358', '2022-02-04 16:04:41', 1, 5, NULL, 1, '2022-01-04 16:04:41', '2022-01-04 16:04:41');
+	(1, 1, 'Valdiney França', 'admin@admin.com', '38f582ade46ad83fb28b589404513f147c93f31a', 'cda5e5a15f09f1eed7a06435ed0fa451b9301432', '2022-02-16 11:34:54', 1, 1, 'public/imagem/perfil_usuarios/1585493352.jpg', 1, '2022-01-16 11:35:24', '2022-01-16 11:35:24'),
+	(57, 1, 'Enrique', 'admin2@admin.com', '38f582ade46ad83fb28b589404513f147c93f31a', NULL, NULL, 1, 1, '../public/imagem/perfil_usuarios/1638401738.png', 1, '2022-01-16 11:36:15', '2022-01-16 11:36:15'),
+	(75, 1, 'Lucas Luiz', 'teste987787@gmail.com', '38f582ade46ad83fb28b589404513f147c93f31a', '3f424582d6beb22678b0f90f5d39ee3d8b995488', '2022-02-08 10:47:04', 1, 5, NULL, 1, '2022-01-16 11:36:26', '2022-01-16 11:36:26'),
+	(76, 1, 'Enrique Erbs', 'testettt@outlook.com', '38f582ade46ad83fb28b589404513f147c93f31a', 'eed16a11d267b7df2aeede63b277c62f746fb358', '2022-02-04 16:04:41', 1, 5, NULL, 1, '2022-01-16 11:36:32', '2022-01-16 11:36:32');
 /*!40000 ALTER TABLE `usuarios` ENABLE KEYS */;
 
--- Copiando estrutura para tabela realbi53_tonie.vendas
+-- Copiando estrutura para tabela zig.vendas
 CREATE TABLE IF NOT EXISTS `vendas` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `id_usuario` int(11) NOT NULL,
-  `id_meio_pagamento` int(11) NOT NULL,
-  `id_empresa` int(11) NOT NULL,
-  `id_produto` int(11) DEFAULT NULL,
+  `id` int NOT NULL AUTO_INCREMENT,
+  `id_usuario` int NOT NULL,
+  `id_meio_pagamento` int NOT NULL,
+  `id_empresa` int NOT NULL,
+  `id_produto` int DEFAULT NULL,
   `preco` double DEFAULT '0',
-  `quantidade` int(11) DEFAULT NULL,
+  `quantidade` int DEFAULT NULL,
   `valor` double NOT NULL DEFAULT '0',
   `data_compensacao` date DEFAULT NULL,
   `codigo_venda` varchar(100) DEFAULT NULL,
@@ -911,9 +912,9 @@ CREATE TABLE IF NOT EXISTS `vendas` (
   CONSTRAINT `FK_vendas_clientes` FOREIGN KEY (`id_empresa`) REFERENCES `empresas` (`id`),
   CONSTRAINT `FK_vendas_meios_de_pagamento` FOREIGN KEY (`id_meio_pagamento`) REFERENCES `meios_pagamentos` (`id`),
   CONSTRAINT `FK_vendas_usuarios` FOREIGN KEY (`id_usuario`) REFERENCES `usuarios` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=179 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=180 DEFAULT CHARSET=latin1;
 
--- Copiando dados para a tabela realbi53_tonie.vendas: ~93 rows (aproximadamente)
+-- Copiando dados para a tabela zig.vendas: ~125 rows (aproximadamente)
 /*!40000 ALTER TABLE `vendas` DISABLE KEYS */;
 INSERT INTO `vendas` (`id`, `id_usuario`, `id_meio_pagamento`, `id_empresa`, `id_produto`, `preco`, `quantidade`, `valor`, `data_compensacao`, `codigo_venda`, `created_at`, `updated_at`, `deleted_at`) VALUES
 	(55, 76, 2, 1, 165, 20, 1, 20, '0000-00-00', NULL, '2021-12-02 16:27:37', '0000-00-00 00:00:00', NULL),
@@ -1039,7 +1040,8 @@ INSERT INTO `vendas` (`id`, `id_usuario`, `id_meio_pagamento`, `id_empresa`, `id
 	(175, 75, 1, 1, 155, 21, 1, 21, '0000-00-00', '113777316861df1ed81047e9.820673965612.01.2022', '2022-01-12 15:32:56', '0000-00-00 00:00:00', NULL),
 	(176, 75, 1, 1, 155, 21, 1, 21, '0000-00-00', '145409403161df3f17e78950.952412543112.01.2022', '2022-01-12 17:50:31', '0000-00-00 00:00:00', NULL),
 	(177, 76, 1, 1, 154, 20, 1, 20, '0000-00-00', '169202043661df40ec938ee0.273431002012.01.2022', '2022-01-12 17:58:20', '0000-00-00 00:00:00', NULL),
-	(178, 76, 1, 1, 206, 22, 1, 22, '0000-00-00', '169202043661df40ec938ee0.273431002012.01.2022', '2022-01-12 17:58:20', '0000-00-00 00:00:00', NULL);
+	(178, 76, 1, 1, 206, 22, 1, 22, '0000-00-00', '169202043661df40ec938ee0.273431002012.01.2022', '2022-01-12 17:58:20', '0000-00-00 00:00:00', NULL),
+	(179, 1, 1, 1, NULL, 0, NULL, 10, NULL, NULL, '2022-01-13 20:22:46', '0000-00-00 00:00:00', NULL);
 /*!40000 ALTER TABLE `vendas` ENABLE KEYS */;
 
 /*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;

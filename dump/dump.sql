@@ -13,9 +13,9 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 
--- Copiando estrutura do banco de dados para realbi53_tonie
-CREATE DATABASE IF NOT EXISTS `realbi53_tonie` /*!40100 DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci */;
-USE `realbi53_tonie`;
+-- Copiando estrutura do banco de dados para zig
+CREATE DATABASE IF NOT EXISTS `zig` /*!40100 DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_general_ci */ /*!80016 DEFAULT ENCRYPTION='N' */;
+USE `zig`;
 
 -- Copiando estrutura para tabela realbi53_tonie.clientes
 CREATE TABLE IF NOT EXISTS `clientes` (

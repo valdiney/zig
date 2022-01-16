@@ -11,7 +11,7 @@ APP_DISPLAY_ERRORS=true
 TIMEZONE=America/Sao_Paulo
 HTTPS=false
 
-HOST_NAME=zig_db
+HOST_NAME=localhost
 HOST_USERNAME=root
 HOST_PASSWORD=zig
 HOST_DBNAME=zig

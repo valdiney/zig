@@ -92,19 +92,12 @@ class ProdutoController extends Controller
             try {
                 $idProduto = $produto->save($dados);
 
-                $dadosParaAtualizar = [
-                    'codigo' => $idProduto . date('Y')
-                ];
-
                 # adiciona codigo de barras se nao existir
-                $codigoDeBarras = $dados['codigo_de_barras'] ?? null;
-                if (empty($dados['codigo_de_barras'])) {
-                    $dadosParaAtualizar['codigo_de_barras'] = generateRandomCodigoDeBarras(null, $idProduto);
+                if (empty($dados['codigo'])) {
+                    $codigoDeBarras = generateRandomCodigoDeBarras($idProduto);
+                    $produto = new Produto();
+                    $produto->update(['codigo' => $codigoDeBarras], $idProduto);
                 }
-
-                # Para gerar o código do produto, pega-se o proprio id e concatena com o ano atual
-                $produto = new Produto();
-                $produto->update($dadosParaAtualizar, $idProduto);
 
                 $produto = $produto->getBy($this->idEmpresa, $idProduto);
 
@@ -203,7 +196,7 @@ class ProdutoController extends Controller
         $codigo = $codigo? utf8_encode(out64($codigo)): null;
 
         $produto = new Produto();
-        $produtos = $produto->getBy($this->idEmpresa, 'codigo_de_barras', $codigo);
+        $produtos = $produto->getBy($this->idEmpresa, 'codigo', $codigo);
 
         $nome = null;
 

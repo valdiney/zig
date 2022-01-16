@@ -1,21 +1,21 @@
 <link rel="stylesheet" type="text/css" href="<?php echo BASEURL; ?>/public/css/jquery-te-1.4.0.css">
 <style>
-    #codigo_de_barras::-webkit-outer-spin-button,
-    #codigo_de_barras::-webkit-inner-spin-button {
+    #codigo::-webkit-outer-spin-button,
+    #codigo::-webkit-inner-spin-button {
         /* display: none; <- Crashes Chrome on hover */
         -webkit-appearance: none;
         margin: 0; /* <-- Apparently some margin are still there even though it's hidden */
     }
-    #codigo_de_barras[type=number] {
+    #codigo[type=number] {
         -moz-appearance:textfield; /* Firefox */
     }
 </style>
 
-<?php if (isset($produto->id)): ?>
+<?php if (isset($produto->id) && !empty($produto->codigo)): ?>
     <div class="row">
-        <div class="col-md-12" style="opacity:0.80;background:#fffcf5">
-           <img src="<?php gerarCodigoDeBarrasEmPng($produto->codigo);?>" width="100"> <br>
-           <span style="font-size:12px;color:black;margin-left:25px"><?php echo isset($produto->id) ? $produto->codigo : false;?></span>
+        <div class="col-md-12 text-center" style="opacity:0.80;background:#fffcf5">
+            <?php echo codigoDeBarrasParaSvg($produto->codigo); ?><br>
+            <span style="font-size:12px;color:black;"><?php echo isset($produto->id) ? $produto->codigo : false;?></span>
         </div>
     </div>
     <hr>
@@ -63,19 +63,19 @@
             </div>
         </div>
 
-        <div class="col-md-12 mb-2">
-            <div class="form-group">
-                <label for="nome">Código de barras</label>
-                <input type="number" class="form-control nome" name="codigo_de_barras" id="codigo_de_barras"
-                       placeholder="Número do código de barras"
-                       value="<?php echo isset($produto->codigo_de_barras) ? $produto->codigo_de_barras : '' ?>">
-                <?php if (isset($produto->codigo_de_barras) === false) { ?>
-                    <p class="text-muted">
-                        <small>Deixe vazio para ser preenchido automáticamente!</small>
-                    </p>
-                <?php } ?>
+        <?php if (isset($produto->codigo) === false) { ?>
+            <div class="col-md-12 mb-2">
+                <div class="form-group">
+                    <label for="nome">Código de barras</label>
+                    <input type="number" class="form-control nome" name="codigo" id="codigo"
+                        placeholder="Número do código de barras"
+                        value="<?php echo isset($produto->codigo) ? $produto->codigo : '' ?>">
+                        <p class="text-muted">
+                            <small>Deixe vazio para ser preenchido automáticamente!</small>
+                        </p>
+                </div>
             </div>
-        </div>
+        <?php } ?>
 
         <div class="col-md-12">
             <div class="form-group">

@@ -6,7 +6,7 @@ abstract class BarcodeAdapter
 {
     public abstract function prepare(string $code): void;
 
-    public function __toString()
+    public function getCode(): string
     {
         return $this->code;
     }

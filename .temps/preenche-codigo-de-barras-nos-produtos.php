@@ -11,7 +11,7 @@ function handleAdicionaCodigoNosProdutos(NativeQuery $native, array $produtosId)
             'id' => $produtoId,
             'codigo' => $codigo,
         ];
-        $native->prepare('UPDATE produtos SET codigo_de_barras = :codigo WHERE id = :id;', $payload);
+        $native->prepare('UPDATE produtos SET codigo_de_barras = :codigo WHERE id = :id;', $payload, false);
     }
 }
 

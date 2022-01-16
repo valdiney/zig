@@ -1,6 +1,6 @@
 <?php
 
-namespace System\Utils\Barcode;
+namespace System\Utils\Barcode\Adapters;
 
 use System\Utils\Barcode\Contracts\BarcodeAdapter;
 

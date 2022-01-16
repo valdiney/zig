@@ -1,12 +1,12 @@
 <?php
 
-namespace Tests\Unit\System\Utils\Barcode;
+namespace Tests\Unit\System\Utils\Barcode\Adapters;
 
 use PHPUnit\Framework\TestCase;
+use System\Utils\Barcode\Adapters\BarcodeSimpleAdapter;
 use System\Utils\Barcode\Contracts\BarcodeAdapter;
-use System\Utils\Barcode\BarcodeSimpleAdapter;
 
-class BarcodeAdapterTest extends TestCase
+class BarcodeSimpleAdapterTest extends TestCase
 {
     public function testGaranteQueOAdapterEhInstanciaDeBarcodeAdapter()
     {

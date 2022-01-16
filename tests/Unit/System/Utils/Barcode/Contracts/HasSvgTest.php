@@ -25,4 +25,15 @@ class HasSvgTest extends TestCase
 
         $this->assertTrue($isInstance);
     }
+
+    public function testBarcodeSimpleRetornaUmSvgValido()
+    {
+        $adapter = new BarcodeSimpleAdapter();
+        $adapter->prepare('Tonie');
+
+        $svg = $adapter->toSvg();
+
+        $this->assertContains('<svg', $svg);
+    }
+
 }

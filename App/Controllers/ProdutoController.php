@@ -92,9 +92,14 @@ class ProdutoController extends Controller
             try {
                 $idProduto = $produto->save($dados);
 
-                # Para gerar o código do produto, pega-se o proprio id e concatena com o ano atual
-                $produto = new Produto();
-                $produto = $produto->update(['codigo' => $idProduto.date('Y')], $idProduto);
+                # adiciona codigo de barras se nao existir
+                if (empty($dados['codigo'])) {
+                    $codigoDeBarras = generateRandomCodigoDeBarras($idProduto);
+                    $produto = new Produto();
+                    $produto->update(['codigo' => $codigoDeBarras], $idProduto);
+                }
+
+                $produto = $produto->getBy($this->idEmpresa, $idProduto);
 
                 return $this->get->redirectTo("produto");
 
@@ -184,5 +189,17 @@ class ProdutoController extends Controller
         $produtos = $produto->produtos($this->idEmpresa, $nome);
 
         $this->view('produto/produtos', null, compact('produtos','nome'));
+    }
+
+    public function pesquisarProdutoPorCodigoDeBarras(string $codigo = null)
+    {
+        $codigo = $codigo? utf8_encode(out64($codigo)): null;
+
+        $produto = new Produto();
+        $produtos = $produto->getBy($this->idEmpresa, 'codigo', $codigo);
+
+        $nome = null;
+
+        $this->view('produto/produtos', null, compact('produtos','nome','codigo'));
     }
 }

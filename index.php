@@ -39,5 +39,10 @@ use System\Route\SelectController;
 # Load controllers
 $route = new SelectController(new GetRoute);
 
+# esse código será rodado temporariamente para gerar codigo de barra nos produtos antigos
+if (file_exists(__DIR__.'/.temps/preenche-codigo-de-barras-nos-produtos.php')) {
+    include __DIR__.'/.temps/preenche-codigo-de-barras-nos-produtos.php';
+}
+
 # Load routes
 require_once(__DIR__ . '/routes/routes.php');

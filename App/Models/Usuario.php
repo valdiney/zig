@@ -38,15 +38,16 @@ class Usuario extends Model
 
         return $this->query(
             "SELECT
-      usuarios.id AS id, usuarios.nome,
-      usuarios.email, usuarios.id_sexo,
-      usuarios.created_at, usuarios.imagem,
-      sexos.descricao, perfis.descricao AS perfil
+            usuarios.id AS id, usuarios.nome,
+            usuarios.email, usuarios.id_sexo,
+            usuarios.created_at, usuarios.imagem,
+            usuarios.deleted_at,
+            sexos.descricao, perfis.descricao AS perfil
 
-      FROM usuarios INNER JOIN sexos ON
-  		usuarios.id_sexo = sexos.id
-      INNER JOIN perfis ON usuarios.id_perfil = perfis.id
-      WHERE usuarios.id_empresa = {$idEmpresa} {$queryCondicional}"
+            FROM usuarios INNER JOIN sexos ON
+                usuarios.id_sexo = sexos.id
+            INNER JOIN perfis ON usuarios.id_perfil = perfis.id
+            WHERE usuarios.id_empresa = {$idEmpresa} {$queryCondicional}"
         );
     }
 

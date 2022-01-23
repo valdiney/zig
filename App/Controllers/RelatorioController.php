@@ -2,10 +2,10 @@
 
 namespace App\Controllers;
 
-use App\Models\Usuario;
 use App\Models\Empresa;
 use App\Repositories\RelatorioVendasPorPeriodoRepository;
 use App\Rules\Logged;
+use App\Services\Usuarios\BuscaUsuariosService;
 use DateTime;
 use System\Controller\Controller;
 use System\Get\Get;
@@ -19,6 +19,7 @@ class RelatorioController extends Controller
     protected $layout;
     protected $idEmpresa;
     protected $idPerfilUsuarioLogado;
+    protected $buscaUsuariosService;
 
     public function __construct()
     {
@@ -32,6 +33,8 @@ class RelatorioController extends Controller
 
         $logged = new Logged();
         $logged->isValid();
+
+        $this->buscaUsuariosService = new BuscaUsuariosService();
     }
 
     public function index()
@@ -41,8 +44,7 @@ class RelatorioController extends Controller
 
     public function vendasPorPeriodo()
     {
-        $usuario = new Usuario();
-        $usuarios = $usuario->usuarios($this->idEmpresa, $this->idPerfilUsuarioLogado);
+        $usuarios = $this->buscaUsuariosService->ativos($this->idEmpresa, $this->idPerfilUsuarioLogado);
 
         $relatorioVendas = new RelatorioVendasPorPeriodoRepository();
         $periodoDisponivelParaConsulta = $relatorioVendas->periodoDisponivelParaConsulta($this->idEmpresa);

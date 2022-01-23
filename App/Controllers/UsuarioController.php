@@ -222,4 +222,32 @@ class UsuarioController extends Controller
 
         dd($sendEmail->send());
     }
+
+    function desativarUsuario($idUsuario)
+    {
+        $cliente = new Usuario();
+        $dados['deleted_at'] = date('Y-m-d H:i:s');
+
+        try {
+            $cliente->update($dados, $idUsuario);
+            echo json_encode(['status' => true]);
+
+        } catch (Exception $e) {
+            dd($e->getMessage());
+        }
+    }
+
+    function ativarUsuario($idUsuario)
+    {
+        $cliente = new Usuario();
+        $dados['deleted_at'] = null;
+
+        try {
+            $cliente->update($dados, $idUsuario);
+            echo json_encode(['status' => true]);
+
+        } catch (Exception $e) {
+            dd($e->getMessage());
+        }
+    }
 }

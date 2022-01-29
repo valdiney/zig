@@ -241,10 +241,10 @@ CREATE TABLE IF NOT EXISTS `config_pdv` (
   CONSTRAINT `FK_config_pdv_tipo_pdv` FOREIGN KEY (`id_tipo_pdv`) REFERENCES `tipos_pdv` (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
 
--- Copiando dados para a tabela zig.config_pdv: ~0 rows (aproximadamente)
+-- Copiando dados para a tabela zig.config_pdv: ~1 rows (aproximadamente)
 /*!40000 ALTER TABLE `config_pdv` DISABLE KEYS */;
 INSERT INTO `config_pdv` (`id`, `id_empresa`, `id_tipo_pdv`, `created_at`, `updated_at`) VALUES
-	(3, 1, 1, '2022-01-13 20:22:26', '2022-01-13 20:22:26');
+	(3, 1, 2, '2022-01-16 18:04:18', '2022-01-16 18:04:18');
 /*!40000 ALTER TABLE `config_pdv` ENABLE KEYS */;
 
 -- Copiando estrutura para tabela zig.empresas
@@ -279,7 +279,7 @@ CREATE TABLE IF NOT EXISTS `log_acessos` (
   KEY `FK_log_clientes` (`id_empresa`),
   CONSTRAINT `FK_log_clientes` FOREIGN KEY (`id_empresa`) REFERENCES `empresas` (`id`),
   CONSTRAINT `FK_log_usuarios` FOREIGN KEY (`id_usuario`) REFERENCES `usuarios` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=988 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=989 DEFAULT CHARSET=latin1;
 
 -- Copiando dados para a tabela zig.log_acessos: ~240 rows (aproximadamente)
 /*!40000 ALTER TABLE `log_acessos` DISABLE KEYS */;
@@ -524,7 +524,8 @@ INSERT INTO `log_acessos` (`id`, `id_usuario`, `id_empresa`, `created_at`, `upda
 	(984, 76, 1, '2022-01-12 17:57:22', '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
 	(985, 75, 1, '2022-01-12 18:41:42', '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
 	(986, 1, 1, '2022-01-13 14:04:30', '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
-	(987, 1, 1, '2022-01-16 11:34:54', '0000-00-00 00:00:00', '0000-00-00 00:00:00');
+	(987, 1, 1, '2022-01-16 11:34:54', '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+	(988, 1, 1, '2022-01-29 20:38:48', '0000-00-00 00:00:00', '0000-00-00 00:00:00');
 /*!40000 ALTER TABLE `log_acessos` ENABLE KEYS */;
 
 -- Copiando estrutura para tabela zig.meios_pagamentos
@@ -686,42 +687,42 @@ CREATE TABLE IF NOT EXISTS `produtos` (
   PRIMARY KEY (`id`),
   KEY `FK_produtos_clientes` (`id_empresa`),
   CONSTRAINT `FK_produtos_clientes` FOREIGN KEY (`id_empresa`) REFERENCES `empresas` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=207 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=208 DEFAULT CHARSET=latin1;
 
 -- Copiando dados para a tabela zig.produtos: ~54 rows (aproximadamente)
 /*!40000 ALTER TABLE `produtos` DISABLE KEYS */;
 INSERT INTO `produtos` (`id`, `id_empresa`, `nome`, `codigo`, `preco`, `descricao`, `imagem`, `created_at`, `updated_at`, `deleted_at`) VALUES
-	(153, 1, '1/2 queijo colonial (19)', 0, 19, '', NULL, '2021-12-01 21:16:58', '0000-00-00 00:00:00', NULL),
-	(154, 1, '1/2 queijo colonial (20)', 0, 20, '', NULL, '2021-12-02 08:13:39', '0000-00-00 00:00:00', NULL),
-	(155, 1, '1/2 queijo colonial (21)', 0, 21, '', NULL, '2021-12-02 08:14:55', '0000-00-00 00:00:00', NULL),
-	(156, 1, 'queijo colonial inteiro (38)', 0, 38, '', NULL, '2021-12-02 08:15:32', '0000-00-00 00:00:00', NULL),
-	(157, 1, 'queijo colonial inteiro (39)', 0, 39, '', NULL, '2021-12-02 08:15:44', '0000-00-00 00:00:00', NULL),
-	(158, 1, 'queijo colonial inteiro (40)', 0, 40, '', NULL, '2021-12-02 08:15:58', '0000-00-00 00:00:00', NULL),
-	(159, 1, 'queijo colonial inteiro (41)', 0, 41, '', NULL, '2021-12-02 08:16:15', '0000-00-00 00:00:00', NULL),
-	(160, 1, 'queijo colonial inteiro (42)', 0, 42, '', NULL, '2021-12-02 08:16:44', '0000-00-00 00:00:00', NULL),
-	(161, 1, 'melado', 0, 10, '', NULL, '2021-12-02 08:22:39', '0000-00-00 00:00:00', NULL),
-	(162, 1, 'melado batido', 0, 10, '', NULL, '2021-12-02 08:22:49', '0000-00-00 00:00:00', NULL),
-	(163, 1, 'geleia Dillin uva - 500gr', 0, 20, '', NULL, '2021-12-02 08:24:42', '0000-00-00 00:00:00', NULL),
-	(164, 1, 'geleia Dillin banana - 500gr', 0, 20, '', NULL, '2021-12-02 08:25:10', '0000-00-00 00:00:00', NULL),
-	(165, 1, 'geleia Dillin blueberry - 500gr', 0, 20, '', NULL, '2021-12-02 08:25:25', '0000-00-00 00:00:00', NULL),
-	(166, 1, 'geleia Dillin laranja - 500gr', 0, 20, '', NULL, '2021-12-02 08:25:39', '0000-00-00 00:00:00', NULL),
-	(167, 1, 'geleia Dillin maracuja - 500gr', 0, 20, '', NULL, '2021-12-02 08:26:02', '0000-00-00 00:00:00', NULL),
-	(168, 1, 'cachaça Bylaardt morango - 500ml', 0, 30, '', NULL, '2021-12-02 08:27:09', '0000-00-00 00:00:00', NULL),
-	(169, 1, 'cachaça Bylaardt menta - 500ml', 0, 30, '', NULL, '2021-12-02 08:27:22', '0000-00-00 00:00:00', NULL),
-	(170, 1, 'cachaça Bylaardt coco - 500ml', 0, 30, '', NULL, '2021-12-02 08:27:36', '0000-00-00 00:00:00', NULL),
-	(171, 1, 'cachaça Bylaardt canela - 500ml', 0, 30, '', NULL, '2021-12-02 08:27:52', '0000-00-00 00:00:00', NULL),
-	(172, 1, 'cachaça Bylaardt banana - 500ml', 0, 30, '', NULL, '2021-12-02 08:28:03', '0000-00-00 00:00:00', NULL),
-	(173, 1, 'cachaça Bylaardt cacau - 500ml', 0, 30, '', NULL, '2021-12-02 08:28:21', '0000-00-00 00:00:00', NULL),
-	(174, 1, 'trago do galdério coco - 1lt', 0, 30, '', NULL, '2021-12-02 08:29:44', '0000-00-00 00:00:00', NULL),
-	(175, 1, 'trago do galdério cappuccino - 1lt', 0, 30, '', NULL, '2021-12-02 08:30:22', '0000-00-00 00:00:00', NULL),
-	(176, 1, 'trago do galdério amendoim - 1lt', 0, 30, '', NULL, '2021-12-02 08:30:40', '0000-00-00 00:00:00', NULL),
-	(177, 1, 'salame pernil (16)', 0, 16, '', NULL, '2021-12-02 08:31:45', '0000-00-00 00:00:00', NULL),
-	(178, 1, 'salame pernil (17)', 0, 17, '', NULL, '2021-12-02 08:31:59', '0000-00-00 00:00:00', NULL),
-	(179, 1, 'salame pernil (15)', 0, 15, '', NULL, '2021-12-02 08:32:10', '0000-00-00 00:00:00', NULL),
-	(180, 1, 'linguiça pernil (11)', 0, 11, '', NULL, '2021-12-02 08:32:54', '0000-00-00 00:00:00', NULL),
-	(181, 1, 'linguiça pernil (12)', 0, 12, '', NULL, '2021-12-02 08:33:03', '0000-00-00 00:00:00', NULL),
-	(182, 1, 'linguiça pernil (13)', 0, 13, '', NULL, '2021-12-02 08:33:13', '0000-00-00 00:00:00', NULL),
-	(183, 1, 'krakóvia', 0, 23, '', NULL, '2021-12-02 08:33:50', '0000-00-00 00:00:00', NULL),
+	(153, 1, '1/2 queijo colonial (19)', 1532022, 19, '', NULL, '2022-01-29 20:39:14', '2022-01-29 20:39:14', NULL),
+	(154, 1, '1/2 queijo colonial (20)', 1542022, 20, '', NULL, '2022-01-29 20:37:40', '0000-00-00 00:00:00', NULL),
+	(155, 1, '1/2 queijo colonial (21)', 1552022, 21, '', NULL, '2022-01-29 20:37:40', '0000-00-00 00:00:00', NULL),
+	(156, 1, 'queijo colonial inteiro (38)', 1562022, 38, '', NULL, '2022-01-29 20:37:40', '0000-00-00 00:00:00', NULL),
+	(157, 1, 'queijo colonial inteiro (39)', 1572022, 39, '', NULL, '2022-01-29 20:37:40', '0000-00-00 00:00:00', NULL),
+	(158, 1, 'queijo colonial inteiro (40)', 1582022, 40, '', NULL, '2022-01-29 20:37:40', '0000-00-00 00:00:00', NULL),
+	(159, 1, 'queijo colonial inteiro (41)', 1592022, 41, '', NULL, '2022-01-29 20:37:40', '0000-00-00 00:00:00', NULL),
+	(160, 1, 'queijo colonial inteiro (42)', 1602022, 42, '', NULL, '2022-01-29 20:37:40', '0000-00-00 00:00:00', NULL),
+	(161, 1, 'melado', 1612022, 10, '', NULL, '2022-01-29 20:37:40', '0000-00-00 00:00:00', NULL),
+	(162, 1, 'melado batido', 1622022, 10, '', NULL, '2022-01-29 20:37:40', '0000-00-00 00:00:00', NULL),
+	(163, 1, 'geleia Dillin uva - 500gr', 1632022, 20, '', NULL, '2022-01-29 20:37:40', '0000-00-00 00:00:00', NULL),
+	(164, 1, 'geleia Dillin banana - 500gr', 1642022, 20, '', NULL, '2022-01-29 20:37:40', '0000-00-00 00:00:00', NULL),
+	(165, 1, 'geleia Dillin blueberry - 500gr', 1652022, 20, '', NULL, '2022-01-29 20:37:40', '0000-00-00 00:00:00', NULL),
+	(166, 1, 'geleia Dillin laranja - 500gr', 1662022, 20, '', NULL, '2022-01-29 20:37:40', '0000-00-00 00:00:00', NULL),
+	(167, 1, 'geleia Dillin maracuja - 500gr', 1672022, 20, '', NULL, '2022-01-29 20:37:40', '0000-00-00 00:00:00', NULL),
+	(168, 1, 'cachaça Bylaardt morango - 500ml', 1682022, 30, '', NULL, '2022-01-29 20:37:40', '0000-00-00 00:00:00', NULL),
+	(169, 1, 'cachaça Bylaardt menta - 500ml', 1692022, 30, '', NULL, '2022-01-29 20:37:40', '0000-00-00 00:00:00', NULL),
+	(170, 1, 'cachaça Bylaardt coco - 500ml', 1702022, 30, '', NULL, '2022-01-29 20:37:40', '0000-00-00 00:00:00', NULL),
+	(171, 1, 'cachaça Bylaardt canela - 500ml', 1712022, 30, '', NULL, '2022-01-29 20:37:40', '0000-00-00 00:00:00', NULL),
+	(172, 1, 'cachaça Bylaardt banana - 500ml', 1722022, 30, '', NULL, '2022-01-29 20:37:40', '0000-00-00 00:00:00', NULL),
+	(173, 1, 'cachaça Bylaardt cacau - 500ml', 1732022, 30, '', NULL, '2022-01-29 20:37:40', '0000-00-00 00:00:00', NULL),
+	(174, 1, 'trago do galdério coco - 1lt', 1742022, 30, '', NULL, '2022-01-29 20:37:40', '0000-00-00 00:00:00', NULL),
+	(175, 1, 'trago do galdério cappuccino - 1lt', 1752022, 30, '', NULL, '2022-01-29 20:37:40', '0000-00-00 00:00:00', NULL),
+	(176, 1, 'trago do galdério amendoim - 1lt', 1762022, 30, '', NULL, '2022-01-29 20:37:41', '0000-00-00 00:00:00', NULL),
+	(177, 1, 'salame pernil (16)', 1772022, 16, '', NULL, '2022-01-29 20:37:41', '0000-00-00 00:00:00', NULL),
+	(178, 1, 'salame pernil (17)', 1782022, 17, '', NULL, '2022-01-29 20:37:41', '0000-00-00 00:00:00', NULL),
+	(179, 1, 'salame pernil (15)', 1792022, 15, '', NULL, '2022-01-29 20:37:41', '0000-00-00 00:00:00', NULL),
+	(180, 1, 'linguiça pernil (11)', 1802022, 11, '', NULL, '2022-01-29 20:37:41', '0000-00-00 00:00:00', NULL),
+	(181, 1, 'linguiça pernil (12)', 1812022, 12, '', NULL, '2022-01-29 20:37:41', '0000-00-00 00:00:00', NULL),
+	(182, 1, 'linguiça pernil (13)', 1822022, 13, '', NULL, '2022-01-29 20:37:41', '0000-00-00 00:00:00', NULL),
+	(183, 1, 'krakóvia', 1832022, 23, '', NULL, '2022-01-29 20:37:41', '0000-00-00 00:00:00', NULL),
 	(184, 1, 'Teste', 1842021, 10, 'uyuuyu', NULL, '2021-12-02 13:16:51', '2021-12-02 13:16:51', '2021-12-02 13:16:51'),
 	(185, 1, '1/2 queijo colonial (22)', 1852021, 22, '', NULL, '2021-12-03 17:56:18', '2021-12-03 17:56:18', NULL),
 	(186, 1, 'Cachaça schnaps - 500ml', 1862021, 35, '', NULL, '2022-01-06 17:52:55', '2022-01-06 17:52:55', NULL),
@@ -744,7 +745,8 @@ INSERT INTO `produtos` (`id`, `id_empresa`, `nome`, `codigo`, `preco`, `descrica
 	(203, 1, 'Foundant - de Leite', 2032021, 20, '', NULL, '2021-12-15 18:34:56', '2021-12-15 18:34:56', NULL),
 	(204, 1, 'Trago do Galdério - 1 lt', 2042021, 30, '', NULL, '2021-12-15 19:03:41', '2021-12-15 19:03:41', NULL),
 	(205, 1, 'linguiça pernil (15)', 2052022, 15, '', NULL, '2022-01-04 16:05:41', '2022-01-04 16:05:41', NULL),
-	(206, 1, 'Krakóvia (22)', 2062022, 22, '', NULL, '2022-01-11 13:08:17', '2022-01-11 13:08:17', NULL);
+	(206, 1, 'Krakóvia (22)', 2062022, 22, '', NULL, '2022-01-11 13:08:17', '2022-01-11 13:08:17', NULL),
+	(207, 1, 'teste', 2072022, 50, 'uyuyu', 'public/imagem/produtos/1642367037.png', '2022-01-16 18:03:57', '2022-01-16 18:03:57', NULL);
 /*!40000 ALTER TABLE `produtos` ENABLE KEYS */;
 
 -- Copiando estrutura para tabela zig.produtos_pedidos
@@ -872,6 +874,7 @@ CREATE TABLE IF NOT EXISTS `usuarios` (
   `status` int DEFAULT '1',
   `created_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00' ON UPDATE CURRENT_TIMESTAMP,
   `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
+  `deleted_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
   PRIMARY KEY (`id`),
   KEY `FK_usuarios_sexo` (`id_sexo`),
   KEY `FK_usuarios_perfis` (`id_perfil`),
@@ -883,11 +886,11 @@ CREATE TABLE IF NOT EXISTS `usuarios` (
 
 -- Copiando dados para a tabela zig.usuarios: ~4 rows (aproximadamente)
 /*!40000 ALTER TABLE `usuarios` DISABLE KEYS */;
-INSERT INTO `usuarios` (`id`, `id_empresa`, `nome`, `email`, `password`, `remember_token`, `remember_expire_date`, `id_sexo`, `id_perfil`, `imagem`, `status`, `created_at`, `updated_at`) VALUES
-	(1, 1, 'Valdiney França', 'admin@admin.com', '38f582ade46ad83fb28b589404513f147c93f31a', 'cda5e5a15f09f1eed7a06435ed0fa451b9301432', '2022-02-16 11:34:54', 1, 1, 'public/imagem/perfil_usuarios/1585493352.jpg', 1, '2022-01-16 11:35:24', '2022-01-16 11:35:24'),
-	(57, 1, 'Enrique', 'admin2@admin.com', '38f582ade46ad83fb28b589404513f147c93f31a', NULL, NULL, 1, 1, '../public/imagem/perfil_usuarios/1638401738.png', 1, '2022-01-16 11:36:15', '2022-01-16 11:36:15'),
-	(75, 1, 'Lucas Luiz', 'teste987787@gmail.com', '38f582ade46ad83fb28b589404513f147c93f31a', '3f424582d6beb22678b0f90f5d39ee3d8b995488', '2022-02-08 10:47:04', 1, 5, NULL, 1, '2022-01-16 11:36:26', '2022-01-16 11:36:26'),
-	(76, 1, 'Enrique Erbs', 'testettt@outlook.com', '38f582ade46ad83fb28b589404513f147c93f31a', 'eed16a11d267b7df2aeede63b277c62f746fb358', '2022-02-04 16:04:41', 1, 5, NULL, 1, '2022-01-16 11:36:32', '2022-01-16 11:36:32');
+INSERT INTO `usuarios` (`id`, `id_empresa`, `nome`, `email`, `password`, `remember_token`, `remember_expire_date`, `id_sexo`, `id_perfil`, `imagem`, `status`, `created_at`, `updated_at`, `deleted_at`) VALUES
+	(1, 1, 'Valdiney França', 'admin@admin.com', '38f582ade46ad83fb28b589404513f147c93f31a', 'df8351e00f4948449d67ac25d786d7449a521163', '2022-03-01 20:38:48', 1, 1, 'public/imagem/perfil_usuarios/1585493352.jpg', 1, '2022-01-29 20:38:48', '2022-01-29 20:38:48', '0000-00-00 00:00:00'),
+	(57, 1, 'Enrique', 'admin2@admin.com', '38f582ade46ad83fb28b589404513f147c93f31a', NULL, NULL, 1, 1, '../public/imagem/perfil_usuarios/1638401738.png', 1, '2022-01-16 11:36:15', '2022-01-16 11:36:15', '0000-00-00 00:00:00'),
+	(75, 1, 'Lucas Luiz', 'teste987787@gmail.com', '38f582ade46ad83fb28b589404513f147c93f31a', '3f424582d6beb22678b0f90f5d39ee3d8b995488', '2022-02-08 10:47:04', 1, 5, NULL, 1, '2022-01-16 11:36:26', '2022-01-16 11:36:26', '0000-00-00 00:00:00'),
+	(76, 1, 'Enrique Erbs', 'testettt@outlook.com', '38f582ade46ad83fb28b589404513f147c93f31a', 'eed16a11d267b7df2aeede63b277c62f746fb358', '2022-02-04 16:04:41', 1, 5, NULL, 1, '2022-01-16 11:36:32', '2022-01-16 11:36:32', '0000-00-00 00:00:00');
 /*!40000 ALTER TABLE `usuarios` ENABLE KEYS */;
 
 -- Copiando estrutura para tabela zig.vendas
@@ -912,9 +915,9 @@ CREATE TABLE IF NOT EXISTS `vendas` (
   CONSTRAINT `FK_vendas_clientes` FOREIGN KEY (`id_empresa`) REFERENCES `empresas` (`id`),
   CONSTRAINT `FK_vendas_meios_de_pagamento` FOREIGN KEY (`id_meio_pagamento`) REFERENCES `meios_pagamentos` (`id`),
   CONSTRAINT `FK_vendas_usuarios` FOREIGN KEY (`id_usuario`) REFERENCES `usuarios` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=180 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=183 DEFAULT CHARSET=latin1;
 
--- Copiando dados para a tabela zig.vendas: ~125 rows (aproximadamente)
+-- Copiando dados para a tabela zig.vendas: ~124 rows (aproximadamente)
 /*!40000 ALTER TABLE `vendas` DISABLE KEYS */;
 INSERT INTO `vendas` (`id`, `id_usuario`, `id_meio_pagamento`, `id_empresa`, `id_produto`, `preco`, `quantidade`, `valor`, `data_compensacao`, `codigo_venda`, `created_at`, `updated_at`, `deleted_at`) VALUES
 	(55, 76, 2, 1, 165, 20, 1, 20, '0000-00-00', NULL, '2021-12-02 16:27:37', '0000-00-00 00:00:00', NULL),
@@ -1041,7 +1044,10 @@ INSERT INTO `vendas` (`id`, `id_usuario`, `id_meio_pagamento`, `id_empresa`, `id
 	(176, 75, 1, 1, 155, 21, 1, 21, '0000-00-00', '145409403161df3f17e78950.952412543112.01.2022', '2022-01-12 17:50:31', '0000-00-00 00:00:00', NULL),
 	(177, 76, 1, 1, 154, 20, 1, 20, '0000-00-00', '169202043661df40ec938ee0.273431002012.01.2022', '2022-01-12 17:58:20', '0000-00-00 00:00:00', NULL),
 	(178, 76, 1, 1, 206, 22, 1, 22, '0000-00-00', '169202043661df40ec938ee0.273431002012.01.2022', '2022-01-12 17:58:20', '0000-00-00 00:00:00', NULL),
-	(179, 1, 1, 1, NULL, 0, NULL, 10, NULL, NULL, '2022-01-13 20:22:46', '0000-00-00 00:00:00', NULL);
+	(179, 1, 1, 1, NULL, 0, NULL, 10, NULL, NULL, '2022-01-13 20:22:46', '0000-00-00 00:00:00', NULL),
+	(180, 1, 5, 1, 153, 19, 1, 19, '0000-00-00', '128763984761f5d132923460.307625414629.01.2022', '2022-01-29 20:43:46', '0000-00-00 00:00:00', NULL),
+	(181, 1, 5, 1, 155, 21, 1, 21, '0000-00-00', '128763984761f5d132923460.307625414629.01.2022', '2022-01-29 20:43:46', '0000-00-00 00:00:00', NULL),
+	(182, 1, 5, 1, 161, 10, 1, 10, '0000-00-00', '128763984761f5d132923460.307625414629.01.2022', '2022-01-29 20:43:46', '0000-00-00 00:00:00', NULL);
 /*!40000 ALTER TABLE `vendas` ENABLE KEYS */;
 
 /*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;

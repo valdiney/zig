@@ -48,5 +48,3 @@ Que tal nos ajudar nesta empreitada?
 
 Você pode conferir a
 [nossa documentação](https://github.com/valdiney/zig/blob/master/docs/instalacao.md)
-
-<iframe src="https://github.com/valdiney/zig/projects/1"></iframe>

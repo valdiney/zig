@@ -61,6 +61,7 @@ class PdvDiferencialController extends Controller
 
     public function saveVendasViaSession()
     {
+
         if (!isset($_SESSION['venda']) ||empty($_SESSION['venda'])) {
             return;
         }
@@ -79,6 +80,9 @@ class PdvDiferencialController extends Controller
         */
         $codigoVenda = uniqid(rand(), true).date('s').date('d.m.Y');
 
+        $valorRecebido = formataValorMoedaParaGravacao($this->post->data()->valor_recebido);
+        $troco = formataValorMoedaParaGravacao($this->post->data()->troco);
+
         foreach ($_SESSION['venda'] as $produto) {
             $dados = [
                 'id_usuario' => $this->idUsuario,
@@ -91,6 +95,11 @@ class PdvDiferencialController extends Controller
                 'valor' => $produto['total'],
                 'codigo_venda' => $codigoVenda
             ];
+
+            if ( ! empty($valorRecebido) && ! empty($troco)) {
+                $dados['valor_recebido'] = $valorRecebido;
+                $dados['troco'] = $troco;
+            }
 
             $venda = new Venda();
             try {
@@ -130,6 +139,19 @@ class PdvDiferencialController extends Controller
     public function obterValorTotalDosProdutosNaMesa()
     {
         echo $this->vendasEmSessaoRepository->obterValorTotalDosProdutosNaMesa();
+    }
+
+    public function calcularTroco($valorRecebido)
+    {
+        $valorRecebido = out64($valorRecebido);
+        $valorRecebido = explode('R$', $valorRecebido);
+        if (array_key_exists(1, $valorRecebido)) {
+            $valor = $valorRecebido[1];
+        } else {
+            $valor = $valorRecebido[0];
+        }
+
+        echo $this->vendasEmSessaoRepository->calcularTroco(formataValorMoedaParaGravacao($valor));
     }
 
     public function pesquisarProdutoPorNome($nome = false)

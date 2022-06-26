@@ -109,4 +109,17 @@ class VendasEmSessaoRepository
             'id_pedido' => $produto->id_pedido
         ];
     }
+
+    public function calcularTroco($valorRecebido)
+    {
+        $valorTotalDosProdutosSelecionados = (double) json_decode($this->obterValorTotalDosProdutosNaMesa())->total;
+        $valorRecebido = (double) $valorRecebido;
+
+        if ($valorRecebido < $valorTotalDosProdutosSelecionados) {
+            return json_encode(['valor' => 0.00, 'message' => 'O valor pago é insuficiente.']);
+        }
+
+        $troco = (double) $valorRecebido - $valorTotalDosProdutosSelecionados;
+        return json_encode(['valor' => $troco, 'message' => false]);
+    }
 }

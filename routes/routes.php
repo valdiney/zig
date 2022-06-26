@@ -69,6 +69,9 @@ $route->post('pdvDiferencial/saveVendasViaSession', 'PdvDiferencialController@sa
 $route->get('pdvDiferencial/obterValorTotalDosProdutosNaMesa',
     'PdvDiferencialController@obterValorTotalDosProdutosNaMesa');
 
+$route->get('pdvDiferencial/calcularTroco/{valorRecebido}',
+    'PdvDiferencialController@calcularTroco');
+
 # ----- ClienteController --------------------------------
 $route->get('cliente', 'ClienteController@index');
 $route->get('cliente/modalFormulario/{idCliente?}', 'ClienteController@modalFormulario');

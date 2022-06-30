@@ -86,6 +86,8 @@ class HomeController extends Controller
 
         $produtosMaisVendidosNoMes = $vendasRepository->produtosMaisVendidosNoMes($this->idEmpresa, date('m'), 6);
 
+        $vendasPorMesNoAno = $vendasRepository->vendasPorMesNoAno($this->idEmpresa);
+
         $this->view('home/index', $this->layout,
             compact(
                 'faturamentoDeVandasNoMes',
@@ -98,7 +100,8 @@ class HomeController extends Controller
                 'totalVendasPorUsuariosNoMes',
                 'clientesCadastrados',
                 'produtosCadastrados',
-                'produtosMaisVendidosNoMes'
+                'produtosMaisVendidosNoMes',
+                'vendasPorMesNoAno'
             ));
     }
 }

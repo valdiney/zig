@@ -31,7 +31,6 @@ function decrementDaysFromDate($returnFormat, $days = 1, $date = false)
 
 function decrementMonthtFromDate($month = 1, $date = false)
 {
-
     if (!$date) {
         $date = date('Y-m-d');
     }

@@ -1,5 +1,4 @@
 <?php use System\HtmlComponents\Charts\Doughnut; ?>
-
 <style>
     .imagem-perfil {
         width: 30px;
@@ -374,15 +373,70 @@
         </div>
     </div><!--end vendas por usuarios-->
 
+
+    <div class="col-lg-12 col-md-6 col-sm-6">
+        <div class="card card-stats">
+            <div class="card-body totalVendasPorUsuariosNoMes">
+                <center>
+                    Vendas por mês em
+                    <small style="opacity:0.70">
+                        <?php echo date('Y');?>
+                    </small>
+                </center>
+
+                <?php if (count($totalVendasPorUsuariosNoMes) > 0): ?>
+                    <table class="table tabela-ajustada vendas_por_vendedores table-striped">
+                        <thead>
+                        <tr class="tr-header-vendas-por-usuarios">
+                            <th>Mês</th>
+                            <th>Total</th>
+                        </tr>
+                        </thead>
+                        <tbody class="tbody-totalVendasPorUsuariosNoMes">
+                        <?php foreach ($vendasPorMesNoAno as $mes): ?>
+                            <tr>
+                                <td>
+                                    <?php echo mesesPorExtensoEnumeroDoMes($mes->mes);?>
+                                </td>
+
+                                <td>
+                                    R$ <?php echo real($mes->total);?>
+                                </td>
+                            </tr>
+                        <?php endforeach; ?>
+                        </tbody>
+                    </table>
+
+                <?php else: ?>
+                    <br><br><br>
+                    <center>
+                        <i class="fas fa-sad-tear" style="font-size:40px;opacity:0.70"></i>
+                        <br><br>
+                        <h6 style="opacity:0.70">Inda não houve vendas este ano!</h6>
+                    </center>
+                <?php endif; ?>
+            </div>
+            <div class="card-footer ">
+                <hr>
+                <!--<div class="stats">
+                  <i class="fa fa-refresh"></i>
+                  Update Now
+                </div>-->
+            </div>
+        </div>
+    </div><!--end vendas por usuarios-->
+
+
 </div>
 
 <script src="<?php echo BASEURL; ?>/public/assets/js/core/jquery.min.js"></script>
 <script src="<?php echo BASEURL; ?>/public/assets/chartjs/dist/Chart.min.js"></script>
+
 <?php Doughnut::start(
     'grafico-tipo-pagamento',
     $percentualMeiosDePagamento->medias,
     $percentualMeiosDePagamento->legendas,
-    ["#83e6cd", "#9be6e6", "#dbb4dc", "#98c0d5"]
+    ["#a0d2ae", "#98c0d5", "#dbb4dc", "#d0b9ae", "#73b1a2"]
 ); ?>
 <script>
     /*$(".vendas_por_vendedores tbody td").each(function() {

@@ -45,7 +45,7 @@ class VendasRepository
 			WHERE DATE(vendas.created_at) BETWEEN NOW() - INTERVAL 30 DAY AND NOW()
             AND vendas.id_empresa = {$idEmpresa}
             AND vendas.deleted_at IS NULL
-			GROUP BY vendas.id_meio_pagamento"
+			GROUP BY vendas.id_meio_pagamento ORDER BY mpg.id"
         );
 
         $legendas = [];
@@ -142,7 +142,23 @@ class VendasRepository
             GROUP BY vendas.id_produto ORDER BY quantidade DESC LIMIT {$quantidade}
         ");
     }
+
+    public function vendasPorMesNoAno($idEmpresa, $ano = false)
+    {
+        if ( ! $ano)  {
+            $ano = date('Y');
+        }
+
+        return $this->venda->query(
+            "SELECT SUM(valor) AS total, MONTH(created_at) AS mes,
+            DATE_FORMAT(created_at, '%m/%Y') periodo
+            FROM vendas WHERE YEAR(created_at) = '{$ano}' AND id_empresa = {$idEmpresa}
+            GROUP BY MONTH(created_at) ORDER BY MONTH(created_at)
+        ");
+    }
 }
+
+
 
 
 /*

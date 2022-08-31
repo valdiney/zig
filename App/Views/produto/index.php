@@ -34,6 +34,10 @@ use System\HtmlComponents\Modal\Modal;
                     <input type="text" class="form-control" placeholder="Pesquise por nome..."
                     onkeyup="pesquisarProdutoPorNome($(this).val())">
                 </div>
+                <div class="col-md-6">
+                    <input type="text" class="form-control" placeholder="Pesquise por código de barras..."
+                    onkeyup="pesquisarProdutoPorCodigoDeBarras($(this).val())">
+                </div>
             </div>
         </div>
     </div>
@@ -92,6 +96,15 @@ use System\HtmlComponents\Modal\Modal;
             $("#carregar-produtos").load("produto/pesquisarProdutoPorNome/"+in64(nome));
         } else {
             $("#carregar-produtos").load("produto/pesquisarProdutoPorNome");
+        }
+    }
+
+    function pesquisarProdutoPorCodigoDeBarras(codigo) {
+        $("#carregar-produtos").html("<center><h3>Carregando...</h3></center>");
+        if (codigo != '' || codigo != false) {
+            $("#carregar-produtos").load("produto/pesquisarProdutoPorCodigoDeBarras/"+in64(codigo));
+        } else {
+            $("#carregar-produtos").load("produto/pesquisarProdutoPorCodigoDeBarras");
         }
     }
 

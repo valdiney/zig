@@ -8,6 +8,7 @@ function colocarProdutosNaMesa(id, item) {
     const rota = getDomain() + "/pdvDiferencial/colocarProdutosNaMesa/" + id;
     $.get(rota, function (data, status) {
         obterOultimoProdutoColocadoNaMesa('ultimo');
+        calcularTroco();
         setTimeout(modalValidacaoClose, 1000);
     });
 }
@@ -95,6 +96,7 @@ function alterarAquantidadeDeUmProdutoNaMesa(id, quantidade) {
             $(".tabela-de-produto tbody").empty();
             obterProdutosDaMesa();
             obterValorTotalDosProdutosNaMesa();
+            calcularTroco();
             setTimeout(modalValidacaoClose, 1000);
         });
     }
@@ -111,6 +113,7 @@ function retirarProdutoDaMesa(id, item) {
 
         obterValorTotalDosProdutosNaMesa();
         verificaSeTemProdutosNaMesa($(".tabela-de-produto tbody tr").length);
+        calcularTroco();
 
         return false;
     });
@@ -122,11 +125,11 @@ Leva em concideração o valor sobre a quantidade de produtos.
 */
 function obterValorTotalDosProdutosNaMesa() {
     var rota = getDomain() + "/pdvDiferencial/obterValorTotalDosProdutosNaMesa/";
-    $(".b-mostra-valor-total").text('Carregando...');
+    $("#b-mostra-valor-total").val('Carregando...');
 
     $.get(rota, function (data, status) {
         var total = JSON.parse(data);
-        $(".b-mostra-valor-total").html(real(total.total));
+        $("#b-mostra-valor-total").val(real(total.total));
     });
 }
 
@@ -135,6 +138,8 @@ function saveVendasViaSession(token) {
     var rota = getDomain() + "/pdvDiferencial/saveVendasViaSession";
     const meioPagamento = $('#id_meio_pagamento').val();
     const dataCompensacao = $('#data_compensacao_boleto').val();
+    const valorRecebido = $("#valor_recebido").val();
+    var  troco = $("#input_troco").val();
 
     // verifica se é boleto e preencheu a data de compensacao
     if (meioPagamento == 4 && dataCompensacao == "") {
@@ -158,6 +163,8 @@ function saveVendasViaSession(token) {
         const payload = {
             'id_meio_pagamento': meioPagamento,
             'data_compensacao': dataCompensacao,
+            'valor_recebido': valorRecebido,
+            'troco': usd(troco),
             '_token': token
         };
 
@@ -167,6 +174,7 @@ function saveVendasViaSession(token) {
                 $(".tabela-de-produto tbody").empty();
                 verificaSeTemProdutosNaMesa(1);
                 obterValorTotalDosProdutosNaMesa();
+                reiniciaElementosDePagamento();
                 modalValidacao('Venda', 'Venda realizada com Sucesso!');
             }
         })
@@ -181,8 +189,14 @@ function verificaSeTemProdutosNaMesa(t) {
     if (t.length == 0 || t == 1) {
         t += "<td class='colspan' colspan='6' style='text-align:center'>Nenhum produto selecionado!</td>";
         $(".tabela-de-produto tbody").append(t);
+        reiniciaElementosDePagamento();
+        $("#id_meio_pagamento").prop('disabled', true);
+        $("#button-confirmar-venda").prop('disabled', true);
+
     } else {
         $(".colspan").hide();
+        $("#id_meio_pagamento").prop('disabled', false);
+        $("#button-confirmar-venda").prop('disabled', false);
     }
 }
 
@@ -194,11 +208,64 @@ function handleAoMudarMeioDePagamento() {
     const dataCompensacao = document.querySelector("#data-compensacao");
     const elmtMeiosDePagamento = document.querySelector("#id_meio_pagamento");
     const meiosDePagamento = parseInt(elmtMeiosDePagamento.value);
+
+    // 1 = meio de pagamento (Dinheiro)
+    if (meiosDePagamento == 1) {
+        $("#div-valor-recebido").show('fast');
+        $("#div-troco").show('fast');
+        calcularTroco();
+    } else {
+        $("#div-valor-recebido").hide('fast');
+        $("#div-troco").hide('fast');
+        $("#button-confirmar-venda").prop('disabled', false);
+    }
+
     if (meiosDePagamento !== 4) {
         dataCompensacao.classList.remove("visivel");
         dataCompensacao.value = "";
         return;
     }
+
     dataCompensacao.classList.add("visivel");
 }
+
+function calcularTroco() {
+    var valorRecebido = $("#valor_recebido").val();
+    var rota = getDomain() + "/pdvDiferencial/calcularTroco/"+in64(valorRecebido);
+    var meioPagamento = $("#id_meio_pagamento").val();
+
+    // Mostra a opção de troco somente se for pagamento via dinheiro
+    if (meioPagamento != 'selecione' && meioPagamento == 1) {
+        $("#div-troco").show('fast');
+        $("#input_troco").val('Carregando...');
+
+        $.get(rota, function (data, status) {
+            var troco = JSON.parse(data);
+
+            if (troco.message != false) {
+                $("#button-confirmar-venda").prop('disabled', true);
+                $("#valor_recebido").css("background", '#f6e1e1');
+                $("#label-valor-pago").html("<br> <b style=color:#c34747>" + troco.message + "</b>");
+            } else {
+                $("#button-confirmar-venda").prop('disabled', false);
+                $("#valor_recebido").css("background", 'transparent');
+                $("#label-valor-pago").text("Valor pago");
+            }
+
+            $("#input_troco").val(troco.valor.toLocaleString('pt-BR',  { minimumFractionDigits: 2}));
+        });
+    }
+}
+
+function reiniciaElementosDePagamento() {
+    $("#id_meio_pagamento").prop('selectedIndex', 0);
+    $("#valor_recebido").val('');
+    $("#input_troco").val('');
+    $("#div-troco").hide('fast');
+    $("#div-valor-recebido").hide('fast');
+
+    $("#valor_recebido").css("background", 'transparent');
+    $("#label-valor-pago").text("Valor pago");
+}
+
 handleAoMudarMeioDePagamento();

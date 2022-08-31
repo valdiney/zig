@@ -205,14 +205,16 @@
 
     <div class="card col-lg-3 content-div div-realizar-pagamento" style="">
         <div class="card-body div-card-body-realizar-pagamento">
-            <center>
-                <span>Total:</span> <br>
-                <span><b class="b-mostra-valor-total">R$ 00,00</b></span>
-            </center>
+
+            <span>Total</span> <br>
+            <input type="text" class="form-control" id="b-mostra-valor-total" readonly placeholder="R$ 00,00">
+
             <hr>
+
             <div class="form-group">
                 <label for="id_meio_pagamento">Meios de pagamento *</label>
                 <select class="form-control" name="id_meio_pagamento" id="id_meio_pagamento" onchange="handleAoMudarMeioDePagamento()">
+                    <option value="selecione">Selecione</option>
                     <?php foreach ($meiosPagamentos as $pagamento): ?>
                         <option value="<?php echo $pagamento->id; ?>">
                             <?php echo $pagamento->legenda; ?>
@@ -220,14 +222,28 @@
                     <?php endforeach; ?>
                 </select>
             </div>
+
+            <div class="form-group" id="div-valor-recebido" style="display:none">
+                <label for="valor_recebido" id="label-valor-pago">Valor pago</label>
+                <input type="text" class="form-control campo-moeda" id="valor_recebido" name="valor_recebido" placeholder="R$ 00,00"
+                onblur="calcularTroco();">
+            </div>
+
+            <div id="div-troco" style="display:none">
+                Troco <br>
+                <input type="text" class="form-control campo-moeda" id="input_troco" readonly placeholder="R$ 00,00">
+            </div>
+
             <div class="form-group" id="data-compensacao">
-                <label for="id_meio_pagamento">Data de compensacao *</label>
+                <label for="id_meio_pagamento">Data de compensacao</label>
                 <input type="date" class="form-control" id="data_compensacao_boleto" name="data_compensacao_boleto">
             </div>
 
-            <button class="btn btn-sm btn-success btn-block" onclick="saveVendasViaSession('<?php echo TOKEN; ?>')">
+            <button class="btn btn-sm btn-success btn-block" id="button-confirmar-venda" onclick="saveVendasViaSession('<?php echo TOKEN; ?>')">
                 <i class="fas fa-save"></i> Confirmar
             </button>
+
+
         </div>
     </div>
 

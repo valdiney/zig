@@ -35,6 +35,7 @@ use System\Session\Session;
                     <th>Nome</th>
                     <th class="hidden-when-mobile">E-mail</th>
                     <th>Perfil</th>
+                    <th>Ativo</th>
                     <th style="text-align:right;padding-right:0">
                         <?php $rota = BASEURL . '/usuario/modalFormulario'; ?>
                         <?php if (Session::get('idPerfil') != ConfigPerfil::vendedor()): ?>
@@ -62,6 +63,9 @@ use System\Session\Session;
                         <td><?php echo $usuario->nome; ?></td>
                         <td class="hidden-when-mobile"><?php echo $usuario->email; ?></td>
                         <td><?php echo $usuario->perfil; ?></td>
+                        <td class="<?php echo (is_null($usuario->deleted_at)) ? 'ativo' : 'desativado'; ?>">
+                            <?php echo (is_null($usuario->deleted_at)) ? 'Sim' : 'Não'; ?>
+                        </td>
                         <td style="text-align:right">
 
                             <div class="btn-group" role="group">
@@ -76,6 +80,22 @@ use System\Session\Session;
                                             onclick="modalUsuarios('<?php echo $rota; ?>', <?php echo $usuario->id; ?>);">
                                         <i class="fas fa-edit"></i> Editar
                                     </button>
+
+                                    <?php if (is_null($usuario->deleted_at)): ?>
+
+                                        <button class="dropdown-item" href="#"
+                                                onclick="modalAtivarEdesativarUsuario('<?php echo $usuario->id; ?>', '<?php echo $usuario->nome; ?>', 'desativar')">
+                                            <i class="fas fa-window-close"></i> Desativar
+                                        </button>
+
+                                    <?php else: ?>
+
+                                        <button class="dropdown-item" href="#"
+                                                onclick="modalAtivarEdesativarUsuario('<?php echo $usuario->id; ?>', '<?php echo $usuario->nome; ?>', 'ativar')">
+                                            <i class="fas fa-square"></i> Ativar
+                                        </button>
+
+                                    <?php endif; ?>
 
                                     <!--<a class="dropdown-item" href="#">
                                         <i class="fas fa-trash-alt" style="color:#cc6666"></i> Excluir
@@ -117,6 +137,24 @@ use System\Session\Session;
 
 <?php Modal::stop(); ?>
 
+<!--Modal Desativar e ativar usuários-->
+<?php Modal::start([
+    'id' => 'modalDesativarUsuario',
+    'width' => 'modal-sm',
+    'title' => '<i class="fas fa-user-tie" style="color:#ad54da"></i>'
+]); ?>
+<div id="modalConteudo">
+    <p id="nomeUsuario"></p>
+
+    <center>
+        <set-modal-button class="set-modal-button"></set-modal-button>
+        <button class="btn btn-sm btn-default" data-dismiss="modal">
+            <i class="fas fa-window-close"></i> Não
+        </button>
+    </center>
+</div>
+<?php Modal::stop(); ?>
+
 <script>
     function modalUsuarios(rota, usuarioId) {
         var url = "";
@@ -130,5 +168,47 @@ use System\Session\Session;
         $("#formulario").html("<center><h3>Carregando...</h3></center>");
         $("#modalUsuarios").modal({backdrop: 'static'});
         $("#formulario").load(url);
+    }
+
+    function modalAtivarEdesativarUsuario(id, nome, operacao) {
+        if (operacao == 'desativar') {
+            $("#nomeUsuario").html('Tem certeza que deseja desativar o usuario ' + nome + '?');
+            $("set-modal-button").html('<button class="btn btn-sm btn-success" id="buttonDesativarUsuario" data-id-usuario="'+id+'" onclick="desativarUsuario(this)"><i class="far fa-check-circle"></i> Sim</button>');
+
+        } else if (operacao == 'ativar') {
+            $("#nomeUsuario").html('Você deseja ativar o usuário ' + nome + '?');
+            $("set-modal-button").html('<button class="btn btn-sm btn-success" id="buttonDesativarUsuario" data-id-usuario="'+id+'" onclick="ativarUsuario(this)"><i class="far fa-check-circle"></i> Sim</button>');
+        }
+
+        $("#modalDesativarUsuario").modal({backdrop: 'static'});
+        document.querySelector("#buttonDesativarUsuario").dataset.idCliente = id;
+    }
+
+    function desativarUsuario(elemento) {
+        modalValidacao('Validação', 'Desativando usuário...');
+        id = elemento.dataset.idUsuario;
+
+        var rota = getDomain() + "/usuario/desativarUsuario/" + id;
+        $.get(rota, function (data, status) {
+            var dados = JSON.parse(data);
+            if (dados.status == true) {
+                location.reload();
+                //$("#modalDesativarUsuario .close").click();
+            }
+        });
+    }
+
+    function ativarUsuario(elemento) {
+        modalValidacao('Validação', 'Ativando usuário...');
+        id = elemento.dataset.idUsuario;
+
+        var rota = getDomain() + "/usuario/ativarUsuario/" + id;
+        $.get(rota, function (data, status) {
+            var dados = JSON.parse(data);
+            if (dados.status == true) {
+                location.reload();
+                //$("#modalDesativarUsuario .close").click();
+            }
+        });
     }
 </script>

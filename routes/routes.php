@@ -23,6 +23,8 @@ $route->post('usuario/save', 'UsuarioController@save');
 $route->get('usuario/modalFormulario/{idUsuario?}', 'UsuarioController@modalFormulario');
 $route->post('usuario/update', 'UsuarioController@update');
 $route->get('usuario/verificaSeEmailExiste/{email}/{idUsuario?}', 'UsuarioController@verificaSeEmailExiste');
+$route->get('usuario/desativarUsuario/{idUsuario}', 'UsuarioController@desativarUsuario');
+$route->get('usuario/ativarUsuario/{idUsuario}', 'UsuarioController@ativarUsuario');
 
 $route->get('usuario/teste', 'UsuarioController@testeEmail');
 
@@ -42,6 +44,7 @@ $route->get('produto/modalFormulario/{idProduto?}', 'ProdutoController@modalForm
 $route->post('produto/save', 'ProdutoController@save');
 $route->post('produto/update', 'ProdutoController@update');
 $route->get('produto/pesquisarProdutoPorNome/{nome?}', 'ProdutoController@pesquisarProdutoPorNome');
+$route->get('produto/pesquisarProdutoPorCodigoDeBarras/{codigo?}', 'ProdutoController@pesquisarProdutoPorCodigoDeBarras');
 
 # ----- ConfiguracaoController --------------------------------
 $route->get('configuracao', 'ConfiguracaoController@index');
@@ -65,6 +68,9 @@ $route->post('pdvDiferencial/saveVendasViaSession', 'PdvDiferencialController@sa
 
 $route->get('pdvDiferencial/obterValorTotalDosProdutosNaMesa',
     'PdvDiferencialController@obterValorTotalDosProdutosNaMesa');
+
+$route->get('pdvDiferencial/calcularTroco/{valorRecebido}',
+    'PdvDiferencialController@calcularTroco');
 
 # ----- ClienteController --------------------------------
 $route->get('cliente', 'ClienteController@index');

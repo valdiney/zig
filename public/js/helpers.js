@@ -91,6 +91,11 @@ function real(valor) {
     return valor.toLocaleString('pt-BR', {style: 'currency', currency: 'BRL'});
 }
 
+function usd(valor) {
+    //valor = Number(valor);
+    return valor.toLocaleString('pt-BR', {style: 'currency', currency: 'USD'});
+}
+
 //////////////////////////////////////////////////////////////////////////////
 
 //////////////////////////////////////////////////////////////////////////////

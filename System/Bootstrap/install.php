@@ -1,5 +1,6 @@
 <?php
 
+use System\CommandLine\Migrate;
 use System\Route\GetRoute;
 use System\Route\SelectController;
 
@@ -76,6 +77,8 @@ foreach ($data as $key => $value) {
 $envPath = __DIR__ . '/../../.env';
 
 file_put_contents($envPath, $config);
+
+new Migrate();
 
 header("Refresh: 0.5");
 

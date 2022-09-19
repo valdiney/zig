@@ -24,7 +24,7 @@ use System\HtmlComponents\FlashMessage\FlashMessage; ?>
   <link rel="stylesheet" type="text/css" href="<?php echo BASEURL; ?>/public/css/login.css">
   <style type="text/css">
     body {
-      background-image: url('public/img/fundo_login.jpg');
+      background-image: url('<?php echo BASEURL; ?>/public/img/fundo_login.jpg');
       background-repeat: no-repeat;
       background-size: cover;
       background-position: top center;

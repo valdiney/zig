@@ -17,12 +17,14 @@ function handleAdicionaCodigoNosProdutos(NativeQuery $native, array $produtosId)
 
 $connection = Native::connect();
 $native = new NativeQuery($connection);
-$produtos = $native->query('SELECT id FROM produtos WHERE codigo IS NULL OR codigo = "0" OR codigo = "1";');
 
-if (!is_null($produtos) && !empty($produtos))
-{
-    $produtosId = array_map(static function ($produto) {
-        return $produto->id;
-    }, $produtos);
-    handleAdicionaCodigoNosProdutos($native, $produtosId);
+$columnExists = $native->query("SHOW COLUMNS FROM produtos LIKE 'codigo'");
+if (count($columnExists)) {
+    $produtos = $native->query('SELECT id FROM produtos WHERE codigo IS NULL OR codigo = "0" OR codigo = "1";');
+    if (!empty($produtos)) {
+        $produtosId = array_map(static function ($produto) {
+            return $produto->id;
+        }, $produtos);
+        handleAdicionaCodigoNosProdutos($native, $produtosId);
+    }
 }

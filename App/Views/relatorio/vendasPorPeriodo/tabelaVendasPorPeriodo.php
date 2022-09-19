@@ -109,7 +109,8 @@
 
 <script>
 function modalAItensDaVenda(codigoVenda) {
-    $(".div-itens-da-venda").load("relatorio/itensDaVenda/"+in64(codigoVenda));
+    let url = "<?php echo BASEURL; ?>/relatorio/itensDaVenda/"+in64(codigoVenda);
+    $(".div-itens-da-venda").load(url);
     $("#modalItensDaVenda").modal({backdrop: 'static'});
 }
 

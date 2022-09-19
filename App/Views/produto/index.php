@@ -92,20 +92,16 @@ use System\HtmlComponents\Modal\Modal;
     pesquisarProdutoPorNome(false);
     function pesquisarProdutoPorNome(nome) {
         $("#carregar-produtos").html("<center><h3>Carregando...</h3></center>");
-        if (nome != '' || nome != false) {
-            $("#carregar-produtos").load("produto/pesquisarProdutoPorNome/"+in64(nome));
-        } else {
-            $("#carregar-produtos").load("produto/pesquisarProdutoPorNome");
-        }
+        let url = "<?php echo BASEURL; ?>/produto/pesquisarProdutoPorNome";
+        url += nome? ("/"+in64(nome)) : "";
+        $("#carregar-produtos").load(url);
     }
 
     function pesquisarProdutoPorCodigoDeBarras(codigo) {
         $("#carregar-produtos").html("<center><h3>Carregando...</h3></center>");
-        if (codigo != '' || codigo != false) {
-            $("#carregar-produtos").load("produto/pesquisarProdutoPorCodigoDeBarras/"+in64(codigo));
-        } else {
-            $("#carregar-produtos").load("produto/pesquisarProdutoPorCodigoDeBarras");
-        }
+        let url = "<?php echo BASEURL; ?>/produto/pesquisarProdutoPorCodigoDeBarras";
+        url += codigo? ("/"+in64(codigo)) : "";
+        $("#carregar-produtos").load(url);
     }
 
     function modalFormularioProdutos(rota, id) {

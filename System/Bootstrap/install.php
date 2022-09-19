@@ -1,5 +1,6 @@
 <?php
 
+use System\CommandLine\Migrate;
 use System\Route\GetRoute;
 use System\Route\SelectController;
 
@@ -48,7 +49,7 @@ if ($method === 'GET') {
 $data = [];
 
 $data['APP_ENV']            = $_POST['APP_ENV'] ?? 'local';
-$data['APP_DISPLAY_ERRORS'] = $_POST['APP_DISPLAY_ERRORS']==='on'? 'true': 'false';
+$data['APP_DISPLAY_ERRORS'] = isset($_POST['APP_DISPLAY_ERRORS']) && $_POST['APP_DISPLAY_ERRORS']==='on'? 'true': 'false';
 $data['HTTPS']              = isset($_POST['APP_HTTPS']) && $_POST['APP_HTTPS']==='on'? 'true': 'false';
 
 $data['TIMEZONE'] = $_POST['APP_TIMEZONE'] ?? 4; // bahia como default
@@ -76,6 +77,8 @@ foreach ($data as $key => $value) {
 $envPath = __DIR__ . '/../../.env';
 
 file_put_contents($envPath, $config);
+
+new Migrate();
 
 header("Refresh: 0.5");
 

@@ -257,10 +257,8 @@
     pesquisarProdutoPorNome(false);
     function pesquisarProdutoPorNome(nome) {
         $("#carregar-produtos").html("<center><h3>Carregando...</h3></center>");
-        if (nome != '' || nome != false) {
-            $("#carregar-produtos").load("pesquisarProdutoPorNome/"+in64(nome));
-        } else {
-            $("#carregar-produtos").load("pesquisarProdutoPorNome");
-        }
+        let url = "<?php echo BASEURL; ?>/pesquisarProdutoPorNome";
+        url += nome? ("/"+in64(nome)) : "";
+        $("#carregar-produtos").load(url);
     }
 </script>

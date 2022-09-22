@@ -48,4 +48,4 @@ Que tal nos ajudar nesta empreitada?
 
 Você pode conferir a
 [nossa documentação](https://github.com/valdiney/zig/blob/master/docs/instalacao.md) <br>
-[Video no youtube](https://www.youtube.com/watch?v=-AOfhCkwYtw)
+Veja nosso video no [youtube](https://www.youtube.com/watch?v=-AOfhCkwYtw)

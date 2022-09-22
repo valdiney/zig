@@ -47,5 +47,5 @@ Que tal nos ajudar nesta empreitada?
 # Instalação
 
 Você pode conferir a
-[nossa documentação](https://github.com/valdiney/zig/blob/master/docs/instalacao.md)
-[Video no Youtube](https://www.youtube.com/watch?v=-AOfhCkwYtw)
+[nossa documentação](https://github.com/valdiney/zig/blob/master/docs/instalacao.md) <br>
+Video: (https://www.youtube.com/watch?v=-AOfhCkwYtw)

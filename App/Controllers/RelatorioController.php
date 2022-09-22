@@ -116,7 +116,18 @@ class RelatorioController extends Controller
             out64($codigoVenda)
         );
 
-        $this->view('relatorio/vendasPorPeriodo/tabelaItensDaVenda', false, compact('vendas'));
+        $detalhesDePagamentoItensDaVenda = $relatorioVendas->detalhesDePagamentoItensDaVenda(
+            $this->idEmpresa,
+            out64($codigoVenda)
+        );
+
+        //dd($detalhesDePagamentoItensDaVenda);
+
+        $this->view('relatorio/vendasPorPeriodo/tabelaItensDaVenda', false,
+        compact(
+            'vendas',
+            'detalhesDePagamentoItensDaVenda'
+        ));
     }
 
     public function gerarXls($de, $ate, $opcao = false)

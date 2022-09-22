@@ -1,6 +1,30 @@
 <!--Usando o Html Components-->
 <?php use System\HtmlComponents\Modal\Modal; ?>
 
+<style>
+    .span-badge {
+        background:#eceaea;
+        padding:5px;
+        border-radius:5px;
+        margin-right:5px;
+        color:gray;
+        border:1px solid #e0dcdc;
+    }
+</style>
+<div style="margin-bottom:20px">
+    <span class="span-badge">
+        Total: R$ <?php echo real($detalhesDePagamentoItensDaVenda->total);?>
+    </span>
+    <?php if ($detalhesDePagamentoItensDaVenda->id_meio_pagamento == 1):?>
+        <span class="span-badge">
+            Recebido: R$ <?php echo real($detalhesDePagamentoItensDaVenda->valor_recebido);?>
+        </span>
+        <span class="span-badge">
+            Troco: R$ <?php echo real($detalhesDePagamentoItensDaVenda->troco);?>
+        </span>
+    <?php endif;?>
+</div>
+
 <table class="table tabela-ajustada table-striped">
         <thead>
         <tr>

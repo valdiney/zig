@@ -69,7 +69,7 @@ use System\Session\Session;
                    class="<?php currentRouteFromMenu('relatorio', 'relatorioBorder'); ?>
                     <?php currentRouteFromMenu('relatorio/vendasPorPeriodo', 'relatorioBorder'); ?>">
                     <i class="fas fa-file-contract"></i>
-                    <p>Relatórios</p>
+                    <p>Log de Vendas</p>
                 </a>
             </li>
         <?php endif; ?>

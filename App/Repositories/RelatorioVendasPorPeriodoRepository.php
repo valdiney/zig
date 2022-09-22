@@ -157,6 +157,15 @@ class RelatorioVendasPorPeriodoRepository
         return $query;
     }
 
+    public function detalhesDePagamentoItensDaVenda($idEmpresa, $codigoVenda)
+    {
+        return $this->venda->query(
+            "SELECT id_meio_pagamento, SUM(valor) AS total, valor_recebido,
+            valor_recebido - SUM(valor) AS troco FROM vendas
+            WHERE id_empresa = {$idEmpresa}
+            AND codigo_venda = '{$codigoVenda}'")[0];
+    }
+
     public function gerarRelatioDeVendasPorPeriodoPDF(array $periodo, $idUsuario = false, $idEmpresa = false, $empresa)
     {
         $periodo = ['de' => $periodo['de'], 'ate' => $periodo['ate']];

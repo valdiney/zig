@@ -24,7 +24,7 @@ class BuscaUsuariosService
             return $usuarios;
         }
         return array_filter($usuarios, static function (stdClass $usuario) {
-            return $usuario->deleted_at === null || '0000-00-00 00:00:00';
+            return $usuario->deleted_at === null || $usuario->deleted_at == '0000-00-00 00:00:00';
         });
     }
 }

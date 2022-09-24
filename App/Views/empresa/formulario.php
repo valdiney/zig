@@ -131,4 +131,6 @@
             }
         });
     }
+
+    jQuery('#id_segmento').select2();
 </script>

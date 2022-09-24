@@ -58,7 +58,7 @@ $configPdv = $configPdv->configPdv(Session::get('idEmpresa'));
         <meta property="og:site_name" content="ZigMoney">
     <?php endif; ?>
 
-    <meta property="og:description" content="Tentativa de criar um Chat simples usando Firebase">
+    <meta property="og:description" content="ZigMoney">
     <meta property="og:image" content="https://raw.githubusercontent.com/valdiney/zig/master/prints/dashboard.png">
     <meta property="og:image:type" content="image/jpeg">
     <meta property="og:image:width" content="800">

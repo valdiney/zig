@@ -45,6 +45,7 @@ $configPdv = $configPdv->configPdv(Session::get('idEmpresa'));
           integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
 
     <link rel="stylesheet" type="text/css" href="<?php echo BASEURL; ?>/public/css/select2.css">
+    <link rel="stylesheet" type="text/css" href="<?php echo BASEURL; ?>/public/css/w3cform.css">
 
     <meta name="author" content="ZigMoney">
     <meta property="og:url" content="https://github.com/valdiney/zig/">

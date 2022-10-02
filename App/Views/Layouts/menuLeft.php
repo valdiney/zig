@@ -65,7 +65,7 @@ use System\Session\Session;
 
         <?php if (Session::get('idPerfil') != ConfigPerfil::vendedor()): ?>
             <li class="">
-                <a href="<?php echo BASEURL; ?>/relatorio/vendasPorPeriodo"
+                <a href="<?php echo BASEURL; ?>/relatorio/vendasPorPeriodor"
                    class="<?php currentRouteFromMenu('relatorio', 'relatorioBorder'); ?>
                     <?php currentRouteFromMenu('relatorio/vendasPorPeriodo', 'relatorioBorder'); ?>">
                     <i class="fas fa-file-contract"></i>
@@ -73,6 +73,15 @@ use System\Session\Session;
                 </a>
             </li>
         <?php endif; ?>
+
+        <li class="">
+            <a href="<?php echo BASEURL; ?>/fluxoDeCaixa/index"
+                class="<?php currentRouteFromMenu('fluxoDeCaixa', 'fluxoDeCaixaBorder'); ?>
+                <?php currentRouteFromMenu('fluxoDeCaixa/index', 'fluxoDeCaixaBorder'); ?>">
+                <i class="fas fa-money-bill"></i>
+                <p>Fluxo de caixa</p>
+            </a>
+        </li>
 
         <!--<div class="dropdown">
             <li class="active-pro dropdown-toggle dropdown-toggle dropdown-toggle-split" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">

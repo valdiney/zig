@@ -44,7 +44,7 @@ function mesesPorExtensoEnumeroDoMes($mes = false)
 {
     $explode = explode('0', $mes);
     $numeroMes = $mes;
-    if (array_key_exists(1, $explode)) {
+    if (array_key_exists(1, $explode) && $mes != 10) {
         $numeroMes = $explode[1];
     }
 

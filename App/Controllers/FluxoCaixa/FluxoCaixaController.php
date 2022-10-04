@@ -35,9 +35,13 @@ class FluxoCaixaController extends Controller
 
     public function index()
     {
+        $periodo = ['de' => date('Y/m/d'), 'ate' => date('Y/m/d')];
+
         $fluxoCaixa = new FluxoCaixa();
-        $fluxo = $fluxoCaixa->fluxoDeCaixa($this->idEmpresa);
-        $fluxoDetalhadoPorMes = $fluxoCaixa->fluxoDeCaixaDetalhadoPorMes($this->idEmpresa);
+        $fluxo = $fluxoCaixa->fluxoDeCaixa($periodo, $this->idEmpresa);
+        $fluxoDetalhadoPorMes = $fluxoCaixa->fluxoDeCaixaDetalhadoPorMes($periodo, $this->idEmpresa);
+
+
 
         $this->view('fluxoDeCaixa/index', $this->layout, compact('fluxo', 'fluxoDetalhadoPorMes'));
     }

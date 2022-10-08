@@ -40,6 +40,13 @@ class FluxoCaixa extends Model
                 GROUP BY DATE(created_at)"
             );
 
+            if ( ! isset($query->scalar)) {
+                if (is_null($query->entradas) && ! is_null($query->saidas)) {
+                    $query->entradas = 0;
+                    $query->restante = $query->entradas - $query->saidas;
+                }
+            }
+
             # Vendas vindas do PDV
             $vendas = $this->vendas->totalDasVendas($periodo, false, $idEmpresa);
 

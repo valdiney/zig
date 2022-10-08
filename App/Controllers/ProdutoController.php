@@ -28,9 +28,8 @@ class ProdutoController extends Controller
         parent::__construct();
         $this->layout = 'default';
 
-        $this->diretorioImagemProdutoPadrao = 'public/imagem/produtos/';
-        # Pega o diretório setado no .env
-        $this->diretorioImagemProdutoNoEnv = getenv('DIRETORIO_IMAGENS_PRODUTO');
+        $path = filter_var(getenv('SHARED_HOST'), FILTER_VALIDATE_BOOLEAN) ? 'imagem/produtos/' : 'public/imagem/produtos/';
+        $this->diretorioImagemProdutoPadrao = $path;
 
         $this->post = new Post();
         $this->get = new Get();
@@ -66,14 +65,7 @@ class ProdutoController extends Controller
 
             # Valida imagem somente se existir no envio
             if (!empty($_FILES["imagem"]['name'])) {
-
-                $diretorioImagem = false;
-                if ($this->diretorioImagemProdutoNoEnv && !is_null($this->diretorioImagemProdutoNoEnv)) {
-                    $diretorioImagem = $this->diretorioImagemProdutoNoEnv;
-                } else {
-                    $diretorioImagem = $this->diretorioImagemProdutoPadrao;
-                }
-
+                $diretorioImagem = $this->diretorioImagemProdutoPadrao;
                 $retornoImagem = uploadImageHelper(
                     new UploadFiles(),
                     $diretorioImagem,
@@ -86,7 +78,7 @@ class ProdutoController extends Controller
                     return $this->get->redirectTo("produto");
                 }
 
-                $dados['imagem'] = $retornoImagem;
+                $dados['imagem'] = filter_var(getenv('SHARED_HOST'), FILTER_VALIDATE_BOOLEAN) ? "public/{$retornoImagem}" : $retornoImagem;
             }
 
             try {
@@ -137,13 +129,7 @@ class ProdutoController extends Controller
                     unlink($dadosProduto->imagem);
                 }
 
-                $diretorioImagem = false;
-                if ($this->diretorioImagemProdutoNoEnv && !is_null($this->diretorioImagemProdutoNoEnv)) {
-                    $diretorioImagem = $this->diretorioImagemProdutoNoEnv;
-                } else {
-                    $diretorioImagem = $this->diretorioImagemProdutoPadrao;
-                }
-
+                $diretorioImagem = $this->diretorioImagemProdutoPadrao;
                 $retornoImagem = uploadImageHelper(
                     new UploadFiles(),
                     $diretorioImagem,
@@ -156,7 +142,7 @@ class ProdutoController extends Controller
                     return $this->get->redirectTo("produto");
                 }
 
-                $dados['imagem'] = $retornoImagem;
+                $dados['imagem'] = filter_var(getenv('SHARED_HOST'), FILTER_VALIDATE_BOOLEAN) ? "public/{$retornoImagem}" : $retornoImagem;
             }
 
             try {

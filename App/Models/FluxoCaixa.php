@@ -9,7 +9,7 @@ class FluxoCaixa extends Model
 {
     protected $table = 'fluxo_caixa';
     protected $timestamps = true;
-    protected $incluirVendasNoCaixa = 1;
+    protected $incluirVendasNoCaixa = true;
     protected $vendas;
 
     public function __construct()
@@ -24,36 +24,42 @@ class FluxoCaixa extends Model
         $ate = $periodo['ate'];
 
         try {
-            $query = $this->query(
+            $query = $this->queryGetOne(
                 "SELECT
                     (SELECT SUM(valor) FROM fluxo_caixa WHERE tipo_movimento = 1
-                        AND DATE(created_at) BETWEEN '2022/10/03' AND '2022/10/03') AS entradas,
+                        AND DATE(created_at) BETWEEN '{$de}' AND '{$ate}') AS entradas,
                     (SELECT SUM(valor) FROM fluxo_caixa WHERE tipo_movimento = 0
-                        AND DATE(created_at) BETWEEN '2022/10/03' AND '2022/10/03') AS saidas,
+                        AND DATE(created_at) BETWEEN '{$de}' AND '{$ate}') AS saidas,
                     (SELECT SUM(valor) FROM fluxo_caixa WHERE tipo_movimento = 1
-                        AND DATE(created_at) BETWEEN '2022/10/03' AND '2022/10/03') -
+                        AND DATE(created_at) BETWEEN '{$de}' AND '{$ate}') -
                     (SELECT SUM(valor) FROM fluxo_caixa WHERE tipo_movimento = 0
-                AND DATE(created_at) BETWEEN '2022/10/03' AND '2022/10/03') AS restante
+                AND DATE(created_at) BETWEEN '{$de}' AND '{$ate}') AS restante
 
                 FROM fluxo_caixa WHERE id_empresa = {$idEmpresa}
                 AND DATE(created_at) BETWEEN '{$de}' AND '{$ate}'
                 GROUP BY DATE(created_at)"
             );
 
-            if (count($query) > 0) {
-                $query = $query[0];
-                $vendas = $this->vendas->totalDasVendas($periodo, false, $idEmpresa);
-                if ($this->incluirVendasNoCaixa && ! is_null($vendas)) {
-                    $query->entradas += $vendas;
-                    $query->restante = $query->entradas - $query->saidas;
-                    $query->entradasVendas = $vendas;
+            # Vendas vindas do PDV
+            $vendas = $this->vendas->totalDasVendas($periodo, false, $idEmpresa);
+
+            # Tem venda realizada no período
+            if ( ! is_null($vendas)) {
+                # Nenhum valor no caixa para o perído
+                if (isset($query->scalar)) {
+                    # Seto novas propriedade para não ficar underfined
+                    $query = (object) ['entradas' => 0, 'restante' => 0, 'saidas' => 0];
                 }
-            } else {
-                $query = (object) $query;
-                $query->entradas = 0;
-                $query->saidas = 0;
-                $query->restante = 0;
-                $query->entradasVendas = 0;
+
+                $query->entradas += $vendas;
+                $query->restante = $query->entradas - $query->saidas;
+                $query->entradasVendas = $vendas;
+            }
+
+            # Se não tiver nenhuma venda e nenhum caixa no período
+            if (is_null($vendas) && isset($query->scalar)) {
+                # Seto novas propriedade para não ficar underfined
+                $query = (object) ['entradas' => 0, 'restante' => 0, 'saidas' => 0];
             }
 
         } catch (Exception $e) {

@@ -73,7 +73,7 @@
     </h6>
 
     <center>
-        <?php if (!$nome && !$codigo):?>
+        <?php if (!$nome && !isset($codigo)):?>
             Poxa, ainda não há nenhum Produto cadastrado! <br>
         <?php endif; ?>
 

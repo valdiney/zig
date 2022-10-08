@@ -35,15 +35,19 @@ class FluxoCaixaController extends Controller
 
     public function index()
     {
-        $periodo = ['de' => date('Y/m/d'), 'ate' => date('Y/m/d')];
+        $this->view('fluxoDeCaixa/index', $this->layout);
+    }
+
+    // Renderiza a grid do fluxo de caixa. Chamada via ajax
+    public function tabelaFluxoDeCaixa()
+    {
+        $periodo = ['de' => $this->post->data()->de, 'ate' => $this->post->data()->ate];
 
         $fluxoCaixa = new FluxoCaixa();
         $fluxo = $fluxoCaixa->fluxoDeCaixa($periodo, $this->idEmpresa);
         $fluxoDetalhadoPorMes = $fluxoCaixa->fluxoDeCaixaDetalhadoPorMes($periodo, $this->idEmpresa);
 
-
-
-        $this->view('fluxoDeCaixa/index', $this->layout, compact('fluxo', 'fluxoDetalhadoPorMes'));
+        $this->view('fluxoDeCaixa/tabelaFluxoDeCaixa', false, compact('fluxo', 'fluxoDetalhadoPorMes'));
     }
 
     public function modalRegistrarMovimentacao()

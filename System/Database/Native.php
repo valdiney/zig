@@ -4,6 +4,8 @@ namespace System\Database;
 use PDO;
 use PDOException;
 
+use App\Config\DatabaseConfig;
+
 /**
 * --------------------------------------------------------------------------
 * This class is used to make the connection with the database
@@ -17,11 +19,12 @@ class Native
 
     public static function connect()
     {
+        $config = new DatabaseConfig();
         if ( ! isset($pdo)) {
             try {
                 self::$pdo = new PDO(
-                    "mysql:" . "host=" . getenv('HOST_NAME') . ";" .
-                    "dbname=" . getenv('HOST_DBNAME'), getenv('HOST_USERNAME'), getenv('HOST_PASSWORD'),
+                    "mysql:" . "host=" . $config->host . ";" .
+                    "dbname=" . $config->database, $config->user, $config->password,
                     array(PDO::MYSQL_ATTR_INIT_COMMAND => "SET NAMES utf8"));
                 // exibe erro somente em diplay_errors=true
                 $errorType = getenv('APP_DISPLAY_ERRORS', false)==false? PDO::ERRMODE_SILENT: PDO::ERRMODE_WARNING;

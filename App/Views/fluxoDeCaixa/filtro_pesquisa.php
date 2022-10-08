@@ -9,7 +9,7 @@
                     </h5>
                 </div>
 
-                <form method="POST" action="<?php echo BASEURL; ?>/relatorio/vendasChamadaAjax" id="form">
+                <form method="POST" action="<?php echo BASEURL; ?>/fluxoDeCaixa/tabelaFluxoDeCaixa" id="form">
                     <!-- token de segurança -->
                     <input type="hidden" name="_token" value="<?php echo TOKEN; ?>"/>
 
@@ -43,7 +43,7 @@
                                 </select>
                             </div>
 
-                            <button type="submit" class="btn btn-sm btn-success text-right pull-right" id="buscar-vendas"
+                            <button type="submit" class="btn btn-sm btn-success text-right pull-right" id="buscar-fluxo"
                                 style="margin-left:10px">
                                 <i class="fas fa-search"></i> Buscar
                             </button>

@@ -124,6 +124,7 @@ $route->get('empresa/verificaSeEmailExiste/{email}/{idEmpresa?}', 'EmpresaContro
 $route->get('fluxoDeCaixa/index', 'FluxoCaixa\FluxoCaixaController@index');
 $route->get('fluxoDeCaixa/modalRegistrarMovimentacao', 'FluxoCaixa\FluxoCaixaController@modalRegistrarMovimentacao');
 $route->post('fluxoDeCaixa/save', 'FluxoCaixa\FluxoCaixaController@save');
+$route->post('fluxoDeCaixa/tabelaFluxoDeCaixa', 'FluxoCaixa\FluxoCaixaController@tabelaFluxoDeCaixa');
 
 # TESTE
 $route->get('pwa/login', 'Api\InicioPwaController@index');

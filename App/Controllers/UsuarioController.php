@@ -38,8 +38,8 @@ class UsuarioController extends Controller
         $this->idUsuarioLogado = Session::get('idUsuario');
         $this->idPerfilUsuarioLogado = session::get('idPerfil');
 
-        $this->diretorioImagemUsuarioPadrao = 'public/imagem/perfil_usuarios/';
-        $this->diretorioImagemUsuarioNoEnv = getenv('DIRETORIO_IMAGENS_PERFIL_USUARIO');
+        $path = filter_var(getenv('SHARED_HOST'), FILTER_VALIDATE_BOOLEAN) ? 'imagem/perfil_usuarios/' : 'public/imagem/perfil_usuarios/';
+        $this->diretorioImagemUsuarioPadrao = $path;
 
         $logged = new Logged();
         $logged->isValid();
@@ -66,14 +66,7 @@ class UsuarioController extends Controller
 
             # Valida imagem somente se existir no envio
             if (!empty($_FILES["imagem"]['name'])) {
-
-                $diretorioImagem = false;
-                if ($this->diretorioImagemUsuarioNoEnv && !is_null($this->diretorioImagemUsuarioNoEnv)) {
-                    $diretorioImagem = $this->diretorioImagemUsuarioNoEnv;
-                } else {
-                    $diretorioImagem = $this->diretorioImagemUsuarioPadrao;
-                }
-
+                $diretorioImagem = $this->diretorioImagemUsuarioPadrao;
                 $retornoImagem = uploadImageHelper(
                     new UploadFiles(),
                     $diretorioImagem,
@@ -86,7 +79,7 @@ class UsuarioController extends Controller
                     return $this->get->redirectTo("usuario");
                 }
 
-                $dados['imagem'] = $retornoImagem;
+                $dados['imagem'] = filter_var(getenv('SHARED_HOST'), FILTER_VALIDATE_BOOLEAN) ? "public/{$retornoImagem}" : $retornoImagem;
             }
 
             try {
@@ -118,13 +111,7 @@ class UsuarioController extends Controller
                     unlink($dadosUsuario->imagem);
                 }
 
-                $diretorioImagem = false;
-                if ($this->diretorioImagemUsuarioNoEnv && !is_null($this->diretorioImagemUsuarioNoEnv)) {
-                    $diretorioImagem = $this->diretorioImagemUsuarioNoEnv;
-                } else {
-                    $diretorioImagem = $this->diretorioImagemUsuarioPadrao;
-                }
-
+                $diretorioImagem = $this->diretorioImagemUsuarioPadrao;
                 $retornoImagem = uploadImageHelper(
                     new UploadFiles(),
                     $diretorioImagem,
@@ -137,7 +124,7 @@ class UsuarioController extends Controller
                     return $this->get->redirectTo("usuario");
                 }
 
-                $dados['imagem'] = $retornoImagem;
+                $dados['imagem'] = filter_var(getenv('SHARED_HOST'), FILTER_VALIDATE_BOOLEAN) ? "public/{$retornoImagem}" : $retornoImagem;
             }
 
             if (!is_null($this->post->data()->password)) {
@@ -148,6 +135,12 @@ class UsuarioController extends Controller
 
             try {
                 $usuario->update($dados, $dadosUsuario->id);
+
+                # Se o usuário estiver editando a propria imagem, seta a mesma na sessão
+                if ($this->post->data()->id == Session::get('idUsuario')) {
+                    Session::set('imagem', $dados['imagem']);
+                }
+
                 return $this->get->redirectTo("usuario");
 
             } catch (Exception $e) {

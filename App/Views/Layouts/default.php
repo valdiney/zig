@@ -217,7 +217,7 @@ $configPdv = $configPdv->configPdv(Session::get('idEmpresa'));
                                     </a>
                                 <?php endif; ?>
 
-                                <a class="dropdown-item" href="login/logout">
+                                <a class="dropdown-item" href="<?php echo BASEURL;?>/login/logout">
                                     <i class="fas fa-sign-out-alt"></i> Sair do Sistema
                                 </a>
 

@@ -76,7 +76,7 @@ class LoginRemeber
 
         $domain = pathinfo(BASEURL, PATHINFO_BASENAME);
 
-        setcookie($this->cookieName, $hash, $expireTimestamp, "/", $domain);
+        setcookie($this->cookieName, $hash, $expireTimestamp, "/", $domain, "1");
     }
 
     public function getRememberCookie()

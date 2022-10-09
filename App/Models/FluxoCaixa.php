@@ -45,6 +45,11 @@ class FluxoCaixa extends Model
                     $query->entradas = 0;
                     $query->restante = $query->entradas - $query->saidas;
                 }
+
+                if ( ! is_null($query->entradas) && is_null($query->saidas)) {
+                    $query->saidas = 0;
+                    $query->restante = $query->entradas - $query->saidas;
+                }
             }
 
             # Vendas vindas do PDV
@@ -86,24 +91,21 @@ class FluxoCaixa extends Model
             AND DATE(created_at) BETWEEN '{$de}' AND '{$ate}'"
         );
 
-        if (count($query) > 0) {
-            $vendas = $this->vendas->totalDasVendas($periodo, false, $idEmpresa);
-            if ($this->incluirVendasNoCaixa && ! is_null($vendas)) {
-                $vendaDoPdv = new \StdClass;
-                $vendaDoPdv->id = 0;
-                $vendaDoPdv->id_empresa = 1;
-                $vendaDoPdv->id_categoria = 1;
-                $vendaDoPdv->descricao = 'Total vendas PDV';
-                $vendaDoPdv->data = timestamp();
-                $vendaDoPdv->valor = $vendas;
-                $vendaDoPdv->tipo_movimento = 1;
-                $vendaDoPdv->created_at = timestamp();
-                $vendaDoPdv->updated_at = null;
-                $vendaDoPdv->deleted_at = null;
-                $vendaDoPdv->fromPDV = true;
-
-                array_push($query, $vendaDoPdv);
-            }
+        $vendas = $this->vendas->totalDasVendas($periodo, false, $idEmpresa);
+        if (count($query) > 0 || ! is_null($vendas)) {
+            $vendaDoPdv = new \StdClass;
+            $vendaDoPdv->id = 0;
+            $vendaDoPdv->id_empresa = 1;
+            $vendaDoPdv->id_categoria = 1;
+            $vendaDoPdv->descricao = 'Total vendas PDV';
+            $vendaDoPdv->data = timestamp();
+            $vendaDoPdv->valor = $vendas;
+            $vendaDoPdv->tipo_movimento = 1;
+            $vendaDoPdv->created_at = timestamp();
+            $vendaDoPdv->updated_at = null;
+            $vendaDoPdv->deleted_at = null;
+            $vendaDoPdv->fromPDV = true;
+            array_push($query, $vendaDoPdv);
         }
 
         return $query;

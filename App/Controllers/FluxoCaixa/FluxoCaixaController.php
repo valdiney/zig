@@ -44,10 +44,18 @@ class FluxoCaixaController extends Controller
         $periodo = ['de' => $this->post->data()->de, 'ate' => $this->post->data()->ate];
 
         $fluxoCaixa = new FluxoCaixa();
+        $fluxoCaixa->retirarPDVdoFluxoDeCaixa = $this->post->data()->retirarPDV;
+        $retirarPDV = $this->post->data()->retirarPDV;
+
         $fluxo = $fluxoCaixa->fluxoDeCaixa($periodo, $this->idEmpresa);
         $fluxoDetalhadoPorMes = $fluxoCaixa->fluxoDeCaixaDetalhadoPorMes($periodo, $this->idEmpresa);
 
-        $this->view('fluxoDeCaixa/tabelaFluxoDeCaixa', false, compact('fluxo', 'fluxoDetalhadoPorMes'));
+        $this->view('fluxoDeCaixa/tabelaFluxoDeCaixa', false,
+        compact(
+            'fluxo',
+            'fluxoDetalhadoPorMes',
+            'retirarPDV'
+        ));
     }
 
     public function modalRegistrarMovimentacao()

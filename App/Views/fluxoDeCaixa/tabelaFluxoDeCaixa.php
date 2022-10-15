@@ -7,6 +7,15 @@
         margin-top:5px!important;
         border:1px dotted #41da67;
     }
+    #label_incluir_pdv {
+        border:1px solid #f3f2ee;
+        background:#f3f2ee;
+        border-radius:5px;
+        padding:2px;
+        padding-left:4px;
+        padding-right:4px;
+        margin-left:10px;
+    }
 </style>
 
 <div class="card-body">
@@ -15,6 +24,11 @@
         Fluxo de Caixa:
         <b><?php echo mesesPorExtensoEnumeroDoMes(date('m'));?> de <?php echo date('Y');?></b>
     </small>
+
+    <label for="checkbox_incluir_pdv" id="label_incluir_pdv">
+        Ocultar PDV <input type="checkbox" id="checkbox_incluir_pdv" onclick="return incluirPDV($(this))"
+        <?php echo ($retirarPDV == 1) ? 'checked' : false;?>>
+    </label>
     <hr>
 
     <table class="table tabela-ajustada table-stripeds">

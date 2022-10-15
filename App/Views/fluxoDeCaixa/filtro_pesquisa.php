@@ -43,6 +43,8 @@
                                 </select>
                             </div>
 
+                            <input type="hidden" id="retirarPDV" name="retirarPDV" value="0">
+
                             <button type="submit" class="btn btn-sm btn-success text-right pull-right" id="buscar-fluxo"
                                 style="margin-left:10px">
                                 <i class="fas fa-search"></i> Buscar

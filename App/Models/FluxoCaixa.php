@@ -9,7 +9,7 @@ class FluxoCaixa extends Model
 {
     protected $table = 'fluxo_caixa';
     protected $timestamps = true;
-    protected $incluirVendasNoCaixa = true;
+    public $retirarPDVdoFluxoDeCaixa;
     protected $vendas;
 
     public function __construct()
@@ -55,6 +55,11 @@ class FluxoCaixa extends Model
             # Vendas vindas do PDV
             $vendas = $this->vendas->totalDasVendas($periodo, false, $idEmpresa);
 
+            # Se marcado retirar PDV do Fluxo de Caixa
+            if ($this->retirarPDVdoFluxoDeCaixa) {
+              $vendas = null;
+            }
+
             # Tem venda realizada no período
             if ( ! is_null($vendas)) {
                 # Nenhum valor no caixa para o perído
@@ -90,6 +95,11 @@ class FluxoCaixa extends Model
             "SELECT * FROM fluxo_caixa WHERE id_empresa = {$idEmpresa}
             AND DATE(created_at) BETWEEN '{$de}' AND '{$ate}'"
         );
+
+        # Se marcado retirar PDV do Fluxo de Caixa
+        if ($this->retirarPDVdoFluxoDeCaixa) {
+            return $query;
+        }
 
         $vendas = $this->vendas->totalDasVendas($periodo, false, $idEmpresa);
         if (count($query) > 0 || ! is_null($vendas)) {

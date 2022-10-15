@@ -25,4 +25,16 @@
             $('#div-tabela-vendas').append(resultado);
         });
     }
+
+    function incluirPDV(element) {
+        if (element.prop('checked')) {
+            $("#retirarPDV").val('1');
+            vendas();
+        }
+
+        if ( ! element.prop('checked')) {
+            $("#retirarPDV").val('0');
+            vendas();
+        }
+    }
 </script>

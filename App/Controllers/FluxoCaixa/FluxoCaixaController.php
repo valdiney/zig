@@ -38,14 +38,14 @@ class FluxoCaixaController extends Controller
         $this->view('fluxoDeCaixa/index', $this->layout);
     }
 
-    // Renderiza a grid do fluxo de caixa. Chamada via ajax
+    # Renderiza a grid do fluxo de caixa. Chamada via ajax
     public function tabelaFluxoDeCaixa()
     {
         $periodo = ['de' => $this->post->data()->de, 'ate' => $this->post->data()->ate];
 
         $fluxoCaixa = new FluxoCaixa();
-        $fluxoCaixa->retirarPDVdoFluxoDeCaixa = $this->post->data()->retirarPDV;
-        $retirarPDV = $this->post->data()->retirarPDV;
+        $fluxoCaixa->setRetirarPDV(is_null($this->post->data()->retirarPDV) ? false : true);
+        $retirarPDV = $fluxoCaixa->getRetirarPDV();
 
         $fluxo = $fluxoCaixa->fluxoDeCaixa($periodo, $this->idEmpresa);
         $fluxoDetalhadoPorMes = $fluxoCaixa->fluxoDeCaixaDetalhadoPorMes($periodo, $this->idEmpresa);

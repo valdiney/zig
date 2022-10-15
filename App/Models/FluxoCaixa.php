@@ -9,7 +9,7 @@ class FluxoCaixa extends Model
 {
     protected $table = 'fluxo_caixa';
     protected $timestamps = true;
-    public $retirarPDVdoFluxoDeCaixa;
+    protected $retirarPDVdoFluxoDeCaixa = false;
     protected $vendas;
 
     public function __construct()
@@ -56,7 +56,7 @@ class FluxoCaixa extends Model
             $vendas = $this->vendas->totalDasVendas($periodo, false, $idEmpresa);
 
             # Se marcado retirar PDV do Fluxo de Caixa
-            if ($this->retirarPDVdoFluxoDeCaixa) {
+            if ($this->getRetirarPDV()) {
               $vendas = null;
             }
 
@@ -97,7 +97,7 @@ class FluxoCaixa extends Model
         );
 
         # Se marcado retirar PDV do Fluxo de Caixa
-        if ($this->retirarPDVdoFluxoDeCaixa) {
+        if ($this->getRetirarPDV()) {
             return $query;
         }
 
@@ -119,5 +119,15 @@ class FluxoCaixa extends Model
         }
 
         return $query;
+    }
+
+    public function setRetirarPDV(bool $retirarPDV): void
+    {
+        $this->retirarPDVdoFluxoDeCaixa = $retirarPDV;
+    }
+
+    public function getRetirarPDV(): bool
+    {
+        return $this->retirarPDVdoFluxoDeCaixa;
     }
 }

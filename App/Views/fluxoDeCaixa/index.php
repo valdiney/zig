@@ -15,6 +15,7 @@
         return false;
     });
 
+    getFromLocalStorage();
     vendas();
 
     function vendas() {
@@ -28,13 +29,23 @@
 
     function incluirPDV(element) {
         if (element.prop('checked')) {
-            $("#retirarPDV").val('1');
+            $("#retirarPDV").val(1);
             vendas();
+            setToLocalStorage(1);
         }
 
         if ( ! element.prop('checked')) {
-            $("#retirarPDV").val('0');
+            $("#retirarPDV").val(0);
             vendas();
+            setToLocalStorage(0);
         }
+    }
+
+    function setToLocalStorage(status) {
+        localStorage.setItem('retirarPDV', status);
+    }
+
+    function getFromLocalStorage() {
+        $("#retirarPDV").val(localStorage.getItem('retirarPDV'));
     }
 </script>

@@ -58,9 +58,16 @@ class FluxoCaixaController extends Controller
         ));
     }
 
-    public function modalRegistrarMovimentacao()
+    public function modalRegistrarMovimentacao($idFluxo = false)
     {
-        $this->view('fluxoDeCaixa/formulario_movimentacao', null);
+        $fluxoCaixa = false;
+
+        if ($idFluxo) {
+            $fluxoCaixa = new FluxoCaixa();
+            $fluxoCaixa = $fluxoCaixa->find($idFluxo);
+        }
+
+        $this->view('fluxoDeCaixa/formulario_movimentacao', null, compact('fluxoCaixa'));
     }
 
     public function save()
@@ -74,6 +81,24 @@ class FluxoCaixaController extends Controller
 
         try {
             $fluxoCaixa->save($dados);
+            return $this->get->redirectTo("fluxoDeCaixa/index");
+
+        } catch (Exception $e) {
+            dd($e->getMessage());
+        }
+    }
+
+    public function update()
+    {
+        $fluxoCaixa = new FluxoCaixa();
+        $dados = (array) $this->post->data();
+        $dados['id_empresa'] = $this->idEmpresa;
+        $dados['data'] = date('Y-m-d H:i:s', strtotime($dados['data']));
+        $dados['valor'] = formataValorMoedaParaGravacao($dados['valor']);
+        $dados['tipo_movimento'] = (is_null($dados['tipo_movimento'])) ? 0 : $dados['tipo_movimento'];
+
+        try {
+            $fluxoCaixa->update($dados, $this->post->data()->id);
             return $this->get->redirectTo("fluxoDeCaixa/index");
 
         } catch (Exception $e) {

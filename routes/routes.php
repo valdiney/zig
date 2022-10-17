@@ -122,8 +122,9 @@ $route->get('empresa/verificaSeEmailExiste/{email}/{idEmpresa?}', 'EmpresaContro
 
 # ----- # ----- EmpresaController --------------------------------
 $route->get('fluxoDeCaixa/index', 'FluxoCaixa\FluxoCaixaController@index');
-$route->get('fluxoDeCaixa/modalRegistrarMovimentacao', 'FluxoCaixa\FluxoCaixaController@modalRegistrarMovimentacao');
+$route->get('fluxoDeCaixa/modalRegistrarMovimentacao/{idFluxo?}', 'FluxoCaixa\FluxoCaixaController@modalRegistrarMovimentacao');
 $route->post('fluxoDeCaixa/save', 'FluxoCaixa\FluxoCaixaController@save');
+$route->post('fluxoDeCaixa/update', 'FluxoCaixa\FluxoCaixaController@update');
 $route->post('fluxoDeCaixa/tabelaFluxoDeCaixa', 'FluxoCaixa\FluxoCaixaController@tabelaFluxoDeCaixa');
 
 # TESTE

@@ -1,13 +1,31 @@
-<form method="post" action="<?php echo BASEURL;?>/fluxoDeCaixa/save">
+<?php
+$checkedTipoSaida = false;
+$checkedTipoEntrada = false;
+
+if (isset($fluxoCaixa->id)) {
+    if ($fluxoCaixa->tipo_movimento == 1) {
+        $checkedTipoEntrada = "checked";
+    } else if ($fluxoCaixa->tipo_movimento == 0) {
+        $checkedTipoSaida = "checked";
+    }
+}
+?>
+<form method="post" action="<?php echo isset($fluxoCaixa->id) ? BASEURL . '/fluxoDeCaixa/update' : BASEURL . '/fluxoDeCaixa/save'; ?>">
     <input type="hidden" name="_token" value="<?php echo TOKEN; ?>"/>
+
+    <?php if (isset($fluxoCaixa->id)):?>
+        <input type="hidden" name="id" value="<?php echo $fluxoCaixa->id; ?>"/>
+    <?php endif;?>
 
     <div class="row">
         <div class="col-md-4">
             <label for="text">Tipo Movimentação</label> <br>
-            <input class="w3-radio" type="radio" name="tipo_movimento" id="tipo_entrada" value="1">
+            <input class="w3-radio" type="radio" name="tipo_movimento" id="tipo_entrada" value="1"
+            <?php echo $checkedTipoEntrada;?>>
             <label>+Entrada</label>
 
-            <input class="w3-radio" type="radio" name="tipo_movimento" id="tipo_saida" value="0">
+            <input class="w3-radio" type="radio" name="tipo_movimento" id="tipo_saida" value="0"
+            <?php echo $checkedTipoSaida;?>>
             <label>-Saída</label>
         </div>
     </div>
@@ -17,7 +35,7 @@
             <div class="form-group">
                 <label for="descricao">Descrição *</label>
                 <input type="text" class="form-control" name="descricao" id="descricao" placeholder="Digite a descrição..."
-                    value="<?php echo isset($usuario->id) ? $usuario->nome : '' ?>">
+                    value="<?php echo isset($fluxoCaixa->id) ? $fluxoCaixa->descricao : '' ?>">
             </div>
         </div>
 
@@ -25,7 +43,7 @@
             <div class="form-group">
                 <label for="data">Data vencimento *</label>
                 <input type="date" class="form-control" name="data" id="data"
-                    value="<?php echo date('Y-m-d'); ?>">
+                    value="<?php echo isset($fluxoCaixa->id) ? date('Y-m-d', strtotime($fluxoCaixa->data)) : date('Y-m-d'); ?>">
             </div>
         </div>
     </div>
@@ -44,7 +62,7 @@
                 <div class="form-group">
                     <label for="valor">R$ Valor *</label>
                     <input type="text" class="form-control campo-moeda" name="valor" id="valor" placeholder="R$ 0,00"
-                        value="<?php echo isset($usuario->id) ? $usuario->nome : '' ?>">
+                        value="<?php echo isset($fluxoCaixa->id) ? real($fluxoCaixa->valor) : '' ?>">
                 </div>
             </div>
         </div>

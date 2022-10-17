@@ -74,12 +74,12 @@
 
                     <td style="text-align:right;padding-right:0">
                         <button id="btnGroupDrop1" type="button" class="btn btn-sm btn-secondary dropdown-toggle"
-                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" <?php echo (isset($fluxoCaixa->fromPDV) ? 'disabled' : false)?>>
                             <i class="fas fa-cogs"></i>
                         </button>
                         <div class="dropdown-menu" aria-labelledby="btnGroupDrop1">
                             <button class="dropdown-item" href="#"
-                            onclick="">
+                            onclick="modalRegistrarMovimentacao('<?php echo BASEURL?>/fluxoDeCaixa/modalRegistrarMovimentacao', '<?php echo $fluxoCaixa->id;?>')">
                                 <i class="fas fa-edit"></i> Editar
                             </button>
                         </div>

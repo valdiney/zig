@@ -62,9 +62,9 @@ class FluxoCaixa extends Model
 
             # Tem venda realizada no período
             if ( ! is_null($vendas)) {
-                # Nenhum valor no caixa para o perído
+                # Nenhum valor no caixa para o período
                 if (isset($query->scalar)) {
-                    # Seto novas propriedade para não ficar underfined
+                    # Seto novas propriedades para não ficar underfined
                     $query = (object) ['entradas' => 0, 'restante' => 0, 'saidas' => 0];
                 }
 

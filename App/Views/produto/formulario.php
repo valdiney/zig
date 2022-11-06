@@ -15,7 +15,6 @@
         margin-bottom:20px;
         border-bottom:1px solid #dddddd;
     }
-
     .quantidade-desablitado {
         opacity:0.50;
     }
@@ -130,10 +129,11 @@
             <div class="form-group">
                 <label for="imagem">Escolher Imagem do Produto</label>
                 <input type="file" class="form-control" name="imagem" id="imagem"> <br>
+                <img src="" class="imagem-produto" id="thumb" style="display:none">
                 <?php if (isset($produto->id) && ! is_null($produto->imagem)): ?>
-                    <img src="<?php echo BASEURL . '/' . $produto->imagem; ?>" class="imagem-produto">
+                    <img src="<?php echo BASEURL . '/' . $produto->imagem; ?>" class="imagem-produto _padrao">
                 <?php else: ?>
-                    <i class="fas fa-box-open" style="font-size:40px"></i>
+                    <i class="fas fa-box-open _padrao" style="font-size:40px"></i>
                 <?php endif; ?>
             </div>
         </div>
@@ -147,8 +147,6 @@
         </div>
 
     </div><!--end row-->
-
-
 
     <button type="submit" class="btn btn-success btn-sm" style="float:right"
             onclick="return salvarProduto()">
@@ -229,4 +227,17 @@
             $("#quantidade").val(1);
         }
     }
+
+    $("#imagem").change(function() {
+        let reader = new FileReader();
+        let file = document.querySelector("#imagem");
+        let photo = document.querySelector("#thumb");
+        reader.onload = () => {
+            photo.src = reader.result;
+        }
+
+        $("._padrao").hide();
+        $("#thumb").show();
+        reader.readAsDataURL(file.files[0]);
+    })
 </script>

@@ -1,9 +1,7 @@
 <?php
 namespace App\Controllers\FluxoCaixa;
 
-use App\Models\ProdutoCategoria;
 use App\Rules\Logged;
-use App\Services\UploadService\UploadFiles;
 use Exception;
 use System\Controller\Controller;
 use System\Get\Get;
@@ -17,8 +15,6 @@ class FluxoCaixaController extends Controller
     protected $get;
     protected $layout;
     protected $idEmpresa;
-    protected $diretorioImagemProdutoNoEnv;
-    protected $diretorioImagemProdutoPadrao;
 
     public function __construct()
     {

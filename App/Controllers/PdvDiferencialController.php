@@ -106,6 +106,9 @@ class PdvDiferencialController extends Controller
                 $venda = $venda->save($dados);
                 $status = true;
 
+                $produto = new Produto();
+                $produto->decrementaQuantidadeProduto((int) $dados['id_produto'], (int) $dados['quantidade']);
+
                 unset($_SESSION['venda']);
 
             } catch (\Exception $e) {
@@ -128,7 +131,16 @@ class PdvDiferencialController extends Controller
 
     public function alterarAquantidadeDeUmProdutoNaMesa($idProduto, $quantidade)
     {
+        $produto = new Produto();
+        $dadosProduto = $produto->find($idProduto);
+
+        if ($dadosProduto->ativar_quantidade && $quantidade > $dadosProduto->quantidade) {
+            echo json_encode(['quantidade_insuficiente' => true, 'unidades' => $dadosProduto->quantidade]);
+            return false;
+        }
+
         $this->vendasEmSessaoRepository->alterarAquantidadeDeUmProdutoNaMesa($idProduto, $quantidade);
+        echo json_encode(['quantidade_insuficiente' => false]);
     }
 
     public function retirarProdutoDaMesa($idProduto)

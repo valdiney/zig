@@ -9,6 +9,16 @@
     #codigo[type=number] {
         -moz-appearance:textfield; /* Firefox */
     }
+    .configuracao_produto {
+        width:100%;
+        padding-top:10px;
+        margin-bottom:20px;
+        border-bottom:1px solid #dddddd;
+    }
+
+    .quantidade-desablitado {
+        opacity:0.50;
+    }
 </style>
 
 <?php if (isset($produto->id) && !empty($produto->codigo)): ?>
@@ -34,6 +44,46 @@
 
         <input type="hidden" name="id_empresa" value="1">
 
+        <div class="col-md-12 configuracao_produto">
+
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label for="ativo">
+                            <small style="opacity:0.80">Mostrar este produto em vendas</small>
+                            <input
+                                id="ativo"
+                                name="deleted_at"
+                                type="checkbox"
+                                class="form-control"
+                                <?php if (isset($produto->id) && is_null($produto->deleted_at)):?>
+                                checked
+                                <?php endif;?>
+                        checked>
+                        </label>
+                    </div>
+                </div>
+
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label for="ativar_quantidade">
+                            <small style="opacity:0.80">Habilitar quantidade deste produto</small>
+                            <input
+                                id="ativar_quantidade"
+                                name="ativar_quantidade"
+                                type="checkbox"
+                                class="form-control"
+                                <?php if (isset($produto->id) && $produto->ativar_quantidade == 1):?>
+                                checked
+                                <?php endif;?>
+                            >
+                        </label>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
         <div class="col-md-6">
             <div class="form-group">
                 <label for="nome">Nome *</label>
@@ -51,6 +101,31 @@
             </div>
         </div>
 
+        <div class="col-md-4 div-campo-quantidade quantidade-desablitado">
+            <div class="form-group">
+                <label for="quantidade">Quantidade *</label>
+                <input type="number" class="form-control nome" name="quantidade" id="quantidade"
+                       placeholder="Digite a quantidade..."
+                       value="<?php echo isset($produto->id) ? $produto->quantidade : '' ?>"
+                       onchange="alterarAquantidade(this.value)"
+                       disabled>
+            </div>
+        </div>
+
+        <?php if (isset($produto->codigo) === false) { ?>
+            <div class="col-md-6 mb-2">
+                <div class="form-group">
+                    <label for="nome">Código de barras</label>
+                    <input type="number" class="form-control nome" name="codigo" id="codigo"
+                        placeholder="Número do código de barras"
+                        value="<?php echo isset($produto->codigo) ? $produto->codigo : '' ?>">
+                        <p class="text-muted">
+                            <small>Caso não tenha, deixe vazio para ser preenchido automáticamente!</small>
+                        </p>
+                </div>
+            </div>
+        <?php } ?>
+
         <div class="col-md-4">
             <div class="form-group">
                 <label for="imagem">Escolher Imagem do Produto</label>
@@ -63,20 +138,6 @@
             </div>
         </div>
 
-        <?php if (isset($produto->codigo) === false) { ?>
-            <div class="col-md-12 mb-2">
-                <div class="form-group">
-                    <label for="nome">Código de barras</label>
-                    <input type="number" class="form-control nome" name="codigo" id="codigo"
-                        placeholder="Número do código de barras"
-                        value="<?php echo isset($produto->codigo) ? $produto->codigo : '' ?>">
-                        <p class="text-muted">
-                            <small>Deixe vazio para ser preenchido automáticamente!</small>
-                        </p>
-                </div>
-            </div>
-        <?php } ?>
-
         <div class="col-md-12">
             <div class="form-group">
                 <label for="descricao">Descrição</label>
@@ -87,24 +148,7 @@
 
     </div><!--end row-->
 
-    <div class="row">
-        <div class="col-md-12">
-            <div class="form-group" style="background:#fffcf5">
-                <label for="ativo">
-                    Ativo: <small style="opacity:0.80">Mostrar em vendas</small>
-                    <input
-                        id="ativo"
-                        name="deleted_at"
-                        type="checkbox"
-                        class="form-control"
-                        <?php if (isset($produto->id) && is_null($produto->deleted_at)):?>
-                           checked
-                        <?php endif;?>
-                   checked>
-                </label>
-            </div>
-        </div>
-    </div>
+
 
     <button type="submit" class="btn btn-success btn-sm" style="float:right"
             onclick="return salvarProduto()">
@@ -163,4 +207,26 @@
             modalValidacao('Validação', '<small>Ao desativar este Produto ele não será apresentado nas Vendas!</small>');
         }
     })
+
+    <?php if (isset($produto->id) && $produto->ativar_quantidade == 1):?>
+        $(".div-campo-quantidade").removeClass('quantidade-desablitado');
+        $("#quantidade").prop('disabled', false);
+    <?php endif;?>
+
+    $("#ativar_quantidade").click(function() {
+        if ($(this).is(':checked')) {
+            $(".div-campo-quantidade").removeClass('quantidade-desablitado');
+            $("#quantidade").prop('disabled', false);
+        } else {
+            $(".div-campo-quantidade").addClass('quantidade-desablitado');
+            $("#quantidade").prop('disabled', true);
+        }
+    })
+
+    function alterarAquantidade(quantidade) {
+        quantidade = Number(quantidade);
+        if (quantidade <= 0) {
+            $("#quantidade").val(1);
+        }
+    }
 </script>

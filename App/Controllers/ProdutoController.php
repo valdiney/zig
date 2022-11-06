@@ -63,6 +63,10 @@ class ProdutoController extends Controller
                 unset($dados['deleted_at']);
             }
 
+            if (isset($dados['ativar_quantidade'])) {
+                $dados['ativar_quantidade'] = 1;
+            }
+
             # Valida imagem somente se existir no envio
             if (!empty($_FILES["imagem"]['name'])) {
                 $diretorioImagem = $this->diretorioImagemProdutoPadrao;
@@ -119,6 +123,10 @@ class ProdutoController extends Controller
                 # Retira o deleted_at do array para que seja cadastrado como null no banco
                 unset($dados['deleted_at']);
             }
+
+            # Trata quantidade
+            $dados['ativar_quantidade'] = isset($this->post->data()->ativar_quantidade) ? 1 : 0;
+            $dados['quantidade'] = isset($this->post->data()->quantidade) ? $this->post->data()->quantidade : $dadosProduto->quantidade;
 
             $dados['preco'] = formataValorMoedaParaGravacao($dados['preco']);
 

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: mysql
--- Generation Time: Jul 26, 2020 at 11:22 AM
+-- Generation Time: Jul 01, 2020 at 12:35 PM
 -- Server version: 8.0.20
 -- PHP Version: 7.4.6
 
@@ -24,37 +24,36 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- Table structure for table `recuperacao_de_senha`
+-- Table structure for table `migrations`
 --
 
-CREATE TABLE `recuperacao_de_senha` (
+CREATE TABLE `migrations` (
   `id` int NOT NULL,
-  `user_id` int NOT NULL,
-  `hash` varchar(100) NOT NULL,
+  `code` varchar(10) NOT NULL,
+  `description` varchar(150) NOT NULL,
   `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `updated_at` timestamp NULL DEFAULT NULL
+  `updated_at` timestamp NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+--
+-- Dumping data for table `migrations`
+--
+
+INSERT INTO `migrations` (`id`, `code`, `description`, `created_at`, `updated_at`) VALUES
+(1, '1667593100', 'cria tabela migrations', '2020-07-01 12:33:40', NULL),
+(2, '1667592641', 'cria tabela empresa segmentos', '2020-07-01 12:33:40', NULL),
+(3, '1667592767', 'cria tabela empresas', '2020-07-01 12:33:40', NULL),
 --
 -- Indexes for dumped tables
 --
 
 --
--- Indexes for table `recuperacao_de_senha`
+-- Indexes for table `migrations`
 --
-ALTER TABLE `recuperacao_de_senha`
+ALTER TABLE `migrations`
   ADD PRIMARY KEY (`id`);
 
---
--- AUTO_INCREMENT for dumped tables
---
 
---
--- AUTO_INCREMENT for table `recuperacao_de_senha`
---
-ALTER TABLE `recuperacao_de_senha`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT;
-COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;

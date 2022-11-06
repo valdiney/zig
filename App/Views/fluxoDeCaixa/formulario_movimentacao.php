@@ -50,27 +50,28 @@ if (isset($fluxoCaixa->id)) {
 
     <div class="row">
         <div class="col-md-4">
-                <div class="form-group">
-                    <label for="text">Categoria</label>
-                    <select class="form-control js-example-basic-single " name="id_categoria" id="id_categoria">
-                        <option value="3">Selecione</option>
-                    </select>
-                </div>
-            </div>
-
-            <div class="col-md-4">
-                <div class="form-group">
-                    <label for="valor">R$ Valor *</label>
-                    <input type="text" class="form-control campo-moeda" name="valor" id="valor" placeholder="R$ 0,00"
-                        value="<?php echo isset($fluxoCaixa->id) ? real($fluxoCaixa->valor) : '' ?>">
-                </div>
+            <div class="form-group">
+                <label for="text">Categoria</label>
+                <select class="form-control js-example-basic-single " name="id_categoria" id="id_categoria">
+                    <option value="3">Selecione</option>
+                </select>
+                <a href="#" title="Criar nova Categoria" onclick="return modalCategoria()"><small><i class="fas fa-plus" style="color:#0075ff"></i> Nova categoria</small></a>
             </div>
         </div>
 
-        <button type="submit" class="btn btn-success btn-sm button-salvar-empresa"
-            style="float:right" onclick="return salvarMovimentacaoFluxoDeCaixa()">
-            <i class="fas fa-save"></i> Salvar
-        </button>
+        <div class="col-md-4">
+            <div class="form-group">
+                <label for="valor">R$ Valor *</label>
+                <input type="text" class="form-control campo-moeda" name="valor" id="valor" placeholder="R$ 0,00"
+                    value="<?php echo isset($fluxoCaixa->id) ? real($fluxoCaixa->valor) : '' ?>">
+            </div>
+        </div>
+    </div>
+
+    <button type="submit" class="btn btn-success btn-sm button-salvar-empresa"
+        style="float:right" onclick="return salvarMovimentacaoFluxoDeCaixa()">
+        <i class="fas fa-save"></i> Salvar
+    </button>
 </form>
 
 <script>
@@ -101,4 +102,9 @@ if (isset($fluxoCaixa->id)) {
                 affixesStay: false
             });
     });
+
+    function modalCategoria() {
+        alert('oi');
+        return false;
+    }
 </script>

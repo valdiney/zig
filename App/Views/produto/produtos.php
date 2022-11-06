@@ -4,8 +4,9 @@
         <tr>
             <th>#</th>
             <th>Nome</th>
-            <th>Ativo</th>
             <th>R$ Preço</th>
+            <th>Ativo</th>
+            <th>Quantidade</th>
             <th style="text-align:right;padding-right:0">
                 <?php $rota = BASEURL . '/produto/modalFormulario'; ?>
                 <button onclick="modalFormularioProdutos('<?php echo $rota; ?>', false);"
@@ -31,14 +32,23 @@
                         <center><i class="fas fa-box-open" style="font-size:25px"></i></center>
                     <?php endif; ?>
                 </td>
+
                 <td><?php echo $produto->nome; ?></td>
+                <td><?php echo real($produto->preco); ?></td>
                 <?php if (is_null($produto->deleted_at)):?>
-                    <td>Sim</td>
+                    <td><small>Sim</small></td>
                 <?php else:?>
-                    <td class="with_deleted_at">Não</td>
+                    <td class="with_deleted_at"><Small>Não</Small></td>
                 <?php endif;?>
 
-                <td><?php echo real($produto->preco); ?></td>
+                <td>
+                    <?php if ($produto->ativar_quantidade):?>
+                        <?php echo $produto->quantidade;?>
+                        <?php echo ($produto->quantidade > 1) ? '<small>Unidades</small>' : '<small>Unidade</small>';?>
+                    <?php else:?>
+                        <small>Desabilitado</small>
+                    <?php endif;?>
+                </td>
 
                 <td style="text-align:right">
                     <div class="btn-group" role="group">

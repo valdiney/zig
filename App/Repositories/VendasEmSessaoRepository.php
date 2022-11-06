@@ -12,19 +12,17 @@ class VendasEmSessaoRepository
     public function colocarProdutosNaMesa($idProduto, $quantidade = false)
     {
         if ($idProduto) {
-
             if (!isset($_SESSION['venda'])) {
                 $_SESSION['venda'] = [];
             }
 
             if (!isset($_SESSION['venda'][$idProduto])) {
-
-                $produto = new Produto();
-                $produto = $produto->find($idProduto);
-
                 if (!$quantidade) {
                     $quantidade = 1;
                 }
+
+                $produto = new Produto();
+                $produto = $produto->find($idProduto);
 
                 $_SESSION['venda'][$idProduto] = [
                     'id' => $idProduto,

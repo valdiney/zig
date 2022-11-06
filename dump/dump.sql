@@ -25,10 +25,12 @@ CREATE TABLE IF NOT EXISTS `categoria_fluxo_caixa` (
   `updated_at` timestamp NULL DEFAULT NULL,
   `deleted_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
--- Copiando dados para a tabela zig.categoria_fluxo_caixa: ~0 rows (aproximadamente)
+-- Copiando dados para a tabela zig.categoria_fluxo_caixa: ~1 rows (aproximadamente)
 /*!40000 ALTER TABLE `categoria_fluxo_caixa` DISABLE KEYS */;
+INSERT INTO `categoria_fluxo_caixa` (`id`, `descricao`, `created_at`, `updated_at`, `deleted_at`) VALUES
+	(3, 'Padrao', '2022-10-08 00:49:01', NULL, NULL);
 /*!40000 ALTER TABLE `categoria_fluxo_caixa` ENABLE KEYS */;
 
 -- Copiando estrutura para tabela zig.clientes
@@ -299,10 +301,12 @@ CREATE TABLE IF NOT EXISTS `fluxo_caixa` (
   KEY `FK_fluxo_caixa_categoria_fluxo_caixa` (`id_categoria`),
   CONSTRAINT `FK_fluxo_caixa_categoria_fluxo_caixa` FOREIGN KEY (`id_categoria`) REFERENCES `categoria_fluxo_caixa` (`id`),
   CONSTRAINT `FK_fluxo_caixa_empresas` FOREIGN KEY (`id_empresa`) REFERENCES `empresas` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=41 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
--- Copiando dados para a tabela zig.fluxo_caixa: ~11 rows (aproximadamente)
+-- Copiando dados para a tabela zig.fluxo_caixa: ~0 rows (aproximadamente)
 /*!40000 ALTER TABLE `fluxo_caixa` DISABLE KEYS */;
+INSERT INTO `fluxo_caixa` (`id`, `id_empresa`, `id_categoria`, `descricao`, `data`, `valor`, `tipo_movimento`, `created_at`, `updated_at`, `deleted_at`) VALUES
+	(40, 1, 3, 'Salário ', '2022-10-31 00:00:00', 4400, 1, '2022-10-16 10:54:56', '2022-10-16 21:21:30', NULL);
 /*!40000 ALTER TABLE `fluxo_caixa` ENABLE KEYS */;
 
 -- Copiando estrutura para tabela zig.log_acessos
@@ -318,10 +322,50 @@ CREATE TABLE IF NOT EXISTS `log_acessos` (
   KEY `FK_log_clientes` (`id_empresa`),
   CONSTRAINT `FK_log_clientes` FOREIGN KEY (`id_empresa`) REFERENCES `empresas` (`id`),
   CONSTRAINT `FK_log_usuarios` FOREIGN KEY (`id_usuario`) REFERENCES `usuarios` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=1006 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=1045 DEFAULT CHARSET=latin1;
 
--- Copiando dados para a tabela zig.log_acessos: ~251 rows (aproximadamente)
+-- Copiando dados para a tabela zig.log_acessos: ~39 rows (aproximadamente)
 /*!40000 ALTER TABLE `log_acessos` DISABLE KEYS */;
+INSERT INTO `log_acessos` (`id`, `id_usuario`, `id_empresa`, `created_at`, `updated_at`, `deleted_at`) VALUES
+	(1006, 1, 1, '2022-10-08 02:15:03', '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+	(1007, 1, 1, '2022-10-08 23:05:33', '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+	(1008, 1, 1, '2022-10-08 23:11:14', '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+	(1009, 1, 1, '2022-10-08 23:14:26', '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+	(1010, 1, 1, '2022-10-08 23:16:31', '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+	(1011, 1, 1, '2022-10-08 23:19:12', '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+	(1012, 1, 1, '2022-10-08 23:19:21', '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+	(1013, 1, 1, '2022-10-08 23:21:15', '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+	(1014, 1, 1, '2022-10-08 23:24:06', '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+	(1015, 1, 1, '2022-10-08 23:25:13', '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+	(1016, 1, 1, '2022-10-08 23:27:51', '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+	(1017, 1, 1, '2022-10-08 23:30:05', '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+	(1018, 1, 1, '2022-10-08 23:30:55', '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+	(1019, 1, 1, '2022-10-08 23:31:14', '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+	(1020, 1, 1, '2022-10-08 23:31:48', '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+	(1021, 1, 1, '2022-10-08 23:31:58', '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+	(1022, 1, 1, '2022-10-08 23:32:51', '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+	(1023, 1, 1, '2022-10-08 23:33:22', '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+	(1024, 1, 1, '2022-10-08 23:33:47', '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+	(1025, 1, 1, '2022-10-08 23:33:55', '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+	(1026, 1, 1, '2022-10-08 23:34:01', '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+	(1027, 1, 1, '2022-10-08 23:38:10', '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+	(1028, 1, 1, '2022-10-08 23:38:13', '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+	(1029, 1, 1, '2022-10-08 23:38:37', '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+	(1030, 1, 1, '2022-10-08 23:44:09', '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+	(1031, 1, 1, '2022-10-08 23:44:25', '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+	(1032, 1, 1, '2022-10-08 23:44:30', '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+	(1033, 1, 1, '2022-10-08 23:48:33', '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+	(1034, 1, 1, '2022-10-08 23:49:25', '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+	(1035, 1, 1, '2022-10-09 23:24:12', '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+	(1036, 1, 1, '2022-10-11 21:43:52', '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+	(1037, 1, 1, '2022-10-15 00:02:47', '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+	(1038, 1, 1, '2022-10-15 00:22:40', '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+	(1039, 1, 1, '2022-10-15 10:24:50', '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+	(1040, 1, 1, '2022-10-26 21:00:03', '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+	(1041, 1, 1, '2022-11-04 20:43:36', '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+	(1042, 1, 1, '2022-11-05 02:14:29', '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+	(1043, 1, 1, '2022-11-05 02:14:42', '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+	(1044, 1, 1, '2022-11-05 02:31:49', '0000-00-00 00:00:00', '0000-00-00 00:00:00');
 /*!40000 ALTER TABLE `log_acessos` ENABLE KEYS */;
 
 -- Copiando estrutura para tabela zig.meios_pagamentos
@@ -351,10 +395,12 @@ CREATE TABLE IF NOT EXISTS `migrations` (
   `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `updated_at` timestamp NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=33 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=34 DEFAULT CHARSET=utf8;
 
--- Copiando dados para a tabela zig.migrations: ~31 rows (aproximadamente)
+-- Copiando dados para a tabela zig.migrations: ~1 rows (aproximadamente)
 /*!40000 ALTER TABLE `migrations` DISABLE KEYS */;
+INSERT INTO `migrations` (`id`, `code`, `description`, `created_at`, `updated_at`) VALUES
+	(33, '1593605143', 'cria geral', '2022-11-02 00:33:30', NULL);
 /*!40000 ALTER TABLE `migrations` ENABLE KEYS */;
 
 -- Copiando estrutura para tabela zig.perfis
@@ -380,20 +426,30 @@ CREATE TABLE IF NOT EXISTS `produtos` (
   `id` int NOT NULL AUTO_INCREMENT,
   `id_empresa` int NOT NULL,
   `nome` varchar(50) NOT NULL,
-  `codigo` int NOT NULL DEFAULT '0',
+  `codigo` varchar(100) DEFAULT NULL,
   `preco` double NOT NULL DEFAULT '0',
   `descricao` text,
   `imagem` text,
+  `ativar_quantidade` int NOT NULL DEFAULT '0' COMMENT 'SIM = 1, NÃO = 0',
+  `quantidade` int DEFAULT '0',
   `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
   `deleted_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `FK_produtos_clientes` (`id_empresa`),
   CONSTRAINT `FK_produtos_clientes` FOREIGN KEY (`id_empresa`) REFERENCES `empresas` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=208 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=221 DEFAULT CHARSET=latin1;
 
--- Copiando dados para a tabela zig.produtos: ~55 rows (aproximadamente)
+-- Copiando dados para a tabela zig.produtos: ~7 rows (aproximadamente)
 /*!40000 ALTER TABLE `produtos` DISABLE KEYS */;
+INSERT INTO `produtos` (`id`, `id_empresa`, `nome`, `codigo`, `preco`, `descricao`, `imagem`, `ativar_quantidade`, `quantidade`, `created_at`, `updated_at`, `deleted_at`) VALUES
+	(214, 1, 'ghh', '2142022', 100, '', 'public/imagem/produtos/1665188280.jpg', 1, 25, '2022-11-05 16:11:51', '2022-11-05 16:11:51', NULL),
+	(215, 1, 'Pingente de Ouro 18k', '2152022', 800, '', 'imagem/produtos/1665109596.png', 1, 0, '2022-11-04 23:11:16', '2022-11-04 23:11:16', NULL),
+	(216, 1, 'tgg', '2162022', 0.12, '', 'public/imagem/produtos/1665110737.png', 0, 0, '2022-10-06 23:45:37', '2022-10-06 23:45:37', NULL),
+	(217, 1, 'Anador', '2172022', 15, '', 'public/imagem/produtos/1667613777.jfif', 1, 1, '2022-11-04 23:02:57', '2022-11-04 23:02:57', NULL),
+	(218, 1, 'ghggghg', '2182022', 454.54, '', NULL, 0, 0, '2022-11-04 20:39:57', '2022-11-04 20:39:57', NULL),
+	(219, 1, 'ytyttyt', '2192022', 10, '', NULL, 0, 0, '2022-11-04 20:46:00', '2022-11-04 20:46:00', NULL),
+	(220, 1, 'teste', '2202022', 45, '', NULL, 0, 0, '2022-11-04 22:29:48', '2022-11-04 22:29:48', NULL);
 /*!40000 ALTER TABLE `produtos` ENABLE KEYS */;
 
 -- Copiando estrutura para tabela zig.recuperacao_de_senha
@@ -404,10 +460,12 @@ CREATE TABLE IF NOT EXISTS `recuperacao_de_senha` (
   `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=21 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=27 DEFAULT CHARSET=utf8;
 
--- Copiando dados para a tabela zig.recuperacao_de_senha: ~2 rows (aproximadamente)
+-- Copiando dados para a tabela zig.recuperacao_de_senha: ~0 rows (aproximadamente)
 /*!40000 ALTER TABLE `recuperacao_de_senha` DISABLE KEYS */;
+INSERT INTO `recuperacao_de_senha` (`id`, `user_id`, `hash`, `created_at`, `updated_at`) VALUES
+	(26, 1, 'NGM1ZTJmYWQ1MTk3MTYyZDE0NGQ2MmUwNjg1MjExNWYyZmQ0ZGYwNw==', '2022-10-09 23:23:39', NULL);
 /*!40000 ALTER TABLE `recuperacao_de_senha` ENABLE KEYS */;
 
 -- Copiando estrutura para tabela zig.sexos
@@ -467,10 +525,10 @@ CREATE TABLE IF NOT EXISTS `usuarios` (
   CONSTRAINT `FK_usuarios_sexo` FOREIGN KEY (`id_sexo`) REFERENCES `sexos` (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=81 DEFAULT CHARSET=latin1;
 
--- Copiando dados para a tabela zig.usuarios: ~4 rows (aproximadamente)
+-- Copiando dados para a tabela zig.usuarios: ~2 rows (aproximadamente)
 /*!40000 ALTER TABLE `usuarios` DISABLE KEYS */;
 INSERT INTO `usuarios` (`id`, `id_empresa`, `nome`, `email`, `password`, `remember_token`, `remember_expire_date`, `id_sexo`, `id_perfil`, `imagem`, `status`, `created_at`, `updated_at`, `deleted_at`) VALUES
-	(1, 1, 'Valdiney França', 'admin@admin.com', '3b5df72898847f008454f4ed60280d6bdffc890d', '64e694a7e3a70e898e16dbe1e0f56458378ab5ec', '2022-11-04 22:06:32', 1, 1, 'public/imagem/perfil_usuarios/1585493352.jpg', 1, '2022-10-04 22:06:32', '2022-10-04 22:06:32', '0000-00-00 00:00:00');
+	(1, 1, 'Valdiney França', 'valdiney.2@hotmail.com', '3b5df72898847f008454f4ed60280d6bdffc890d', 'f377b04147b6067f6254c5e985db67e373ada0bd', '2022-12-05 02:31:49', 1, 1, 'public/imagem/perfil_usuarios/1665188858.jpg', 1, '2022-11-05 02:31:49', '2022-11-05 02:31:49', '0000-00-00 00:00:00');
 /*!40000 ALTER TABLE `usuarios` ENABLE KEYS */;
 
 -- Copiando estrutura para tabela zig.vendas
@@ -497,10 +555,22 @@ CREATE TABLE IF NOT EXISTS `vendas` (
   CONSTRAINT `FK_vendas_clientes` FOREIGN KEY (`id_empresa`) REFERENCES `empresas` (`id`),
   CONSTRAINT `FK_vendas_meios_de_pagamento` FOREIGN KEY (`id_meio_pagamento`) REFERENCES `meios_pagamentos` (`id`),
   CONSTRAINT `FK_vendas_usuarios` FOREIGN KEY (`id_usuario`) REFERENCES `usuarios` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=248 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=265 DEFAULT CHARSET=latin1;
 
--- Copiando dados para a tabela zig.vendas: ~173 rows (aproximadamente)
+-- Copiando dados para a tabela zig.vendas: ~11 rows (aproximadamente)
 /*!40000 ALTER TABLE `vendas` DISABLE KEYS */;
+INSERT INTO `vendas` (`id`, `id_usuario`, `id_meio_pagamento`, `id_empresa`, `id_produto`, `preco`, `quantidade`, `valor`, `valor_recebido`, `troco`, `data_compensacao`, `codigo_venda`, `created_at`, `updated_at`, `deleted_at`) VALUES
+	(254, 1, 2, 1, 214, 100, 1, 100, NULL, NULL, '0000-00-00', '1685320827634aaa66ab4ab2.330162681015.10.2022', '2022-10-15 09:41:10', '0000-00-00 00:00:00', NULL),
+	(255, 1, 2, 1, 214, 100, 1, 100, NULL, NULL, '0000-00-00', '13809301146359ca3e52ece6.696672720226.10.2022', '2022-10-26 21:01:02', '0000-00-00 00:00:00', NULL),
+	(256, 1, 2, 1, 214, 100, 2, 200, NULL, NULL, '0000-00-00', '2729891996359ca4cec61d9.813436301626.10.2022', '2022-10-26 21:01:16', '0000-00-00 00:00:00', NULL),
+	(257, 1, 2, 1, 214, 100, 1, 100, NULL, NULL, '0000-00-00', '5081187476365bf10a0c176.835675943204.11.2022', '2022-11-04 22:40:32', '0000-00-00 00:00:00', NULL),
+	(258, 1, 3, 1, 214, 100, 2, 200, NULL, NULL, '0000-00-00', '14225522496365bf34040587.930918890804.11.2022', '2022-11-04 22:41:08', '0000-00-00 00:00:00', NULL),
+	(259, 1, 2, 1, 214, 100, 1, 100, NULL, NULL, '0000-00-00', '2467130636365c0e741cc22.715661642304.11.2022', '2022-11-04 22:48:23', '0000-00-00 00:00:00', NULL),
+	(260, 1, 2, 1, 214, 100, 1, 100, NULL, NULL, '0000-00-00', '7468737986365c0f505b666.297097013704.11.2022', '2022-11-04 22:48:37', '0000-00-00 00:00:00', NULL),
+	(261, 1, 2, 1, 214, 100, 1, 100, NULL, NULL, '0000-00-00', '6887578186365c1240c01a8.465704212404.11.2022', '2022-11-04 22:49:24', '0000-00-00 00:00:00', NULL),
+	(262, 1, 2, 1, 214, 100, 1, 100, NULL, NULL, '0000-00-00', '4227462806365c12b9f60b5.569825523104.11.2022', '2022-11-04 22:49:31', '0000-00-00 00:00:00', NULL),
+	(263, 1, 2, 1, 214, 100, 1, 100, NULL, NULL, '0000-00-00', '3782826126365c142121986.129088105404.11.2022', '2022-11-04 22:49:54', '0000-00-00 00:00:00', NULL),
+	(264, 1, 2, 1, 214, 100, 1, 100, NULL, NULL, '0000-00-00', '9075533636366b5779c22a9.490278885105.11.2022', '2022-11-05 16:11:51', '0000-00-00 00:00:00', NULL);
 /*!40000 ALTER TABLE `vendas` ENABLE KEYS */;
 
 /*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;

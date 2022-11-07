@@ -131,6 +131,10 @@ use System\HtmlComponents\Modal\Modal;
         } else if ($('#preco').val() == '') {
             modalValidacao('Validação', 'Campo (Preço) deve ser preenchido!');
             return false;
+
+        } else if ($("#ativar_quantidade").is(':checked') && $("#quantidade").val() == '') {
+            modalValidacao('Validação', 'Campo (Quantidade) deve ser preenchido!');
+            return false;
         }
 
         return true;

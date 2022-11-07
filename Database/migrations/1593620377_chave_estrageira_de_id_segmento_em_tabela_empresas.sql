@@ -1,1 +1,0 @@
-ALTER TABLE `empresas`ADD CONSTRAINT `FK_empresas_clientes_segmentos` FOREIGN KEY (`id_segmento`) REFERENCES `clientes_segmentos` (`id`);

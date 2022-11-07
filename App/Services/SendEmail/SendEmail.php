@@ -62,7 +62,7 @@ class SendEmail
         $this->phpMailer->Body = $this->body;
 
         try {
-            return $this->phpMailer->send();
+            $this->phpMailer->send();
 
         } catch (Exception $e) {
             echo "Message could not be sent. Mailer Error: {$this->phpMailer->ErrorInfo}";

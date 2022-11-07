@@ -28,7 +28,6 @@ $route->get('usuario/ativarUsuario/{idUsuario}', 'UsuarioController@ativarUsuari
 
 $route->get('usuario/teste', 'UsuarioController@testeEmail');
 
-
 # ----- RelatorioController --------------------------------
 $route->get('relatorio', 'RelatorioController@index');
 $route->get('relatorio/vendasPorPeriodo', 'RelatorioController@vendasPorPeriodo');
@@ -120,6 +119,13 @@ $route->post('empresa/save', 'EmpresaController@save');
 $route->post('empresa/update', 'EmpresaController@update');
 $route->get('empresa/modalFormulario/{idEmpresa?}', 'EmpresaController@modalFormulario');
 $route->get('empresa/verificaSeEmailExiste/{email}/{idEmpresa?}', 'EmpresaController@verificaSeEmailExiste');
+
+# ----- # ----- EmpresaController --------------------------------
+$route->get('fluxoDeCaixa/index', 'FluxoCaixa\FluxoCaixaController@index');
+$route->get('fluxoDeCaixa/modalRegistrarMovimentacao/{idFluxo?}', 'FluxoCaixa\FluxoCaixaController@modalRegistrarMovimentacao');
+$route->post('fluxoDeCaixa/save', 'FluxoCaixa\FluxoCaixaController@save');
+$route->post('fluxoDeCaixa/update', 'FluxoCaixa\FluxoCaixaController@update');
+$route->post('fluxoDeCaixa/tabelaFluxoDeCaixa', 'FluxoCaixa\FluxoCaixaController@tabelaFluxoDeCaixa');
 
 # TESTE
 $route->get('pwa/login', 'Api\InicioPwaController@index');

@@ -79,4 +79,13 @@ class Produto extends Model
             FROM produtos WHERE id_empresa = {$idEmpresa} AND deleted_at IS NULL"
         )[0];
     }
+
+    public function decrementaQuantidadeProduto(int $idProduto, int $quantidadeVendida)
+    {
+        $produto = $this->find($idProduto);
+        if ($quantidadeVendida <= $produto->quantidade) {
+            $quantidadeDecrementada = $produto->quantidade - $quantidadeVendida;
+            $this->update(['quantidade' => $quantidadeDecrementada], $idProduto);
+        }
+    }
 }

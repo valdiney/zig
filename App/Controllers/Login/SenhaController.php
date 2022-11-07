@@ -42,6 +42,7 @@ class SenhaController extends Controller
     public function recuperar()
     {
         $data = $this->post->data();
+        $title = !is_null(getenv('APPLICATION_NAME')) ? getenv('APPLICATION_NAME') : "ZigMoney";
 
         if (!isset($data->email)) {
             Session::flash('error', 'Digite um email!');
@@ -56,7 +57,7 @@ class SenhaController extends Controller
             return $this->get->redirectTo("login/senha");
         }
 
-        // apaga tokens antigos
+        # apaga tokens antigos
         $recuperacao = new RecuperacaoDeSenha;
         $recuperacao->prepare("DELETE FROM `recuperacao_de_senha` WHERE user_id = ?;", [$dadosUsuario->id], false);
 
@@ -73,29 +74,30 @@ class SenhaController extends Controller
             $sendEmail = new SendEmail();
             $sendEmail->setFrom(getenv('MAIL_USERNAME'));
             $sendEmail->setTo($dadosUsuario->email);
-            $sendEmail->setSubject("Recuperação de senha - Tonie");
+            $sendEmail->setSubject("[{$title}] Recuperar Senha");
 
             $mensagem = "Olá <b>{$dadosUsuario->nome}</b>,
-        este é um email do sistema <b>Tonie.</b><br/><br/>
-        Alguém solicitou uma recuperação de senha para este email.<br/>
-        Caso não tenha sido você, simplesmente ignore esta mensagem!<br/><br/>
+            este é um email do sistema <b>{$title}</b><br/><br/>
+            Alguém solicitou uma recuperação de senha para este email.<br/>
+            Caso não tenha sido você, simplesmente ignore esta mensagem!<br/><br/>
 
-        <a
-          href=\"{$url}\"
-          target=\"_blank\"
-          style=\"background:#007bff;padding:14px 40px;border-radius:45px;color:#fff;font-size:15px;margin:20px 0;display:inline-block;text-decoration:none;\"
-        >
-          Clique aqui para recuperar a sua senha
-        </a>
+            <a href=\"{$url}\"
+            target=\"_blank\"
+            style=\"background:#007bff;padding:14px 40px;border-radius:45px;color:#fff;font-size:15px;margin:20px 0;display:inline-block;text-decoration:none;\"
+            >
+                Clique para recuperar sua Senha
+            </a>
 
-        <br/><br/>
+            <br/><br/>
 
-        ou abra o seguinte endereço em seu navegador:
-        <br/><br/>
-        {$url}
-      ";
+            ou abra o seguinte endereço em seu navegador:
+            <br/><br/>
+            {$url}";
 
-            $sendEmail->setBody(SimpleTemplate::template($mensagem));
+            $sendEmail->setBody(SimpleTemplate::template([
+                'title' => $title,
+                'bodyMessage' => $mensagem
+            ]));
 
             $sendEmail->send();
         } catch (Exception $e) {

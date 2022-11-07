@@ -92,17 +92,17 @@ class LoginController extends Controller
     private function removeRememberToken()
     {
         $loginRemember = new LoginRemeber();
-
         $usuario = new Usuario();
         $hash = $loginRemember->getRememberCookie();
-        $user = (new Usuario)->findBy('remember_token', $hash);
 
-        $data = [
-            "remember_token" => null,
-            "remember_expire_date" => null,
-        ];
-        $usuario->update($data, $user->id);
-
-        $loginRemember->deleteRememberCookie();
+        if ( ! is_null($hash)) {
+            $user = (new Usuario)->findBy('remember_token', $hash);
+            $data = [
+                "remember_token" => null,
+                "remember_expire_date" => null,
+            ];
+            $usuario->update($data, $user->id);
+            $loginRemember->deleteRememberCookie();
+        }
     }
 }

@@ -2,13 +2,19 @@ obterProdutosDaMesa();
 obterValorTotalDosProdutosNaMesa();
 
 /*Acrescenta um produto a seleção de venda*/
-function colocarProdutosNaMesa(id, item) {
-    modalMensagemAdicionandoProdutosAMessa();
+function colocarProdutosNaMesa(id, item, seProdutoEsgotado) {
+    if (seProdutoEsgotado == 'esgotado') {
+        modalValidacao('Validação', 'Produto esgotado. <br> Reabastece o estoque.');
+        return false;
+    }
 
     const rota = getDomain() + "/pdvDiferencial/colocarProdutosNaMesa/" + id;
+    modalMensagemAdicionandoProdutosAMessa();
     $.get(rota, function (data, status) {
         obterOultimoProdutoColocadoNaMesa('ultimo');
         calcularTroco();
+
+    }).done(function() {
         setTimeout(modalValidacaoClose, 1000);
     });
 }
@@ -36,7 +42,7 @@ function obterProdutosDaMesa() {
                 }
                 t += "<td>" + value.produto + "</td>";
                 t += "<td class='hidden-when-mobile'>" + real(value.preco) + "</td>";
-                t += "<td>" + '<input type="number" class="campo-quantidade" value="' + value.quantidade + '" onchange="alterarAquantidadeDeUmProdutoNaMesa(' + value.id + ', this.value)">' + "</td>";
+                t += "<td>" + '<input type="number" class="campo-quantidade" value="' + value.quantidade + '" onchange="alterarAquantidadeDeUmProdutoNaMesa(' + value.id + ', this.value, $(this))">' + "</td>";
                 t += "<td class='pegarTotal'>" + real(value.total) + "</td>";
                 t += "<td>" + '<button class="btn-sm btn-link" onclick="retirarProdutoDaMesa(' + value.id + ', this)"><i class="fas fa-times" style="color:#cc0000;font-size:18px"></i></button>' + "</td>";
                 t += "</tr>";
@@ -67,7 +73,7 @@ function obterOultimoProdutoColocadoNaMesa() {
             }
             t += "<td>" + value.produto + "</td>";
             t += "<td class='hidden-when-mobile'>" + real(value.preco) + "</td>";
-            t += "<td>" + '<input type="number" class="campo-quantidade" value="' + value.quantidade + '" onchange="alterarAquantidadeDeUmProdutoNaMesa(' + value.id + ', this.value)">' + "</td>";
+            t += "<td>" + '<input type="number" class="campo-quantidade" value="' + value.quantidade + '" onchange="alterarAquantidadeDeUmProdutoNaMesa(' + value.id + ', this.value, $(this))">' + "</td>";
             t += "<td>" + real(value.total) + "</td>";
             t += "<td>" + '<button class="btn-sm btn-link" onclick="retirarProdutoDaMesa(' + value.id + ', this)"><i class="fas fa-times" style="color:#cc0000;font-size:18px"></i></button>' + "</td>";
             t += "</tr>";
@@ -81,11 +87,11 @@ function obterOultimoProdutoColocadoNaMesa() {
 }
 
 /*Acrescenta ou decrementa a quantidade de um produto*/
-function alterarAquantidadeDeUmProdutoNaMesa(id, quantidade) {
+function alterarAquantidadeDeUmProdutoNaMesa(id, quantidade, element) {
     quantidade = Number(quantidade);
 
     if (quantidade <= 0) {
-        $(".campo-quantidade").val(1);
+        element.val(1);
     }
 
     if (quantidade > 0 && quantidade != '') {
@@ -93,6 +99,15 @@ function alterarAquantidadeDeUmProdutoNaMesa(id, quantidade) {
 
         var rota = getDomain() + "/pdvDiferencial/alterarAquantidadeDeUmProdutoNaMesa/" + id + "/" + quantidade;
         $.get(rota, function (data, status) {
+            var obj = JSON.parse(data);
+
+            if (obj.quantidade_insuficiente == true) {
+                var legendaUnidade = (obj.unidades > 1) ? 'unidades' : 'unidade';
+                modalValidacao('Aplicando', 'Este Produto tem apenas '+obj.unidades+' '+legendaUnidade+' em estoque.');
+                element.val(obj.unidades);
+                return false;
+            }
+
             $(".tabela-de-produto tbody").empty();
             obterProdutosDaMesa();
             obterValorTotalDosProdutosNaMesa();

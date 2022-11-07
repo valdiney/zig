@@ -111,7 +111,7 @@
             </div>
         </div>
 
-        <?php if (isset($produto->codigo) === false) { ?>
+        <?php //if (isset($produto->codigo) === false) { ?>
             <div class="col-md-6 mb-2">
                 <div class="form-group">
                     <label for="nome">Código de barras</label>
@@ -123,7 +123,7 @@
                         </p>
                 </div>
             </div>
-        <?php } ?>
+        <?php //} ?>
 
         <div class="col-md-4">
             <div class="form-group">

@@ -75,8 +75,12 @@ class LoginRemeber
         $expireTimestamp = $date->getTimestamp();
 
         $domain = pathinfo(BASEURL, PATHINFO_BASENAME);
+        try {
+            setcookie($this->cookieName, "{$hash}", time()+31556926, "/");
 
-        setcookie($this->cookieName, $hash, $expireTimestamp, "/", $domain, "1");
+        } catch (\Exception $e) {
+            dd($e->getMessage());
+        }
     }
 
     public function getRememberCookie()

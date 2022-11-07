@@ -35,8 +35,8 @@
                             <?php if ($produto->quantidade == 0):?>
                                 <Estoque style="color:#990000">Produto esgotado</i>
                             <?php else:?>
-                                <?php echo $produto->quantidade;?>
-                                <?php echo ($produto->quantidade > 1) ? 'unidades em estoque' : 'unidade em estoque';?>
+                                <?php //echo $produto->quantidade;?>
+                                <?php //echo ($produto->quantidade > 1) ? 'unidades em estoque' : 'unidade em estoque';?>
                             <?php endif;?>
                         </small>
                     </center>

@@ -56,11 +56,10 @@ class ProdutoController extends Controller
             $dados['id_empresa'] = $this->idEmpresa;
             $dados['preco'] = formataValorMoedaParaGravacao($dados['preco']);
 
-            if ( ! isset($dados['deleted_at'])) {
-                $dados['deleted_at'] = timestamp();
+            if (isset($dados['mostrar_em_vendas'])) {
+                $dados['mostrar_em_vendas'] = 1;
             } else {
-                # Retira o deleted_at do array para que seja cadastrado como null no banco
-                unset($dados['deleted_at']);
+                $dados['mostrar_em_vendas'] = 0;
             }
 
             if (isset($dados['ativar_quantidade'])) {
@@ -117,11 +116,10 @@ class ProdutoController extends Controller
 
             $dados['descricao'] = nl2br($dados['descricao']);
 
-            if ( ! isset($this->post->data()->deleted_at)) {
-                $dados['deleted_at'] = timestamp();
+            if (isset($this->post->data()->mostrar_em_vendas)) {
+                $dados['mostrar_em_vendas'] = 1;
             } else {
-                # Retira o deleted_at do array para que seja cadastrado como null no banco
-                unset($dados['deleted_at']);
+                $dados['mostrar_em_vendas'] = 0;
             }
 
             # Trata quantidade
@@ -195,5 +193,17 @@ class ProdutoController extends Controller
         $nome = null;
 
         $this->view('produto/produtos', null, compact('produtos','nome','codigo'));
+    }
+
+    public function excluirProduto($idProduto)
+    {
+        $produto = new Produto();
+        try {
+            $produto->update(['deleted_at' => timestamp()], $idProduto);
+            echo json_encode(['deletado' => true]);
+
+        } catch (Exception $e) {
+            dd($e->getMessage());
+        }
     }
 }

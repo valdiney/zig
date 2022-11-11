@@ -146,4 +146,25 @@ use System\HtmlComponents\Modal\Modal;
             html += '<img src="'+imagem+'"/>';
         $("#containerModalImagemProduto").html(html);
     }
+
+    function excluirProduto(id) {
+        $.confirm({
+            title: 'Exclusão',
+            content: 'Deseja realmente excluir este produto?',
+            buttons: {
+                Sim: function () {
+                    var rota = "<?php echo BASEURL.'/produto/excluirProduto/'?>"+id;
+                    $.get(rota, function(data, status) {
+                        var obj = JSON.parse(data);
+                        if (obj.deletado == true) {
+                            window.location.reload();
+                        }
+                    })
+                },
+                Não: function () {}
+            }
+        });
+
+        return false;
+    }
 </script>

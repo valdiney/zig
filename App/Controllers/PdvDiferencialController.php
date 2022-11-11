@@ -50,7 +50,7 @@ class PdvDiferencialController extends Controller
         $meiosPagamentos = $meioPagamento->all();
 
         $produto = new Produto();
-        $produtos = $produto->produtos($this->idEmpresa);
+        $produtos = $produto->produtosNoPdv($this->idEmpresa);
 
         $this->view('pdv/diferencial', $this->layout,
             compact(
@@ -171,7 +171,7 @@ class PdvDiferencialController extends Controller
         $nome = utf8_encode(out64($nome));
 
         $produto = new Produto();
-        $produtos = $produto->produtos($this->idEmpresa, $nome);
+        $produtos = $produto->produtosNoPdv($this->idEmpresa, $nome);
 
         $this->view('pdv/produtosAvenda', null, compact('produtos'));
     }

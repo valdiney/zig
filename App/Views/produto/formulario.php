@@ -52,13 +52,13 @@
                             <small style="opacity:0.80">Mostrar este produto em vendas</small>
                             <input
                                 id="ativo"
-                                name="deleted_at"
+                                name="mostrar_em_vendas"
                                 type="checkbox"
                                 class="form-control"
-                                <?php if (isset($produto->id) && is_null($produto->deleted_at)):?>
+                                <?php if (isset($produto->id) && $produto->mostrar_em_vendas == '1'):?>
                                 checked
                                 <?php endif;?>
-                        checked>
+                        <?php echo isset($produto->id) ? false : 'checked';?>>
                         </label>
                     </div>
                 </div>

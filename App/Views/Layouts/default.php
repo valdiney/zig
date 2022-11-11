@@ -46,6 +46,7 @@ $configPdv = $configPdv->configPdv(Session::get('idEmpresa'));
 
     <link rel="stylesheet" type="text/css" href="<?php echo BASEURL; ?>/public/css/select2.css">
     <link rel="stylesheet" type="text/css" href="<?php echo BASEURL; ?>/public/css/w3cform.css">
+    <link rel="stylesheet" type="text/css" href="<?php echo BASEURL; ?>/public/css/confirm.css">
 
     <meta name="author" content="ZigMoney">
     <meta property="og:url" content="https://github.com/valdiney/zig/">
@@ -267,6 +268,7 @@ $configPdv = $configPdv->configPdv(Session::get('idEmpresa'));
 <script src="<?php echo BASEURL; ?>/public/js/mask.js"></script>
 <script src="<?php echo BASEURL; ?>/public/assets/js/paper-dashboard.min.js"></script>
 <script src="<?php echo BASEURL; ?>/public/js/select2.js"></script>
+<script src="<?php echo BASEURL; ?>/public/js/confirm.js"></script>
 
 <script>
     $(function () {

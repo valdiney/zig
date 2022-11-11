@@ -5,7 +5,7 @@
             <th>#</th>
             <th>Nome</th>
             <th>R$ Preço</th>
-            <th>Ativo</th>
+            <th>Em vendas</th>
             <th>Quantidade</th>
             <th style="text-align:right;padding-right:0">
                 <?php $rota = BASEURL . '/produto/modalFormulario'; ?>
@@ -35,7 +35,7 @@
 
                 <td><?php echo $produto->nome; ?></td>
                 <td><?php echo real($produto->preco); ?></td>
-                <?php if (is_null($produto->deleted_at)):?>
+                <?php if ($produto->mostrar_em_vendas == true):?>
                     <td><small>Sim</small></td>
                 <?php else:?>
                     <td class="with_deleted_at"><Small>Não</Small></td>
@@ -63,9 +63,9 @@
                                 <i class="fas fa-edit"></i> Editar
                             </button>
 
-                            <!--<a class="dropdown-item" href="#">
+                            <a class="dropdown-item" href="#" onclick="return excluirProduto('<?php echo $produto->id;?>')">
                                 <i class="fas fa-trash-alt" style="color:#cc6666"></i> Excluir
-                            </a>-->
+                            </a>
 
                         </div>
                     </div>

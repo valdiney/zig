@@ -322,7 +322,7 @@ CREATE TABLE IF NOT EXISTS `log_acessos` (
   KEY `FK_log_clientes` (`id_empresa`),
   CONSTRAINT `FK_log_clientes` FOREIGN KEY (`id_empresa`) REFERENCES `empresas` (`id`),
   CONSTRAINT `FK_log_usuarios` FOREIGN KEY (`id_usuario`) REFERENCES `usuarios` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=1061 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=1062 DEFAULT CHARSET=latin1;
 
 -- Copiando dados para a tabela zig.log_acessos: ~52 rows (aproximadamente)
 /*!40000 ALTER TABLE `log_acessos` DISABLE KEYS */;
@@ -381,7 +381,8 @@ INSERT INTO `log_acessos` (`id`, `id_usuario`, `id_empresa`, `created_at`, `upda
 	(1057, 1, 1, '2022-11-06 18:17:22', '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
 	(1058, 1, 1, '2022-11-06 21:11:12', '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
 	(1059, 1, 1, '2022-11-07 20:26:53', '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
-	(1060, 1, 1, '2022-11-10 15:20:55', '0000-00-00 00:00:00', '0000-00-00 00:00:00');
+	(1060, 1, 1, '2022-11-10 15:20:55', '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+	(1061, 1, 1, '2022-11-11 09:48:26', '0000-00-00 00:00:00', '0000-00-00 00:00:00');
 /*!40000 ALTER TABLE `log_acessos` ENABLE KEYS */;
 
 -- Copiando estrutura para tabela zig.meios_pagamentos
@@ -448,24 +449,32 @@ CREATE TABLE IF NOT EXISTS `produtos` (
   `imagem` text,
   `ativar_quantidade` int NOT NULL DEFAULT '0' COMMENT 'SIM = 1, NÃO = 0',
   `quantidade` int DEFAULT '0',
+  `mostrar_em_vendas` int DEFAULT '1' COMMENT 'SIM =1, NÃO = 0',
   `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
   `deleted_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `FK_produtos_clientes` (`id_empresa`),
   CONSTRAINT `FK_produtos_clientes` FOREIGN KEY (`id_empresa`) REFERENCES `empresas` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=221 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=228 DEFAULT CHARSET=latin1;
 
 -- Copiando dados para a tabela zig.produtos: ~7 rows (aproximadamente)
 /*!40000 ALTER TABLE `produtos` DISABLE KEYS */;
-INSERT INTO `produtos` (`id`, `id_empresa`, `nome`, `codigo`, `preco`, `descricao`, `imagem`, `ativar_quantidade`, `quantidade`, `created_at`, `updated_at`, `deleted_at`) VALUES
-	(214, 1, 'ghh', '2142022', 100, '', 'public/imagem/produtos/1665188280.jpg', 1, 25, '2022-11-06 01:30:43', '2022-11-06 01:30:43', NULL),
-	(215, 1, 'Pingente de Ouro 18k', '2152022', 800, '', 'imagem/produtos/1665109596.png', 1, 0, '2022-11-04 23:11:16', '2022-11-04 23:11:16', NULL),
-	(216, 1, 'tgg', '2162022', 0.12, '', 'public/imagem/produtos/1665110737.png', 0, 0, '2022-10-06 23:45:37', '2022-10-06 23:45:37', NULL),
-	(217, 1, 'Anador', '2172022', 15, '', 'public/imagem/produtos/1667613777.jfif', 1, 1, '2022-11-04 23:02:57', '2022-11-04 23:02:57', NULL),
-	(218, 1, 'ghggghg', '2182022', 454.54, '', 'public/imagem/produtos/1667708852.png', 0, 0, '2022-11-06 01:27:32', '2022-11-06 01:27:32', NULL),
-	(219, 1, 'ytyttyt', '2192022', 10, '', NULL, 0, 0, '2022-11-04 20:46:00', '2022-11-04 20:46:00', NULL),
-	(220, 1, 'teste', '2202022', 45, '', NULL, 0, 0, '2022-11-04 22:29:48', '2022-11-04 22:29:48', NULL);
+INSERT INTO `produtos` (`id`, `id_empresa`, `nome`, `codigo`, `preco`, `descricao`, `imagem`, `ativar_quantidade`, `quantidade`, `mostrar_em_vendas`, `created_at`, `updated_at`, `deleted_at`) VALUES
+	(214, 1, 'ghh', '2142022', 100, '', 'public/imagem/produtos/1665188280.jpg', 1, 25, 1, '2022-11-10 15:55:21', '2022-11-10 15:55:21', '2022-11-10 15:55:21'),
+	(215, 1, 'Pingente de Ouro 18k', '2152022', 800, '', 'imagem/produtos/1665109596.png', 1, 0, 1, '2022-11-04 23:11:16', '2022-11-04 23:11:16', NULL),
+	(216, 1, 'tgg', '2162022', 0.12, '', 'public/imagem/produtos/1665110737.png', 0, 0, 1, '2022-11-11 09:52:05', '2022-11-11 09:52:05', '2022-11-11 09:52:05'),
+	(217, 1, 'Anador', '2172022', 15, '', 'public/imagem/produtos/1667613777.jfif', 1, 10, 1, '2022-11-11 10:45:20', '2022-11-11 10:45:20', NULL),
+	(218, 1, 'ghggghg', '2182022', 454.54, '', 'public/imagem/produtos/1667708852.png', 0, 0, 1, '2022-11-11 09:51:50', '2022-11-11 09:51:50', '2022-11-11 09:51:50'),
+	(219, 1, 'ytyttyt', '2192022', 10, '', NULL, 0, 0, 1, '2022-11-11 09:49:36', '2022-11-11 09:49:36', '2022-11-11 09:49:36'),
+	(220, 1, 'teste', '2202022', 45, '', NULL, 0, 0, 1, '2022-11-11 09:49:22', '2022-11-11 09:49:22', '2022-11-11 09:49:22'),
+	(221, 1, 'Valdiney', '2212022', 100, '', NULL, 0, 0, 1, '2022-11-11 09:54:22', '2022-11-11 09:54:22', '2022-11-11 09:54:22'),
+	(222, 1, 'nukunuuk', '2222022', 100, '', NULL, 0, 0, 1, '2022-11-11 10:42:38', '2022-11-11 10:42:38', '2022-11-11 10:42:38'),
+	(223, 1, 'teste2', '2232022', 454.54, '', NULL, 0, 0, 0, '2022-11-11 10:42:19', '2022-11-11 10:42:19', '2022-11-11 10:42:19'),
+	(224, 1, 'a', '2242022', 4154.15, '', NULL, 0, 0, 0, '2022-11-11 10:42:35', '2022-11-11 10:42:35', '2022-11-11 10:42:35'),
+	(225, 1, 'a', '2252022', 4154.15, '', NULL, 0, 0, 0, '2022-11-11 10:41:02', '2022-11-11 10:41:02', '2022-11-11 10:41:02'),
+	(226, 1, 'b', '2262022', 232.32, '', NULL, 1, 10, 1, '2022-11-11 10:42:31', '2022-11-11 10:42:31', '2022-11-11 10:42:31'),
+	(227, 1, 'c', '2272022', 45.55, '', NULL, 0, 0, 1, '2022-11-11 10:42:28', '2022-11-11 10:42:28', '2022-11-11 10:42:28');
 /*!40000 ALTER TABLE `produtos` ENABLE KEYS */;
 
 -- Copiando estrutura para tabela zig.recuperacao_de_senha
@@ -544,7 +553,7 @@ CREATE TABLE IF NOT EXISTS `usuarios` (
 -- Copiando dados para a tabela zig.usuarios: ~2 rows (aproximadamente)
 /*!40000 ALTER TABLE `usuarios` DISABLE KEYS */;
 INSERT INTO `usuarios` (`id`, `id_empresa`, `nome`, `email`, `password`, `remember_token`, `remember_expire_date`, `id_sexo`, `id_perfil`, `imagem`, `status`, `created_at`, `updated_at`, `deleted_at`) VALUES
-	(1, 1, 'Valdiney França', 'valdiney.2@hotmail.com', '3b5df72898847f008454f4ed60280d6bdffc890d', '275136b5e9750bd697b82d439f12d4c900a1c22e', '2022-12-07 20:26:53', 1, 1, 'public/imagem/perfil_usuarios/1665188858.jpg', 1, '2022-11-07 20:26:53', '2022-11-07 20:26:53', '0000-00-00 00:00:00');
+	(1, 1, 'Valdiney França', 'valdiney.2@hotmail.com', '3b5df72898847f008454f4ed60280d6bdffc890d', '07ebe9576b57d89c3c98cecde6c339a6f8233002', '2022-12-11 09:48:26', 1, 1, 'public/imagem/perfil_usuarios/1665188858.jpg', 1, '2022-11-11 09:48:26', '2022-11-11 09:48:26', '0000-00-00 00:00:00');
 /*!40000 ALTER TABLE `usuarios` ENABLE KEYS */;
 
 -- Copiando estrutura para tabela zig.vendas
@@ -571,7 +580,7 @@ CREATE TABLE IF NOT EXISTS `vendas` (
   CONSTRAINT `FK_vendas_clientes` FOREIGN KEY (`id_empresa`) REFERENCES `empresas` (`id`),
   CONSTRAINT `FK_vendas_meios_de_pagamento` FOREIGN KEY (`id_meio_pagamento`) REFERENCES `meios_pagamentos` (`id`),
   CONSTRAINT `FK_vendas_usuarios` FOREIGN KEY (`id_usuario`) REFERENCES `usuarios` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=265 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=266 DEFAULT CHARSET=latin1;
 
 -- Copiando dados para a tabela zig.vendas: ~9 rows (aproximadamente)
 /*!40000 ALTER TABLE `vendas` DISABLE KEYS */;
@@ -586,7 +595,8 @@ INSERT INTO `vendas` (`id`, `id_usuario`, `id_meio_pagamento`, `id_empresa`, `id
 	(261, 1, 2, 1, 214, 100, 1, 100, NULL, NULL, '0000-00-00', '6887578186365c1240c01a8.465704212404.11.2022', '2022-11-04 22:49:24', '0000-00-00 00:00:00', NULL),
 	(262, 1, 2, 1, 214, 100, 1, 100, NULL, NULL, '0000-00-00', '4227462806365c12b9f60b5.569825523104.11.2022', '2022-11-04 22:49:31', '0000-00-00 00:00:00', NULL),
 	(263, 1, 2, 1, 214, 100, 1, 100, NULL, NULL, '0000-00-00', '3782826126365c142121986.129088105404.11.2022', '2022-11-04 22:49:54', '0000-00-00 00:00:00', NULL),
-	(264, 1, 2, 1, 214, 100, 1, 100, NULL, NULL, '0000-00-00', '9075533636366b5779c22a9.490278885105.11.2022', '2022-11-05 16:11:51', '0000-00-00 00:00:00', NULL);
+	(264, 1, 2, 1, 214, 100, 1, 100, NULL, NULL, '0000-00-00', '9075533636366b5779c22a9.490278885105.11.2022', '2022-11-05 16:11:51', '0000-00-00 00:00:00', NULL),
+	(265, 1, 1, 1, 217, 15, 1, 15, 50, 35, '0000-00-00', '1303140313636d4cced047b5.940340241010.11.2022', '2022-11-10 16:11:10', '0000-00-00 00:00:00', NULL);
 /*!40000 ALTER TABLE `vendas` ENABLE KEYS */;
 
 /*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;

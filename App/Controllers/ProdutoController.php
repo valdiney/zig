@@ -196,4 +196,16 @@ class ProdutoController extends Controller
 
         $this->view('produto/produtos', null, compact('produtos','nome','codigo'));
     }
+
+    public function excluirProduto($idProduto)
+    {
+        $produto = new Produto();
+        try {
+            $produto->update(['deleted_at' => timestamp()], $idProduto);
+            echo json_encode(['deletado' => true]);
+
+        } catch (Exception $e) {
+            dd($e->getMessage());
+        }
+    }
 }

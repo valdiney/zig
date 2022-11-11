@@ -63,9 +63,9 @@
                                 <i class="fas fa-edit"></i> Editar
                             </button>
 
-                            <!--<a class="dropdown-item" href="#">
+                            <a class="dropdown-item" href="#" onclick="return excluirProduto('<?php echo $produto->id;?>')">
                                 <i class="fas fa-trash-alt" style="color:#cc6666"></i> Excluir
-                            </a>-->
+                            </a>
 
                         </div>
                     </div>

@@ -44,6 +44,7 @@ $route->post('produto/save', 'ProdutoController@save');
 $route->post('produto/update', 'ProdutoController@update');
 $route->get('produto/pesquisarProdutoPorNome/{nome?}', 'ProdutoController@pesquisarProdutoPorNome');
 $route->get('produto/pesquisarProdutoPorCodigoDeBarras/{codigo?}', 'ProdutoController@pesquisarProdutoPorCodigoDeBarras');
+$route->get('produto/excluirProduto/{idProduto}', 'ProdutoController@excluirProduto');
 
 # ----- ConfiguracaoController --------------------------------
 $route->get('configuracao', 'ConfiguracaoController@index');

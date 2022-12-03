@@ -11,7 +11,7 @@ de vendas totalmente online.
 🚀 Estamos trabalhando no modulo de fluxo de caixa! 
 <hr>
 
-Simpatizou com o projeto? Quer fazer uma doação via Pix? Não seja tímido, Ajude o nosso projeto! <br> <br>
+Simpatizou com o projeto? Quer fazer uma doação via Pix? Não seja tímido, Ajude o nosso projeto! <br>
 Chave Pix: zigmoneypdv@hotmail.com
 
 <hr>

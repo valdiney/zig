@@ -240,4 +240,8 @@
         $("#thumb").show();
         reader.readAsDataURL(file.files[0]);
     })
+
+    $("#imagem").change(function() {
+        verificaExtensaoArquivo($(this).val());
+    })
 </script>

@@ -32,11 +32,18 @@ use System\HtmlComponents\FlashMessage\FlashMessage; ?>
     <button class="btn btn-lg btn-primary btn-block text-uppercase" type="submit">Entrar</button>
 
     <div class="form-links">
-        <a href="<?php echo BASEURL; ?>/login/senha">Esqueceu a sua senha?</a>
+        <a href="<?php echo BASEURL; ?>/login/senha">Esqueci a minha senha</a>
     </div>
 
+    <!--
     <hr class="my-4">
 
+    <center>
+        <small style="opacity:0.60;">Que tal criar uma conta agora mesmo?</small><br><br>
+        <a href="<?php echo BASEURL;?>/criarConta/index" class="btn btn-lg btn-secondary btn-block text-uppercase" style="color:white">Criar conta</a>
+    </center>-->
+
+    <hr class="my-4">
 
     <center style="font-size:13px;opacity:0.70">ZigMoney <span style="font-size:17px">&hearts;</span></center>
 

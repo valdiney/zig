@@ -74,14 +74,14 @@ use System\Session\Session;
             </li>
         <?php endif; ?>
 
-        <!--<li class="">
+        <li class="">
             <a href="<?php //echo BASEURL; ?>/fluxoDeCaixa/index"
                 class="<?php //('fluxoDeCaixa', 'fluxoDeCaixaBorder'); ?>
                 <?php //currentRouteFromMenu('fluxoDeCaixa/index', 'fluxoDeCaixaBorder'); ?>">
                 <i class="fas fa-money-bill"></i>
                 <p>Fluxo de caixa</p>
             </a>
-        </li>-->
+        </li>
 
         <!--<div class="dropdown">
             <li class="active-pro dropdown-toggle dropdown-toggle dropdown-toggle-split" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">

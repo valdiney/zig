@@ -209,3 +209,26 @@ function CNPJvalido(cnpj) {
 }
 
 //////////////////////////////////////////////////////////////////////////////
+function verificaExtensaoArquivo(arquivo) {
+    extensoes_permitidas = new Array(".gif", ".png", ".jpeg", ".jpg", ".jfif");
+    extensao = (arquivo.substring(arquivo.lastIndexOf("."))).toLowerCase();
+    permite = false;
+    $(extensoes_permitidas).each(function(i) {
+        if (extensoes_permitidas[i] == extensao) {
+            permite = true;
+            return false;
+        }
+    });
+    if( ! permite) {
+        $.confirm({
+            title: 'Validação!',
+            content: "<b>("+extensao+")</b>" + ' Este formato não é permitido! <br> Tente .gif, .png, .jpeg, .jpg, .jfif!',
+            buttons: {
+                ok: function(){}
+            }
+        });
+
+        return false;
+    }
+    return true;
+}

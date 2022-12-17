@@ -134,5 +134,8 @@ $route->post('pwa/logar', 'Api\LoginController@logar');
 $route->get('pwa/pdv', 'Api\InicioPwaController@pdv');
 $route->get('test/vendedores', 'Api\TesteController@vendedores');
 
+# ----- # ----- CadastroExternoController --------------------------------
+$route->get('criarConta/index', 'CadastroExternoController@index');
+
 # Router run
 $route->run();

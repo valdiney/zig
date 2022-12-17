@@ -8,11 +8,11 @@ O intuito é disponibilizar uma plataforma com módulos que facilite e potencial
 de vendas totalmente online.
 
 🚧 Projeto em desenvolvimento e recebendo commit sempre que possível! ✊ <br>
-🚀 Estamos trabalhando em algumas implementações bem legais, como por exemplo, valor investido em produtos e lucro estimado.
+🚀 Estamos trabalhando no modulo de fluxo de caixa! 
 <hr>
 
-Simpatizou com o projeto? Quer fazer uma doação via Pix? Não seja tímido, leia o QRcode e ajude o nosso projeto! <br> <br>
-<img width="150" src="https://raw.githubusercontent.com/valdiney/zig/master/docs/qrcodePix.png">
+Simpatizou com o projeto? Quer fazer uma doação via Pix? Não seja tímido, Ajude o nosso projeto! <br>
+Chave Pix: zigmoneypdv@hotmail.com
 
 <hr>
 

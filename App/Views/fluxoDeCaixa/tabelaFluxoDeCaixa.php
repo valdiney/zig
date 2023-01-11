@@ -56,6 +56,7 @@
                 <th>Descrição</th>
                 <th>Valor</th>
                 <th>Lançamento</th>
+                <th>Vencimento</th>
                 <th style="text-align:right;padding-right:0">
                     <button onclick="modalRegistrarMovimentacao('<?php echo BASEURL?>/fluxoDeCaixa/modalRegistrarMovimentacao', false);" class="btn btn-sm btn-success" title="Registrar Movimentações!">
                         <i class="fas fa-plus"></i>
@@ -71,6 +72,7 @@
                     <td><?php echo $fluxoCaixa->descricao;?></td>
                     <td>R$ <?php echo real($fluxoCaixa->valor);?></td>
                     <td><?php echo date('d/m/Y', strtotime($fluxoCaixa->created_at));?></td>
+                    <td><?php echo date('d/m/Y', strtotime($fluxoCaixa->data));?></td>
 
                     <td style="text-align:right;padding-right:0">
                         <button id="btnGroupDrop1" type="button" class="btn btn-sm btn-secondary dropdown-toggle"

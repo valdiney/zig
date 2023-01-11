@@ -32,7 +32,7 @@ class VendasEmSessaoRepository
                     'quantidade' => $quantidade,
                     'total' => (float)$produto->preco * (float)$quantidade
                 ];
-            }
+           }
         }
 
         return json_encode($_SESSION['venda']);

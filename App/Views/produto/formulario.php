@@ -119,7 +119,7 @@
                         placeholder="Número do código de barras"
                         value="<?php echo isset($produto->codigo) ? $produto->codigo : '' ?>">
                         <p class="text-muted">
-                            <small>Caso não tenha, deixe vazio para ser preenchido automáticamente!</small>
+                            <small>Caso você não tenha um código de barras, deixe vazio para ser preenchido automaticamente!</small>
                         </p>
                 </div>
             </div>

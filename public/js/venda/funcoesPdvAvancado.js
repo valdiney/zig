@@ -4,7 +4,7 @@ obterValorTotalDosProdutosNaMesa();
 /*Acrescenta um produto a seleção de venda*/
 function colocarProdutosNaMesa(id, item, seProdutoEsgotado) {
     if (seProdutoEsgotado == 'esgotado') {
-        modalValidacao('Validação', 'Produto esgotado. <br> Reabastece o estoque.');
+        modalValidacao('Validação', 'Produto esgotado. <br> Reabasteça o estoque.');
         return false;
     }
 

@@ -12,6 +12,9 @@ class FluxoCaixa extends Model
     protected $retirarPDVdoFluxoDeCaixa = false;
     protected $vendas;
 
+    const TIPO_PERIODO_LANCAMENTO = "lancamento";
+    const TIPO_PERIODO_VENCIMENTO = "vencimento";
+
     public function __construct()
     {
         $this->vendas = new RelatorioVendasPorPeriodoRepository();
@@ -86,14 +89,19 @@ class FluxoCaixa extends Model
         return $query;
     }
 
-    public function fluxoDeCaixaDetalhadoPorMes(array $periodo, $idEmpresa)
+    public function fluxoDeCaixaDetalhadoPorMes(array $periodo, $tipoPeriodo, $idEmpresa)
     {
         $de = $periodo['de'];
         $ate = $periodo['ate'];
 
+        $queryTipoPeriodo = "DATE(created_at)";
+        if ($tipoPeriodo == self::TIPO_PERIODO_VENCIMENTO) {
+            $queryTipoPeriodo = "DATE(data)";
+        }
+
         $query = $this->query(
             "SELECT * FROM fluxo_caixa WHERE id_empresa = {$idEmpresa}
-            AND DATE(created_at) BETWEEN '{$de}' AND '{$ate}'"
+            AND {$queryTipoPeriodo} BETWEEN '{$de}' AND '{$ate}'"
         );
 
         # Se marcado retirar PDV do Fluxo de Caixa

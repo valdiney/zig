@@ -117,6 +117,9 @@ $configPdv = $configPdv->configPdv(Session::get('idEmpresa'));
             max-height: 70vh;
             overflow-y: auto;
         }
+        select {
+            height:40px!important;
+        }
     </style>
 </head>
 

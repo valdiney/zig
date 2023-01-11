@@ -61,7 +61,6 @@ class PdvDiferencialController extends Controller
 
     public function saveVendasViaSession()
     {
-
         if (!isset($_SESSION['venda']) ||empty($_SESSION['venda'])) {
             return;
         }

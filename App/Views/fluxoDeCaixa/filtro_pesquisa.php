@@ -20,6 +20,19 @@
                                 <input type="date" class="form-control busca-sem-codigo" name="de" id="periodo_de"
                                 value="<?php echo date('Y') . '-' . date('m') . '-' . '01' ?>">
                             </div>
+
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <input class="w3-radio" type="radio" name="tipo_periodo" id="data_lancamento" value="lancamento"
+                                    <?php //echo $checkedTipoEntrada;?>>
+                                    <label>Data Lançamento</label>
+                                </div>
+                                <div class="col-md-6">
+                                    <input class="w3-radio" type="radio" name="tipo_periodo" id="data_vencimento" value="vencimento"
+                                    <?php //echo $checkedTipoSaida;?>>
+                                    <label>Data Vencimento</label>
+                                </div>
+                            </div>
                         </div>
 
                         <div class="col-md-4">
@@ -29,6 +42,8 @@
                                 value="<?php echo date('Y-m-d') ?>">
                             </div>
                         </div>
+
+
 
                         <div class="col-md-4">
                             <div class="form-group">
@@ -42,6 +57,8 @@
                                     <?php endforeach; ?>
                                 </select>
                             </div>
+
+
 
                             <input type="hidden" id="retirarPDV" name="retirarPDV" value="0">
 

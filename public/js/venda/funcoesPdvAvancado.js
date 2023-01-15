@@ -156,6 +156,12 @@ function saveVendasViaSession(token) {
     const valorRecebido = $("#valor_recebido").val();
     var  troco = $("#input_troco").val();
 
+    if (meioPagamento == "selecione") {
+        modalValidacao('Ops.', 'Selecione um meio de Pagamento.');
+        $("#button-confirmar-venda").prop('disabled', false);
+        return false;
+    }
+
     // verifica se é boleto e preencheu a data de compensacao
     if (meioPagamento == 4 && dataCompensacao == "") {
         modalValidacao('Algo deu errado', 'Você precisa adiciona a data de compensação do boleto!');

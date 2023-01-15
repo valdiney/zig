@@ -33,7 +33,7 @@
                     <center>
                         <small style="opacity:0.60">
                             <?php if ($produto->quantidade == 0):?>
-                                <Estoque style="color:#990000">Produto esgotado</i>
+                                <Estoque style="color:#990000">Esgotado</i>
                             <?php else:?>
                                 <?php //echo $produto->quantidade;?>
                                 <?php //echo ($produto->quantidade > 1) ? 'unidades em estoque' : 'unidade em estoque';?>

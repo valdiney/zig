@@ -169,41 +169,14 @@
 
 <!-- Carrega os produtos-->
 <div class="row">
-    <div class="card col-lg-12 content-div">
+    <div class="card col-lg-8 content-div">
         <div class="card-body">
             <h5 class="card-title"><i class="fas fa-box-open"></i> Produtos</h5>
             <div id="carregar-produtos"></div>
         </div>
     </div>
-</div>
 
-<div class="row">
-
-    <div class="card col-lg-9 content-div">
-        <div class="card-body" style="overflow-x:auto!important;">
-            <h5 class="card-title">
-                <i class="fas fa-cart-arrow-down"></i>
-                Itens selecionados
-            </h5>
-
-            <table class="table tabela-ajustada tabela-de-produto" style="width:100%;">
-                <thead>
-                <tr>
-                    <th>#</th>
-                    <th>Produto</th>
-                    <th class="hidden-when-mobile">Preço</th>
-                    <th>QTD</th>
-                    <th>Total</th>
-                    <th>Ação</th>
-                </tr>
-                </thead>
-                <tbody></tbody>
-                <tfoot></tfoot>
-            </table>
-        </div>
-    </div>
-
-    <div class="card col-lg-3 content-div div-realizar-pagamento" style="">
+    <div class="card col-lg-4 content-div div-realizar-pagamento" style="">
         <div class="card-body div-card-body-realizar-pagamento">
 
             <span>Total</span> <br>
@@ -246,6 +219,35 @@
 
         </div>
     </div>
+</div>
+
+<div class="row">
+
+    <div class="card col-lg-12 content-div">
+        <div class="card-body" style="overflow-x:auto!important;">
+            <h5 class="card-title">
+                <i class="fas fa-cart-arrow-down"></i>
+                Itens selecionados
+            </h5>
+
+            <table class="table tabela-ajustada tabela-de-produto" style="width:100%;">
+                <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Produto</th>
+                    <th class="hidden-when-mobile">Preço</th>
+                    <th>QTD</th>
+                    <th>Total</th>
+                    <th>Ação</th>
+                </tr>
+                </thead>
+                <tbody></tbody>
+                <tfoot></tfoot>
+            </table>
+        </div>
+    </div>
+
+
 
 </div><!--end row-->
 

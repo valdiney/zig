@@ -160,8 +160,9 @@ class RelatorioVendasPorPeriodoRepository
     public function detalhesDePagamentoItensDaVenda($idEmpresa, $codigoVenda)
     {
         return $this->venda->query(
-            "SELECT id_meio_pagamento, SUM(valor) AS total, valor_recebido,
+            "SELECT codigo_venda, id_meio_pagamento, legenda as meioPagamento, SUM(valor) AS total, valor_recebido,
             valor_recebido - SUM(valor) AS troco FROM vendas
+            INNER JOIN meios_pagamentos ON vendas.id_meio_pagamento = meios_pagamentos.id
             WHERE id_empresa = {$idEmpresa}
             AND codigo_venda = '{$codigoVenda}'")[0];
     }

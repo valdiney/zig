@@ -6,6 +6,7 @@ use App\Models\Empresa;
 use App\Repositories\RelatorioVendasPorPeriodoRepository;
 use App\Rules\Logged;
 use App\Services\Usuarios\BuscaUsuariosService;
+use App\Services\RelatorioPDFService\RelatorioPdfDeUmaVenda;
 use DateTime;
 use System\Controller\Controller;
 use System\Get\Get;
@@ -152,5 +153,26 @@ class RelatorioController extends Controller
             $this->idEmpresa,
             $empresa
         );
+    }
+
+    public function gerarPdfDeUmaVenda($codigoVenda)
+    {
+        $relatorioVendas = new RelatorioVendasPorPeriodoRepository();
+        $vendas = $relatorioVendas->itensDaVenda(
+            $this->idEmpresa,
+            out64($codigoVenda)
+        );
+
+        $detalhesDePagamentoItensDaVenda = $relatorioVendas->detalhesDePagamentoItensDaVenda(
+            $this->idEmpresa,
+            out64($codigoVenda)
+        );
+
+        $empresa = new Empresa();
+        $empresa = $empresa->find($this->idEmpresa);
+
+        $relatorioPdfDeUmaVenda = new RelatorioPdfDeUmaVenda();
+        $relatorioPdfDeUmaVenda->setNomeEmpresa($empresa->nome);
+        $relatorioPdfDeUmaVenda->gerarPDF($vendas, $detalhesDePagamentoItensDaVenda);
     }
 }

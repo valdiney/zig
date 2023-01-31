@@ -19,7 +19,6 @@
         opacity:0.50;
     }
 </style>
-
 <?php if (isset($produto->id) && !empty($produto->codigo)): ?>
     <div class="row">
         <div class="col-md-12 text-center" style="opacity:0.80;background:#fffcf5">

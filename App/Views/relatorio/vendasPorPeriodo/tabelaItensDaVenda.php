@@ -59,9 +59,9 @@
             </span>
         <?php endif;?>
 
-        <a href="<?php echo BASEURL; ?>/relatorio/gerarPdfDeUmaVenda/<?php echo in64($detalhesDePagamentoItensDaVenda->codigo_venda)?>"
+        <a style="margin-top:6px" href="<?php echo BASEURL; ?>/relatorio/gerarPdfDeUmaVenda/<?php echo in64($detalhesDePagamentoItensDaVenda->codigo_venda)?>"
         target="_blank"  id="imprimir-nota" style="opacity:0.80"
-        class="hidden-when-print btn btn-sm btn-light" title="Imprimir está venda.">
+        class="hidden-when-print btn btn-sm btn-light" title="Gerar PDF desta venda.">
             <i class="fas fa-cloud-download-alt"></i> PDF
         </a>
     </div>

@@ -2,8 +2,11 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <base href="<?php echo BASEURL; ?>">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title><?php echo $nomeEmpresa; ?></title>
+    <link rel="shortcut icon" href="<?php echo BASEURL;?>/public/img/favicon.png"/>
+    <title>ZigMoney - <?php echo $nomeEmpresa; ?></title>
+    <link rel="shortcut icon" href="public/img/favicon.png"/>
     <style>
         table {
             border-collapse: collapse;
@@ -32,7 +35,6 @@
     <small style="opacity:0.50">Gerado em: <?php echo date('d/m/Y');?> às <?php echo date('H:i');?></small>
 </center>
 <hr style="border:1px dotted silver">
-
 <br>
 <center>
     <span style="opacity:0.70;font-size:15px;">
@@ -45,7 +47,9 @@
         <?php endif;?>
     </span>
 </center>
-
+<br>
+<center><small style="opacity:0.70;font-size:13px;">Vendedor: <?php echo $informacaoPagamento->nomeUsuario;?></small></center>
+<br>
 <table>
     <thead>
         <tr>
@@ -78,12 +82,6 @@
                 </td>
             </tr>
         <?php endforeach;?>
-
-
-       <!-- <tr>
-            <td colspan="3"></td>
-
-        </tr>-->
     </tbody>
 
 </table>

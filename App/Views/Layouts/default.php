@@ -16,7 +16,7 @@ $configPdv = $configPdv->configPdv(Session::get('idEmpresa'));
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
 
     <?php if (getenv('APPLICATION_NAME')): ?>
-        <link rel="shortcut icon" href="public/img/favicon_tonie.png"/>
+        <link rel="shortcut icon" href="<?php echo BASEURL;?>/public/img/favicon_tonie.png"/>
     <?php else: ?>
         <link rel="shortcut icon" href="<?php echo BASEURL;?>/public/img/favicon.png"/>
     <?php endif; ?>

@@ -174,4 +174,14 @@ class PdvDiferencialController extends Controller
 
         $this->view('pdv/produtosAvenda', null, compact('produtos'));
     }
+
+    public function pesquisarProdutoPorCodeDeBarra($codigo = false)
+    {
+        $codigo = utf8_encode(out64($codigo));
+
+        $produto = new Produto();
+        $produtos = $produto->produtosNoPdvFiltrarPorCodigoDeBarra($this->idEmpresa, $codigo);
+
+        $this->view('pdv/produtosAvenda', null, compact('produtos'));
+    }
 }

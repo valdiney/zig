@@ -36,7 +36,8 @@ use System\HtmlComponents\Modal\Modal;
                 </div>
                 <div class="col-md-6">
                     <input type="text" class="form-control" placeholder="Pesquise por código de barras..."
-                    onkeyup="pesquisarProdutoPorCodigoDeBarras($(this).val())">
+                    onkeyup="pesquisarProdutoPorCodigoDeBarras($(this).val())"
+                    onkeypress="pesquisarProdutoPorCodigoDeBarras($(this).val())">
                 </div>
             </div>
         </div>

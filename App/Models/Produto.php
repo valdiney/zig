@@ -41,6 +41,20 @@ class Produto extends Model
         );
     }
 
+    public function produtosNoPdvFiltrarPorCodigoDeBarra($idEmpresa, $codigo = false)
+    {
+        $querypesquisaPorCodigo = false;
+
+        if ($codigo) {
+            $querypesquisaPorCodigo = "AND codigo LIKE '%{$codigo}%'";
+        }
+
+        return $this->query(
+            "SELECT * FROM produtos WHERE id_empresa = {$idEmpresa}
+            AND deleted_at IS NULL AND mostrar_em_vendas = 1 {$querypesquisaPorCodigo}"
+        );
+    }
+
     public function getBy(int $idEmpresa, string $column = null, $value = null)
     {
         $sql = "SELECT * FROM produtos WHERE id_empresa = :id_empresa";

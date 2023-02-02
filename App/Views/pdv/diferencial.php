@@ -162,6 +162,13 @@
                     <input type="text" class="form-control" placeholder="Pesquise por nome..."
                     onkeyup="pesquisarProdutoPorNome($(this).val())">
                 </div>
+
+                <div class="col-md-6">
+                    <input type="text" class="form-control" placeholder="Pesquise por código de barras..."
+                    onkeyup="pesquisarProdutoPorCodigoDeBarras($(this).val())"
+                    onkeypress="pesquisarProdutoPorCodigoDeBarras($(this).val())">
+                </div>
+
             </div>
         </div>
     </div>
@@ -261,6 +268,13 @@
         $("#carregar-produtos").html("<center><h3>Carregando...</h3></center>");
         let url = "<?php echo BASEURL; ?>/pesquisarProdutoPorNome";
         url += nome? ("/"+in64(nome)) : "";
+        $("#carregar-produtos").load(url);
+    }
+
+    function pesquisarProdutoPorCodigoDeBarras(codigo) {
+        $("#carregar-produtos").html("<center><h3>Carregando...</h3></center>");
+        let url = "<?php echo BASEURL; ?>/pesquisarProdutoPorCodigoDeBarra";
+        url += codigo? ("/"+in64(codigo)) : "";
         $("#carregar-produtos").load(url);
     }
 </script>

@@ -60,6 +60,7 @@ $route->get('pdvDiferencial', 'PdvDiferencialController@index');
 $route->get('pdvDiferencial/colocarProdutosNaMesa/{idProduto}', 'PdvDiferencialController@colocarProdutosNaMesa');
 $route->get('pdvDiferencial/obterProdutosDaMesa/{posicaoProduto?}', 'PdvDiferencialController@obterProdutosDaMesa');
 $route->get('pesquisarProdutoPorNome/{nome?}', 'PdvDiferencialController@pesquisarProdutoPorNome');
+$route->get('pesquisarProdutoPorCodigoDeBarra/{codigo?}', 'PdvDiferencialController@pesquisarProdutoPorCodeDeBarra');
 
 $route->get('pdvDiferencial/alterarAquantidadeDeUmProdutoNaMesa/{idProduto}/{quantidade}',
     'PdvDiferencialController@alterarAquantidadeDeUmProdutoNaMesa');

@@ -61,6 +61,8 @@ $route->get('pdvDiferencial/colocarProdutosNaMesa/{idProduto}', 'PdvDiferencialC
 $route->get('pdvDiferencial/obterProdutosDaMesa/{posicaoProduto?}', 'PdvDiferencialController@obterProdutosDaMesa');
 $route->get('pesquisarProdutoPorNome/{nome?}', 'PdvDiferencialController@pesquisarProdutoPorNome');
 $route->get('pesquisarProdutoPorCodigoDeBarra/{codigo?}', 'PdvDiferencialController@pesquisarProdutoPorCodeDeBarra');
+$route->get('qrCodePix/{valorTotal}', 'PdvDiferencialController@qrCodePix');
+$route->get('statusPix/{transactionId}', 'PdvDiferencialController@statusPix');
 
 $route->get('pdvDiferencial/alterarAquantidadeDeUmProdutoNaMesa/{idProduto}/{quantidade}',
     'PdvDiferencialController@alterarAquantidadeDeUmProdutoNaMesa');

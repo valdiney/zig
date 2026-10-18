@@ -184,4 +184,81 @@ class PdvDiferencialController extends Controller
 
         $this->view('pdv/produtosAvenda', null, compact('produtos'));
     }
+    
+    public function qrCodePix($valorTotal)
+    {
+        $accessToken = 'APP_USR-2********';
+        $url = "https://api.mercadopago.com/v1/payments";
+        
+        $data = [
+        "transaction_amount" => (float)$valorTotal,
+        "payment_method_id" => "pix",
+        "description" => "Pagamento via PIX",
+        "payer" => [
+                "email" => "clientePDV@email.com"
+            ]
+        ];
+        $curl = curl_init();
+        curl_setopt($curl, CURLOPT_URL, $url);
+        curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($curl, CURLOPT_POST, true);
+        curl_setopt($curl, CURLOPT_HTTPHEADER, [
+            "Content-Type: application/json",
+            "Authorization: Bearer $accessToken"
+        ]);
+        curl_setopt($curl, CURLOPT_POSTFIELDS, json_encode($data));
+    
+        $response = curl_exec($curl);
+        $httpCode = curl_getinfo($curl, CURLINFO_HTTP_CODE);
+        curl_close($curl);
+    
+        // Tratando a resposta
+        if ($httpCode == 201) {
+            $responseArray = json_decode($response, true);
+            
+            echo json_encode([
+                "transaction_id" => $responseArray["id"],
+                "base64" => $responseArray["point_of_interaction"]["transaction_data"]["qr_code_base64"]
+            ]);
+        } else {
+            $error = json_decode($response, true);
+            echo json_encode([
+                "error" => $error["message"] ?? "Erro ao gerar o QR Code PIX"
+            ]);
+        }
+    }
+    
+    public function statusPix($transactionId)
+    {
+        $accessToken = 'APP_USR-2********';
+        $url = "https://api.mercadopago.com/v1/payments/$transactionId";
+        $curl = curl_init();
+        curl_setopt($curl, CURLOPT_URL, $url);
+        curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($curl, CURLOPT_HTTPHEADER, [
+            "Authorization: Bearer $accessToken"
+        ]);
+        
+        // Executa a solicitação e captura a resposta
+        $response = curl_exec($curl);
+        $httpCode = curl_getinfo($curl, CURLINFO_HTTP_CODE);
+        curl_close($curl);
+    
+        // Tratando a resposta
+        if ($httpCode == 200) {
+            $responseArray = json_decode($response, true);
+            
+            echo json_encode([
+                "status" => $responseArray["status"],
+                "detail" => $responseArray["status_detail"],
+                "id" => $responseArray["id"],
+                "transaction_amount" => $responseArray["transaction_amount"]
+            ]);
+        } else {
+            $error = json_decode($response, true);
+            echo json_encode([
+                "error" => $error["message"] ?? "Erro ao consultar o status do pagamento"
+            ]);
+        }
+    }
 }

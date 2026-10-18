@@ -15,15 +15,26 @@ class VendasEmSessaoRepository
             if (!isset($_SESSION['venda'])) {
                 $_SESSION['venda'] = [];
             }
-
-            if (!isset($_SESSION['venda'][$idProduto])) {
+    
+            // Verifica se o produto já existe na sessão
+            if (isset($_SESSION['venda'][$idProduto])) {
+                // Se o produto já existir, apenas aumenta a quantidade
                 if (!$quantidade) {
                     $quantidade = 1;
                 }
-
+    
+                $_SESSION['venda'][$idProduto]['quantidade'] += $quantidade;
+                $_SESSION['venda'][$idProduto]['total'] = 
+                $_SESSION['venda'][$idProduto]['quantidade'] * $_SESSION['venda'][$idProduto]['preco'];
+            } else {
+                // Caso o produto ainda não esteja na sessão, adiciona-o
+                if (!$quantidade) {
+                    $quantidade = 1;
+                }
+    
                 $produto = new Produto();
                 $produto = $produto->find($idProduto);
-
+    
                 $_SESSION['venda'][$idProduto] = [
                     'id' => $idProduto,
                     'produto' => $produto->nome,
@@ -32,9 +43,9 @@ class VendasEmSessaoRepository
                     'quantidade' => $quantidade,
                     'total' => (float)$produto->preco * (float)$quantidade
                 ];
-           }
+            }
         }
-
+    
         return json_encode($_SESSION['venda']);
     }
 
